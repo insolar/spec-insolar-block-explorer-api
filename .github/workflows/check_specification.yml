@@ -1,0 +1,36 @@
+name: Check
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  check_codegen:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        spec: [v1]
+    name: ${{ matrix.spec }} client codegen
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Codegen no changes
+        run: |
+          set -v
+          make build-${{ matrix.spec }}-client
+          git add .
+          git status
+          git diff --cached --quiet --exit-code
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        spec: [v1]
+    name: ${{ matrix.spec }} speccy lint
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - run: npx speccy lint -j -s openapi-tags-alphabetical ${{ matrix.spec }}/openapi/openapi.yaml
