@@ -1,0 +1,24 @@
+name: verification
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  code_generation:
+    name: Code Generation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: test
+        run: |
+          set -v
+          make build
+          git add .
+          git status
+          git diff --cached --quiet --exit-code

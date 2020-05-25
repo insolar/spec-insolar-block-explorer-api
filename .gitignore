@@ -1,0 +1,11 @@
+.idea/
+redoc-static.html
+**/node_modules/
+.DS_Store
+
+# ignored plantuml
+sequence_diagrams/*.jar
+sequence_diagrams/*.png
+
+.commit
+
