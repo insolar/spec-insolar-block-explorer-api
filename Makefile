@@ -16,19 +16,19 @@ mod:
 build: build-clients build-servers ## build all modules
 
 .PHONY: build-clients
-build-clients: build-v1-api-client  ## build all clients
+build-clients: build-v1-client  ## build all clients
 
-.PHONY: build-v1-api-client
-build-v1-api-client:  ## build only client of v1
+.PHONY: build-v1-client
+build-v1-client:  ## build only client of v1
 	./v1/indirect/update-client.sh
 	@go mod tidy
 	@go build ./v1/client
 
 .PHONY: build-servers
-build-servers: build-v1-api-server ## build all servers
+build-servers: build-v1-server ## build all servers
 
-.PHONY: build-v1-api-server
-build-v1-api-server: ## build only server of v1
+.PHONY: build-v1-server
+build-v1-server: ## build only server of v1
 	#@go build ./v1/server
 
 .PHONY: open
