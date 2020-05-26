@@ -23,7 +23,7 @@ RUN mkdir /html && \
     npx redoc-cli bundle --output /html/index.html ./api-exported.yaml
 
 FROM golang:1.14
-ENV SRC_DIR=${GOPATH}/src/github.com/insolar/insolar-block-explorer-api
+ENV SRC_DIR=${GOPATH}/src/github.com/insolar/spec-insolar-block-explorer-api
 
 WORKDIR ${SRC_DIR}
 COPY --from=build /package ${SRC_DIR}

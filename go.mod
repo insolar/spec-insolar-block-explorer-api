@@ -1,4 +1,4 @@
-module github.com/insolar/insolar-block-explorer-api
+module github.com/insolar/spec-insolar-block-explorer-api
 
 go 1.14
 
