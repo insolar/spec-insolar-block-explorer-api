@@ -1,0 +1,40 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: requests/paging-params
+title: query params
+type: object
+parameters:
+ offsetParam:  # <-- Arbitrary name for the definition that will be used to refer to it.
+  # Not necessarily the same as the parameter name.
+  in: query
+  name: offset
+  required: false
+  schema:
+    type: integer
+    minimum: 0
+  description: The number of items to skip before starting to collect the result set.
+ limitParam:
+  in: query
+  name: limit
+  required: false
+  schema:
+    type: integer
+    minimum: 1
+    maximum: 100
+    default: 20
+  description: The numbers of items to return.
+ fromItemParam:
+  name: from_item
+  in: query
+  required: true
+  schema:
+    type: string
+  description: The numbers of items to return.
+
+
+#limit, integer - сколько вернуть за раз
+  #
+  #offset, integer - смещение относительно  from_item
+  #
+  #from_item, string - первое значение, которое вернулось в предыдущем запросе, принимает reference
+  #
+  #type - array of enum - необязательный параметр, который поможет фильтровать определнный рекорд. Можно перечислить несколько типов. Например, ?type=1&type=2

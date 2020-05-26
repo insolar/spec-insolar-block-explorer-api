@@ -1,197 +1,136 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: Swagger Petstore
-  license:
-    name: MIT
+  title: Insolar Block Explorer API
+  contact:
+    name: Insolar dev team
+    url: 'https://insolar.io/team.html'
+    email: dev-support@insolar.io
+  description: |
+    BE description
 servers:
-  - url: 'http://petstore.swagger.io/v1'
+  - url: example.com
+    description: The test server
+tags:
+  - name: pulse
+  - name: jetdrop
+  - name: record
 paths:
-  /pets:
+  '/api/v1/lifeline/{object-reference}/records':
     get:
-      summary: List all pets
-      operationId: listPets
+      summary: Object Lifeline
+      operationId: object_lifeline
       tags:
-        - pets
+        - records
       parameters:
-        - $ref: '#/components/parameters/ListAllPetsQueryParameterLimit'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterLimit'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterOffset'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterFrom_item'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterType'
       responses:
         '200':
-          description: unexpected error
-          headers:
-            x-next:
-              description: A link to the next page of responses
-              schema:
-                type: string
+          description: Internal server error
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  type: object
-                  required:
-                    - id
-                    - name
-                    - code
-                    - message
-                  properties:
-                    id:
-                      type: integer
-                      format: int64
-                    name:
-                      type: string
-                    tag:
-                      type: string
-                    code:
-                      type: integer
-                      format: int32
-                    message:
-                      type: string
-                  title: Info for a specific petResponse200
-                title: List all petsResponse200
-                required:
-                  - code
-                  - message
                 properties:
-                  code:
+                  total:
                     type: integer
                     format: int32
-                  message:
-                    type: string
-    post:
-      summary: Create a pet
-      operationId: createPets
-      tags:
-        - pets
-      responses:
-        '201':
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                title: Create a petResponse201
-                type: object
-                required:
-                  - code
-                  - message
-                properties:
-                  code:
-                    type: integer
-                    format: int32
-                  message:
-                    type: string
-  '/pets/{petId}':
-    get:
-      summary: Info for a specific pet
-      operationId: showPetById
-      tags:
-        - pets
-      parameters:
-        - name: petId
-          in: path
-          required: true
-          description: The id of the pet to retrieve
-          schema:
-            type: string
-      responses:
-        '200':
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - id
-                  - name
-                  - code
-                  - message
-                properties:
-                  id:
-                    type: integer
-                    format: int64
-                  name:
-                    type: string
-                  tag:
-                    type: string
-                  code:
-                    type: integer
-                    format: int32
-                  message:
-                    type: string
-                title: Info for a specific petResponse200
+                    description: total resuls
+                    example: 100
+                  result:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        reference:
+                          type: string
+                          description: record reference
+                          example: >-
+                            insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
+                        object_reference:
+                          type: string
+                          description: object reference
+                          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                        prototype_reference:
+                          type: string
+                          description: prototype reference
+                          example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+                        type:
+                          type: string
+                          description: record type
+                          enum:
+                            - state
+                            - request
+                            - result
+                          example: state
+                        timestamp:
+                          type: integer
+                          format: int64
+                          description: unix timestamp
+                          example: 1451743413
+                        payload:
+                          type: string
+                          description: record payload
+                          example: >-
+                            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
+                        hash:
+                          type: string
+                          description: record hash
+                          example: >-
+                            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                        pulse_number:
+                          type: integer
+                          format: int64
+                          description: pulse number
+                          example: 43612021
+                        jet_id:
+                          type: string
+                          description: jet ID
+                          example: '0010'
+                        jetdrop_id:
+                          type: string
+                          description: >-
+                            jetDrop ID is concantination of jet_id and
+                            pulse_number
+                          example: '43648102:0010'
+                title: Object LifelineResponse200
 components:
-  schemas:
-    Pet:
-      type: object
-      required:
-        - id
-        - name
-        - code
-        - message
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        tag:
-          type: string
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-      title: Info for a specific petResponse200
-    Pets:
-      type: object
-      items:
-        type: object
-        required:
-          - id
-          - name
-          - code
-          - message
-        properties:
-          id:
-            type: integer
-            format: int64
-          name:
-            type: string
-          tag:
-            type: string
-          code:
-            type: integer
-            format: int32
-          message:
-            type: string
-        title: Info for a specific petResponse200
-      title: List all petsResponse200
-      required:
-        - code
-        - message
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-    Error:
-      type: object
-      required:
-        - code
-        - message
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
   parameters:
-    ListAllPetsQueryParameterLimit:
-      name: limit
+    ObjectLifelineQueryParameterLimit:
       in: query
-      description: How many items to return at one time (max 100)
+      name: limit
       required: false
       schema:
         type: integer
-        format: int32
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: The numbers of items to return.
+    ObjectLifelineQueryParameterOffset:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: The number of items to skip before starting to collect the result set.
+    ObjectLifelineQueryParameterFrom_item:
+      name: from_item
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The numbers of items to return.
+    ObjectLifelineQueryParameterType:
+      name: type
+      in: query
+      description: The record type
+      required: false
+      schema:
+        type: string
+        enum:
+          - state
+          - request
+          - result

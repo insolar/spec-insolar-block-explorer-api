@@ -1,0 +1,43 @@
+get:
+  summary: Object Lifeline
+  operationId: object_lifeline
+  tags:
+    - record
+  parameters:
+      - $ref: '../requests/paging-params.yaml#/parameters/limitParam'
+      - $ref: '../requests/paging-params.yaml#/parameters/offsetParam'
+      - $ref: '../requests/paging-params.yaml#/parameters/fromItemParam'
+      - name: type
+        in: query
+        description: The record type
+        required: false
+        schema:
+          type: string
+          enum:
+            - state
+            - request
+            - result
+  responses:
+    '200':
+      description: A paged array of records
+      content:
+        application/json:
+          schema:
+            properties:
+              total:
+                type: integer
+                format: int32
+                description: total resuls
+                example: 100
+              result:
+                type: array
+                items:
+                  $ref: '../responses/record.yaml#/recordResponse'
+    '204':
+      description: No content
+    '400':
+      description: Bad request
+    '404':
+      description: Method not found
+    '500':
+      description: Internal server error
