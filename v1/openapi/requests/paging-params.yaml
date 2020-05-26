@@ -29,12 +29,21 @@ parameters:
   schema:
     type: string
   description: The numbers of items to return.
-
-
-#limit, integer - сколько вернуть за раз
-  #
-  #offset, integer - смещение относительно  from_item
-  #
-  #from_item, string - первое значение, которое вернулось в предыдущем запросе, принимает reference
-  #
-  #type - array of enum - необязательный параметр, который поможет фильтровать определнный рекорд. Можно перечислить несколько типов. Например, ?type=1&type=2
+ recordTypeParam:
+   name: type
+   in: query
+   description: The record type
+   required: false
+   schema:
+     type: string
+     enum:
+       - state
+       - request
+       - result
+ objectReferenceParam:
+   name: object_reference
+   in: query
+   required: false
+   schema:
+     type: string
+   description: The reference of object

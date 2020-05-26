@@ -7,16 +7,7 @@ get:
       - $ref: '../requests/paging-params.yaml#/parameters/limitParam'
       - $ref: '../requests/paging-params.yaml#/parameters/offsetParam'
       - $ref: '../requests/paging-params.yaml#/parameters/fromItemParam'
-      - name: type
-        in: query
-        description: The record type
-        required: false
-        schema:
-          type: string
-          enum:
-            - state
-            - request
-            - result
+      - $ref: '../requests/paging-params.yaml#/parameters/recordTypeParam'
   responses:
     '200':
       description: A paged array of records

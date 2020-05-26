@@ -16,20 +16,56 @@ tags:
   - name: jetdrop
   - name: record
 paths:
-  '/api/v1/lifeline/{object-reference}/records':
+  '/api/v1/jetdrops/{jetdrop-id}/records':
     get:
-      summary: Object Lifeline
-      operationId: object_lifeline
+      summary: JetDrop records
+      operationId: jetdrop_records
       tags:
-        - records
+        - record
       parameters:
-        - $ref: '#/components/parameters/ObjectLifelineQueryParameterLimit'
-        - $ref: '#/components/parameters/ObjectLifelineQueryParameterOffset'
-        - $ref: '#/components/parameters/ObjectLifelineQueryParameterFrom_item'
-        - $ref: '#/components/parameters/ObjectLifelineQueryParameterType'
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          description: The numbers of items to return.
+        - in: query
+          name: offset
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+          description: >-
+            The number of items to skip before starting to collect the result
+            set.
+        - name: from_item
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The numbers of items to return.
+        - name: type
+          in: query
+          description: The record type
+          required: false
+          schema:
+            type: string
+            enum:
+              - state
+              - request
+              - result
+        - name: object_reference
+          in: query
+          required: false
+          schema:
+            type: string
+          description: The reference of object
       responses:
         '200':
-          description: Internal server error
+          description: A paged array of records
           content:
             application/json:
               schema:
@@ -95,42 +131,51 @@ paths:
                             jetDrop ID is concantination of jet_id and
                             pulse_number
                           example: '43648102:0010'
-                title: Object LifelineResponse200
-components:
-  parameters:
-    ObjectLifelineQueryParameterLimit:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
-      description: The numbers of items to return.
-    ObjectLifelineQueryParameterOffset:
-      in: query
-      name: offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      description: The number of items to skip before starting to collect the result set.
-    ObjectLifelineQueryParameterFrom_item:
-      name: from_item
-      in: query
-      required: true
-      schema:
-        type: string
-      description: The numbers of items to return.
-    ObjectLifelineQueryParameterType:
-      name: type
-      in: query
-      description: The record type
-      required: false
-      schema:
-        type: string
-        enum:
-          - state
-          - request
-          - result
+        '204':
+          description: No content
+        '400':
+          description: Bad request
+        '404':
+          description: Method not found
+        '500':
+          description: Internal server error
+  '/api/v1/lifeline/{object-reference}/records':
+    get:
+      summary: Object Lifeline
+      operationId: object_lifeline
+      tags:
+        - record
+      parameters:
+        - $ref: >-
+            #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D~1records/get/parameters/0
+        - $ref: >-
+            #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D~1records/get/parameters/1
+        - $ref: >-
+            #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D~1records/get/parameters/2
+        - $ref: >-
+            #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D~1records/get/parameters/3
+      responses:
+        '200':
+          description: A paged array of records
+          content:
+            application/json:
+              schema:
+                properties:
+                  total:
+                    type: integer
+                    format: int32
+                    description: total resuls
+                    example: 100
+                  result:
+                    type: array
+                    items:
+                      $ref: >-
+                        #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D~1records/get/responses/200/content/application~1json/schema/properties/result/items
+        '204':
+          description: No content
+        '400':
+          description: Bad request
+        '404':
+          description: Method not found
+        '500':
+          description: Internal server error

@@ -31,8 +31,8 @@ paths:
 #    $ref: 'requests/jetdrop-bypulse.yaml'
 #  /api/v1/jets/{jet-id}/jetdrops:
 #    $ref: 'requests/jetdrops-byjetid.yaml'
-#  /api/v1/jetdrops/{jetdrop-id}/records:
-#    $ref: 'requests/records.yaml'
+  /api/v1/jetdrops/{jetdrop-id}/records:
+    $ref: 'requests/records.yaml'
   /api/v1/lifeline/{object-reference}/records:
     $ref: 'requests/lifeline.yaml'
 #  /api/v1/search:

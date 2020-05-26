@@ -16,12 +16,93 @@ tags:
   - name: jetdrop
   - name: record
 paths:
+  '/api/v1/jetdrops/{jetdrop-id}/records':
+    get:
+      summary: JetDrop records
+      operationId: jetdrop_records
+      tags:
+        - record
+      parameters:
+        - $ref: '#/components/parameters/JetDropRecordsQueryParameterLimit'
+        - $ref: '#/components/parameters/JetDropRecordsQueryParameterOffset'
+        - $ref: '#/components/parameters/JetDropRecordsQueryParameterFrom_item'
+        - $ref: '#/components/parameters/JetDropRecordsQueryParameterType'
+        - $ref: '#/components/parameters/JetDropRecordsQueryParameterObject_reference'
+      responses:
+        '200':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                properties:
+                  total:
+                    type: integer
+                    format: int32
+                    description: total resuls
+                    example: 100
+                  result:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        reference:
+                          type: string
+                          description: record reference
+                          example: >-
+                            insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
+                        object_reference:
+                          type: string
+                          description: object reference
+                          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                        prototype_reference:
+                          type: string
+                          description: prototype reference
+                          example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+                        type:
+                          type: string
+                          description: record type
+                          enum:
+                            - state
+                            - request
+                            - result
+                          example: state
+                        timestamp:
+                          type: integer
+                          format: int64
+                          description: unix timestamp
+                          example: 1451743413
+                        payload:
+                          type: string
+                          description: record payload
+                          example: >-
+                            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
+                        hash:
+                          type: string
+                          description: record hash
+                          example: >-
+                            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                        pulse_number:
+                          type: integer
+                          format: int64
+                          description: pulse number
+                          example: 43612021
+                        jet_id:
+                          type: string
+                          description: jet ID
+                          example: '0010'
+                        jetdrop_id:
+                          type: string
+                          description: >-
+                            jetDrop ID is concantination of jet_id and
+                            pulse_number
+                          example: '43648102:0010'
+                title: JetDrop recordsResponse200
   '/api/v1/lifeline/{object-reference}/records':
     get:
       summary: Object Lifeline
       operationId: object_lifeline
       tags:
-        - records
+        - record
       parameters:
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterLimit'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterOffset'
@@ -98,6 +179,49 @@ paths:
                 title: Object LifelineResponse200
 components:
   parameters:
+    JetDropRecordsQueryParameterLimit:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: The numbers of items to return.
+    JetDropRecordsQueryParameterOffset:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: The number of items to skip before starting to collect the result set.
+    JetDropRecordsQueryParameterFrom_item:
+      name: from_item
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The numbers of items to return.
+    JetDropRecordsQueryParameterType:
+      name: type
+      in: query
+      description: The record type
+      required: false
+      schema:
+        type: string
+        enum:
+          - state
+          - request
+          - result
+    JetDropRecordsQueryParameterObject_reference:
+      name: object_reference
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The reference of object
     ObjectLifelineQueryParameterLimit:
       in: query
       name: limit
