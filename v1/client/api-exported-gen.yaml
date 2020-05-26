@@ -16,6 +16,64 @@ tags:
   - name: jetdrop
   - name: record
 paths:
+  '/api/v1/pulses/{pulse-number}':
+    get:
+      summary: Pulses
+      operationId: pulses
+      tags:
+        - pulse
+      parameters:
+        - in: path
+          name: pulse-number
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 20
+          description: The Pulse number.
+      responses:
+        '200':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pulse_number:
+                    type: integer
+                    format: int64
+                    description: pulse number
+                    example: 43648102
+                  prev_pulse_number:
+                    type: integer
+                    format: int64
+                    description: previous pulse number
+                    example: 43648092
+                  next_pulse_number:
+                    type: integer
+                    format: int64
+                    description: next pulse number
+                    example: 43648112
+                  jetdrop_amount:
+                    type: integer
+                    format: int64
+                    description: amount of all jetdrop in the pulse
+                    example: 16
+                  record_amount:
+                    type: integer
+                    format: int64
+                    description: number of all records in the pulse
+                    example: 245
+                  timestamp:
+                    type: integer
+                    format: int64
+                    description: unix timestamp
+                    example: 1451743413
+                  is_complete:
+                    type: bool
+                    description: does pulse complite fully?
+                    example: true
+                title: PulsesResponse200
   '/api/v1/jetdrops/{jetdrop-id}/records':
     get:
       summary: JetDrop records

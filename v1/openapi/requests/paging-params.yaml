@@ -47,3 +47,12 @@ parameters:
    schema:
      type: string
    description: The reference of object
+ pulseNumberParam:
+   in: path
+   name: pulse-number
+   required: false
+   schema:
+     type: integer
+     minimum: 0
+     default: 20
+   description: The Pulse number.

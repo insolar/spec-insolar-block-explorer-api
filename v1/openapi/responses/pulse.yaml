@@ -1,0 +1,41 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: responses/pulse.yaml
+type: object
+description: Pulse representation.
+pulseResponse:
+  type: object
+  properties:
+    pulse_number:
+      type: integer
+      format: int64
+      description: pulse number
+      example: 43648102
+    prev_pulse_number:
+      type: integer
+      format: int64
+      description: previous pulse number
+      example: 43648092
+    next_pulse_number:
+      type: integer
+      format: int64
+      description: next pulse number
+      example: 43648112
+    jetdrop_amount:
+      type: integer
+      format: int64
+      description: amount of all jetdrop in the pulse
+      example: 16
+    record_amount:
+      type: integer
+      format: int64
+      description: number of all records in the pulse
+      example: 245
+    timestamp:
+      type: integer
+      format: int64
+      description: unix timestamp
+      example: 1451743413
+    is_complete:
+      type: bool
+      description: does pulse complite fully?
+      example: true
