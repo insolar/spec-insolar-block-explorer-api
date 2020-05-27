@@ -8,34 +8,34 @@ pulseResponse:
     pulse_number:
       type: integer
       format: int64
-      description: pulse number
+      description: Pulse number.
       example: 43648102
     prev_pulse_number:
       type: integer
       format: int64
-      description: previous pulse number
+      description: Previous pulse number.
       example: 43648092
     next_pulse_number:
       type: integer
       format: int64
-      description: next pulse number
+      description: Next pulse number.
       example: 43648112
     jetdrop_amount:
       type: integer
       format: int64
-      description: amount of all jetdrop in the pulse
+      description: Amount of all jetdrop in the pulse.
       example: 16
     record_amount:
       type: integer
       format: int64
-      description: number of all records in the pulse
+      description: Number of all records in the pulse.
       example: 245
     timestamp:
       type: integer
       format: int64
-      description: unix timestamp
+      description: Unix timestamp.
       example: 1451743413
     is_complete:
       type: bool
-      description: does pulse complite fully?
+      description: Pulse fullness status.
       example: true

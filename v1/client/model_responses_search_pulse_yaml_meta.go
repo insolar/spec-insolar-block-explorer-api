@@ -12,5 +12,5 @@ package client
 // ResponsesSearchPulseYamlMeta Meta data.
 type ResponsesSearchPulseYamlMeta struct {
 	// Pulse Number.
-	PulseNumber int32 `json:"pulse_number,omitempty"`
+	PulseNumber int64 `json:"pulse_number,omitempty"`
 }

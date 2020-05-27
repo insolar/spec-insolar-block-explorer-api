@@ -7,7 +7,7 @@ get:
     - $ref: '../requests/paging-params.yaml#/parameters/jetdropIdPathParam'
   responses:
     '200':
-      description: A JetDrop
+      description: A JetDrop.
       content:
         application/json:
           schema:

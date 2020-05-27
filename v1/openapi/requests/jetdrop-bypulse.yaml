@@ -10,7 +10,7 @@ get:
     - $ref: '../requests/paging-params.yaml#/parameters/fromItemParam'
   responses:
     '200':
-      description: A paged array of JetDrops
+      description: A paged array of JetDrops.
       content:
         application/json:
           schema:

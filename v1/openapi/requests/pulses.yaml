@@ -13,7 +13,7 @@ get:
     - $ref: '../requests/paging-params.yaml#/parameters/toJetDropAmountParam' # todo: не показывает правильно
   responses:
     '200':
-      description: A paged array of Pulses
+      description: A paged array of Pulses.
       content:
         application/json:
           schema:

@@ -33,7 +33,7 @@ Pulse Pulse
  * @param pulseNumber The Pulse number.
 @return PulseResponse200
 */
-func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int32) (PulseResponse200, *_nethttp.Response, error) {
+func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int64) (PulseResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -120,8 +120,8 @@ func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int32) (PulseR
 type PulsesOpts struct {
     Limit optional.Int32
     Offset optional.Int32
-    FromPulseNumber optional.Int32
-    ToPulseNumber optional.Int32
+    FromPulseNumber optional.Int64
+    ToPulseNumber optional.Int64
     FromJetdropAmount optional.Int32
     ToJetdropAmount optional.Int32
 }
@@ -133,8 +133,8 @@ Pulses Pulses
  * @param optional nil or *PulsesOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromPulseNumber" (optional.Int32) -  From which Pulse number.
- * @param "ToPulseNumber" (optional.Int32) -  To which Pulse number.
+ * @param "FromPulseNumber" (optional.Int64) -  From which Pulse number.
+ * @param "ToPulseNumber" (optional.Int64) -  To which Pulse number.
  * @param "FromJetdropAmount" (optional.Int32) -  To which jetdrop_amount.
  * @param "ToJetdropAmount" (optional.Int32) -  From which jetdrop_amount.
 @return PulsesResponse200

@@ -15,5 +15,6 @@ properties:
     properties:
       pulse_number:
         type: integer
+        format: int64
         description: Pulse Number.
         example: 1

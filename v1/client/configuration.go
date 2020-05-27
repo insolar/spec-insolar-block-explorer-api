@@ -90,7 +90,7 @@ func NewConfiguration() *Configuration {
 		Servers:       []ServerConfiguration{
 			{
 				Url: "example.com",
-				Description: "The test server",
+				Description: "The test server.",
 			},
 		},
 	}

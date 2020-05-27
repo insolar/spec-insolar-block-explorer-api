@@ -11,19 +11,19 @@
 package client
 // PulseResponse200 struct for PulseResponse200
 type PulseResponse200 struct {
-	// pulse number
+	// Pulse number.
 	PulseNumber int64 `json:"pulse_number,omitempty"`
-	// previous pulse number
+	// Previous pulse number.
 	PrevPulseNumber int64 `json:"prev_pulse_number,omitempty"`
-	// next pulse number
+	// Next pulse number.
 	NextPulseNumber int64 `json:"next_pulse_number,omitempty"`
-	// amount of all jetdrop in the pulse
+	// Amount of all jetdrop in the pulse.
 	JetdropAmount int64 `json:"jetdrop_amount,omitempty"`
-	// number of all records in the pulse
+	// Number of all records in the pulse.
 	RecordAmount int64 `json:"record_amount,omitempty"`
-	// unix timestamp
+	// Unix timestamp.
 	Timestamp int64 `json:"timestamp,omitempty"`
-	// does pulse complite fully?
+	// Pulse fullness status.
 	IsComplete bool `json:"is_complete,omitempty"`
 	Code string `json:"code,omitempty"`
 	Message string `json:"message,omitempty"`

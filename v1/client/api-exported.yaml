@@ -10,7 +10,7 @@ info:
     BE description
 servers:
   - url: example.com
-    description: The test server
+    description: The test server.
 tags:
   - name: pulse
   - name: jetdrop
@@ -52,6 +52,7 @@ paths:
           required: false
           schema:
             type: integer
+            format: int64
             minimum: 0
             default: 0
           description: From which Pulse number.
@@ -60,6 +61,7 @@ paths:
           required: false
           schema:
             type: integer
+            format: int64
             minimum: 1
             default: 20
           description: To which Pulse number.
@@ -81,7 +83,7 @@ paths:
           description: From which jetdrop_amount.
       responses:
         '200':
-          description: A paged array of Pulses
+          description: A paged array of Pulses.
           content:
             application/json:
               schema:
@@ -99,36 +101,36 @@ paths:
                         pulse_number:
                           type: integer
                           format: int64
-                          description: pulse number
+                          description: Pulse number.
                           example: 43648102
                         prev_pulse_number:
                           type: integer
                           format: int64
-                          description: previous pulse number
+                          description: Previous pulse number.
                           example: 43648092
                         next_pulse_number:
                           type: integer
                           format: int64
-                          description: next pulse number
+                          description: Next pulse number.
                           example: 43648112
                         jetdrop_amount:
                           type: integer
                           format: int64
-                          description: amount of all jetdrop in the pulse
+                          description: Amount of all jetdrop in the pulse.
                           example: 16
                         record_amount:
                           type: integer
                           format: int64
-                          description: number of all records in the pulse
+                          description: Number of all records in the pulse.
                           example: 245
                         timestamp:
                           type: integer
                           format: int64
-                          description: unix timestamp
+                          description: Unix timestamp.
                           example: 1451743413
                         is_complete:
                           type: bool
-                          description: does pulse complite fully?
+                          description: Pulse fullness status.
                           example: true
         '204':
           description: No content
@@ -197,12 +199,13 @@ paths:
           required: true
           schema:
             type: integer
+            format: int64
             minimum: 0
             default: 20
           description: The Pulse number.
       responses:
         '200':
-          description: A Pulse
+          description: A Pulse.
           content:
             application/json:
               schema:
@@ -231,7 +234,7 @@ paths:
           description: The ID of JetDrop.
       responses:
         '200':
-          description: A JetDrop
+          description: A JetDrop.
           content:
             application/json:
               schema:
@@ -250,7 +253,7 @@ paths:
                       - '43648104:00101'
                     items:
                       type: string
-                      description: jetDrop ID is concantination of jet_id and pulse_number
+                      description: JetDrop ID is concantination of jet_id and pulse_number
                       example: '43648102:0010'
                   prev_jetdrop_id:
                     type: array
@@ -306,7 +309,7 @@ paths:
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/2'
       responses:
         '200':
-          description: A paged array of JetDrops
+          description: A paged array of JetDrops.
           content:
             application/json:
               schema:
@@ -339,7 +342,7 @@ paths:
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/2'
       responses:
         '200':
-          description: A paged array of JetDrops
+          description: A paged array of JetDrops.
           content:
             application/json:
               schema:
@@ -385,7 +388,7 @@ paths:
         - $ref: '#/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D/get/parameters/0'
       responses:
         '200':
-          description: A paged array of records
+          description: A paged array of records.
           content:
             application/json:
               schema:
@@ -402,20 +405,20 @@ paths:
                       properties:
                         reference:
                           type: string
-                          description: record reference
+                          description: Record reference.
                           example: >-
                             insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
                         object_reference:
                           type: string
-                          description: object reference
+                          description: Object reference.
                           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                         prototype_reference:
                           type: string
-                          description: prototype reference
+                          description: Prototype reference.
                           example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
                         type:
                           type: string
-                          description: record type
+                          description: Record type.
                           enum:
                             - state
                             - request
@@ -424,32 +427,32 @@ paths:
                         timestamp:
                           type: integer
                           format: int64
-                          description: unix timestamp
+                          description: Unix timestamp.
                           example: 1451743413
                         payload:
                           type: string
-                          description: record payload
+                          description: Record payload.
                           example: >-
                             0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
                         hash:
                           type: string
-                          description: record hash
+                          description: Record hash.
                           example: >-
                             0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
                         pulse_number:
                           type: integer
                           format: int64
-                          description: pulse number
+                          description: Pulse number.
                           example: 43612021
                         jet_id:
                           type: string
-                          description: jet ID
+                          description: Jet ID.
                           example: '0010'
                         jetdrop_id:
                           type: string
                           description: >-
-                            jetDrop ID is concantination of jet_id and
-                            pulse_number
+                            JetDrop ID is concantination of jet_id and
+                            pulse_number.
                           example: '43648102:0010'
         '204':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/204'
@@ -479,7 +482,7 @@ paths:
             #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D~1records/get/parameters/3
       responses:
         '200':
-          description: A paged array of records
+          description: A paged array of records.
           content:
             application/json:
               schema:
@@ -517,7 +520,7 @@ paths:
           description: The searching value.
       responses:
         '200':
-          description: A Search ability
+          description: A Search ability.
           content:
             application/json:
               schema:
@@ -553,6 +556,7 @@ components:
           properties:
             pulse_number:
               type: integer
+              format: int64
               description: Pulse Number.
               example: 1
       x-json-schema-id: responses/search-pulse.yaml
@@ -584,10 +588,10 @@ components:
           description: Result type.
           enum:
             - lifeline
-          example: record
+          example: lifeline
         meta:
           type: object
-          description: meta data
+          description: Meta data.
           properties:
             object_reference:
               type: string

@@ -7,7 +7,7 @@ get:
     - $ref: '../requests/paging-params.yaml#/parameters/pulseNumberPathParam'
   responses:
     '200':
-      description: A Pulse
+      description: A Pulse.
       content:
         application/json:
           schema:

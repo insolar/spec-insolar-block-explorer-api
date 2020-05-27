@@ -11,7 +11,7 @@ get:
       - $ref: '../requests/paging-params.yaml#/parameters/recordTypeParam'
   responses:
     '200':
-      description: A paged array of records
+      description: A paged array of records.
       content:
         application/json:
           schema:

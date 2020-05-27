@@ -8,10 +8,10 @@ properties:
     description: Result type.
     enum:
       - lifeline
-    example: record
+    example: lifeline
   meta:
     type: object
-    description: meta data
+    description: Meta data.
     properties:
       object_reference:
         type: string

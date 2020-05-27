@@ -12,7 +12,7 @@ info:
 
 servers:
   - url: example.com
-    description: The test server
+    description: The test server.
 
 tags:
   - name: pulse

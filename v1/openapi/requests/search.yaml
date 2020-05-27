@@ -12,7 +12,7 @@ get:
       description: The searching value.
   responses:
     '200':
-      description: A Search ability
+      description: A Search ability.
       content:
         application/json:
           schema:

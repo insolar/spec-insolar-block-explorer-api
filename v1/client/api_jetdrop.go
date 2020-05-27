@@ -146,7 +146,7 @@ JetDropsByPulseNumber JetDrops by Pulse Number
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
 @return JetDropsByPulseNumberResponse200
 */
-func (a *JetdropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNumber int32, fromItem string, localVarOptionals *JetDropsByPulseNumberOpts) (JetDropsByPulseNumberResponse200, *_nethttp.Response, error) {
+func (a *JetdropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNumber int64, fromItem string, localVarOptionals *JetDropsByPulseNumberOpts) (JetDropsByPulseNumberResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}

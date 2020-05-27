@@ -60,6 +60,7 @@ parameters:
    required: true
    schema:
      type: integer
+     format: int64
      minimum: 0
      default: 20
    description: The Pulse number.
@@ -77,6 +78,7 @@ parameters:
    required: false
    schema:
      type: integer
+     format: int64
      minimum: 0
      default: 0
    description: From which Pulse number.
@@ -86,6 +88,7 @@ parameters:
    required: false
    schema:
      type: integer
+     format: int64
      minimum: 1
      default: 20
    description: To which Pulse number.
