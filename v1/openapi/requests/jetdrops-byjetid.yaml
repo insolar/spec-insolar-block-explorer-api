@@ -1,0 +1,34 @@
+get:
+  summary: JetDrops by JetID
+  operationId: JetDropsByJetID
+  tags:
+    - jetdrop
+  parameters:
+    - $ref: '../requests/paging-params.yaml#/parameters/jetIdPathParam'
+    - $ref: '../requests/paging-params.yaml#/parameters/limitParam'
+    - $ref: '../requests/paging-params.yaml#/parameters/offsetParam'
+    - $ref: '../requests/paging-params.yaml#/parameters/fromItemParam'
+  responses:
+    '200':
+      description: A paged array of JetDrops
+      content:
+        application/json:
+          schema:
+            properties:
+              total:
+                type: integer
+                format: int64
+                description: Total results.
+                example: 100
+              result:
+                type: array
+                items:
+                  $ref: '../responses/jetdrop.yaml#/jetdropResponse'
+    '204':
+      description: No content
+    '400':
+      description: Bad request
+    '404':
+      description: Method not found
+    '500':
+      description: Internal server error

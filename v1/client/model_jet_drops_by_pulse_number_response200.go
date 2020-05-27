@@ -9,8 +9,8 @@
  */
 
 package client
-// JetDropByIdResponse200 struct for JetDropByIdResponse200
-type JetDropByIdResponse200 struct {
+// JetDropsByPulseNumberResponse200 struct for JetDropsByPulseNumberResponse200
+type JetDropsByPulseNumberResponse200 struct {
 	// JetDrop ID is concantination of jet_id and pulse_number.
 	JetdropId string `json:"jetdrop_id,omitempty"`
 	// Next jetdrop_id.

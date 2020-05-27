@@ -63,6 +63,14 @@ parameters:
      minimum: 0
      default: 20
    description: The Pulse number.
+ jetIdPathParam:
+   in: path
+   name: jet-id
+   required: true
+   schema:
+     type: string
+   description: The JetID.
+   example: "0010"
  fromPulseNumberParam:
    in: query
    name: from_pulse_number

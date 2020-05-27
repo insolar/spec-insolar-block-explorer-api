@@ -263,6 +263,39 @@ paths:
           content:
             application/json:
               schema:
+                $ref: >-
+                  #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D/get/responses/200/content/application~1json/schema
+        '204':
+          description: No content
+        '400':
+          description: Bad request
+        '404':
+          description: Method not found
+        '500':
+          description: Internal server error
+  '/api/v1/jets/{jet-id}/jetdrops':
+    get:
+      summary: JetDrops by JetID
+      operationId: JetDropsByJetID
+      tags:
+        - jetdrop
+      parameters:
+        - in: path
+          name: jet-id
+          required: true
+          schema:
+            type: string
+          description: The JetID.
+          example: '0010'
+        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/0'
+        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/1'
+        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/2'
+      responses:
+        '200':
+          description: A paged array of JetDrops
+          content:
+            application/json:
+              schema:
                 properties:
                   total:
                     type: integer
