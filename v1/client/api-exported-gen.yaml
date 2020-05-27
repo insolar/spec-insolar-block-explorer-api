@@ -551,7 +551,108 @@ paths:
                             pulse_number
                           example: '43648102:0010'
                 title: Object LifelineResponse200
+  /api/v1/search:
+    get:
+      summary: Search Data
+      operationId: search
+      tags:
+        - search
+      parameters:
+        - $ref: '#/components/parameters/SearchDataQueryParameterValue'
+      responses:
+        '200':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                description: Record response for Search.
+                title: Search DataResponse200
+                properties:
+                  type:
+                    type: string
+                    description: Result type.
+                    enum:
+                      - pulse
+                      - record
+                      - lifeline
+                    example: record
+                  meta:
+                    type: object
+                    description: Meta data.
+                    properties:
+                      pulse_number:
+                        type: integer
+                        description: Pulse Number.
+                        example: 1
+                      record_ref:
+                        type: string
+                        description: Record reference.
+                        example: >-
+                          insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
+                      object_reference:
+                        type: string
+                        description: Object reference.
+                        example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                x-json-schema-id: responses/search-record.yaml
 components:
+  schemas:
+    responses-search-pulse-yaml:
+      description: Pulse response for Search.
+      title: Pulse response.
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - pulse
+          example: pulse
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            pulse_number:
+              type: integer
+              description: Pulse Number.
+              example: 1
+      x-json-schema-id: responses/search-pulse.yaml
+    responses-search-record-yaml:
+      description: Record response for Search.
+      title: Record response.
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - record
+          example: record
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            record_ref:
+              type: string
+              description: Record reference.
+              example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+      x-json-schema-id: responses/search-record.yaml
+    responses-search-lifeline-yaml:
+      description: Lifeline response for Search.
+      title: Record response.
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - lifeline
+          example: record
+        meta:
+          type: object
+          description: meta data
+          properties:
+            object_reference:
+              type: string
+              description: Object reference.
+              example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+      x-json-schema-id: responses/search-lifeline.yaml
   parameters:
     PulsesQueryParameterLimit:
       in: query
@@ -736,3 +837,10 @@ components:
           - state
           - request
           - result
+    SearchDataQueryParameterValue:
+      name: value
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The searching value.

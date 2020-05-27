@@ -35,7 +35,7 @@ paths:
     $ref: 'requests/records.yaml'
   /api/v1/lifeline/{object-reference}/records:
     $ref: 'requests/lifeline.yaml'
-#  /api/v1/search:
-#    $ref: 'requests/search.yaml'
+  /api/v1/search:
+    $ref: 'requests/search.yaml'
 
 

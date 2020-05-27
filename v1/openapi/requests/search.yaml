@@ -1,0 +1,27 @@
+get:
+  summary: Search Data
+  operationId: search
+  tags:
+    - search
+  parameters:
+    - name: value
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The searching value.
+  responses:
+    '200':
+      description: A Search ability
+      content:
+        application/json:
+          schema:
+            $ref: '../responses/search.yaml#/searchResponse'
+    '204':
+      description: No content
+    '400':
+      description: Bad request
+    '404':
+      description: Method not found
+    '500':
+      description: Internal server error

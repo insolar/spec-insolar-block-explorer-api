@@ -1,0 +1,19 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: responses/search-record.yaml
+description: Record response for Search.
+title: Record response.
+properties:
+  type:
+    type: string
+    description: Result type.
+    enum:
+      - record
+    example: record
+  meta:
+    type: object
+    description: Meta data.
+    properties:
+      record_ref:
+        type: string
+        description: Record reference.
+        example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"

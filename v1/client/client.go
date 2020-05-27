@@ -53,6 +53,8 @@ type APIClient struct {
 	PulseApi *PulseApiService
 
 	RecordApi *RecordApiService
+
+	SearchApi *SearchApiService
 }
 
 type service struct {
@@ -74,6 +76,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.JetdropApi = (*JetdropApiService)(&c.common)
 	c.PulseApi = (*PulseApiService)(&c.common)
 	c.RecordApi = (*RecordApiService)(&c.common)
+	c.SearchApi = (*SearchApiService)(&c.common)
 
 	return c
 }
