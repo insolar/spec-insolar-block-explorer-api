@@ -11,20 +11,20 @@
 package client
 // JetDropByIdResponse200 struct for JetDropByIdResponse200
 type JetDropByIdResponse200 struct {
-	// JetDrop ID is concantination of jet_id and pulse_number
+	// JetDrop ID is concantination of jet_id and pulse_number.
 	JetdropId string `json:"jetdrop_id,omitempty"`
-	// Next jetdrop_id
+	// Next jetdrop_id.
 	NextJetdropId []string `json:"next_jetdrop_id,omitempty"`
-	// Previous jetdrop_id
+	// Previous jetdrop_id.
 	PrevJetdropId []string `json:"prev_jetdrop_id,omitempty"`
-	// Jet ID
+	// Jet ID.
 	JetId string `json:"jet_id,omitempty"`
-	// Pulse number
+	// Pulse number.
 	PulseNumber int64 `json:"pulse_number,omitempty"`
-	// Number of all records in the pulse
+	// Number of all records in the pulse.
 	RecordAmount int64 `json:"record_amount,omitempty"`
-	// Unix timestamp
+	// Unix timestamp.
 	Timestamp int64 `json:"timestamp,omitempty"`
-	// Record hash
+	// Record hash.
 	Hash string `json:"hash,omitempty"`
 }

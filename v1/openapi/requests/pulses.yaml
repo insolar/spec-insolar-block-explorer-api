@@ -21,7 +21,7 @@ get:
               total:
                 type: integer
                 format: int64
-                description: total resuls
+                description: Total results.
                 example: 100
               result:
                 type: array

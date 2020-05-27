@@ -89,7 +89,7 @@ paths:
                   total:
                     type: integer
                     format: int64
-                    description: total resuls
+                    description: Total results.
                     example: 100
                   result:
                     type: array
@@ -192,12 +192,12 @@ paths:
                 properties:
                   jetdrop_id:
                     type: string
-                    description: JetDrop ID is concantination of jet_id and pulse_number
+                    description: JetDrop ID is concantination of jet_id and pulse_number.
                     example: '43648102:0010'
                   next_jetdrop_id:
                     type: array
                     format: string
-                    description: Next jetdrop_id
+                    description: Next jetdrop_id.
                     example:
                       - '43648104:00100'
                       - '43648104:00101'
@@ -208,7 +208,7 @@ paths:
                   prev_jetdrop_id:
                     type: array
                     format: string
-                    description: Previous jetdrop_id
+                    description: Previous jetdrop_id.
                     example:
                       - '43648101:0010'
                     items:
@@ -216,28 +216,64 @@ paths:
                         #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D/get/responses/200/content/application~1json/schema/properties/next_jetdrop_id/items
                   jet_id:
                     type: string
-                    description: Jet ID
+                    description: Jet ID.
                     example: '0010'
                   pulse_number:
                     type: integer
                     format: int64
-                    description: Pulse number
+                    description: Pulse number.
                     example: 43612021
                   record_amount:
                     type: integer
                     format: int64
-                    description: Number of all records in the pulse
+                    description: Number of all records in the pulse.
                     example: 245
                   timestamp:
                     type: integer
                     format: int64
-                    description: Unix timestamp
+                    description: Unix timestamp.
                     example: 1451743413
                   hash:
                     type: string
-                    description: Record hash
+                    description: Record hash.
                     example: >-
                       0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+        '204':
+          description: No content
+        '400':
+          description: Bad request
+        '404':
+          description: Method not found
+        '500':
+          description: Internal server error
+  '/api/v1/pulses/{pulse-number}/jetdrops':
+    get:
+      summary: JetDrops by Pulse Number
+      operationId: JetDropsByPulseNumber
+      tags:
+        - jetdrop
+      parameters:
+        - $ref: '#/paths/~1api~1v1~1pulses~1%7Bpulse-number%7D/get/parameters/0'
+        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/0'
+        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/1'
+        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/2'
+      responses:
+        '200':
+          description: A paged array of JetDrops
+          content:
+            application/json:
+              schema:
+                properties:
+                  total:
+                    type: integer
+                    format: int64
+                    description: Total results.
+                    example: 100
+                  result:
+                    type: array
+                    items:
+                      $ref: >-
+                        #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D/get/responses/200/content/application~1json/schema
         '204':
           description: No content
         '400':
@@ -276,8 +312,8 @@ paths:
                 properties:
                   total:
                     type: integer
-                    format: int32
-                    description: total resuls
+                    format: int64
+                    description: Total results.
                     example: 100
                   result:
                     type: array
@@ -371,7 +407,7 @@ paths:
                   total:
                     type: integer
                     format: int64
-                    description: total resuls
+                    description: Total results.
                     example: 100
                   result:
                     type: array

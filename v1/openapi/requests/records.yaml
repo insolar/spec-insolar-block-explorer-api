@@ -18,8 +18,8 @@ get:
             properties:
               total:
                 type: integer
-                format: int32
-                description: total resuls
+                format: int64
+                description: Total results.
                 example: 100
               result:
                 type: array
