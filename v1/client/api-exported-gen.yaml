@@ -141,6 +141,77 @@ paths:
                     description: does pulse complite fully?
                     example: true
                 title: PulseResponse200
+  '/api/v1/jetdrops/{jetdrop-id}':
+    get:
+      summary: JetDrop by ID
+      operationId: jetdropByID
+      tags:
+        - jetdrop
+      parameters:
+        - name: jetdrop-id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of JetDrop.
+      responses:
+        '200':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jetdrop_id:
+                    type: string
+                    description: JetDrop ID is concantination of jet_id and pulse_number
+                    example: '43648102:0010'
+                  next_jetdrop_id:
+                    type: array
+                    format: string
+                    description: Next jetdrop_id
+                    example:
+                      - '43648104:00100'
+                      - '43648104:00101'
+                    items:
+                      type: string
+                      description: jetDrop ID is concantination of jet_id and pulse_number
+                      example: '43648102:0010'
+                  prev_jetdrop_id:
+                    type: array
+                    format: string
+                    description: Previous jetdrop_id
+                    example:
+                      - '43648101:0010'
+                    items:
+                      type: string
+                      description: jetDrop ID is concantination of jet_id and pulse_number
+                      example: '43648102:0010'
+                  jet_id:
+                    type: string
+                    description: Jet ID
+                    example: '0010'
+                  pulse_number:
+                    type: integer
+                    format: int64
+                    description: Pulse number
+                    example: 43612021
+                  record_amount:
+                    type: integer
+                    format: int64
+                    description: Number of all records in the pulse
+                    example: 245
+                  timestamp:
+                    type: integer
+                    format: int64
+                    description: Unix timestamp
+                    example: 1451743413
+                  hash:
+                    type: string
+                    description: Record hash
+                    example: >-
+                      0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                title: JetDrop by IDResponse200
   '/api/v1/jetdrops/{jetdrop-id}/records':
     get:
       summary: JetDrop records

@@ -169,6 +169,83 @@ paths:
           description: Method not found
         '500':
           description: Internal server error
+  '/api/v1/jetdrops/{jetdrop-id}':
+    get:
+      summary: JetDrop by ID
+      operationId: jetdropByID
+      tags:
+        - jetdrop
+      parameters:
+        - name: jetdrop-id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of JetDrop.
+      responses:
+        '200':
+          description: A JetDrop
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jetdrop_id:
+                    type: string
+                    description: JetDrop ID is concantination of jet_id and pulse_number
+                    example: '43648102:0010'
+                  next_jetdrop_id:
+                    type: array
+                    format: string
+                    description: Next jetdrop_id
+                    example:
+                      - '43648104:00100'
+                      - '43648104:00101'
+                    items:
+                      type: string
+                      description: jetDrop ID is concantination of jet_id and pulse_number
+                      example: '43648102:0010'
+                  prev_jetdrop_id:
+                    type: array
+                    format: string
+                    description: Previous jetdrop_id
+                    example:
+                      - '43648101:0010'
+                    items:
+                      $ref: >-
+                        #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D/get/responses/200/content/application~1json/schema/properties/next_jetdrop_id/items
+                  jet_id:
+                    type: string
+                    description: Jet ID
+                    example: '0010'
+                  pulse_number:
+                    type: integer
+                    format: int64
+                    description: Pulse number
+                    example: 43612021
+                  record_amount:
+                    type: integer
+                    format: int64
+                    description: Number of all records in the pulse
+                    example: 245
+                  timestamp:
+                    type: integer
+                    format: int64
+                    description: Unix timestamp
+                    example: 1451743413
+                  hash:
+                    type: string
+                    description: Record hash
+                    example: >-
+                      0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+        '204':
+          description: No content
+        '400':
+          description: Bad request
+        '404':
+          description: Method not found
+        '500':
+          description: Internal server error
   '/api/v1/jetdrops/{jetdrop-id}/records':
     get:
       summary: JetDrop records
@@ -189,12 +266,7 @@ paths:
               - state
               - request
               - result
-        - name: jetdrop-id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The ID of JetDrop.
+        - $ref: '#/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D/get/parameters/0'
       responses:
         '200':
           description: A paged array of records

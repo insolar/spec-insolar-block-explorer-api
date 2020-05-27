@@ -1,0 +1,22 @@
+get:
+  summary: JetDrop by ID
+  operationId: jetdropByID
+  tags:
+    - jetdrop
+  parameters:
+    - $ref: '../requests/paging-params.yaml#/parameters/jetdropIdPathParam'
+  responses:
+    '200':
+      description: A JetDrop
+      content:
+        application/json:
+          schema:
+            $ref: '../responses/jetdrop.yaml#/jetdropResponse'
+    '204':
+      description: No content
+    '400':
+      description: Bad request
+    '404':
+      description: Method not found
+    '500':
+      description: Internal server error

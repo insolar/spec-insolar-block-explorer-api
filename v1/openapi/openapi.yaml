@@ -25,8 +25,8 @@ paths:
     $ref: 'requests/pulses.yaml'
   /api/v1/pulses/{pulse-number}:
     $ref: 'requests/pulse.yaml'
-#  /api/v1/jetdrops/{jetdrop-id}:
-#    $ref: 'requests/jetdrop-byid.yaml'
+  /api/v1/jetdrops/{jetdrop-id}:
+    $ref: 'requests/jetdrop-byid.yaml'
 #  /api/v1/pulses/{pulse-number}/jetdrops:
 #    $ref: 'requests/jetdrop-bypulse.yaml'
 #  /api/v1/jets/{jet-id}/jetdrops:
