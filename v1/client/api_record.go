@@ -15,6 +15,7 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
+	"strings"
 	"github.com/antihax/optional"
 )
 
@@ -31,21 +32,20 @@ type JetdropRecordsOpts struct {
     Limit optional.Int32
     Offset optional.Int32
     Type_ optional.String
-    ObjectReference optional.String
 }
 
 /*
 JetdropRecords JetDrop records
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param fromItem The numbers of items to return.
+ * @param jetdropId The ID of JetDrop.
  * @param optional nil or *JetdropRecordsOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "Type_" (optional.String) -  The record type
- * @param "ObjectReference" (optional.String) -  The reference of object
+ * @param "Type_" (optional.String) -  The record type.
 @return map[string]interface{}
 */
-func (a *RecordApiService) JetdropRecords(ctx _context.Context, fromItem string, localVarOptionals *JetdropRecordsOpts) (map[string]interface{}, *_nethttp.Response, error) {
+func (a *RecordApiService) JetdropRecords(ctx _context.Context, fromItem string, jetdropId string, localVarOptionals *JetdropRecordsOpts) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -57,6 +57,8 @@ func (a *RecordApiService) JetdropRecords(ctx _context.Context, fromItem string,
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/api/v1/jetdrops/{jetdrop-id}/records"
+	localVarPath = strings.Replace(localVarPath, "{"+"jetdrop-id"+"}", _neturl.QueryEscape(parameterToString(jetdropId, "")) , -1)
+
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -70,9 +72,6 @@ func (a *RecordApiService) JetdropRecords(ctx _context.Context, fromItem string,
 	localVarQueryParams.Add("from_item", parameterToString(fromItem, ""))
 	if localVarOptionals != nil && localVarOptionals.Type_.IsSet() {
 		localVarQueryParams.Add("type", parameterToString(localVarOptionals.Type_.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ObjectReference.IsSet() {
-		localVarQueryParams.Add("object_reference", parameterToString(localVarOptionals.ObjectReference.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -146,14 +145,15 @@ type ObjectLifelineOpts struct {
 /*
 ObjectLifeline Object Lifeline
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param objectReference The reference of object.
  * @param fromItem The numbers of items to return.
  * @param optional nil or *ObjectLifelineOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "Type_" (optional.String) -  The record type
+ * @param "Type_" (optional.String) -  The record type.
 @return map[string]interface{}
 */
-func (a *RecordApiService) ObjectLifeline(ctx _context.Context, fromItem string, localVarOptionals *ObjectLifelineOpts) (map[string]interface{}, *_nethttp.Response, error) {
+func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference string, fromItem string, localVarOptionals *ObjectLifelineOpts) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -165,6 +165,8 @@ func (a *RecordApiService) ObjectLifeline(ctx _context.Context, fromItem string,
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/api/v1/lifeline/{object-reference}/records"
+	localVarPath = strings.Replace(localVarPath, "{"+"object_reference"+"}", _neturl.QueryEscape(parameterToString(objectReference, "")) , -1)
+
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}

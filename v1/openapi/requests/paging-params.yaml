@@ -32,7 +32,7 @@ parameters:
  recordTypeParam:
    name: type
    in: query
-   description: The record type
+   description: The record type.
    required: false
    schema:
      type: string
@@ -40,19 +40,62 @@ parameters:
        - state
        - request
        - result
- objectReferenceParam:
+ objectReferencePathParam:
    name: object_reference
-   in: query
-   required: false
+   in: path
+   required: true
    schema:
      type: string
-   description: The reference of object
- pulseNumberParam:
+   description: The reference of object.
+ jetdropIdPathParam:
+   name: jetdrop-id
+   in: path
+   required: true
+   schema:
+     type: string
+   description: The ID of JetDrop.
+ pulseNumberPathParam:
    in: path
    name: pulse-number
-   required: false
+   required: true
    schema:
      type: integer
      minimum: 0
      default: 20
    description: The Pulse number.
+ fromPulseNumberParam:
+   in: query
+   name: from_pulse_number
+   required: false
+   schema:
+     type: integer
+     minimum: 0
+     default: 0
+   description: From which Pulse number.
+ toPulseNumberParam:
+   in: query
+   name: to_pulse_number
+   required: false
+   schema:
+     type: integer
+     minimum: 1
+     default: 20
+   description: To which Pulse number.
+ fromJetDropAmountParam:
+   in: query
+   name: from_jetdrop_amount
+   required: false
+   schema:
+     type: integer
+     minimum: 0
+     default: 0
+   description: To which jetdrop_amount.
+ toJetDropAmountParam:
+   in: query
+   name: to_jetdrop_amount
+   required: false
+   schema:
+     type: integer
+     minimum: 1
+     default: 200
+   description: From which jetdrop_amount.

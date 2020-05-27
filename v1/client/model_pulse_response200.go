@@ -9,8 +9,8 @@
  */
 
 package client
-// PulsesResponse200 struct for PulsesResponse200
-type PulsesResponse200 struct {
+// PulseResponse200 struct for PulseResponse200
+type PulseResponse200 struct {
 	// pulse number
 	PulseNumber int64 `json:"pulse_number,omitempty"`
 	// previous pulse number

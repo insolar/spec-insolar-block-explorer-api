@@ -16,6 +16,7 @@ import (
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
+	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -27,19 +28,19 @@ var (
 type PulseApiService service
 
 /*
-Pulses Pulses
+Pulse Pulse
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param pulseNumber The Pulse number.
-@return PulsesResponse200
+@return PulseResponse200
 */
-func (a *PulseApiService) Pulses(ctx _context.Context, pulseNumber int32) (PulsesResponse200, *_nethttp.Response, error) {
+func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int32) (PulseResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PulsesResponse200
+		localVarReturnValue  PulseResponse200
 	)
 
 	// create path and map variables
@@ -92,7 +93,127 @@ func (a *PulseApiService) Pulses(ctx _context.Context, pulseNumber int32) (Pulse
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v PulsesResponse200
+			var v PulseResponse200
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+// PulsesOpts Optional parameters for the method 'Pulses'
+type PulsesOpts struct {
+    Limit optional.Int32
+    Offset optional.Int32
+    FromPulseNumber optional.Int32
+    ToPulseNumber optional.Int32
+    FromJetdropAmount optional.Int32
+    ToJetdropAmount optional.Int32
+}
+
+/*
+Pulses Pulses
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param fromItem The numbers of items to return.
+ * @param optional nil or *PulsesOpts - Optional Parameters:
+ * @param "Limit" (optional.Int32) -  The numbers of items to return.
+ * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
+ * @param "FromPulseNumber" (optional.Int32) -  From which Pulse number.
+ * @param "ToPulseNumber" (optional.Int32) -  To which Pulse number.
+ * @param "FromJetdropAmount" (optional.Int32) -  To which jetdrop_amount.
+ * @param "ToJetdropAmount" (optional.Int32) -  From which jetdrop_amount.
+@return map[string]interface{}
+*/
+func (a *PulseApiService) Pulses(ctx _context.Context, fromItem string, localVarOptionals *PulsesOpts) (map[string]interface{}, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  map[string]interface{}
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/api/v1/pulses"
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
+		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
+		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
+	}
+	localVarQueryParams.Add("from_item", parameterToString(fromItem, ""))
+	if localVarOptionals != nil && localVarOptionals.FromPulseNumber.IsSet() {
+		localVarQueryParams.Add("from_pulse_number", parameterToString(localVarOptionals.FromPulseNumber.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.ToPulseNumber.IsSet() {
+		localVarQueryParams.Add("to_pulse_number", parameterToString(localVarOptionals.ToPulseNumber.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.FromJetdropAmount.IsSet() {
+		localVarQueryParams.Add("from_jetdrop_amount", parameterToString(localVarOptionals.FromJetdropAmount.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.ToJetdropAmount.IsSet() {
+		localVarQueryParams.Add("to_jetdrop_amount", parameterToString(localVarOptionals.ToJetdropAmount.Value(), ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 200 {
+			var v map[string]interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

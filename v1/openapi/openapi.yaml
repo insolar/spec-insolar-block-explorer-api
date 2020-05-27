@@ -21,8 +21,8 @@ tags:
 
 
 paths:
-#  /api/v1/pulses:
-#    $ref: 'requests/pulses.yaml'
+  /api/v1/pulses:
+    $ref: 'requests/pulses.yaml'
   /api/v1/pulses/{pulse-number}:
     $ref: 'requests/pulse.yaml'
 #  /api/v1/jetdrops/{jetdrop-id}:

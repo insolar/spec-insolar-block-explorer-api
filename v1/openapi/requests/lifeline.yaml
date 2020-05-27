@@ -4,6 +4,7 @@ get:
   tags:
     - record
   parameters:
+      - $ref: '../requests/paging-params.yaml#/parameters/objectReferencePathParam'
       - $ref: '../requests/paging-params.yaml#/parameters/limitParam'
       - $ref: '../requests/paging-params.yaml#/parameters/offsetParam'
       - $ref: '../requests/paging-params.yaml#/parameters/fromItemParam'
@@ -17,7 +18,7 @@ get:
             properties:
               total:
                 type: integer
-                format: int32
+                format: int64
                 description: total resuls
                 example: 100
               result:

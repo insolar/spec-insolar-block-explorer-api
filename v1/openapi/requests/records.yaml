@@ -8,7 +8,7 @@ get:
     - $ref: '../requests/paging-params.yaml#/parameters/offsetParam'
     - $ref: '../requests/paging-params.yaml#/parameters/fromItemParam'
     - $ref: '../requests/paging-params.yaml#/parameters/recordTypeParam'
-    - $ref: '../requests/paging-params.yaml#/parameters/objectReferenceParam'
+    - $ref: '../requests/paging-params.yaml#/parameters/jetdropIdPathParam' # todo:
   responses:
     '200':
       description: A paged array of records

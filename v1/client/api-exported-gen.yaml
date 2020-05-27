@@ -16,16 +16,83 @@ tags:
   - name: jetdrop
   - name: record
 paths:
-  '/api/v1/pulses/{pulse-number}':
+  /api/v1/pulses:
     get:
       summary: Pulses
       operationId: pulses
       tags:
         - pulse
       parameters:
+        - $ref: '#/components/parameters/PulsesQueryParameterLimit'
+        - $ref: '#/components/parameters/PulsesQueryParameterOffset'
+        - $ref: '#/components/parameters/PulsesQueryParameterFrom_item'
+        - $ref: '#/components/parameters/PulsesQueryParameterFrom_pulse_number'
+        - $ref: '#/components/parameters/PulsesQueryParameterTo_pulse_number'
+        - $ref: '#/components/parameters/PulsesQueryParameterFrom_jetdrop_amount'
+        - $ref: '#/components/parameters/PulsesQueryParameterTo_jetdrop_amount'
+      responses:
+        '200':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                properties:
+                  total:
+                    type: integer
+                    format: int64
+                    description: total resuls
+                    example: 100
+                  result:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        pulse_number:
+                          type: integer
+                          format: int64
+                          description: pulse number
+                          example: 43648102
+                        prev_pulse_number:
+                          type: integer
+                          format: int64
+                          description: previous pulse number
+                          example: 43648092
+                        next_pulse_number:
+                          type: integer
+                          format: int64
+                          description: next pulse number
+                          example: 43648112
+                        jetdrop_amount:
+                          type: integer
+                          format: int64
+                          description: amount of all jetdrop in the pulse
+                          example: 16
+                        record_amount:
+                          type: integer
+                          format: int64
+                          description: number of all records in the pulse
+                          example: 245
+                        timestamp:
+                          type: integer
+                          format: int64
+                          description: unix timestamp
+                          example: 1451743413
+                        is_complete:
+                          type: bool
+                          description: does pulse complite fully?
+                          example: true
+                      title: PulseResponse200
+                title: PulsesResponse200
+  '/api/v1/pulses/{pulse-number}':
+    get:
+      summary: Pulse
+      operationId: pulse
+      tags:
+        - pulse
+      parameters:
         - in: path
           name: pulse-number
-          required: false
+          required: true
           schema:
             type: integer
             minimum: 0
@@ -73,7 +140,7 @@ paths:
                     type: bool
                     description: does pulse complite fully?
                     example: true
-                title: PulsesResponse200
+                title: PulseResponse200
   '/api/v1/jetdrops/{jetdrop-id}/records':
     get:
       summary: JetDrop records
@@ -85,7 +152,12 @@ paths:
         - $ref: '#/components/parameters/JetDropRecordsQueryParameterOffset'
         - $ref: '#/components/parameters/JetDropRecordsQueryParameterFrom_item'
         - $ref: '#/components/parameters/JetDropRecordsQueryParameterType'
-        - $ref: '#/components/parameters/JetDropRecordsQueryParameterObject_reference'
+        - name: jetdrop-id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of JetDrop.
       responses:
         '200':
           description: Internal server error
@@ -162,6 +234,12 @@ paths:
       tags:
         - record
       parameters:
+        - name: object_reference
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The reference of object.
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterLimit'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterOffset'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterFrom_item'
@@ -175,7 +253,7 @@ paths:
                 properties:
                   total:
                     type: integer
-                    format: int32
+                    format: int64
                     description: total resuls
                     example: 100
                   result:
@@ -237,6 +315,67 @@ paths:
                 title: Object LifelineResponse200
 components:
   parameters:
+    PulsesQueryParameterLimit:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: The numbers of items to return.
+    PulsesQueryParameterOffset:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: The number of items to skip before starting to collect the result set.
+    PulsesQueryParameterFrom_item:
+      name: from_item
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The numbers of items to return.
+    PulsesQueryParameterFrom_pulse_number:
+      in: query
+      name: from_pulse_number
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      description: From which Pulse number.
+    PulsesQueryParameterTo_pulse_number:
+      in: query
+      name: to_pulse_number
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 20
+      description: To which Pulse number.
+    PulsesQueryParameterFrom_jetdrop_amount:
+      in: query
+      name: from_jetdrop_amount
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      description: To which jetdrop_amount.
+    PulsesQueryParameterTo_jetdrop_amount:
+      in: query
+      name: to_jetdrop_amount
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 200
+      description: From which jetdrop_amount.
     JetDropRecordsQueryParameterLimit:
       in: query
       name: limit
@@ -265,7 +404,7 @@ components:
     JetDropRecordsQueryParameterType:
       name: type
       in: query
-      description: The record type
+      description: The record type.
       required: false
       schema:
         type: string
@@ -273,13 +412,6 @@ components:
           - state
           - request
           - result
-    JetDropRecordsQueryParameterObject_reference:
-      name: object_reference
-      in: query
-      required: false
-      schema:
-        type: string
-      description: The reference of object
     ObjectLifelineQueryParameterLimit:
       in: query
       name: limit
@@ -308,7 +440,7 @@ components:
     ObjectLifelineQueryParameterType:
       name: type
       in: query
-      description: The record type
+      description: The record type.
       required: false
       schema:
         type: string

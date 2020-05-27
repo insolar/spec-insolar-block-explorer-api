@@ -1,13 +1,13 @@
 get:
-  summary: Pulses
-  operationId: pulses
+  summary: Pulse
+  operationId: pulse
   tags:
     - pulse
   parameters:
-    - $ref: '../requests/paging-params.yaml#/parameters/pulseNumberParam'
+    - $ref: '../requests/paging-params.yaml#/parameters/pulseNumberPathParam'
   responses:
     '200':
-      description: A paged array of Pulses
+      description: A Pulse
       content:
         application/json:
           schema:
