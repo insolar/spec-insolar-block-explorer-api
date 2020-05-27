@@ -41,16 +41,16 @@ JetDropsByJetID JetDrops by JetID
  * @param optional nil or *JetDropsByJetIDOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
-@return map[string]interface{}
+@return JetDropsByJetIdResponse200
 */
-func (a *JetdropApiService) JetDropsByJetID(ctx _context.Context, jetId string, fromItem string, localVarOptionals *JetDropsByJetIDOpts) (map[string]interface{}, *_nethttp.Response, error) {
+func (a *JetdropApiService) JetDropsByJetID(ctx _context.Context, jetId string, fromItem string, localVarOptionals *JetDropsByJetIDOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  JetDropsByJetIdResponse200
 	)
 
 	// create path and map variables
@@ -107,7 +107,7 @@ func (a *JetdropApiService) JetDropsByJetID(ctx _context.Context, jetId string, 
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v map[string]interface{}
+			var v JetDropsByJetIdResponse200
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

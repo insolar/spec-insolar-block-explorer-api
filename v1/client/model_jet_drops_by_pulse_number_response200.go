@@ -27,4 +27,9 @@ type JetDropsByPulseNumberResponse200 struct {
 	Timestamp int64 `json:"timestamp,omitempty"`
 	// Record hash.
 	Hash string `json:"hash,omitempty"`
+	Code string `json:"code,omitempty"`
+	Message string `json:"message,omitempty"`
+	Description string `json:"description,omitempty"`
+	Link string `json:"link,omitempty"`
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures"`
 }

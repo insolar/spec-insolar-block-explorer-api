@@ -25,4 +25,9 @@ type PulseResponse200 struct {
 	Timestamp int64 `json:"timestamp,omitempty"`
 	// does pulse complite fully?
 	IsComplete bool `json:"is_complete,omitempty"`
+	Code string `json:"code,omitempty"`
+	Message string `json:"message,omitempty"`
+	Description string `json:"description,omitempty"`
+	Link string `json:"link,omitempty"`
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures"`
 }

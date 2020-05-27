@@ -137,16 +137,16 @@ Pulses Pulses
  * @param "ToPulseNumber" (optional.Int32) -  To which Pulse number.
  * @param "FromJetdropAmount" (optional.Int32) -  To which jetdrop_amount.
  * @param "ToJetdropAmount" (optional.Int32) -  From which jetdrop_amount.
-@return map[string]interface{}
+@return PulsesResponse200
 */
-func (a *PulseApiService) Pulses(ctx _context.Context, fromItem string, localVarOptionals *PulsesOpts) (map[string]interface{}, *_nethttp.Response, error) {
+func (a *PulseApiService) Pulses(ctx _context.Context, fromItem string, localVarOptionals *PulsesOpts) (PulsesResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  PulsesResponse200
 	)
 
 	// create path and map variables
@@ -213,7 +213,7 @@ func (a *PulseApiService) Pulses(ctx _context.Context, fromItem string, localVar
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v map[string]interface{}
+			var v PulsesResponse200
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

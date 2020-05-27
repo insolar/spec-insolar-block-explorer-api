@@ -32,7 +32,7 @@ paths:
         - $ref: '#/components/parameters/PulsesQueryParameterTo_jetdrop_amount'
       responses:
         '200':
-          description: Internal server error
+          description: Internal server error. Unable to process request due to an error.
           content:
             application/json:
               schema:
@@ -81,8 +81,51 @@ paths:
                           type: bool
                           description: does pulse complite fully?
                           example: true
+                        code:
+                          type: string
+                        message:
+                          type: string
+                        description:
+                          type: string
+                        link:
+                          type: string
+                        validation_failures:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              property:
+                                type: string
+                                description: Property name
+                              failure_reason:
+                                type: string
+                                description: Failure reason
                       title: PulseResponse200
+                      required:
+                        - validation_failures
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name
+                        failure_reason:
+                          type: string
+                          description: Failure reason
                 title: PulsesResponse200
+                required:
+                  - validation_failures
+                type: object
   '/api/v1/pulses/{pulse-number}':
     get:
       summary: Pulse
@@ -100,7 +143,7 @@ paths:
           description: The Pulse number.
       responses:
         '200':
-          description: Internal server error
+          description: Internal server error. Unable to process request due to an error.
           content:
             application/json:
               schema:
@@ -140,7 +183,28 @@ paths:
                     type: bool
                     description: does pulse complite fully?
                     example: true
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name
+                        failure_reason:
+                          type: string
+                          description: Failure reason
                 title: PulseResponse200
+                required:
+                  - validation_failures
   '/api/v1/jetdrops/{jetdrop-id}':
     get:
       summary: JetDrop by ID
@@ -156,7 +220,7 @@ paths:
           description: The ID of JetDrop.
       responses:
         '200':
-          description: Internal server error
+          description: Internal server error. Unable to process request due to an error.
           content:
             application/json:
               schema:
@@ -211,7 +275,28 @@ paths:
                     description: Record hash.
                     example: >-
                       0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name
+                        failure_reason:
+                          type: string
+                          description: Failure reason
                 title: JetDrops by Pulse NumberResponse200
+                required:
+                  - validation_failures
   '/api/v1/pulses/{pulse-number}/jetdrops':
     get:
       summary: JetDrops by Pulse Number
@@ -232,7 +317,7 @@ paths:
         - $ref: '#/components/parameters/JetDropsByPulseNumberQueryParameterFrom_item'
       responses:
         '200':
-          description: Internal server error
+          description: Internal server error. Unable to process request due to an error.
           content:
             application/json:
               schema:
@@ -287,7 +372,28 @@ paths:
                     description: Record hash.
                     example: >-
                       0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name
+                        failure_reason:
+                          type: string
+                          description: Failure reason
                 title: JetDrops by Pulse NumberResponse200
+                required:
+                  - validation_failures
   '/api/v1/jets/{jet-id}/jetdrops':
     get:
       summary: JetDrops by JetID
@@ -307,7 +413,7 @@ paths:
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterFrom_item'
       responses:
         '200':
-          description: Internal server error
+          description: Internal server error. Unable to process request due to an error.
           content:
             application/json:
               schema:
@@ -377,8 +483,51 @@ paths:
                           description: Record hash.
                           example: >-
                             0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                        code:
+                          type: string
+                        message:
+                          type: string
+                        description:
+                          type: string
+                        link:
+                          type: string
+                        validation_failures:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              property:
+                                type: string
+                                description: Property name
+                              failure_reason:
+                                type: string
+                                description: Failure reason
                       title: JetDrops by Pulse NumberResponse200
+                      required:
+                        - validation_failures
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name
+                        failure_reason:
+                          type: string
+                          description: Failure reason
                 title: JetDrops by JetIDResponse200
+                required:
+                  - validation_failures
+                type: object
   '/api/v1/jetdrops/{jetdrop-id}/records':
     get:
       summary: JetDrop records
@@ -398,7 +547,7 @@ paths:
           description: The ID of JetDrop.
       responses:
         '200':
-          description: Internal server error
+          description: Internal server error. Unable to process request due to an error.
           content:
             application/json:
               schema:
@@ -464,7 +613,29 @@ paths:
                             jetDrop ID is concantination of jet_id and
                             pulse_number
                           example: '43648102:0010'
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name
+                        failure_reason:
+                          type: string
+                          description: Failure reason
                 title: JetDrop recordsResponse200
+                required:
+                  - validation_failures
+                type: object
   '/api/v1/lifeline/{object-reference}/records':
     get:
       summary: Object Lifeline
@@ -484,7 +655,7 @@ paths:
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterType'
       responses:
         '200':
-          description: Internal server error
+          description: Internal server error. Unable to process request due to an error.
           content:
             application/json:
               schema:
@@ -550,7 +721,29 @@ paths:
                             jetDrop ID is concantination of jet_id and
                             pulse_number
                           example: '43648102:0010'
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name
+                        failure_reason:
+                          type: string
+                          description: Failure reason
                 title: Object LifelineResponse200
+                required:
+                  - validation_failures
+                type: object
   /api/v1/search:
     get:
       summary: Search Data
@@ -561,7 +754,7 @@ paths:
         - $ref: '#/components/parameters/SearchDataQueryParameterValue'
       responses:
         '200':
-          description: Internal server error
+          description: Internal server error. Unable to process request due to an error.
           content:
             application/json:
               schema:
@@ -593,7 +786,29 @@ paths:
                         type: string
                         description: Object reference.
                         example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name
+                        failure_reason:
+                          type: string
+                          description: Failure reason
                 x-json-schema-id: responses/search-record.yaml
+                required:
+                  - validation_failures
+                type: object
 components:
   schemas:
     responses-search-pulse-yaml:

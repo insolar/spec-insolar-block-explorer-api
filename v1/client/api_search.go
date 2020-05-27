@@ -29,16 +29,16 @@ type SearchApiService service
 Search Search Data
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param value The searching value.
-@return map[string]interface{}
+@return SearchDataResponse200
 */
-func (a *SearchApiService) Search(ctx _context.Context, value string) (map[string]interface{}, *_nethttp.Response, error) {
+func (a *SearchApiService) Search(ctx _context.Context, value string) (SearchDataResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  SearchDataResponse200
 	)
 
 	// create path and map variables
@@ -87,7 +87,7 @@ func (a *SearchApiService) Search(ctx _context.Context, value string) (map[strin
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v map[string]interface{}
+			var v SearchDataResponse200
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

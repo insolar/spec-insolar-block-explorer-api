@@ -4,10 +4,61 @@ title: responce codes
 type: object
 responses:
   '204':
-    description: No content # todo: total = result empty
+    description: No content
   '400':
-    description: Bad request
+    description: |
+      Bad request. One or more of the query parameters failed validation or was not provided.
+      The request should not be attempted until the parameters are changed.
+      The fields that failed validation will be detailed where possible.
+    content:
+      application/json:
+        schema:
+          $ref: '#/definitions/ValidationError'
   '404':
-    description: Method not found
+    description: Not found. The specified Resource does not exist. No body response required.
   '500':
-    description: Internal server error
+    description: Internal server error. Unable to process request due to an error.
+    content:
+      application/json:
+        schema:
+          $ref: '#/definitions/Error'
+
+definitions:
+  Error:
+    type: object
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+      description:
+        type: string
+      link:
+        type: string
+
+  ValidationFailure:
+    type: object
+    properties:
+      property:
+        type: string
+        description: Property name
+      failure_reason:
+        type: string
+        description: Failure reason
+
+  ValidationError:
+    required:
+      - validation_failures
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+      description:
+        type: string
+      link:
+        type: string
+      validation_failures:
+        type: array
+        items:
+          $ref: '#/definitions/ValidationFailure'

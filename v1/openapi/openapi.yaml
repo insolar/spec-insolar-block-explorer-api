@@ -38,4 +38,3 @@ paths:
   /api/v1/search:
     $ref: 'requests/search.yaml'
 
-

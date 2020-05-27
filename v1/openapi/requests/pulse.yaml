@@ -13,10 +13,10 @@ get:
           schema:
             $ref: '../responses/pulse.yaml#/pulseResponse'
     '204':
-      description: No content
+      $ref: '../responses/codes.yaml/#/responses/204'
     '400':
-      description: Bad request
+      $ref: "../responses/codes.yaml/#/responses/400"
     '404':
-      description: Method not found
+      $ref: "../responses/codes.yaml/#/responses/404"
     '500':
-      description: Internal server error
+      $ref: "../responses/codes.yaml/#/responses/500"

@@ -43,16 +43,16 @@ JetdropRecords JetDrop records
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
  * @param "Type_" (optional.String) -  The record type.
-@return map[string]interface{}
+@return JetDropRecordsResponse200
 */
-func (a *RecordApiService) JetdropRecords(ctx _context.Context, fromItem string, jetdropId string, localVarOptionals *JetdropRecordsOpts) (map[string]interface{}, *_nethttp.Response, error) {
+func (a *RecordApiService) JetdropRecords(ctx _context.Context, fromItem string, jetdropId string, localVarOptionals *JetdropRecordsOpts) (JetDropRecordsResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  JetDropRecordsResponse200
 	)
 
 	// create path and map variables
@@ -112,7 +112,7 @@ func (a *RecordApiService) JetdropRecords(ctx _context.Context, fromItem string,
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v map[string]interface{}
+			var v JetDropRecordsResponse200
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -151,16 +151,16 @@ ObjectLifeline Object Lifeline
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
  * @param "Type_" (optional.String) -  The record type.
-@return map[string]interface{}
+@return JetDropRecordsResponse200
 */
-func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference string, fromItem string, localVarOptionals *ObjectLifelineOpts) (map[string]interface{}, *_nethttp.Response, error) {
+func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference string, fromItem string, localVarOptionals *ObjectLifelineOpts) (JetDropRecordsResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  JetDropRecordsResponse200
 	)
 
 	// create path and map variables
@@ -220,7 +220,7 @@ func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference 
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v map[string]interface{}
+			var v JetDropRecordsResponse200
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

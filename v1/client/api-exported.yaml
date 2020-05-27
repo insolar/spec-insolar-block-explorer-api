@@ -133,11 +133,58 @@ paths:
         '204':
           description: No content
         '400':
-          description: Bad request
+          description: >
+            Bad request. One or more of the query parameters failed validation
+            or was not provided.
+
+            The request should not be attempted until the parameters are
+            changed.
+
+            The fields that failed validation will be detailed where possible.
+          content:
+            application/json:
+              schema:
+                required:
+                  - validation_failures
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name
+                        failure_reason:
+                          type: string
+                          description: Failure reason
         '404':
-          description: Method not found
+          description: >-
+            Not found. The specified Resource does not exist. No body response
+            required.
         '500':
-          description: Internal server error
+          description: Internal server error. Unable to process request due to an error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
   '/api/v1/pulses/{pulse-number}':
     get:
       summary: Pulse
@@ -162,13 +209,13 @@ paths:
                 $ref: >-
                   #/paths/~1api~1v1~1pulses/get/responses/200/content/application~1json/schema/properties/result/items
         '204':
-          description: No content
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/204'
         '400':
-          description: Bad request
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
-          description: Method not found
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/404'
         '500':
-          description: Internal server error
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
   '/api/v1/jetdrops/{jetdrop-id}':
     get:
       summary: JetDrop by ID
@@ -239,13 +286,13 @@ paths:
                     example: >-
                       0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
         '204':
-          description: No content
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/204'
         '400':
-          description: Bad request
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
-          description: Method not found
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/404'
         '500':
-          description: Internal server error
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
   '/api/v1/pulses/{pulse-number}/jetdrops':
     get:
       summary: JetDrops by Pulse Number
@@ -266,13 +313,13 @@ paths:
                 $ref: >-
                   #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D/get/responses/200/content/application~1json/schema
         '204':
-          description: No content
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/204'
         '400':
-          description: Bad request
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
-          description: Method not found
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/404'
         '500':
-          description: Internal server error
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
   '/api/v1/jets/{jet-id}/jetdrops':
     get:
       summary: JetDrops by JetID
@@ -308,13 +355,13 @@ paths:
                       $ref: >-
                         #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D/get/responses/200/content/application~1json/schema
         '204':
-          description: No content
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/204'
         '400':
-          description: Bad request
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
-          description: Method not found
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/404'
         '500':
-          description: Internal server error
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
   '/api/v1/jetdrops/{jetdrop-id}/records':
     get:
       summary: JetDrop records
@@ -405,13 +452,13 @@ paths:
                             pulse_number
                           example: '43648102:0010'
         '204':
-          description: No content
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/204'
         '400':
-          description: Bad request
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
-          description: Method not found
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/404'
         '500':
-          description: Internal server error
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
   '/api/v1/lifeline/{object-reference}/records':
     get:
       summary: Object Lifeline
@@ -448,13 +495,13 @@ paths:
                       $ref: >-
                         #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop-id%7D~1records/get/responses/200/content/application~1json/schema/properties/result/items
         '204':
-          description: No content
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/204'
         '400':
-          description: Bad request
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
-          description: Method not found
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/404'
         '500':
-          description: Internal server error
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
   /api/v1/search:
     get:
       summary: Search Data
@@ -481,13 +528,13 @@ paths:
                   - $ref: '#/components/schemas/responses-search-lifeline-yaml'
                   - $ref: '#/components/schemas/responses-search-record-yaml'
         '204':
-          description: No content
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/204'
         '400':
-          description: Bad request
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
-          description: Method not found
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/404'
         '500':
-          description: Internal server error
+          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
 components:
   schemas:
     responses-search-pulse-yaml:
