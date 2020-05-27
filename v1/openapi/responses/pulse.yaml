@@ -36,6 +36,6 @@ pulseResponse:
       description: Unix timestamp.
       example: 1451743413
     is_complete:
-      type: bool
+      type: boolean
       description: Pulse fullness status.
       example: true
