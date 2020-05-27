@@ -41,7 +41,7 @@ parameters:
        - request
        - result
  objectReferencePathParam:
-   name: object_reference
+   name: object-reference
    in: path
    required: true
    schema:

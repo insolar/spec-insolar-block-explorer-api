@@ -469,7 +469,7 @@ paths:
       tags:
         - record
       parameters:
-        - name: object_reference
+        - name: object-reference
           in: path
           required: true
           schema:

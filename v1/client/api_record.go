@@ -165,7 +165,7 @@ func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference 
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/api/v1/lifeline/{object-reference}/records"
-	localVarPath = strings.Replace(localVarPath, "{"+"object_reference"+"}", _neturl.QueryEscape(parameterToString(objectReference, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"object-reference"+"}", _neturl.QueryEscape(parameterToString(objectReference, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
