@@ -5,24 +5,24 @@ description: JetDrop representation.
 jetdropResponse:
   type: object
   properties:
-    jetdrop_id:
+    jet_drop_id:
       type: string
       description: JetDrop ID is concantination of jet_id and pulse_number.
       example: "43648102:0010"
-    next_jetdrop_id:
+    next_jet_drop_id:
       type: array
       format: string
-      description: Next jetdrop_id.
+      description: Next jet_drop_id.
       example: ["43648104:00100", "43648104:00101"]
       items:
-        $ref: '#/jdID/jetdrop_id'
-    prev_jetdrop_id:
+        $ref: '#/jdID/jet_drop_id'
+    prev_jet_drop_id:
       type: array
       format: string
-      description: Previous jetdrop_id.
+      description: Previous jet_drop_id.
       example: ["43648101:0010"]
       items:
-        $ref: '#/jdID/jetdrop_id'
+        $ref: '#/jdID/jet_drop_id'
     jet_id:
       type: string
       description: Jet ID.
@@ -51,7 +51,7 @@ jetdropResponse:
 
 
 jdID:
-    jetdrop_id:
+    jet_drop_id:
       type: string
       description: JetDrop ID is concantination of jet_id and pulse_number
       example: "43648102:0010"

@@ -4,7 +4,7 @@ get:
   tags:
     - jetdrop
   parameters:
-    - $ref: '../requests/paging-params.yaml#/parameters/jetdropIdPathParam'
+    - $ref: '../requests/paging-params.yaml#/parameters/jetDropIdPathParam'
   responses:
     '200':
       description: A JetDrop.

@@ -25,13 +25,13 @@ paths:
     $ref: 'requests/pulses.yaml'
   /api/v1/pulses/{pulse_number}:
     $ref: 'requests/pulse.yaml'
-  /api/v1/jetdrops/{jetdrop_id}:
+  /api/v1/jetdrops/{jet_drop_id}:
     $ref: 'requests/jetdrop-byid.yaml'
   /api/v1/pulses/{pulse_number}/jetdrops:
     $ref: 'requests/jetdrops-bypulse.yaml'
   /api/v1/jets/{jet_id}/jetdrops:
     $ref: 'requests/jetdrops-byjetid.yaml'
-  /api/v1/jetdrops/{jetdrop_id}/records:
+  /api/v1/jetdrops/{jet_drop_id}/records:
     $ref: 'requests/records.yaml'
   /api/v1/lifeline/{object_reference}/records:
     $ref: 'requests/lifeline.yaml'

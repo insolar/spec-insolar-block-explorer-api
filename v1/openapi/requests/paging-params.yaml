@@ -48,8 +48,8 @@ parameters:
    schema:
      type: string
    description: The reference of object.
- jetdropIdPathParam:
-   name: jetdrop_id
+ jetDropIdPathParam:
+   name: jet_drop_id
    in: path
    required: true
    schema:

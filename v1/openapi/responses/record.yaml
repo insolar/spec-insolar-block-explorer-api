@@ -47,7 +47,7 @@ recordResponse:
       type: string
       description: Jet ID.
       example: "0010"
-    jetdrop_id:
+    jet_drop_id:
       type: string
       description: JetDrop ID is concantination of jet_id and pulse_number.
       example: "43648102:0010"
