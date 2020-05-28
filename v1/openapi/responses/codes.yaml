@@ -3,8 +3,6 @@ $id: responses/codes
 title: responce codes
 type: object
 responses:
-  '204':
-    description: No content
   '400':
     description: |
       Bad request. One or more of the query parameters failed validation or was not provided.

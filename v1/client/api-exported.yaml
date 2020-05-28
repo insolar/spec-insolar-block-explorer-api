@@ -201,8 +201,6 @@ paths:
               schema:
                 $ref: >-
                   #/paths/~1api~1v1~1pulses/get/responses/200/content/application~1json/schema/properties/result/items
-        '204':
-          description: No content
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
@@ -280,8 +278,6 @@ paths:
                     description: Record hash.
                     example: >-
                       0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
-        '204':
-          $ref: '#/paths/~1api~1v1~1pulses~1%7Bpulse_number%7D/get/responses/204'
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
@@ -506,8 +502,6 @@ paths:
                   - $ref: '#/components/schemas/responses-search-record-yaml'
                   - $ref: '#/components/schemas/responses-search-lifeline-yaml'
                   - $ref: '#/components/schemas/responses-search-record-yaml'
-        '204':
-          $ref: '#/paths/~1api~1v1~1pulses~1%7Bpulse_number%7D/get/responses/204'
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':

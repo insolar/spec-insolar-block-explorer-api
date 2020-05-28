@@ -17,8 +17,6 @@ get:
         application/json:
           schema:
             $ref: '../responses/search.yaml#/searchResponse'
-    '204':
-      $ref: '../responses/codes.yaml/#/responses/204'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '404':
