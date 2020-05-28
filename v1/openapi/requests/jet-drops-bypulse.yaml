@@ -14,7 +14,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../responses/jetdrop.yaml#/jetdropResponse'
+            $ref: '../responses/jet-drop.yaml#/jetdropResponse'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '500':
