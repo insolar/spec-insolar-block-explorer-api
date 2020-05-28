@@ -9,14 +9,17 @@ recordResponse:
       type: string
       description: Record reference.
       example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
+      pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
     object_reference:
       type: string
       description: Object reference.
       example: "insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE"
+      pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
     prototype_reference:
       type: string
       description: Prototype reference.
       example: "insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g"
+      pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
     type:
       type: string
       description: Record type.
@@ -47,6 +50,7 @@ recordResponse:
       type: string
       description: Jet ID.
       example: "0010"
+      pattern: '^([0-1]{2,64})$'
     jet_drop_id:
       type: string
       description: JetDrop ID is concantination of jet_id and pulse_number.

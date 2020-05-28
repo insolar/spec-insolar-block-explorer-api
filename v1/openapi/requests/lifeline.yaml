@@ -13,6 +13,8 @@ get:
         schema:
           type: string
         description: The pagination starting point. Accepting object_reference.
+        example: "insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE"
+        pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
       - $ref: '../requests/common-params.yaml#/parameters/recordTypeParam'
   responses:
     '200':

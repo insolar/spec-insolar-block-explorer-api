@@ -218,6 +218,8 @@ paths:
           schema:
             type: string
           description: The ID of JetDrop.
+          example: '43648102:0010'
+          pattern: '^(\d+:[0-1]{2,64})$'
       responses:
         '200':
           description: Internal server error. Unable to process request due to an error.
@@ -230,6 +232,7 @@ paths:
                     type: string
                     description: JetDrop ID is concantination of jet_id and pulse_number.
                     example: '43648102:0010'
+                    pattern: '^(\d+:[0-1]{2,64})$'
                   next_jet_drop_id:
                     type: array
                     format: string
@@ -241,6 +244,7 @@ paths:
                       type: string
                       description: JetDrop ID is concantination of jet_id and pulse_number
                       example: '43648102:0010'
+                      pattern: '^(\d+:[0-1]{2,64})$'
                   prev_jet_drop_id:
                     type: array
                     format: string
@@ -251,10 +255,12 @@ paths:
                       type: string
                       description: JetDrop ID is concantination of jet_id and pulse_number
                       example: '43648102:0010'
+                      pattern: '^(\d+:[0-1]{2,64})$'
                   jet_id:
                     type: string
                     description: Jet ID.
                     example: '0010'
+                    pattern: '^([0-1]{2,64})$'
                   pulse_number:
                     type: integer
                     format: int64
@@ -338,6 +344,7 @@ paths:
                             JetDrop ID is concantination of jet_id and
                             pulse_number.
                           example: '43648102:0010'
+                          pattern: '^(\d+:[0-1]{2,64})$'
                         next_jet_drop_id:
                           type: array
                           format: string
@@ -351,6 +358,7 @@ paths:
                               JetDrop ID is concantination of jet_id and
                               pulse_number
                             example: '43648102:0010'
+                            pattern: '^(\d+:[0-1]{2,64})$'
                         prev_jet_drop_id:
                           type: array
                           format: string
@@ -363,10 +371,12 @@ paths:
                               JetDrop ID is concantination of jet_id and
                               pulse_number
                             example: '43648102:0010'
+                            pattern: '^(\d+:[0-1]{2,64})$'
                         jet_id:
                           type: string
                           description: Jet ID.
                           example: '0010'
+                          pattern: '^([0-1]{2,64})$'
                         pulse_number:
                           type: integer
                           format: int64
@@ -446,6 +456,7 @@ paths:
             type: string
           description: The JetID.
           example: '0010'
+          pattern: '^([0-1]{2,64})$'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterLimit'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterOffset'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterFrom_item'
@@ -475,6 +486,7 @@ paths:
                             JetDrop ID is concantination of jet_id and
                             pulse_number.
                           example: '43648102:0010'
+                          pattern: '^(\d+:[0-1]{2,64})$'
                         next_jet_drop_id:
                           type: array
                           format: string
@@ -488,6 +500,7 @@ paths:
                               JetDrop ID is concantination of jet_id and
                               pulse_number
                             example: '43648102:0010'
+                            pattern: '^(\d+:[0-1]{2,64})$'
                         prev_jet_drop_id:
                           type: array
                           format: string
@@ -500,10 +513,12 @@ paths:
                               JetDrop ID is concantination of jet_id and
                               pulse_number
                             example: '43648102:0010'
+                            pattern: '^(\d+:[0-1]{2,64})$'
                         jet_id:
                           type: string
                           description: Jet ID.
                           example: '0010'
+                          pattern: '^([0-1]{2,64})$'
                         pulse_number:
                           type: integer
                           format: int64
@@ -586,6 +601,8 @@ paths:
           schema:
             type: string
           description: The ID of JetDrop.
+          example: '43648102:0010'
+          pattern: '^(\d+:[0-1]{2,64})$'
       responses:
         '200':
           description: Internal server error. Unable to process request due to an error.
@@ -608,14 +625,19 @@ paths:
                           description: Record reference.
                           example: >-
                             insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
+                          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
                         object_reference:
                           type: string
                           description: Object reference.
                           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                          pattern: >-
+                            ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
                         prototype_reference:
                           type: string
                           description: Prototype reference.
                           example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+                          pattern: >-
+                            ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
                         type:
                           type: string
                           description: Record type.
@@ -648,6 +670,7 @@ paths:
                           type: string
                           description: Jet ID.
                           example: '0010'
+                          pattern: '^([0-1]{2,64})$'
                         jet_drop_id:
                           type: string
                           description: >-
@@ -690,6 +713,8 @@ paths:
           schema:
             type: string
           description: The reference of object.
+          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterLimit'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterOffset'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterFrom_item'
@@ -716,14 +741,19 @@ paths:
                           description: Record reference.
                           example: >-
                             insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
+                          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
                         object_reference:
                           type: string
                           description: Object reference.
                           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                          pattern: >-
+                            ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
                         prototype_reference:
                           type: string
                           description: Prototype reference.
                           example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+                          pattern: >-
+                            ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
                         type:
                           type: string
                           description: Record type.
@@ -756,6 +786,7 @@ paths:
                           type: string
                           description: Jet ID.
                           example: '0010'
+                          pattern: '^([0-1]{2,64})$'
                         jet_drop_id:
                           type: string
                           description: >-
@@ -1026,6 +1057,8 @@ components:
       schema:
         type: string
       description: The pagination starting point. Accepting jet_id.
+      example: '0010'
+      pattern: '^([0-1]{2,64})$'
     JetDropsByJetIDQueryParameterFrom_pulse_number:
       in: query
       name: from_pulse_number
@@ -1070,6 +1103,8 @@ components:
       schema:
         type: string
       description: The pagination starting point. Accepting record reference.
+      example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+      pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
     JetDropRecordsQueryParameterType:
       name: type
       in: query
@@ -1107,6 +1142,8 @@ components:
       schema:
         type: string
       description: The pagination starting point. Accepting object_reference.
+      example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+      pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
     ObjectLifelineQueryParameterType:
       name: type
       in: query
