@@ -6,7 +6,12 @@ get:
   parameters:
     - $ref: '../requests/common-params.yaml#/parameters/limitParam'
     - $ref: '../requests/common-params.yaml#/parameters/offsetParam'
-    - $ref: '../requests/common-params.yaml#/parameters/fromItemParam'
+    - name: from_item
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The pagination starting point. Accepting record reference.
     - $ref: '../requests/common-params.yaml#/parameters/recordTypeParam'
     - $ref: '../requests/common-params.yaml#/parameters/jetDropIdPathParam'
   responses:

@@ -7,7 +7,12 @@ get:
       - $ref: '../requests/common-params.yaml#/parameters/objectReferencePathParam'
       - $ref: '../requests/common-params.yaml#/parameters/limitParam'
       - $ref: '../requests/common-params.yaml#/parameters/offsetParam'
-      - $ref: '../requests/common-params.yaml#/parameters/fromItemParam'
+      - name: from_item
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The pagination starting point. Accepting object_reference.
       - $ref: '../requests/common-params.yaml#/parameters/recordTypeParam'
   responses:
     '200':

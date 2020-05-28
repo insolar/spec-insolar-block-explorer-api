@@ -120,7 +120,7 @@ func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int64) (PulseR
 type PulsesOpts struct {
     Limit optional.Int32
     Offset optional.Int32
-    FromItem optional.String
+    FromItem optional.Int64
     FromPulseNumber optional.Int64
     ToPulseNumber optional.Int64
     FromJetDropAmount optional.Int32
@@ -133,7 +133,7 @@ Pulses Pulses
  * @param optional nil or *PulsesOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.String) -  The pagination starting point.
+ * @param "FromItem" (optional.Int64) -  The pagination starting point. Accepting pulse_number.
  * @param "FromPulseNumber" (optional.Int64) -  From which Pulse number.
  * @param "ToPulseNumber" (optional.Int64) -  To which Pulse number.
  * @param "FromJetDropAmount" (optional.Int32) -  To which jet_drop_amount.

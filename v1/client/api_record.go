@@ -42,7 +42,7 @@ JetDropRecords JetDrop records
  * @param optional nil or *JetDropRecordsOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.String) -  The pagination starting point.
+ * @param "FromItem" (optional.String) -  The pagination starting point. Accepting record reference.
  * @param "Type_" (optional.String) -  The record type.
 @return JetDropRecordsResponse200
 */
@@ -153,7 +153,7 @@ ObjectLifeline Object Lifeline
  * @param optional nil or *ObjectLifelineOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.String) -  The pagination starting point.
+ * @param "FromItem" (optional.String) -  The pagination starting point. Accepting object_reference.
  * @param "Type_" (optional.String) -  The record type.
 @return JetDropRecordsResponse200
 */

@@ -23,13 +23,6 @@ parameters:
     maximum: 100
     default: 20
   description: The numbers of items to return.
- fromItemParam:
-  name: from_item
-  in: query
-  required: false
-  schema:
-    type: string
-  description: The pagination starting point.
  recordTypeParam:
    name: type
    in: query

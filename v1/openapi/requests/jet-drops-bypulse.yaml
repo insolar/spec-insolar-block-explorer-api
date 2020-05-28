@@ -7,7 +7,13 @@ get:
     - $ref: '../requests/common-params.yaml#/parameters/pulseNumberPathParam'
     - $ref: '../requests/common-params.yaml#/parameters/limitParam'
     - $ref: '../requests/common-params.yaml#/parameters/offsetParam'
-    - $ref: '../requests/common-params.yaml#/parameters/fromItemParam'
+    - name: from_item
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int64
+      description: The pagination starting point. Accepting pulse_number.
   responses:
     '200':
       description: A paged array of JetDrops.

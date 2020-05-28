@@ -46,8 +46,9 @@ paths:
           in: query
           required: false
           schema:
-            type: string
-          description: The pagination starting point.
+            type: integer
+            format: int64
+          description: The pagination starting point. Accepting pulse_number.
         - in: query
           name: from_pulse_number
           required: false
@@ -294,7 +295,13 @@ paths:
         - $ref: '#/paths/~1api~1v1~1pulses~1%7Bpulse_number%7D/get/parameters/0'
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/0'
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/1'
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/2'
+        - name: from_item
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+          description: The pagination starting point. Accepting pulse_number.
       responses:
         '200':
           description: A paged array of JetDrops.
@@ -332,7 +339,12 @@ paths:
           example: '0010'
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/0'
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/1'
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/2'
+        - name: from_item
+          in: query
+          required: false
+          schema:
+            type: string
+          description: The pagination starting point. Accepting jet_id.
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/3'
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/4'
       responses:
@@ -365,7 +377,12 @@ paths:
       parameters:
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/0'
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/1'
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/2'
+        - name: from_item
+          in: query
+          required: false
+          schema:
+            type: string
+          description: The pagination starting point. Accepting record reference.
         - name: type
           in: query
           description: The record type.
@@ -464,7 +481,12 @@ paths:
           description: The reference of object.
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/0'
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/1'
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/2'
+        - name: from_item
+          in: query
+          required: false
+          schema:
+            type: string
+          description: The pagination starting point. Accepting object_reference.
         - $ref: >-
             #/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D~1records/get/parameters/3
       responses:

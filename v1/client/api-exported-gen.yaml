@@ -936,8 +936,9 @@ components:
       in: query
       required: false
       schema:
-        type: string
-      description: The pagination starting point.
+        type: integer
+        format: int64
+      description: The pagination starting point. Accepting pulse_number.
     PulsesQueryParameterFrom_pulse_number:
       in: query
       name: from_pulse_number
@@ -996,8 +997,9 @@ components:
       in: query
       required: false
       schema:
-        type: string
-      description: The pagination starting point.
+        type: integer
+        format: int64
+      description: The pagination starting point. Accepting pulse_number.
     JetDropsByJetIDQueryParameterLimit:
       in: query
       name: limit
@@ -1023,7 +1025,7 @@ components:
       required: false
       schema:
         type: string
-      description: The pagination starting point.
+      description: The pagination starting point. Accepting jet_id.
     JetDropsByJetIDQueryParameterFrom_pulse_number:
       in: query
       name: from_pulse_number
@@ -1067,7 +1069,7 @@ components:
       required: false
       schema:
         type: string
-      description: The pagination starting point.
+      description: The pagination starting point. Accepting record reference.
     JetDropRecordsQueryParameterType:
       name: type
       in: query
@@ -1104,7 +1106,7 @@ components:
       required: false
       schema:
         type: string
-      description: The pagination starting point.
+      description: The pagination starting point. Accepting object_reference.
     ObjectLifelineQueryParameterType:
       name: type
       in: query
