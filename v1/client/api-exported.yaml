@@ -324,6 +324,8 @@ paths:
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/0'
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/1'
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/2'
+        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/3'
+        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/4'
       responses:
         '200':
           description: A paged array of JetDrops.

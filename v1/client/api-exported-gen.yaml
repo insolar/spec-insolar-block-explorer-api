@@ -411,6 +411,9 @@ paths:
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterLimit'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterOffset'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterFrom_item'
+        - $ref: >-
+            #/components/parameters/JetDropsByJetIDQueryParameterFrom_pulse_number
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterTo_pulse_number'
       responses:
         '200':
           description: Internal server error. Unable to process request due to an error.
@@ -983,6 +986,24 @@ components:
       schema:
         type: string
       description: The numbers of items to return.
+    JetDropsByJetIDQueryParameterFrom_pulse_number:
+      in: query
+      name: from_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: From which Pulse number.
+    JetDropsByJetIDQueryParameterTo_pulse_number:
+      in: query
+      name: to_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: To which Pulse number.
     JetDropRecordsQueryParameterLimit:
       in: query
       name: limit

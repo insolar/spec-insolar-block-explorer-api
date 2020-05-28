@@ -10,7 +10,7 @@ get:
     - $ref: '../requests/paging-params.yaml#/parameters/fromPulseNumberParam'
     - $ref: '../requests/paging-params.yaml#/parameters/toPulseNumberParam'
     - $ref: '../requests/paging-params.yaml#/parameters/fromJetDropAmountParam'
-    - $ref: '../requests/paging-params.yaml#/parameters/toJetDropAmountParam' # todo: не показывает правильно
+    - $ref: '../requests/paging-params.yaml#/parameters/toJetDropAmountParam'
   responses:
     '200':
       description: A paged array of Pulses.
