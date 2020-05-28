@@ -31,19 +31,20 @@ type JetdropApiService service
 type JetDropsByJetIDOpts struct {
     Limit optional.Int32
     Offset optional.Int32
+    FromItem optional.String
 }
 
 /*
 JetDropsByJetID JetDrops by JetID
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param jetId The JetID.
- * @param fromItem The numbers of items to return.
  * @param optional nil or *JetDropsByJetIDOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
+ * @param "FromItem" (optional.String) -  The numbers of items to return.
 @return JetDropsByJetIdResponse200
 */
-func (a *JetdropApiService) JetDropsByJetID(ctx _context.Context, jetId string, fromItem string, localVarOptionals *JetDropsByJetIDOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {
+func (a *JetdropApiService) JetDropsByJetID(ctx _context.Context, jetId string, localVarOptionals *JetDropsByJetIDOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -54,8 +55,8 @@ func (a *JetdropApiService) JetDropsByJetID(ctx _context.Context, jetId string, 
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/jets/{jet-id}/jetdrops"
-	localVarPath = strings.Replace(localVarPath, "{"+"jet-id"+"}", _neturl.QueryEscape(parameterToString(jetId, "")) , -1)
+	localVarPath := a.client.cfg.BasePath + "/api/v1/jets/{jet_id}/jetdrops"
+	localVarPath = strings.Replace(localVarPath, "{"+"jet_id"+"}", _neturl.QueryEscape(parameterToString(jetId, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -67,7 +68,9 @@ func (a *JetdropApiService) JetDropsByJetID(ctx _context.Context, jetId string, 
 	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
 		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
 	}
-	localVarQueryParams.Add("from_item", parameterToString(fromItem, ""))
+	if localVarOptionals != nil && localVarOptionals.FromItem.IsSet() {
+		localVarQueryParams.Add("from_item", parameterToString(localVarOptionals.FromItem.Value(), ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -134,19 +137,20 @@ func (a *JetdropApiService) JetDropsByJetID(ctx _context.Context, jetId string, 
 type JetDropsByPulseNumberOpts struct {
     Limit optional.Int32
     Offset optional.Int32
+    FromItem optional.String
 }
 
 /*
 JetDropsByPulseNumber JetDrops by Pulse Number
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param pulseNumber The Pulse number.
- * @param fromItem The numbers of items to return.
  * @param optional nil or *JetDropsByPulseNumberOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
+ * @param "FromItem" (optional.String) -  The numbers of items to return.
 @return JetDropsByPulseNumberResponse200
 */
-func (a *JetdropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNumber int64, fromItem string, localVarOptionals *JetDropsByPulseNumberOpts) (JetDropsByPulseNumberResponse200, *_nethttp.Response, error) {
+func (a *JetdropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNumber int64, localVarOptionals *JetDropsByPulseNumberOpts) (JetDropsByPulseNumberResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -157,8 +161,8 @@ func (a *JetdropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNum
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/pulses/{pulse-number}/jetdrops"
-	localVarPath = strings.Replace(localVarPath, "{"+"pulse-number"+"}", _neturl.QueryEscape(parameterToString(pulseNumber, "")) , -1)
+	localVarPath := a.client.cfg.BasePath + "/api/v1/pulses/{pulse_number}/jetdrops"
+	localVarPath = strings.Replace(localVarPath, "{"+"pulse_number"+"}", _neturl.QueryEscape(parameterToString(pulseNumber, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -173,7 +177,9 @@ func (a *JetdropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNum
 	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
 		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
 	}
-	localVarQueryParams.Add("from_item", parameterToString(fromItem, ""))
+	if localVarOptionals != nil && localVarOptionals.FromItem.IsSet() {
+		localVarQueryParams.Add("from_item", parameterToString(localVarOptionals.FromItem.Value(), ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -253,8 +259,8 @@ func (a *JetdropApiService) JetdropByID(ctx _context.Context, jetdropId string) 
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/jetdrops/{jetdrop-id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"jetdrop-id"+"}", _neturl.QueryEscape(parameterToString(jetdropId, "")) , -1)
+	localVarPath := a.client.cfg.BasePath + "/api/v1/jetdrops/{jetdrop_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"jetdrop_id"+"}", _neturl.QueryEscape(parameterToString(jetdropId, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

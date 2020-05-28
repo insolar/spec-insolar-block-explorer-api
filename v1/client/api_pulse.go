@@ -44,8 +44,8 @@ func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int64) (PulseR
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/pulses/{pulse-number}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pulse-number"+"}", _neturl.QueryEscape(parameterToString(pulseNumber, "")) , -1)
+	localVarPath := a.client.cfg.BasePath + "/api/v1/pulses/{pulse_number}"
+	localVarPath = strings.Replace(localVarPath, "{"+"pulse_number"+"}", _neturl.QueryEscape(parameterToString(pulseNumber, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -120,6 +120,7 @@ func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int64) (PulseR
 type PulsesOpts struct {
     Limit optional.Int32
     Offset optional.Int32
+    FromItem optional.String
     FromPulseNumber optional.Int64
     ToPulseNumber optional.Int64
     FromJetdropAmount optional.Int32
@@ -129,17 +130,17 @@ type PulsesOpts struct {
 /*
 Pulses Pulses
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param fromItem The numbers of items to return.
  * @param optional nil or *PulsesOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
+ * @param "FromItem" (optional.String) -  The numbers of items to return.
  * @param "FromPulseNumber" (optional.Int64) -  From which Pulse number.
  * @param "ToPulseNumber" (optional.Int64) -  To which Pulse number.
  * @param "FromJetdropAmount" (optional.Int32) -  To which jetdrop_amount.
  * @param "ToJetdropAmount" (optional.Int32) -  From which jetdrop_amount.
 @return PulsesResponse200
 */
-func (a *PulseApiService) Pulses(ctx _context.Context, fromItem string, localVarOptionals *PulsesOpts) (PulsesResponse200, *_nethttp.Response, error) {
+func (a *PulseApiService) Pulses(ctx _context.Context, localVarOptionals *PulsesOpts) (PulsesResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -161,7 +162,9 @@ func (a *PulseApiService) Pulses(ctx _context.Context, fromItem string, localVar
 	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
 		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
 	}
-	localVarQueryParams.Add("from_item", parameterToString(fromItem, ""))
+	if localVarOptionals != nil && localVarOptionals.FromItem.IsSet() {
+		localVarQueryParams.Add("from_item", parameterToString(localVarOptionals.FromItem.Value(), ""))
+	}
 	if localVarOptionals != nil && localVarOptionals.FromPulseNumber.IsSet() {
 		localVarQueryParams.Add("from_pulse_number", parameterToString(localVarOptionals.FromPulseNumber.Value(), ""))
 	}

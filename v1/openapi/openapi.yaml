@@ -23,17 +23,17 @@ tags:
 paths:
   /api/v1/pulses:
     $ref: 'requests/pulses.yaml'
-  /api/v1/pulses/{pulse-number}:
+  /api/v1/pulses/{pulse_number}:
     $ref: 'requests/pulse.yaml'
-  /api/v1/jetdrops/{jetdrop-id}:
+  /api/v1/jetdrops/{jetdrop_id}:
     $ref: 'requests/jetdrop-byid.yaml'
-  /api/v1/pulses/{pulse-number}/jetdrops:
-    $ref: 'requests/jetdrop-bypulse.yaml'
-  /api/v1/jets/{jet-id}/jetdrops:
+  /api/v1/pulses/{pulse_number}/jetdrops:
+    $ref: 'requests/jetdrops-bypulse.yaml'
+  /api/v1/jets/{jet_id}/jetdrops:
     $ref: 'requests/jetdrops-byjetid.yaml'
-  /api/v1/jetdrops/{jetdrop-id}/records:
+  /api/v1/jetdrops/{jetdrop_id}/records:
     $ref: 'requests/records.yaml'
-  /api/v1/lifeline/{object-reference}/records:
+  /api/v1/lifeline/{object_reference}/records:
     $ref: 'requests/lifeline.yaml'
   /api/v1/search:
     $ref: 'requests/search.yaml'

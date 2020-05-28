@@ -11,6 +11,7 @@ parameters:
   schema:
     type: integer
     minimum: 0
+    default: 0
   description: The number of items to skip before starting to collect the result set.
  limitParam:
   in: query
@@ -25,7 +26,7 @@ parameters:
  fromItemParam:
   name: from_item
   in: query
-  required: true
+  required: false
   schema:
     type: string
   description: The numbers of items to return.
@@ -41,14 +42,14 @@ parameters:
        - request
        - result
  objectReferencePathParam:
-   name: object-reference
+   name: object_reference
    in: path
    required: true
    schema:
      type: string
    description: The reference of object.
  jetdropIdPathParam:
-   name: jetdrop-id
+   name: jetdrop_id
    in: path
    required: true
    schema:
@@ -56,17 +57,16 @@ parameters:
    description: The ID of JetDrop.
  pulseNumberPathParam:
    in: path
-   name: pulse-number
+   name: pulse_number
    required: true
    schema:
      type: integer
      format: int64
      minimum: 0
-     default: 20
    description: The Pulse number.
  jetIdPathParam:
    in: path
-   name: jet-id
+   name: jet_id
    required: true
    schema:
      type: string
@@ -80,7 +80,6 @@ parameters:
      type: integer
      format: int64
      minimum: 0
-     default: 0
    description: From which Pulse number.
  toPulseNumberParam:
    in: query
@@ -89,8 +88,7 @@ parameters:
    schema:
      type: integer
      format: int64
-     minimum: 1
-     default: 20
+     minimum: 0
    description: To which Pulse number.
  fromJetDropAmountParam:
    in: query
@@ -99,7 +97,6 @@ parameters:
    schema:
      type: integer
      minimum: 0
-     default: 0
    description: To which jetdrop_amount.
  toJetDropAmountParam:
    in: query
@@ -107,6 +104,5 @@ parameters:
    required: false
    schema:
      type: integer
-     minimum: 1
-     default: 200
+     minimum: 0
    description: From which jetdrop_amount.

@@ -25,11 +25,7 @@ get:
                 type: array
                 items:
                   $ref: '../responses/record.yaml#/recordResponse'
-    '204':
-      $ref: '../responses/codes.yaml/#/responses/204'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
-    '404':
-      $ref: "../responses/codes.yaml/#/responses/404"
     '500':
       $ref: "../responses/codes.yaml/#/responses/500"

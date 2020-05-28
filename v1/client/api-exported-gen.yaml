@@ -126,7 +126,7 @@ paths:
                 required:
                   - validation_failures
                 type: object
-  '/api/v1/pulses/{pulse-number}':
+  '/api/v1/pulses/{pulse_number}':
     get:
       summary: Pulse
       operationId: pulse
@@ -134,13 +134,12 @@ paths:
         - pulse
       parameters:
         - in: path
-          name: pulse-number
+          name: pulse_number
           required: true
           schema:
             type: integer
             format: int64
             minimum: 0
-            default: 20
           description: The Pulse number.
       responses:
         '200':
@@ -206,14 +205,14 @@ paths:
                 title: PulseResponse200
                 required:
                   - validation_failures
-  '/api/v1/jetdrops/{jetdrop-id}':
+  '/api/v1/jetdrops/{jetdrop_id}':
     get:
       summary: JetDrop by ID
       operationId: jetdropByID
       tags:
         - jetdrop
       parameters:
-        - name: jetdrop-id
+        - name: jetdrop_id
           in: path
           required: true
           schema:
@@ -298,7 +297,7 @@ paths:
                 title: JetDrops by Pulse NumberResponse200
                 required:
                   - validation_failures
-  '/api/v1/pulses/{pulse-number}/jetdrops':
+  '/api/v1/pulses/{pulse_number}/jetdrops':
     get:
       summary: JetDrops by Pulse Number
       operationId: JetDropsByPulseNumber
@@ -306,13 +305,12 @@ paths:
         - jetdrop
       parameters:
         - in: path
-          name: pulse-number
+          name: pulse_number
           required: true
           schema:
             type: integer
             format: int64
             minimum: 0
-            default: 20
           description: The Pulse number.
         - $ref: '#/components/parameters/JetDropsByPulseNumberQueryParameterLimit'
         - $ref: '#/components/parameters/JetDropsByPulseNumberQueryParameterOffset'
@@ -396,7 +394,7 @@ paths:
                 title: JetDrops by Pulse NumberResponse200
                 required:
                   - validation_failures
-  '/api/v1/jets/{jet-id}/jetdrops':
+  '/api/v1/jets/{jet_id}/jetdrops':
     get:
       summary: JetDrops by JetID
       operationId: JetDropsByJetID
@@ -404,7 +402,7 @@ paths:
         - jetdrop
       parameters:
         - in: path
-          name: jet-id
+          name: jet_id
           required: true
           schema:
             type: string
@@ -530,7 +528,7 @@ paths:
                 required:
                   - validation_failures
                 type: object
-  '/api/v1/jetdrops/{jetdrop-id}/records':
+  '/api/v1/jetdrops/{jetdrop_id}/records':
     get:
       summary: JetDrop records
       operationId: jetdrop_records
@@ -541,7 +539,7 @@ paths:
         - $ref: '#/components/parameters/JetDropRecordsQueryParameterOffset'
         - $ref: '#/components/parameters/JetDropRecordsQueryParameterFrom_item'
         - $ref: '#/components/parameters/JetDropRecordsQueryParameterType'
-        - name: jetdrop-id
+        - name: jetdrop_id
           in: path
           required: true
           schema:
@@ -638,14 +636,14 @@ paths:
                 required:
                   - validation_failures
                 type: object
-  '/api/v1/lifeline/{object-reference}/records':
+  '/api/v1/lifeline/{object_reference}/records':
     get:
       summary: Object Lifeline
       operationId: object_lifeline
       tags:
         - record
       parameters:
-        - name: object-reference
+        - name: object_reference
           in: path
           required: true
           schema:
@@ -890,11 +888,12 @@ components:
       schema:
         type: integer
         minimum: 0
+        default: 0
       description: The number of items to skip before starting to collect the result set.
     PulsesQueryParameterFrom_item:
       name: from_item
       in: query
-      required: true
+      required: false
       schema:
         type: string
       description: The numbers of items to return.
@@ -906,7 +905,6 @@ components:
         type: integer
         format: int64
         minimum: 0
-        default: 0
       description: From which Pulse number.
     PulsesQueryParameterTo_pulse_number:
       in: query
@@ -915,8 +913,7 @@ components:
       schema:
         type: integer
         format: int64
-        minimum: 1
-        default: 20
+        minimum: 0
       description: To which Pulse number.
     PulsesQueryParameterFrom_jetdrop_amount:
       in: query
@@ -925,7 +922,6 @@ components:
       schema:
         type: integer
         minimum: 0
-        default: 0
       description: To which jetdrop_amount.
     PulsesQueryParameterTo_jetdrop_amount:
       in: query
@@ -933,8 +929,7 @@ components:
       required: false
       schema:
         type: integer
-        minimum: 1
-        default: 200
+        minimum: 0
       description: From which jetdrop_amount.
     JetDropsByPulseNumberQueryParameterLimit:
       in: query
@@ -953,11 +948,12 @@ components:
       schema:
         type: integer
         minimum: 0
+        default: 0
       description: The number of items to skip before starting to collect the result set.
     JetDropsByPulseNumberQueryParameterFrom_item:
       name: from_item
       in: query
-      required: true
+      required: false
       schema:
         type: string
       description: The numbers of items to return.
@@ -978,11 +974,12 @@ components:
       schema:
         type: integer
         minimum: 0
+        default: 0
       description: The number of items to skip before starting to collect the result set.
     JetDropsByJetIDQueryParameterFrom_item:
       name: from_item
       in: query
-      required: true
+      required: false
       schema:
         type: string
       description: The numbers of items to return.
@@ -1003,11 +1000,12 @@ components:
       schema:
         type: integer
         minimum: 0
+        default: 0
       description: The number of items to skip before starting to collect the result set.
     JetDropRecordsQueryParameterFrom_item:
       name: from_item
       in: query
-      required: true
+      required: false
       schema:
         type: string
       description: The numbers of items to return.
@@ -1039,11 +1037,12 @@ components:
       schema:
         type: integer
         minimum: 0
+        default: 0
       description: The number of items to skip before starting to collect the result set.
     ObjectLifelineQueryParameterFrom_item:
       name: from_item
       in: query
-      required: true
+      required: false
       schema:
         type: string
       description: The numbers of items to return.
