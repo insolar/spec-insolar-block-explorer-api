@@ -2,7 +2,7 @@ $schema: http://json-schema.org/draft-07/schema#
 $id: responses/jet-drop.yaml
 type: object
 description: JetDrop representation.
-jetdropResponse:
+jetDropResponse:
   type: object
   properties:
     jet_drop_id:

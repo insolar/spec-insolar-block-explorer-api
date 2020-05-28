@@ -25,7 +25,7 @@ get:
               result:
                 type: array
                 items:
-                  $ref: '../responses/jet-drop.yaml#/jetdropResponse'
+                  $ref: '../responses/jet-drop.yaml#/jetDropResponse'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '500':
