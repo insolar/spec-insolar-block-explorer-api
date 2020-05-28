@@ -6,6 +6,6 @@ searchResponse:
   oneOf:
     - $ref: 'search-pulse.yaml'
     - $ref: 'search-record.yaml'
-    - $ref: 'search-jetdrop.yaml'
+    - $ref: 'search-jet-drop.yaml'
     - $ref: 'search-lifeline.yaml'
     - $ref: 'search-jetid.yaml'
