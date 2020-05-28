@@ -13,7 +13,7 @@ servers:
     description: The test server.
 tags:
   - name: pulse
-  - name: jetdrop
+  - name: jet-drop
   - name: record
 paths:
   /api/v1/pulses:
@@ -28,8 +28,8 @@ paths:
         - $ref: '#/components/parameters/PulsesQueryParameterFrom_item'
         - $ref: '#/components/parameters/PulsesQueryParameterFrom_pulse_number'
         - $ref: '#/components/parameters/PulsesQueryParameterTo_pulse_number'
-        - $ref: '#/components/parameters/PulsesQueryParameterFrom_jetdrop_amount'
-        - $ref: '#/components/parameters/PulsesQueryParameterTo_jetdrop_amount'
+        - $ref: '#/components/parameters/PulsesQueryParameterFrom_jet_drop_amount'
+        - $ref: '#/components/parameters/PulsesQueryParameterTo_jet_drop_amount'
       responses:
         '200':
           description: Internal server error. Unable to process request due to an error.
@@ -62,15 +62,15 @@ paths:
                           format: int64
                           description: Next pulse number.
                           example: 43648112
-                        jetdrop_amount:
+                        jet_drop_amount:
                           type: integer
                           format: int64
-                          description: Amount of all jetdrop in the pulse.
+                          description: Amount of all Jet Drop in the Pulse.
                           example: 16
                         record_amount:
                           type: integer
                           format: int64
-                          description: Number of all records in the pulse.
+                          description: Number of all records in the Pulse.
                           example: 245
                         timestamp:
                           type: integer
@@ -164,15 +164,15 @@ paths:
                     format: int64
                     description: Next pulse number.
                     example: 43648112
-                  jetdrop_amount:
+                  jet_drop_amount:
                     type: integer
                     format: int64
-                    description: Amount of all jetdrop in the pulse.
+                    description: Amount of all Jet Drop in the Pulse.
                     example: 16
                   record_amount:
                     type: integer
                     format: int64
-                    description: Number of all records in the pulse.
+                    description: Number of all records in the Pulse.
                     example: 245
                   timestamp:
                     type: integer
@@ -205,14 +205,14 @@ paths:
                 title: PulseResponse200
                 required:
                   - validation_failures
-  '/api/v1/jetdrops/{jetdrop_id}':
+  '/api/v1/jet-drops/{jet_drop_id}':
     get:
       summary: JetDrop by ID
-      operationId: jetdropByID
+      operationId: jetDropByID
       tags:
-        - jetdrop
+        - jet-drop
       parameters:
-        - name: jetdrop_id
+        - name: jet_drop_id
           in: path
           required: true
           schema:
@@ -226,14 +226,14 @@ paths:
               schema:
                 type: object
                 properties:
-                  jetdrop_id:
+                  jet_drop_id:
                     type: string
                     description: JetDrop ID is concantination of jet_id and pulse_number.
                     example: '43648102:0010'
-                  next_jetdrop_id:
+                  next_jet_drop_id:
                     type: array
                     format: string
-                    description: Next jetdrop_id.
+                    description: Next jet_drop_id.
                     example:
                       - '43648104:00100'
                       - '43648104:00101'
@@ -241,10 +241,10 @@ paths:
                       type: string
                       description: JetDrop ID is concantination of jet_id and pulse_number
                       example: '43648102:0010'
-                  prev_jetdrop_id:
+                  prev_jet_drop_id:
                     type: array
                     format: string
-                    description: Previous jetdrop_id.
+                    description: Previous jet_drop_id.
                     example:
                       - '43648101:0010'
                     items:
@@ -294,15 +294,15 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason
-                title: JetDrops by Pulse NumberResponse200
+                title: JetDrop by IDResponse200
                 required:
                   - validation_failures
-  '/api/v1/pulses/{pulse_number}/jetdrops':
+  '/api/v1/pulses/{pulse_number}/jet-drops':
     get:
       summary: JetDrops by Pulse Number
       operationId: JetDropsByPulseNumber
       tags:
-        - jetdrop
+        - jet-drop
       parameters:
         - in: path
           name: pulse_number
@@ -321,105 +321,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  jetdrop_id:
-                    type: string
-                    description: JetDrop ID is concantination of jet_id and pulse_number.
-                    example: '43648102:0010'
-                  next_jetdrop_id:
-                    type: array
-                    format: string
-                    description: Next jetdrop_id.
-                    example:
-                      - '43648104:00100'
-                      - '43648104:00101'
-                    items:
-                      type: string
-                      description: JetDrop ID is concantination of jet_id and pulse_number
-                      example: '43648102:0010'
-                  prev_jetdrop_id:
-                    type: array
-                    format: string
-                    description: Previous jetdrop_id.
-                    example:
-                      - '43648101:0010'
-                    items:
-                      type: string
-                      description: JetDrop ID is concantination of jet_id and pulse_number
-                      example: '43648102:0010'
-                  jet_id:
-                    type: string
-                    description: Jet ID.
-                    example: '0010'
-                  pulse_number:
-                    type: integer
-                    format: int64
-                    description: Pulse number.
-                    example: 43612021
-                  record_amount:
-                    type: integer
-                    format: int64
-                    description: Number of all records in the pulse.
-                    example: 245
-                  timestamp:
-                    type: integer
-                    format: int64
-                    description: Unix timestamp.
-                    example: 1451743413
-                  hash:
-                    type: string
-                    description: Record hash.
-                    example: >-
-                      0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
-                  code:
-                    type: string
-                  message:
-                    type: string
-                  description:
-                    type: string
-                  link:
-                    type: string
-                  validation_failures:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        property:
-                          type: string
-                          description: Property name
-                        failure_reason:
-                          type: string
-                          description: Failure reason
-                title: JetDrops by Pulse NumberResponse200
-                required:
-                  - validation_failures
-  '/api/v1/jets/{jet_id}/jetdrops':
-    get:
-      summary: JetDrops by JetID
-      operationId: JetDropsByJetID
-      tags:
-        - jetdrop
-      parameters:
-        - in: path
-          name: jet_id
-          required: true
-          schema:
-            type: string
-          description: The JetID.
-          example: '0010'
-        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterLimit'
-        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterOffset'
-        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterFrom_item'
-        - $ref: >-
-            #/components/parameters/JetDropsByJetIDQueryParameterFrom_pulse_number
-        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterTo_pulse_number'
-      responses:
-        '200':
-          description: Internal server error. Unable to process request due to an error.
-          content:
-            application/json:
-              schema:
                 properties:
                   total:
                     type: integer
@@ -431,16 +332,16 @@ paths:
                     items:
                       type: object
                       properties:
-                        jetdrop_id:
+                        jet_drop_id:
                           type: string
                           description: >-
                             JetDrop ID is concantination of jet_id and
                             pulse_number.
                           example: '43648102:0010'
-                        next_jetdrop_id:
+                        next_jet_drop_id:
                           type: array
                           format: string
-                          description: Next jetdrop_id.
+                          description: Next jet_drop_id.
                           example:
                             - '43648104:00100'
                             - '43648104:00101'
@@ -450,10 +351,10 @@ paths:
                               JetDrop ID is concantination of jet_id and
                               pulse_number
                             example: '43648102:0010'
-                        prev_jetdrop_id:
+                        prev_jet_drop_id:
                           type: array
                           format: string
-                          description: Previous jetdrop_id.
+                          description: Previous jet_drop_id.
                           example:
                             - '43648101:0010'
                           items:
@@ -505,7 +406,144 @@ paths:
                               failure_reason:
                                 type: string
                                 description: Failure reason
-                      title: JetDrops by Pulse NumberResponse200
+                      title: JetDrop by IDResponse200
+                      required:
+                        - validation_failures
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name
+                        failure_reason:
+                          type: string
+                          description: Failure reason
+                title: JetDrops by Pulse NumberResponse200
+                required:
+                  - validation_failures
+                type: object
+  '/api/v1/jets/{jet_id}/jet-drops':
+    get:
+      summary: JetDrops by JetID
+      operationId: JetDropsByJetID
+      tags:
+        - jet-drop
+      parameters:
+        - in: path
+          name: jet_id
+          required: true
+          schema:
+            type: string
+          description: The JetID.
+          example: '0010'
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterLimit'
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterOffset'
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterFrom_item'
+        - $ref: >-
+            #/components/parameters/JetDropsByJetIDQueryParameterFrom_pulse_number
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterTo_pulse_number'
+      responses:
+        '200':
+          description: Internal server error. Unable to process request due to an error.
+          content:
+            application/json:
+              schema:
+                properties:
+                  total:
+                    type: integer
+                    format: int64
+                    description: Total results.
+                    example: 100
+                  result:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        jet_drop_id:
+                          type: string
+                          description: >-
+                            JetDrop ID is concantination of jet_id and
+                            pulse_number.
+                          example: '43648102:0010'
+                        next_jet_drop_id:
+                          type: array
+                          format: string
+                          description: Next jet_drop_id.
+                          example:
+                            - '43648104:00100'
+                            - '43648104:00101'
+                          items:
+                            type: string
+                            description: >-
+                              JetDrop ID is concantination of jet_id and
+                              pulse_number
+                            example: '43648102:0010'
+                        prev_jet_drop_id:
+                          type: array
+                          format: string
+                          description: Previous jet_drop_id.
+                          example:
+                            - '43648101:0010'
+                          items:
+                            type: string
+                            description: >-
+                              JetDrop ID is concantination of jet_id and
+                              pulse_number
+                            example: '43648102:0010'
+                        jet_id:
+                          type: string
+                          description: Jet ID.
+                          example: '0010'
+                        pulse_number:
+                          type: integer
+                          format: int64
+                          description: Pulse number.
+                          example: 43612021
+                        record_amount:
+                          type: integer
+                          format: int64
+                          description: Number of all records in the pulse.
+                          example: 245
+                        timestamp:
+                          type: integer
+                          format: int64
+                          description: Unix timestamp.
+                          example: 1451743413
+                        hash:
+                          type: string
+                          description: Record hash.
+                          example: >-
+                            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                        code:
+                          type: string
+                        message:
+                          type: string
+                        description:
+                          type: string
+                        link:
+                          type: string
+                        validation_failures:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              property:
+                                type: string
+                                description: Property name
+                              failure_reason:
+                                type: string
+                                description: Failure reason
+                      title: JetDrop by IDResponse200
                       required:
                         - validation_failures
                   code:
@@ -531,10 +569,10 @@ paths:
                 required:
                   - validation_failures
                 type: object
-  '/api/v1/jetdrops/{jetdrop_id}/records':
+  '/api/v1/jet-drops/{jet_drop_id}/records':
     get:
       summary: JetDrop records
-      operationId: jetdrop_records
+      operationId: jet_drop_records
       tags:
         - record
       parameters:
@@ -542,7 +580,7 @@ paths:
         - $ref: '#/components/parameters/JetDropRecordsQueryParameterOffset'
         - $ref: '#/components/parameters/JetDropRecordsQueryParameterFrom_item'
         - $ref: '#/components/parameters/JetDropRecordsQueryParameterType'
-        - name: jetdrop_id
+        - name: jet_drop_id
           in: path
           required: true
           schema:
@@ -610,7 +648,7 @@ paths:
                           type: string
                           description: Jet ID.
                           example: '0010'
-                        jetdrop_id:
+                        jet_drop_id:
                           type: string
                           description: >-
                             JetDrop ID is concantination of jet_id and
@@ -718,7 +756,7 @@ paths:
                           type: string
                           description: Jet ID.
                           example: '0010'
-                        jetdrop_id:
+                        jet_drop_id:
                           type: string
                           description: >-
                             JetDrop ID is concantination of jet_id and
@@ -899,7 +937,7 @@ components:
       required: false
       schema:
         type: string
-      description: The numbers of items to return.
+      description: The pagination starting point.
     PulsesQueryParameterFrom_pulse_number:
       in: query
       name: from_pulse_number
@@ -918,22 +956,22 @@ components:
         format: int64
         minimum: 0
       description: To which Pulse number.
-    PulsesQueryParameterFrom_jetdrop_amount:
+    PulsesQueryParameterFrom_jet_drop_amount:
       in: query
-      name: from_jetdrop_amount
+      name: from_jet_drop_amount
       required: false
       schema:
         type: integer
         minimum: 0
-      description: To which jetdrop_amount.
-    PulsesQueryParameterTo_jetdrop_amount:
+      description: To which jet_drop_amount.
+    PulsesQueryParameterTo_jet_drop_amount:
       in: query
-      name: to_jetdrop_amount
+      name: to_jet_drop_amount
       required: false
       schema:
         type: integer
         minimum: 0
-      description: From which jetdrop_amount.
+      description: From which jet_drop_amount.
     JetDropsByPulseNumberQueryParameterLimit:
       in: query
       name: limit
@@ -959,7 +997,7 @@ components:
       required: false
       schema:
         type: string
-      description: The numbers of items to return.
+      description: The pagination starting point.
     JetDropsByJetIDQueryParameterLimit:
       in: query
       name: limit
@@ -985,7 +1023,7 @@ components:
       required: false
       schema:
         type: string
-      description: The numbers of items to return.
+      description: The pagination starting point.
     JetDropsByJetIDQueryParameterFrom_pulse_number:
       in: query
       name: from_pulse_number
@@ -1029,7 +1067,7 @@ components:
       required: false
       schema:
         type: string
-      description: The numbers of items to return.
+      description: The pagination starting point.
     JetDropRecordsQueryParameterType:
       name: type
       in: query
@@ -1066,7 +1104,7 @@ components:
       required: false
       schema:
         type: string
-      description: The numbers of items to return.
+      description: The pagination starting point.
     ObjectLifelineQueryParameterType:
       name: type
       in: query

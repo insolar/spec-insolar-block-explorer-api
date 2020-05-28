@@ -29,7 +29,7 @@ parameters:
   required: false
   schema:
     type: string
-  description: The numbers of items to return.
+  description: The pagination starting point.
  recordTypeParam:
    name: type
    in: query

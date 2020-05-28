@@ -14,7 +14,16 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../responses/jet-drop.yaml#/jetDropResponse'
+            properties:
+              total:
+                type: integer
+                format: int64
+                description: Total results.
+                example: 100
+              result:
+                type: array
+                items:
+                  $ref: '../responses/jet-drop.yaml#/jetDropResponse'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '500':

@@ -1,6 +1,6 @@
 get:
   summary: JetDrop by ID
-  operationId: jetdropByID
+  operationId: jetDropByID
   tags:
     - jet-drop
   parameters:

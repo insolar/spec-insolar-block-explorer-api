@@ -30,5 +30,5 @@ type JetDropRecordsResponse200Result struct {
 	// Jet ID.
 	JetId string `json:"jet_id,omitempty"`
 	// JetDrop ID is concantination of jet_id and pulse_number.
-	JetdropId string `json:"jetdrop_id,omitempty"`
+	JetDropId string `json:"jet_drop_id,omitempty"`
 }

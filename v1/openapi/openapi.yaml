@@ -16,7 +16,7 @@ servers:
 
 tags:
   - name: pulse
-  - name: jetdrop
+  - name: jet-drop
   - name: record
 
 

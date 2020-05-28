@@ -13,7 +13,7 @@ servers:
     description: The test server.
 tags:
   - name: pulse
-  - name: jetdrop
+  - name: jet-drop
   - name: record
 paths:
   /api/v1/pulses:
@@ -47,7 +47,7 @@ paths:
           required: false
           schema:
             type: string
-          description: The numbers of items to return.
+          description: The pagination starting point.
         - in: query
           name: from_pulse_number
           required: false
@@ -65,19 +65,19 @@ paths:
             minimum: 0
           description: To which Pulse number.
         - in: query
-          name: from_jetdrop_amount
+          name: from_jet_drop_amount
           required: false
           schema:
             type: integer
             minimum: 0
-          description: To which jetdrop_amount.
+          description: To which jet_drop_amount.
         - in: query
-          name: to_jetdrop_amount
+          name: to_jet_drop_amount
           required: false
           schema:
             type: integer
             minimum: 0
-          description: From which jetdrop_amount.
+          description: From which jet_drop_amount.
       responses:
         '200':
           description: A paged array of Pulses.
@@ -110,15 +110,15 @@ paths:
                           format: int64
                           description: Next pulse number.
                           example: 43648112
-                        jetdrop_amount:
+                        jet_drop_amount:
                           type: integer
                           format: int64
-                          description: Amount of all jetdrop in the pulse.
+                          description: Amount of all Jet Drop in the Pulse.
                           example: 16
                         record_amount:
                           type: integer
                           format: int64
-                          description: Number of all records in the pulse.
+                          description: Number of all records in the Pulse.
                           example: 245
                         timestamp:
                           type: integer
@@ -209,14 +209,14 @@ paths:
             required.
         '500':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
-  '/api/v1/jetdrops/{jetdrop_id}':
+  '/api/v1/jet-drops/{jet_drop_id}':
     get:
       summary: JetDrop by ID
-      operationId: jetdropByID
+      operationId: jetDropByID
       tags:
-        - jetdrop
+        - jet-drop
       parameters:
-        - name: jetdrop_id
+        - name: jet_drop_id
           in: path
           required: true
           schema:
@@ -230,14 +230,14 @@ paths:
               schema:
                 type: object
                 properties:
-                  jetdrop_id:
+                  jet_drop_id:
                     type: string
                     description: JetDrop ID is concantination of jet_id and pulse_number.
                     example: '43648102:0010'
-                  next_jetdrop_id:
+                  next_jet_drop_id:
                     type: array
                     format: string
-                    description: Next jetdrop_id.
+                    description: Next jet_drop_id.
                     example:
                       - '43648104:00100'
                       - '43648104:00101'
@@ -245,15 +245,15 @@ paths:
                       type: string
                       description: JetDrop ID is concantination of jet_id and pulse_number
                       example: '43648102:0010'
-                  prev_jetdrop_id:
+                  prev_jet_drop_id:
                     type: array
                     format: string
-                    description: Previous jetdrop_id.
+                    description: Previous jet_drop_id.
                     example:
                       - '43648101:0010'
                     items:
                       $ref: >-
-                        #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop_id%7D/get/responses/200/content/application~1json/schema/properties/next_jetdrop_id/items
+                        #/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D/get/responses/200/content/application~1json/schema/properties/next_jet_drop_id/items
                   jet_id:
                     type: string
                     description: Jet ID.
@@ -284,12 +284,12 @@ paths:
           $ref: '#/paths/~1api~1v1~1pulses~1%7Bpulse_number%7D/get/responses/404'
         '500':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
-  '/api/v1/pulses/{pulse_number}/jetdrops':
+  '/api/v1/pulses/{pulse_number}/jet-drops':
     get:
       summary: JetDrops by Pulse Number
       operationId: JetDropsByPulseNumber
       tags:
-        - jetdrop
+        - jet-drop
       parameters:
         - $ref: '#/paths/~1api~1v1~1pulses~1%7Bpulse_number%7D/get/parameters/0'
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/0'
@@ -301,18 +301,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: >-
-                  #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop_id%7D/get/responses/200/content/application~1json/schema
+                properties:
+                  total:
+                    type: integer
+                    format: int64
+                    description: Total results.
+                    example: 100
+                  result:
+                    type: array
+                    items:
+                      $ref: >-
+                        #/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D/get/responses/200/content/application~1json/schema
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '500':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
-  '/api/v1/jets/{jet_id}/jetdrops':
+  '/api/v1/jets/{jet_id}/jet-drops':
     get:
       summary: JetDrops by JetID
       operationId: JetDropsByJetID
       tags:
-        - jetdrop
+        - jet-drop
       parameters:
         - in: path
           name: jet_id
@@ -342,15 +351,15 @@ paths:
                     type: array
                     items:
                       $ref: >-
-                        #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop_id%7D/get/responses/200/content/application~1json/schema
+                        #/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D/get/responses/200/content/application~1json/schema
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '500':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
-  '/api/v1/jetdrops/{jetdrop_id}/records':
+  '/api/v1/jet-drops/{jet_drop_id}/records':
     get:
       summary: JetDrop records
-      operationId: jetdrop_records
+      operationId: jet_drop_records
       tags:
         - record
       parameters:
@@ -367,7 +376,7 @@ paths:
               - state
               - request
               - result
-        - $ref: '#/paths/~1api~1v1~1jetdrops~1%7Bjetdrop_id%7D/get/parameters/0'
+        - $ref: '#/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D/get/parameters/0'
       responses:
         '200':
           description: A paged array of records.
@@ -430,7 +439,7 @@ paths:
                           type: string
                           description: Jet ID.
                           example: '0010'
-                        jetdrop_id:
+                        jet_drop_id:
                           type: string
                           description: >-
                             JetDrop ID is concantination of jet_id and
@@ -457,7 +466,7 @@ paths:
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/1'
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/2'
         - $ref: >-
-            #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop_id%7D~1records/get/parameters/3
+            #/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D~1records/get/parameters/3
       responses:
         '200':
           description: A paged array of records.
@@ -474,7 +483,7 @@ paths:
                     type: array
                     items:
                       $ref: >-
-                        #/paths/~1api~1v1~1jetdrops~1%7Bjetdrop_id%7D~1records/get/responses/200/content/application~1json/schema/properties/result/items
+                        #/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D~1records/get/responses/200/content/application~1json/schema/properties/result/items
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '500':

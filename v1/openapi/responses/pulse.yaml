@@ -23,12 +23,12 @@ pulseResponse:
     jet_drop_amount:
       type: integer
       format: int64
-      description: Amount of all jetdrop in the pulse.
+      description: Amount of all Jet Drop in the Pulse.
       example: 16
     record_amount:
       type: integer
       format: int64
-      description: Number of all records in the pulse.
+      description: Number of all records in the Pulse.
       example: 245
     timestamp:
       type: integer

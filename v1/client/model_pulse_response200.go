@@ -17,9 +17,9 @@ type PulseResponse200 struct {
 	PrevPulseNumber int64 `json:"prev_pulse_number,omitempty"`
 	// Next pulse number.
 	NextPulseNumber int64 `json:"next_pulse_number,omitempty"`
-	// Amount of all jetdrop in the pulse.
-	JetdropAmount int64 `json:"jetdrop_amount,omitempty"`
-	// Number of all records in the pulse.
+	// Amount of all Jet Drop in the Pulse.
+	JetDropAmount int64 `json:"jet_drop_amount,omitempty"`
+	// Number of all records in the Pulse.
 	RecordAmount int64 `json:"record_amount,omitempty"`
 	// Unix timestamp.
 	Timestamp int64 `json:"timestamp,omitempty"`

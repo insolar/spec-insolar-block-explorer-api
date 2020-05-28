@@ -123,8 +123,8 @@ type PulsesOpts struct {
     FromItem optional.String
     FromPulseNumber optional.Int64
     ToPulseNumber optional.Int64
-    FromJetdropAmount optional.Int32
-    ToJetdropAmount optional.Int32
+    FromJetDropAmount optional.Int32
+    ToJetDropAmount optional.Int32
 }
 
 /*
@@ -133,11 +133,11 @@ Pulses Pulses
  * @param optional nil or *PulsesOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.String) -  The numbers of items to return.
+ * @param "FromItem" (optional.String) -  The pagination starting point.
  * @param "FromPulseNumber" (optional.Int64) -  From which Pulse number.
  * @param "ToPulseNumber" (optional.Int64) -  To which Pulse number.
- * @param "FromJetdropAmount" (optional.Int32) -  To which jetdrop_amount.
- * @param "ToJetdropAmount" (optional.Int32) -  From which jetdrop_amount.
+ * @param "FromJetDropAmount" (optional.Int32) -  To which jet_drop_amount.
+ * @param "ToJetDropAmount" (optional.Int32) -  From which jet_drop_amount.
 @return PulsesResponse200
 */
 func (a *PulseApiService) Pulses(ctx _context.Context, localVarOptionals *PulsesOpts) (PulsesResponse200, *_nethttp.Response, error) {
@@ -171,11 +171,11 @@ func (a *PulseApiService) Pulses(ctx _context.Context, localVarOptionals *Pulses
 	if localVarOptionals != nil && localVarOptionals.ToPulseNumber.IsSet() {
 		localVarQueryParams.Add("to_pulse_number", parameterToString(localVarOptionals.ToPulseNumber.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.FromJetdropAmount.IsSet() {
-		localVarQueryParams.Add("from_jetdrop_amount", parameterToString(localVarOptionals.FromJetdropAmount.Value(), ""))
+	if localVarOptionals != nil && localVarOptionals.FromJetDropAmount.IsSet() {
+		localVarQueryParams.Add("from_jet_drop_amount", parameterToString(localVarOptionals.FromJetDropAmount.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.ToJetdropAmount.IsSet() {
-		localVarQueryParams.Add("to_jetdrop_amount", parameterToString(localVarOptionals.ToJetdropAmount.Value(), ""))
+	if localVarOptionals != nil && localVarOptionals.ToJetDropAmount.IsSet() {
+		localVarQueryParams.Add("to_jet_drop_amount", parameterToString(localVarOptionals.ToJetDropAmount.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

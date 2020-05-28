@@ -27,8 +27,8 @@ var (
 // RecordApiService RecordApi service
 type RecordApiService service
 
-// JetdropRecordsOpts Optional parameters for the method 'JetdropRecords'
-type JetdropRecordsOpts struct {
+// JetDropRecordsOpts Optional parameters for the method 'JetDropRecords'
+type JetDropRecordsOpts struct {
     Limit optional.Int32
     Offset optional.Int32
     FromItem optional.String
@@ -36,17 +36,17 @@ type JetdropRecordsOpts struct {
 }
 
 /*
-JetdropRecords JetDrop records
+JetDropRecords JetDrop records
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param jetdropId The ID of JetDrop.
- * @param optional nil or *JetdropRecordsOpts - Optional Parameters:
+ * @param jetDropId The ID of JetDrop.
+ * @param optional nil or *JetDropRecordsOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.String) -  The numbers of items to return.
+ * @param "FromItem" (optional.String) -  The pagination starting point.
  * @param "Type_" (optional.String) -  The record type.
 @return JetDropRecordsResponse200
 */
-func (a *RecordApiService) JetdropRecords(ctx _context.Context, jetdropId string, localVarOptionals *JetdropRecordsOpts) (JetDropRecordsResponse200, *_nethttp.Response, error) {
+func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string, localVarOptionals *JetDropRecordsOpts) (JetDropRecordsResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -57,8 +57,8 @@ func (a *RecordApiService) JetdropRecords(ctx _context.Context, jetdropId string
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/jetdrops/{jetdrop_id}/records"
-	localVarPath = strings.Replace(localVarPath, "{"+"jetdrop_id"+"}", _neturl.QueryEscape(parameterToString(jetdropId, "")) , -1)
+	localVarPath := a.client.cfg.BasePath + "/api/v1/jet-drops/{jet_drop_id}/records"
+	localVarPath = strings.Replace(localVarPath, "{"+"jet_drop_id"+"}", _neturl.QueryEscape(parameterToString(jetDropId, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -153,7 +153,7 @@ ObjectLifeline Object Lifeline
  * @param optional nil or *ObjectLifelineOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.String) -  The numbers of items to return.
+ * @param "FromItem" (optional.String) -  The pagination starting point.
  * @param "Type_" (optional.String) -  The record type.
 @return JetDropRecordsResponse200
 */
