@@ -4,13 +4,13 @@ get:
   tags:
     - pulse
   parameters:
-    - $ref: '../requests/paging-params.yaml#/parameters/limitParam'
-    - $ref: '../requests/paging-params.yaml#/parameters/offsetParam'
-    - $ref: '../requests/paging-params.yaml#/parameters/fromItemParam'
-    - $ref: '../requests/paging-params.yaml#/parameters/fromPulseNumberParam'
-    - $ref: '../requests/paging-params.yaml#/parameters/toPulseNumberParam'
-    - $ref: '../requests/paging-params.yaml#/parameters/fromJetDropAmountParam'
-    - $ref: '../requests/paging-params.yaml#/parameters/toJetDropAmountParam'
+    - $ref: '../requests/common-params.yaml#/parameters/limitParam'
+    - $ref: '../requests/common-params.yaml#/parameters/offsetParam'
+    - $ref: '../requests/common-params.yaml#/parameters/fromItemParam'
+    - $ref: '../requests/common-params.yaml#/parameters/fromPulseNumberParam'
+    - $ref: '../requests/common-params.yaml#/parameters/toPulseNumberParam'
+    - $ref: '../requests/common-params.yaml#/parameters/fromJetDropAmountParam'
+    - $ref: '../requests/common-params.yaml#/parameters/toJetDropAmountParam'
   responses:
     '200':
       description: A paged array of Pulses.

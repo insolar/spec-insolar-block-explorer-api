@@ -4,11 +4,11 @@ get:
   tags:
     - record
   parameters:
-      - $ref: '../requests/paging-params.yaml#/parameters/objectReferencePathParam'
-      - $ref: '../requests/paging-params.yaml#/parameters/limitParam'
-      - $ref: '../requests/paging-params.yaml#/parameters/offsetParam'
-      - $ref: '../requests/paging-params.yaml#/parameters/fromItemParam'
-      - $ref: '../requests/paging-params.yaml#/parameters/recordTypeParam'
+      - $ref: '../requests/common-params.yaml#/parameters/objectReferencePathParam'
+      - $ref: '../requests/common-params.yaml#/parameters/limitParam'
+      - $ref: '../requests/common-params.yaml#/parameters/offsetParam'
+      - $ref: '../requests/common-params.yaml#/parameters/fromItemParam'
+      - $ref: '../requests/common-params.yaml#/parameters/recordTypeParam'
   responses:
     '200':
       description: A paged array of records.

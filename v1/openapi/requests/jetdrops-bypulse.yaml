@@ -4,10 +4,10 @@ get:
   tags:
     - jetdrop
   parameters:
-    - $ref: '../requests/paging-params.yaml#/parameters/pulseNumberPathParam'
-    - $ref: '../requests/paging-params.yaml#/parameters/limitParam'
-    - $ref: '../requests/paging-params.yaml#/parameters/offsetParam'
-    - $ref: '../requests/paging-params.yaml#/parameters/fromItemParam'
+    - $ref: '../requests/common-params.yaml#/parameters/pulseNumberPathParam'
+    - $ref: '../requests/common-params.yaml#/parameters/limitParam'
+    - $ref: '../requests/common-params.yaml#/parameters/offsetParam'
+    - $ref: '../requests/common-params.yaml#/parameters/fromItemParam'
   responses:
     '200':
       description: A paged array of JetDrops.
