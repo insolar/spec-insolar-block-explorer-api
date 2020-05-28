@@ -2,7 +2,7 @@ get:
   summary: JetDrops by Pulse Number
   operationId: JetDropsByPulseNumber
   tags:
-    - jetdrop
+    - jet-drop
   parameters:
     - $ref: '../requests/common-params.yaml#/parameters/pulseNumberPathParam'
     - $ref: '../requests/common-params.yaml#/parameters/limitParam'

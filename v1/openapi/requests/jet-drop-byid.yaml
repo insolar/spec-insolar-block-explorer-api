@@ -2,7 +2,7 @@ get:
   summary: JetDrop by ID
   operationId: jetdropByID
   tags:
-    - jetdrop
+    - jet-drop
   parameters:
     - $ref: '../requests/common-params.yaml#/parameters/jetDropIdPathParam'
   responses:

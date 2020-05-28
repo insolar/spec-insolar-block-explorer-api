@@ -2,7 +2,7 @@ get:
   summary: JetDrops by JetID
   operationId: JetDropsByJetID
   tags:
-    - jetdrop
+    - jet-drop
   parameters:
     - $ref: '../requests/common-params.yaml#/parameters/jetIdPathParam'
     - $ref: '../requests/common-params.yaml#/parameters/limitParam'

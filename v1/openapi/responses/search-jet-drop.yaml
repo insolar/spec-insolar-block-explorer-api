@@ -7,7 +7,7 @@ properties:
     type: string
     description: Result type.
     enum:
-      - jetdrop
+      - jet-drop
     example: jetdrop
   meta:
     type: object

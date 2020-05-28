@@ -92,17 +92,17 @@ parameters:
    description: To which Pulse number.
  fromJetDropAmountParam:
    in: query
-   name: from_jetdrop_amount
+   name: from_jet_drop_amount
    required: false
    schema:
      type: integer
      minimum: 0
-   description: To which jetdrop_amount.
+   description: To which jet_drop_amount.
  toJetDropAmountParam:
    in: query
-   name: to_jetdrop_amount
+   name: to_jet_drop_amount
    required: false
    schema:
      type: integer
      minimum: 0
-   description: From which jetdrop_amount.
+   description: From which jet_drop_amount.

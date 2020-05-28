@@ -20,7 +20,7 @@ pulseResponse:
       format: int64
       description: Next pulse number.
       example: 43648112
-    jetdrop_amount:
+    jet_drop_amount:
       type: integer
       format: int64
       description: Amount of all jetdrop in the pulse.
