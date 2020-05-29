@@ -42,7 +42,6 @@ parameters:
      type: string
    description: The reference of object.
    example: "insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE"
-   pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
  jetDropIdPathParam:
    name: jet_drop_id
    in: path
@@ -50,8 +49,6 @@ parameters:
    schema:
      type: string
    description: The ID of JetDrop.
-   example: "43648102:0010"
-   pattern: '^(\d+:[0-1]{2,64})$'
  pulseNumberPathParam:
    in: path
    name: pulse_number
@@ -69,7 +66,6 @@ parameters:
      type: string
    description: The JetID.
    example: "0010"
-   pattern: '^([0-1]{2,64})$'
  fromPulseNumberParam:
    in: query
    name: from_pulse_number

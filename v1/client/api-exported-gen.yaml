@@ -218,8 +218,6 @@ paths:
           schema:
             type: string
           description: The ID of JetDrop.
-          example: '43648102:0010'
-          pattern: '^(\d+:[0-1]{2,64})$'
       responses:
         '200':
           description: Internal server error. Unable to process request due to an error.
@@ -456,7 +454,6 @@ paths:
             type: string
           description: The JetID.
           example: '0010'
-          pattern: '^([0-1]{2,64})$'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterLimit'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterOffset'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterFrom_item'
@@ -601,8 +598,6 @@ paths:
           schema:
             type: string
           description: The ID of JetDrop.
-          example: '43648102:0010'
-          pattern: '^(\d+:[0-1]{2,64})$'
       responses:
         '200':
           description: Internal server error. Unable to process request due to an error.
@@ -714,7 +709,6 @@ paths:
             type: string
           description: The reference of object.
           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterLimit'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterOffset'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterFrom_item'
