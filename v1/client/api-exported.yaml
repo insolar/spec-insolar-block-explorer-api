@@ -349,7 +349,6 @@ paths:
             type: string
           description: The pagination starting point. Accepting jet_id.
           example: '0010'
-          pattern: '^([0-1]{2,64})$'
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/3'
         - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/4'
       responses:
@@ -389,7 +388,6 @@ paths:
             type: string
           description: The pagination starting point. Accepting record reference.
           example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
-          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
         - name: type
           in: query
           description: The record type.
@@ -502,7 +500,6 @@ paths:
             type: string
           description: The pagination starting point. Accepting object_reference.
           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
         - $ref: >-
             #/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D~1records/get/parameters/3
       responses:

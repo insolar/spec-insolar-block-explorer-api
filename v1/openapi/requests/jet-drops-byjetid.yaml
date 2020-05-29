@@ -14,7 +14,6 @@ get:
         type: string
       description: The pagination starting point. Accepting jet_id.
       example: "0010"
-      pattern: '^([0-1]{2,64})$'
     - $ref: '../requests/common-params.yaml#/parameters/fromPulseNumberParam'
     - $ref: '../requests/common-params.yaml#/parameters/toPulseNumberParam'
   responses:
