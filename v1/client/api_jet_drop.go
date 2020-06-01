@@ -233,7 +233,7 @@ func (a *JetDropApiService) JetDropsByJetID(ctx _context.Context, jetId string, 
 type JetDropsByPulseNumberOpts struct {
     Limit optional.Int32
     Offset optional.Int32
-    FromItem optional.Int64
+    FromItem optional.String
 }
 
 /*
@@ -243,7 +243,7 @@ JetDropsByPulseNumber JetDrops by Pulse Number
  * @param optional nil or *JetDropsByPulseNumberOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.Int64) -  The pagination starting point. Accepting pulse_number.
+ * @param "FromItem" (optional.String) -  The pagination starting point. Accepting jet_drop_id.
 @return JetDropsByPulseNumberResponse200
 */
 func (a *JetDropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNumber int64, localVarOptionals *JetDropsByPulseNumberOpts) (JetDropsByPulseNumberResponse200, *_nethttp.Response, error) {

@@ -11,8 +11,8 @@ get:
       required: false
       schema:
         type: string
-      description: The pagination starting point. Accepting record reference.
-      example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
+      description: The pagination starting point. Accepting pulse_number:order.
+      example: "43612021:3"
     - $ref: '../requests/common-params.yaml#/parameters/recordTypeParam'
     - $ref: '../requests/common-params.yaml#/parameters/jetDropIdPathParam'
   responses:

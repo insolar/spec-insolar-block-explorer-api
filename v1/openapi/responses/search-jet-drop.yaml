@@ -1,5 +1,5 @@
 $schema: http://json-schema.org/draft-07/schema#
-$id: responses/search-record.yaml
+$id: responses/search-jet-drop.yaml
 description: Record response for Search.
 title: Record response.
 properties:

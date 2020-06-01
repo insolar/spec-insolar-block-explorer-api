@@ -11,9 +11,8 @@ get:
       in: query
       required: false
       schema:
-        type: integer
-        format: int64
-      description: The pagination starting point. Accepting pulse_number.
+        type: string
+      description: The pagination starting point. Accepting jet_drop_id.
   responses:
     '200':
       description: A paged array of JetDrops.

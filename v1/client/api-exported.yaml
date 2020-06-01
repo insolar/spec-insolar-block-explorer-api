@@ -302,9 +302,8 @@ paths:
           in: query
           required: false
           schema:
-            type: integer
-            format: int64
-          description: The pagination starting point. Accepting pulse_number.
+            type: string
+          description: The pagination starting point. Accepting jet_drop_id.
       responses:
         '200':
           description: A paged array of JetDrops.
@@ -386,8 +385,8 @@ paths:
           required: false
           schema:
             type: string
-          description: The pagination starting point. Accepting record reference.
-          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          description: 'The pagination starting point. Accepting pulse_number:order.'
+          example: '43612021:3'
         - name: type
           in: query
           description: The record type.
@@ -473,6 +472,11 @@ paths:
                             JetDrop ID is concantination of jet_id and
                             pulse_number.
                           example: '43648102:0010'
+                        order:
+                          type: int
+                          format: int64
+                          description: Order is the record order number in the Jet Drop.
+                          example: '3'
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '500':
@@ -498,8 +502,15 @@ paths:
           required: false
           schema:
             type: string
-          description: The pagination starting point. Accepting object_reference.
-          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+          description: 'The pagination starting point. Accepting pulse_number:order.'
+          example: '43612021:3'
+        - name: record_reference
+          in: query
+          required: false
+          schema:
+            type: string
+          description: The pagination starting point. Accepting record_reference.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
         - $ref: >-
             #/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D~1records/get/parameters/3
       responses:
@@ -545,9 +556,9 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/responses-search-pulse-yaml'
                   - $ref: '#/components/schemas/responses-search-record-yaml'
-                  - $ref: '#/components/schemas/responses-search-record-yaml'
+                  - $ref: '#/components/schemas/responses-search-jet-drop-yaml'
                   - $ref: '#/components/schemas/responses-search-lifeline-yaml'
-                  - $ref: '#/components/schemas/responses-search-record-yaml'
+                  - $ref: '#/components/schemas/responses-search-jetid-yaml'
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
@@ -595,6 +606,25 @@ components:
               description: Record reference.
               example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
       x-json-schema-id: responses/search-record.yaml
+    responses-search-jet-drop-yaml:
+      description: Record response for Search.
+      title: Record response.
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - jet-drop
+          example: jet-drop
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            jet_drop_id:
+              type: string
+              description: JetDrop ID.
+              example: '43612021:001'
+      x-json-schema-id: responses/search-jet-drop.yaml
     responses-search-lifeline-yaml:
       description: Lifeline response for Search.
       title: Record response.
@@ -614,3 +644,22 @@ components:
               description: Object reference.
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
       x-json-schema-id: responses/search-lifeline.yaml
+    responses-search-jetid-yaml:
+      description: Record response for Search.
+      title: Record response.
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - jetid
+          example: jetid
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            jet-id:
+              type: string
+              description: Jet ID.
+              example: '0010'
+      x-json-schema-id: responses/search-jetid.yaml

@@ -672,6 +672,11 @@ paths:
                             JetDrop ID is concantination of jet_id and
                             pulse_number.
                           example: '43648102:0010'
+                        order:
+                          type: int
+                          format: int64
+                          description: Order is the record order number in the Jet Drop.
+                          example: '3'
                   code:
                     type: string
                   message:
@@ -712,6 +717,7 @@ paths:
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterLimit'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterOffset'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterFrom_item'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterRecord_reference'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterType'
       responses:
         '200':
@@ -787,6 +793,11 @@ paths:
                             JetDrop ID is concantination of jet_id and
                             pulse_number.
                           example: '43648102:0010'
+                        order:
+                          type: int
+                          format: int64
+                          description: Order is the record order number in the Jet Drop.
+                          example: '3'
                   code:
                     type: string
                   message:
@@ -833,8 +844,10 @@ paths:
                     enum:
                       - pulse
                       - record
+                      - jet-drop
                       - lifeline
-                    example: record
+                      - jetid
+                    example: jetid
                   meta:
                     type: object
                     description: Meta data.
@@ -849,10 +862,18 @@ paths:
                         description: Record reference.
                         example: >-
                           insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
+                      jet_drop_id:
+                        type: string
+                        description: JetDrop ID.
+                        example: '43612021:001'
                       object_reference:
                         type: string
                         description: Object reference.
                         example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                      jet-id:
+                        type: string
+                        description: Jet ID.
+                        example: '0010'
                   code:
                     type: string
                   message:
@@ -872,7 +893,7 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason
-                x-json-schema-id: responses/search-record.yaml
+                x-json-schema-id: responses/search-jetid.yaml
                 required:
                   - validation_failures
                 type: object
@@ -917,6 +938,25 @@ components:
               description: Record reference.
               example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
       x-json-schema-id: responses/search-record.yaml
+    responses-search-jet-drop-yaml:
+      description: Record response for Search.
+      title: Record response.
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - jet-drop
+          example: jet-drop
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            jet_drop_id:
+              type: string
+              description: JetDrop ID.
+              example: '43612021:001'
+      x-json-schema-id: responses/search-jet-drop.yaml
     responses-search-lifeline-yaml:
       description: Lifeline response for Search.
       title: Record response.
@@ -936,6 +976,25 @@ components:
               description: Object reference.
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
       x-json-schema-id: responses/search-lifeline.yaml
+    responses-search-jetid-yaml:
+      description: Record response for Search.
+      title: Record response.
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - jetid
+          example: jetid
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            jet-id:
+              type: string
+              description: Jet ID.
+              example: '0010'
+      x-json-schema-id: responses/search-jetid.yaml
   parameters:
     PulsesQueryParameterLimit:
       in: query
@@ -1022,9 +1081,8 @@ components:
       in: query
       required: false
       schema:
-        type: integer
-        format: int64
-      description: The pagination starting point. Accepting pulse_number.
+        type: string
+      description: The pagination starting point. Accepting jet_drop_id.
     JetDropsByJetIDQueryParameterLimit:
       in: query
       name: limit
@@ -1095,8 +1153,8 @@ components:
       required: false
       schema:
         type: string
-      description: The pagination starting point. Accepting record reference.
-      example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+      description: 'The pagination starting point. Accepting pulse_number:order.'
+      example: '43612021:3'
     JetDropRecordsQueryParameterType:
       name: type
       in: query
@@ -1133,8 +1191,16 @@ components:
       required: false
       schema:
         type: string
-      description: The pagination starting point. Accepting object_reference.
-      example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+      description: 'The pagination starting point. Accepting pulse_number:order.'
+      example: '43612021:3'
+    ObjectLifelineQueryParameterRecord_reference:
+      name: record_reference
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The pagination starting point. Accepting record_reference.
+      example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
     ObjectLifelineQueryParameterType:
       name: type
       in: query

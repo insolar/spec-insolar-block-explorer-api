@@ -42,7 +42,7 @@ JetDropRecords JetDrop records
  * @param optional nil or *JetDropRecordsOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.String) -  The pagination starting point. Accepting record reference.
+ * @param "FromItem" (optional.String) -  The pagination starting point. Accepting pulse_number:order.
  * @param "Type_" (optional.String) -  The record type.
 @return JetDropRecordsResponse200
 */
@@ -143,6 +143,7 @@ type ObjectLifelineOpts struct {
     Limit optional.Int32
     Offset optional.Int32
     FromItem optional.String
+    RecordReference optional.String
     Type_ optional.String
 }
 
@@ -153,7 +154,8 @@ ObjectLifeline Object Lifeline
  * @param optional nil or *ObjectLifelineOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.String) -  The pagination starting point. Accepting object_reference.
+ * @param "FromItem" (optional.String) -  The pagination starting point. Accepting pulse_number:order.
+ * @param "RecordReference" (optional.String) -  The pagination starting point. Accepting record_reference.
  * @param "Type_" (optional.String) -  The record type.
 @return JetDropRecordsResponse200
 */
@@ -183,6 +185,9 @@ func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference 
 	}
 	if localVarOptionals != nil && localVarOptionals.FromItem.IsSet() {
 		localVarQueryParams.Add("from_item", parameterToString(localVarOptionals.FromItem.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.RecordReference.IsSet() {
+		localVarQueryParams.Add("record_reference", parameterToString(localVarOptionals.RecordReference.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.Type_.IsSet() {
 		localVarQueryParams.Add("type", parameterToString(localVarOptionals.Type_.Value(), ""))

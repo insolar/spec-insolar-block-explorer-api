@@ -55,3 +55,8 @@ recordResponse:
       type: string
       description: JetDrop ID is concantination of jet_id and pulse_number.
       example: "43648102:0010"
+    order:
+      type: int
+      format: int64
+      description: Order is the record order number in the Jet Drop.
+      example: "3"
