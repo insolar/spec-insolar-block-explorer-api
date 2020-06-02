@@ -13,6 +13,8 @@ package client
 type JetDropRecordsResponse200Result struct {
 	// Record reference.
 	Reference string `json:"reference,omitempty"`
+	// Previous record reference.
+	PrevRecordReference string `json:"prev_record_reference,omitempty"`
 	// Object reference.
 	ObjectReference string `json:"object_reference,omitempty"`
 	// Prototype reference.

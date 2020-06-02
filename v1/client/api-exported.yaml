@@ -421,6 +421,12 @@ paths:
                           example: >-
                             insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
                           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+                        prev_record_reference:
+                          type: string
+                          description: Previous record reference.
+                          example: >-
+                            insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record
+                          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
                         object_reference:
                           type: string
                           description: Object reference.
