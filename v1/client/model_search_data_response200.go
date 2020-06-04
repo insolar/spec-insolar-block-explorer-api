@@ -9,7 +9,7 @@
  */
 
 package client
-// SearchDataResponse200 Record response for Search.
+// SearchDataResponse200 Jet ID response for Search.
 type SearchDataResponse200 struct {
 	// Result type.
 	Type string `json:"type,omitempty"`

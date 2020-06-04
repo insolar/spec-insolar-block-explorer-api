@@ -782,7 +782,7 @@ paths:
           content:
             application/json:
               schema:
-                description: Record response for Search.
+                description: Jet ID response for Search.
                 title: Search DataResponse200
                 properties:
                   type:
@@ -1206,8 +1206,8 @@ components:
               example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
       x-json-schema-id: responses/search-record
     responses-search-jet-drop:
-      description: Record response for Search.
-      title: Record response
+      description: Jet drop response for Search.
+      title: Jet drop response
       properties:
         type:
           type: string
@@ -1226,7 +1226,7 @@ components:
       x-json-schema-id: responses/search-jet-drop
     responses-search-lifeline:
       description: Lifeline response for Search.
-      title: Record response
+      title: Lifeline response
       properties:
         type:
           type: string
@@ -1244,8 +1244,8 @@ components:
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
       x-json-schema-id: responses/search-lifeline
     responses-search-jetid:
-      description: Record response for Search.
-      title: Record response
+      description: Jet ID response for Search.
+      title: Jet ID response
       properties:
         type:
           type: string
