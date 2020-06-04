@@ -1,7 +1,7 @@
 /*
  * Insolar Block Explorer API
  *
- * BE description
+ * BE description 
  *
  * API version: 1.0.0
  * Contact: dev-support@insolar.io
@@ -9,7 +9,6 @@
  */
 
 package client
-
 // PulsesResponse200Result struct for PulsesResponse200Result
 type PulsesResponse200Result struct {
 	// Pulse number.

@@ -1,7 +1,7 @@
 /*
  * Insolar Block Explorer API
  *
- * BE description
+ * BE description 
  *
  * API version: 1.0.0
  * Contact: dev-support@insolar.io
@@ -12,11 +12,11 @@ package client
 
 import (
 	_context "context"
-	"github.com/antihax/optional"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
+	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -45,7 +45,7 @@ func (a *JetDropApiService) JetDropByID(ctx _context.Context, jetDropId string) 
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/api/v1/jet-drops/{jet_drop_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"jet_drop_id"+"}", _neturl.QueryEscape(parameterToString(jetDropId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"jet_drop_id"+"}", _neturl.QueryEscape(parameterToString(jetDropId, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -115,11 +115,11 @@ func (a *JetDropApiService) JetDropByID(ctx _context.Context, jetDropId string) 
 
 // JetDropsByJetIDOpts Optional parameters for the method 'JetDropsByJetID'
 type JetDropsByJetIDOpts struct {
-	Limit           optional.Int32
-	Offset          optional.Int32
-	FromItem        optional.String
-	FromPulseNumber optional.Int64
-	ToPulseNumber   optional.Int64
+    Limit optional.Int32
+    Offset optional.Int32
+    FromItem optional.String
+    FromPulseNumber optional.Int64
+    ToPulseNumber optional.Int64
 }
 
 /*
@@ -146,7 +146,7 @@ func (a *JetDropApiService) JetDropsByJetID(ctx _context.Context, jetId string, 
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/api/v1/jets/{jet_id}/jet-drops"
-	localVarPath = strings.Replace(localVarPath, "{"+"jet_id"+"}", _neturl.QueryEscape(parameterToString(jetId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"jet_id"+"}", _neturl.QueryEscape(parameterToString(jetId, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -231,9 +231,9 @@ func (a *JetDropApiService) JetDropsByJetID(ctx _context.Context, jetId string, 
 
 // JetDropsByPulseNumberOpts Optional parameters for the method 'JetDropsByPulseNumber'
 type JetDropsByPulseNumberOpts struct {
-	Limit    optional.Int32
-	Offset   optional.Int32
-	FromItem optional.String
+    Limit optional.Int32
+    Offset optional.Int32
+    FromItem optional.String
 }
 
 /*
@@ -258,7 +258,7 @@ func (a *JetDropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNum
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/api/v1/pulses/{pulse_number}/jet-drops"
-	localVarPath = strings.Replace(localVarPath, "{"+"pulse_number"+"}", _neturl.QueryEscape(parameterToString(pulseNumber, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pulse_number"+"}", _neturl.QueryEscape(parameterToString(pulseNumber, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

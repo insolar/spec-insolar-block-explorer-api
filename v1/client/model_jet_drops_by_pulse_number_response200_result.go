@@ -1,7 +1,7 @@
 /*
  * Insolar Block Explorer API
  *
- * BE description
+ * BE description 
  *
  * API version: 1.0.0
  * Contact: dev-support@insolar.io
@@ -9,7 +9,6 @@
  */
 
 package client
-
 // JetDropsByPulseNumberResponse200Result struct for JetDropsByPulseNumberResponse200Result
 type JetDropsByPulseNumberResponse200Result struct {
 	// JetDrop ID is concantination of jet_id and pulse_number.

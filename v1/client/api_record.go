@@ -1,7 +1,7 @@
 /*
  * Insolar Block Explorer API
  *
- * BE description
+ * BE description 
  *
  * API version: 1.0.0
  * Contact: dev-support@insolar.io
@@ -12,11 +12,11 @@ package client
 
 import (
 	_context "context"
-	"github.com/antihax/optional"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
+	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -29,10 +29,10 @@ type RecordApiService service
 
 // JetDropRecordsOpts Optional parameters for the method 'JetDropRecords'
 type JetDropRecordsOpts struct {
-	Limit    optional.Int32
-	Offset   optional.Int32
-	FromItem optional.String
-	Type_    optional.String
+    Limit optional.Int32
+    Offset optional.Int32
+    FromItem optional.String
+    Type_ optional.String
 }
 
 /*
@@ -58,7 +58,7 @@ func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/api/v1/jet-drops/{jet_drop_id}/records"
-	localVarPath = strings.Replace(localVarPath, "{"+"jet_drop_id"+"}", _neturl.QueryEscape(parameterToString(jetDropId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"jet_drop_id"+"}", _neturl.QueryEscape(parameterToString(jetDropId, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -140,11 +140,11 @@ func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string
 
 // ObjectLifelineOpts Optional parameters for the method 'ObjectLifeline'
 type ObjectLifelineOpts struct {
-	Limit           optional.Int32
-	Offset          optional.Int32
-	FromItem        optional.String
-	RecordReference optional.String
-	Type_           optional.String
+    Limit optional.Int32
+    Offset optional.Int32
+    FromItem optional.String
+    RecordReference optional.String
+    Type_ optional.String
 }
 
 /*
@@ -171,7 +171,7 @@ func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference 
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/api/v1/lifeline/{object_reference}/records"
-	localVarPath = strings.Replace(localVarPath, "{"+"object_reference"+"}", _neturl.QueryEscape(parameterToString(objectReference, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"object_reference"+"}", _neturl.QueryEscape(parameterToString(objectReference, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
