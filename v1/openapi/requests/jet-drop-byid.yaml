@@ -4,14 +4,18 @@ get:
   tags:
     - jet-drop
   parameters:
-    - $ref: '../requests/common-params.yaml#/parameters/jetDropIdPathParam'
+    - $ref: '../parameters/jetDropIdPathParam.yaml'
   responses:
     '200':
       description: A JetDrop.
       content:
         application/json:
           schema:
-            $ref: '../responses/jet-drop.yaml#/jetDropResponse'
+            type: object
+            properties:
+              x-merge: true
+              allOf:
+                - $ref: '../responses/jet-drop.yaml/#/jetDropResponse'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '404':

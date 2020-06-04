@@ -4,9 +4,9 @@ get:
   tags:
     - jet-drop
   parameters:
-    - $ref: '../requests/common-params.yaml#/parameters/jetIdPathParam'
-    - $ref: '../requests/common-params.yaml#/parameters/limitParam'
-    - $ref: '../requests/common-params.yaml#/parameters/offsetParam'
+    - $ref: '../parameters/jetIdPathParam.yaml'
+    - $ref: '../parameters/limitParam.yaml'
+    - $ref: '../parameters/offsetParam.yaml'
     - name: from_item
       in: query
       required: false
@@ -14,14 +14,15 @@ get:
         type: string
       description: The pagination starting point. Accepting jet_id.
       example: "0010"
-    - $ref: '../requests/common-params.yaml#/parameters/fromPulseNumberParam'
-    - $ref: '../requests/common-params.yaml#/parameters/toPulseNumberParam'
+    - $ref: '../parameters/fromPulseNumberParam.yaml'
+    - $ref: '../parameters/toPulseNumberParam.yaml'
   responses:
     '200':
       description: A paged array of JetDrops.
       content:
         application/json:
           schema:
+#            type: object
             properties:
               total:
                 type: integer
@@ -31,7 +32,9 @@ get:
               result:
                 type: array
                 items:
-                  $ref: '../responses/jet-drop.yaml#/jetDropResponse'
+                  x-merge: true
+                  allOf:
+                    - $ref: '../responses/jet-drop.yaml#/jetDropResponse'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '500':

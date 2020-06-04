@@ -4,8 +4,8 @@ get:
   tags:
     - pulse
   parameters:
-    - $ref: '../requests/common-params.yaml#/parameters/limitParam'
-    - $ref: '../requests/common-params.yaml#/parameters/offsetParam'
+    - $ref: '../parameters/limitParam.yaml'
+    - $ref: '../parameters/offsetParam.yaml'
     - name: from_item
       in: query
       required: false
@@ -13,10 +13,10 @@ get:
         type: integer
         format: int64
       description: The pagination starting point. Accepting pulse_number.
-    - $ref: '../requests/common-params.yaml#/parameters/fromPulseNumberParam'
-    - $ref: '../requests/common-params.yaml#/parameters/toPulseNumberParam'
-    - $ref: '../requests/common-params.yaml#/parameters/fromJetDropAmountParam'
-    - $ref: '../requests/common-params.yaml#/parameters/toJetDropAmountParam'
+    - $ref: '../parameters/fromPulseNumberParam.yaml'
+    - $ref: '../parameters/toPulseNumberParam.yaml'
+    - $ref: '../parameters/fromJetDropAmountParam.yaml'
+    - $ref: '../parameters/toJetDropAmountParam.yaml'
   responses:
     '200':
       description: A paged array of Pulses.
@@ -32,7 +32,9 @@ get:
               result:
                 type: array
                 items:
-                  $ref: '../responses/pulse.yaml#/pulseResponse'
+                  x-merge: true
+                  allOf:
+                    - $ref: '../responses/pulse.yaml#/pulseResponse'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '500':

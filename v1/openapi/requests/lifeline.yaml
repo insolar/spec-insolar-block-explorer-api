@@ -4,24 +4,24 @@ get:
   tags:
     - record
   parameters:
-      - $ref: '../requests/common-params.yaml#/parameters/objectReferencePathParam'
-      - $ref: '../requests/common-params.yaml#/parameters/limitParam'
-      - $ref: '../requests/common-params.yaml#/parameters/offsetParam'
-      - name: from_item
-        in: query
-        required: false
-        schema:
-          type: string
-        description: The pagination starting point. Accepting pulse_number:order.
-        example: "43612021:3"
-      - name: record_reference
-        in: query
-        required: false
-        schema:
-          type: string
-        description: The pagination starting point. Accepting record_reference.
-        example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
-      - $ref: '../requests/common-params.yaml#/parameters/recordTypeParam'
+    - $ref: '../parameters/objectReferencePathParam.yaml'
+    - $ref: '../parameters/limitParam.yaml'
+    - $ref: '../parameters/offsetParam.yaml'
+    - name: from_item
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The pagination starting point. Accepting pulse_number:order.
+      example: "43612021:3"
+    - name: record_reference
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The pagination starting point. Accepting record_reference.
+      example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
+    - $ref: '../parameters/recordTypeParam.yaml'
   responses:
     '200':
       description: A paged array of records.

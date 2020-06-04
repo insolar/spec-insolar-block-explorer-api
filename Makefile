@@ -29,7 +29,8 @@ build-servers: build-v1-server ## build all servers
 
 .PHONY: build-v1-server
 build-v1-server: ## build only server of v1
-	#@go build ./v1/server
+	./v1/indirect/update-server.sh
+	@go build ./v1/server
 
 .PHONY: open
 open: ## open all index.html files

@@ -1,0 +1,9 @@
+x-component: 'parameters/fromPulseNumberParam'
+in: query
+name: from_pulse_number
+required: false
+schema:
+  type: integer
+  format: int64
+  minimum: 0
+description: From which Pulse number.

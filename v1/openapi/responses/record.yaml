@@ -50,7 +50,7 @@ recordResponse:
       type: integer
       format: int64
       description: Pulse number.
-      example: 43612021
+      example: 436120213
     jet_id:
       type: string
       description: Jet ID.

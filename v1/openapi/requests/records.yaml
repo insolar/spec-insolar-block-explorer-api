@@ -4,8 +4,8 @@ get:
   tags:
     - record
   parameters:
-    - $ref: '../requests/common-params.yaml#/parameters/limitParam'
-    - $ref: '../requests/common-params.yaml#/parameters/offsetParam'
+    - $ref: '../parameters/limitParam.yaml'
+    - $ref: '../parameters/offsetParam.yaml'
     - name: from_item
       in: query
       required: false
@@ -13,8 +13,8 @@ get:
         type: string
       description: The pagination starting point. Accepting pulse_number:order.
       example: "43612021:3"
-    - $ref: '../requests/common-params.yaml#/parameters/recordTypeParam'
-    - $ref: '../requests/common-params.yaml#/parameters/jetDropIdPathParam'
+    - $ref: '../parameters/recordTypeParam.yaml'
+    - $ref: '../parameters/jetDropIdPathParam.yaml'
   responses:
     '200':
       description: A paged array of records.
@@ -30,7 +30,9 @@ get:
               result:
                 type: array
                 items:
-                  $ref: '../responses/record.yaml#/recordResponse'
+                  x-merge: true
+                  allOf:
+                    - $ref: '../responses/record.yaml#/recordResponse'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '500':

@@ -4,7 +4,7 @@ get:
   tags:
     - pulse
   parameters:
-    - $ref: '../requests/common-params.yaml#/parameters/pulseNumberPathParam'
+    - $ref: '../parameters/pulseNumberPathParam.yaml'
   responses:
     '200':
       description: A Pulse.
