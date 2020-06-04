@@ -1,5 +1,5 @@
 $schema: http://json-schema.org/draft-07/schema#
-$id: responses/pulse.yaml
+$id: responses/pulse
 type: object
 description: Pulse representation.
 pulseResponse:

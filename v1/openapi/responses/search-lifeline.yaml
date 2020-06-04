@@ -1,5 +1,5 @@
 $schema: http://json-schema.org/draft-07/schema#
-$id: responses/search-lifeline.yaml
+$id: responses/search-lifeline
 description: Lifeline response for Search.
 title: Record response
 properties:

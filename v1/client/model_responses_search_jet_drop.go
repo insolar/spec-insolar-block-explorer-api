@@ -9,9 +9,9 @@
  */
 
 package client
-// ResponsesSearchJetidYaml Record response for Search.
-type ResponsesSearchJetidYaml struct {
+// ResponsesSearchJetDrop Record response for Search.
+type ResponsesSearchJetDrop struct {
 	// Result type.
 	Type string `json:"type,omitempty"`
-	Meta ResponsesSearchJetidYamlMeta `json:"meta,omitempty"`
+	Meta ResponsesSearchJetDropMeta `json:"meta,omitempty"`
 }

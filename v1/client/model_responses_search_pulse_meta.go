@@ -9,8 +9,8 @@
  */
 
 package client
-// ResponsesSearchPulseYamlMeta Meta data.
-type ResponsesSearchPulseYamlMeta struct {
+// ResponsesSearchPulseMeta Meta data.
+type ResponsesSearchPulseMeta struct {
 	// Pulse Number.
 	PulseNumber int64 `json:"pulse_number,omitempty"`
 }

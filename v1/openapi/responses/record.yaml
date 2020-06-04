@@ -1,5 +1,5 @@
 $schema: http://json-schema.org/draft-07/schema#
-$id: responses/record.yaml
+$id: responses/record
 type: object
 description: Record representation.
 recordResponse:

@@ -9,8 +9,8 @@
  */
 
 package client
-// ResponsesSearchJetidYamlMeta Meta data.
-type ResponsesSearchJetidYamlMeta struct {
+// ResponsesSearchJetidMeta Meta data.
+type ResponsesSearchJetidMeta struct {
 	// Jet ID.
 	JetId string `json:"jet-id,omitempty"`
 }

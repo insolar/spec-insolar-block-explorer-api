@@ -9,9 +9,9 @@
  */
 
 package client
-// ResponsesSearchLifelineYaml Lifeline response for Search.
-type ResponsesSearchLifelineYaml struct {
+// ResponsesSearchLifeline Lifeline response for Search.
+type ResponsesSearchLifeline struct {
 	// Result type.
 	Type string `json:"type,omitempty"`
-	Meta ResponsesSearchLifelineYamlMeta `json:"meta,omitempty"`
+	Meta ResponsesSearchLifelineMeta `json:"meta,omitempty"`
 }

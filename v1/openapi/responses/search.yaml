@@ -1,5 +1,5 @@
 $schema: http://json-schema.org/draft-07/schema#
-$id: responses/search.yaml
+$id: responses/search
 type: object
 description: Search representation.
 searchResponse:

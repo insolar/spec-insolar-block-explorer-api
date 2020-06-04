@@ -9,8 +9,9 @@
  */
 
 package client
-// ResponsesSearchLifelineYamlMeta Meta data.
-type ResponsesSearchLifelineYamlMeta struct {
-	// Object reference.
-	ObjectReference string `json:"object_reference,omitempty"`
+// ResponsesSearchPulse Pulse response for Search.
+type ResponsesSearchPulse struct {
+	// Result type.
+	Type string `json:"type,omitempty"`
+	Meta ResponsesSearchPulseMeta `json:"meta,omitempty"`
 }

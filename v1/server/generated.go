@@ -11,8 +11,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// ResponsesSearchJetDropYaml defines model for responses-search-jet-drop-yaml.
-type ResponsesSearchJetDropYaml struct {
+// ResponsesSearchJetDrop defines model for responses-search-jet-drop.
+type ResponsesSearchJetDrop struct {
 
 	// Meta data.
 	Meta *struct {
@@ -25,8 +25,8 @@ type ResponsesSearchJetDropYaml struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// ResponsesSearchJetidYaml defines model for responses-search-jetid-yaml.
-type ResponsesSearchJetidYaml struct {
+// ResponsesSearchJetid defines model for responses-search-jetid.
+type ResponsesSearchJetid struct {
 
 	// Meta data.
 	Meta *struct {
@@ -39,8 +39,8 @@ type ResponsesSearchJetidYaml struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// ResponsesSearchLifelineYaml defines model for responses-search-lifeline-yaml.
-type ResponsesSearchLifelineYaml struct {
+// ResponsesSearchLifeline defines model for responses-search-lifeline.
+type ResponsesSearchLifeline struct {
 
 	// Meta data.
 	Meta *struct {
@@ -53,8 +53,8 @@ type ResponsesSearchLifelineYaml struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// ResponsesSearchPulseYaml defines model for responses-search-pulse-yaml.
-type ResponsesSearchPulseYaml struct {
+// ResponsesSearchPulse defines model for responses-search-pulse.
+type ResponsesSearchPulse struct {
 
 	// Meta data.
 	Meta *struct {
@@ -67,8 +67,8 @@ type ResponsesSearchPulseYaml struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// ResponsesSearchRecordYaml defines model for responses-search-record-yaml.
-type ResponsesSearchRecordYaml struct {
+// ResponsesSearchRecord defines model for responses-search-record.
+type ResponsesSearchRecord struct {
 
 	// Meta data.
 	Meta *struct {

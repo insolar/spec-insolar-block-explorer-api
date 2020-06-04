@@ -9,8 +9,8 @@
  */
 
 package client
-// ResponsesSearchRecordYamlMeta Meta data.
-type ResponsesSearchRecordYamlMeta struct {
-	// Record reference.
-	RecordRef string `json:"record_ref,omitempty"`
+// ResponsesSearchJetDropMeta Meta data.
+type ResponsesSearchJetDropMeta struct {
+	// JetDrop ID.
+	JetDropId string `json:"jet_drop_id,omitempty"`
 }

@@ -9,9 +9,9 @@
  */
 
 package client
-// ResponsesSearchRecordYaml Record response for Search.
-type ResponsesSearchRecordYaml struct {
+// ResponsesSearchJetid Record response for Search.
+type ResponsesSearchJetid struct {
 	// Result type.
 	Type string `json:"type,omitempty"`
-	Meta ResponsesSearchRecordYamlMeta `json:"meta,omitempty"`
+	Meta ResponsesSearchJetidMeta `json:"meta,omitempty"`
 }
