@@ -34,5 +34,5 @@ type JetDropRecordsResponse200Result struct {
 	// JetDrop ID is concantination of jet_id and pulse_number.
 	JetDropId string `json:"jet_drop_id,omitempty"`
 	// Order is the record order number in the Jet Drop.
-	Order int `json:"order,omitempty"`
+	Order int64 `json:"order,omitempty"`
 }

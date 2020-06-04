@@ -614,7 +614,7 @@ paths:
                             pulse_number.
                           example: '43648102:0010'
                         order:
-                          type: int
+                          type: integer
                           format: int64
                           description: Order is the record order number in the Jet Drop.
                           example: '3'
@@ -741,7 +741,7 @@ paths:
                             pulse_number.
                           example: '43648102:0010'
                         order:
-                          type: int
+                          type: integer
                           format: int64
                           description: Order is the record order number in the Jet Drop.
                           example: '3'
