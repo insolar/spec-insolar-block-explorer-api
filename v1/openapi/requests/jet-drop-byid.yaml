@@ -1,5 +1,5 @@
 get:
-  summary: JetDrop by ID
+  summary: Jet drop by ID
   operationId: jetDropByID
   tags:
     - jet-drop
@@ -11,11 +11,7 @@ get:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              x-merge: true
-              allOf:
-                - $ref: '../responses/jet-drop.yaml/#/jetDropResponse'
+            $ref: '../responses/jet-drop.yaml/#/jetDropResponse'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '404':

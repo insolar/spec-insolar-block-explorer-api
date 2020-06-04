@@ -1,7 +1,7 @@
 $schema: http://json-schema.org/draft-07/schema#
 $id: responses/search-jetid.yaml
 description: Record response for Search.
-title: Record response.
+title: Record response
 properties:
   type:
     type: string

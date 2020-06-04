@@ -1,7 +1,7 @@
 $schema: http://json-schema.org/draft-07/schema#
 $id: responses/search-pulse.yaml
 description: Pulse response for Search.
-title: Pulse response.
+title: Pulse response
 properties:
   type:
     type: string

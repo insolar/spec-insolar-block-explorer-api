@@ -4,5 +4,7 @@ go 1.14
 
 require (
 	github.com/antihax/optional v1.0.0
+	github.com/deepmap/oapi-codegen v1.3.8
+	github.com/labstack/echo/v4 v4.1.16
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 )

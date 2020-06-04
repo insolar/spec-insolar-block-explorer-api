@@ -23,25 +23,8 @@ paths:
       tags:
         - pulse
       parameters:
-        - in: query
-          name: limit
-          required: false
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 100
-            default: 20
-          description: The numbers of items to return.
-        - in: query
-          name: offset
-          required: false
-          schema:
-            type: integer
-            minimum: 0
-            default: 0
-          description: >-
-            The number of items to skip before starting to collect the result
-            set.
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
         - name: from_item
           in: query
           required: false
@@ -49,36 +32,10 @@ paths:
             type: integer
             format: int64
           description: The pagination starting point. Accepting pulse_number.
-        - in: query
-          name: from_pulse_number
-          required: false
-          schema:
-            type: integer
-            format: int64
-            minimum: 0
-          description: From which Pulse number.
-        - in: query
-          name: to_pulse_number
-          required: false
-          schema:
-            type: integer
-            format: int64
-            minimum: 0
-          description: To which Pulse number.
-        - in: query
-          name: from_jet_drop_amount
-          required: false
-          schema:
-            type: integer
-            minimum: 0
-          description: To which jet_drop_amount.
-        - in: query
-          name: to_jet_drop_amount
-          required: false
-          schema:
-            type: integer
-            minimum: 0
-          description: From which jet_drop_amount.
+        - $ref: '#/components/parameters/fromPulseNumberParam'
+        - $ref: '#/components/parameters/toPulseNumberParam'
+        - $ref: '#/components/parameters/fromJetDropAmountParam'
+        - $ref: '#/components/parameters/toJetDropAmountParam'
       responses:
         '200':
           description: A paged array of Pulses.
@@ -186,14 +143,7 @@ paths:
       tags:
         - pulse
       parameters:
-        - in: path
-          name: pulse_number
-          required: true
-          schema:
-            type: integer
-            format: int64
-            minimum: 0
-          description: The Pulse number.
+        - $ref: '#/components/parameters/pulseNumberPathParam'
       responses:
         '200':
           description: A Pulse.
@@ -212,17 +162,12 @@ paths:
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
   '/api/v1/jet-drops/{jet_drop_id}':
     get:
-      summary: JetDrop by ID
+      summary: Jet drop by ID
       operationId: jetDropByID
       tags:
         - jet-drop
       parameters:
-        - name: jet_drop_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The ID of JetDrop.
+        - $ref: '#/components/parameters/jetDropIdPathParam'
       responses:
         '200':
           description: A JetDrop.
@@ -290,14 +235,14 @@ paths:
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
   '/api/v1/pulses/{pulse_number}/jet-drops':
     get:
-      summary: JetDrops by Pulse Number
+      summary: Jet drops by pulse number
       operationId: JetDropsByPulseNumber
       tags:
         - jet-drop
       parameters:
-        - $ref: '#/paths/~1api~1v1~1pulses~1%7Bpulse_number%7D/get/parameters/0'
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/0'
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/1'
+        - $ref: '#/components/parameters/pulseNumberPathParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
         - name: from_item
           in: query
           required: false
@@ -310,6 +255,7 @@ paths:
           content:
             application/json:
               schema:
+                type: object
                 properties:
                   total:
                     type: integer
@@ -319,28 +265,77 @@ paths:
                   result:
                     type: array
                     items:
-                      $ref: >-
-                        #/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D/get/responses/200/content/application~1json/schema
+                      type: object
+                      properties:
+                        jet_drop_id:
+                          type: string
+                          description: >-
+                            JetDrop ID is concantination of jet_id and
+                            pulse_number.
+                          example: '43648102:0010'
+                          pattern: '^(\d+:[0-1]{2,64})$'
+                        next_jet_drop_id:
+                          type: array
+                          format: string
+                          description: Next jet_drop_id.
+                          example:
+                            - '43648104:00100'
+                            - '43648104:00101'
+                          items:
+                            type: string
+                            description: >-
+                              JetDrop ID is concantination of jet_id and
+                              pulse_number
+                            example: '43648102:0010'
+                            pattern: '^(\d+:[0-1]{2,64})$'
+                        prev_jet_drop_id:
+                          type: array
+                          format: string
+                          description: Previous jet_drop_id.
+                          example:
+                            - '43648101:0010'
+                          items:
+                            $ref: >-
+                              #/paths/~1api~1v1~1pulses~1%7Bpulse_number%7D~1jet-drops/get/responses/200/content/application~1json/schema/properties/result/items/properties/next_jet_drop_id/items
+                        jet_id:
+                          type: string
+                          description: Jet ID.
+                          example: '0010'
+                          pattern: '^([0-1]{2,64})$'
+                        pulse_number:
+                          type: integer
+                          format: int64
+                          description: Pulse number.
+                          example: 43612021
+                        record_amount:
+                          type: integer
+                          format: int64
+                          description: Number of all records in the pulse.
+                          example: 245
+                        timestamp:
+                          type: integer
+                          format: int64
+                          description: Unix timestamp.
+                          example: 1451743413
+                        hash:
+                          type: string
+                          description: Record hash.
+                          example: >-
+                            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '500':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
   '/api/v1/jets/{jet_id}/jet-drops':
     get:
-      summary: JetDrops by JetID
+      summary: Jet drops by jet ID
       operationId: JetDropsByJetID
       tags:
         - jet-drop
       parameters:
-        - in: path
-          name: jet_id
-          required: true
-          schema:
-            type: string
-          description: The JetID.
-          example: '0010'
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/0'
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/1'
+        - $ref: '#/components/parameters/jetIdPathParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
         - name: from_item
           in: query
           required: false
@@ -348,11 +343,11 @@ paths:
             type: string
           description: The pagination starting point. Accepting jet_id.
           example: '0010'
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/3'
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/4'
+        - $ref: '#/components/parameters/fromPulseNumberParam'
+        - $ref: '#/components/parameters/toPulseNumberParam'
       responses:
         '200':
-          description: A paged array of JetDrops.
+          description: A paged array of jet drops.
           content:
             application/json:
               schema:
@@ -364,22 +359,78 @@ paths:
                     example: 100
                   result:
                     type: array
+                    description: Array of jet drops.
                     items:
-                      $ref: >-
-                        #/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D/get/responses/200/content/application~1json/schema
+                      type: object
+                      properties:
+                        jet_drop_id:
+                          type: string
+                          description: >-
+                            JetDrop ID is concantination of jet_id and
+                            pulse_number.
+                          example: '43648102:0010'
+                          pattern: '^(\d+:[0-1]{2,64})$'
+                        next_jet_drop_id:
+                          type: array
+                          format: string
+                          description: Next jet_drop_id.
+                          example:
+                            - '43648104:00100'
+                            - '43648104:00101'
+                          items:
+                            type: string
+                            description: >-
+                              JetDrop ID is concantination of jet_id and
+                              pulse_number
+                            example: '43648102:0010'
+                            pattern: '^(\d+:[0-1]{2,64})$'
+                        prev_jet_drop_id:
+                          type: array
+                          format: string
+                          description: Previous jet_drop_id.
+                          example:
+                            - '43648101:0010'
+                          items:
+                            $ref: >-
+                              #/paths/~1api~1v1~1pulses~1%7Bpulse_number%7D~1jet-drops/get/responses/200/content/application~1json/schema/properties/result/items/properties/next_jet_drop_id/items
+                        jet_id:
+                          type: string
+                          description: Jet ID.
+                          example: '0010'
+                          pattern: '^([0-1]{2,64})$'
+                        pulse_number:
+                          type: integer
+                          format: int64
+                          description: Pulse number.
+                          example: 43612021
+                        record_amount:
+                          type: integer
+                          format: int64
+                          description: Number of all records in the pulse.
+                          example: 245
+                        timestamp:
+                          type: integer
+                          format: int64
+                          description: Unix timestamp.
+                          example: 1451743413
+                        hash:
+                          type: string
+                          description: Record hash.
+                          example: >-
+                            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '500':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
   '/api/v1/jet-drops/{jet_drop_id}/records':
     get:
-      summary: JetDrop records
+      summary: Jet drop records
       operationId: jet_drop_records
       tags:
         - record
       parameters:
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/0'
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/1'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
         - name: from_item
           in: query
           required: false
@@ -387,17 +438,8 @@ paths:
             type: string
           description: 'The pagination starting point. Accepting pulse_number:order.'
           example: '43612021:3'
-        - name: type
-          in: query
-          description: The record type.
-          required: false
-          schema:
-            type: string
-            enum:
-              - state
-              - request
-              - result
-        - $ref: '#/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D/get/parameters/0'
+        - $ref: '#/components/parameters/recordTypeParam'
+        - $ref: '#/components/parameters/jetDropIdPathParam'
       responses:
         '200':
           description: A paged array of records.
@@ -466,7 +508,7 @@ paths:
                           type: integer
                           format: int64
                           description: Pulse number.
-                          example: 43612021
+                          example: 436120213
                         jet_id:
                           type: string
                           description: Jet ID.
@@ -494,15 +536,9 @@ paths:
       tags:
         - record
       parameters:
-        - name: object_reference
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The reference of object.
-          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/0'
-        - $ref: '#/paths/~1api~1v1~1pulses/get/parameters/1'
+        - $ref: '#/components/parameters/objectReferencePathParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
         - name: from_item
           in: query
           required: false
@@ -517,8 +553,7 @@ paths:
             type: string
           description: The pagination starting point. Accepting record_reference.
           example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
-        - $ref: >-
-            #/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D~1records/get/parameters/3
+        - $ref: '#/components/parameters/recordTypeParam'
       responses:
         '200':
           description: A paged array of records.
@@ -572,10 +607,107 @@ paths:
         '500':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
 components:
+  parameters:
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: The numbers of items to return.
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      description: The number of items to skip before starting to collect the result set.
+    fromPulseNumberParam:
+      in: query
+      name: from_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: From which Pulse number.
+    toPulseNumberParam:
+      in: query
+      name: to_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: To which Pulse number.
+    fromJetDropAmountParam:
+      in: query
+      name: from_jet_drop_amount
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: To which jet_drop_amount.
+    toJetDropAmountParam:
+      in: query
+      name: to_jet_drop_amount
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: From which jet_drop_amount.
+    pulseNumberPathParam:
+      in: path
+      name: pulse_number
+      required: true
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: The Pulse number.
+    jetDropIdPathParam:
+      name: jet_drop_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of JetDrop.
+    jetIdPathParam:
+      in: path
+      name: jet_id
+      required: true
+      schema:
+        type: string
+      description: The JetID.
+      example: '0010'
+    recordTypeParam:
+      name: type
+      in: query
+      description: The record type.
+      required: false
+      schema:
+        type: string
+        enum:
+          - state
+          - request
+          - result
+    objectReferencePathParam:
+      name: object_reference
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reference of object.
+      example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
   schemas:
     responses-search-pulse-yaml:
       description: Pulse response for Search.
-      title: Pulse response.
+      title: Pulse response
       properties:
         type:
           type: string
@@ -595,7 +727,7 @@ components:
       x-json-schema-id: responses/search-pulse.yaml
     responses-search-record-yaml:
       description: Record response for Search.
-      title: Record response.
+      title: Record response
       properties:
         type:
           type: string
@@ -614,7 +746,7 @@ components:
       x-json-schema-id: responses/search-record.yaml
     responses-search-jet-drop-yaml:
       description: Record response for Search.
-      title: Record response.
+      title: Record response
       properties:
         type:
           type: string
@@ -633,7 +765,7 @@ components:
       x-json-schema-id: responses/search-jet-drop.yaml
     responses-search-lifeline-yaml:
       description: Lifeline response for Search.
-      title: Record response.
+      title: Record response
       properties:
         type:
           type: string
@@ -652,7 +784,7 @@ components:
       x-json-schema-id: responses/search-lifeline.yaml
     responses-search-jetid-yaml:
       description: Record response for Search.
-      title: Record response.
+      title: Record response
       properties:
         type:
           type: string

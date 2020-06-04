@@ -10,10 +10,11 @@
 
 package client
 
-// JetDropsByPulseNumberResponse200 struct for JetDropsByPulseNumberResponse200
-type JetDropsByPulseNumberResponse200 struct {
+// JetDropsByJetIdResponse200 struct for JetDropsByJetIdResponse200
+type JetDropsByJetIdResponse200 struct {
 	// Total results.
-	Total              int64                                    `json:"total,omitempty"`
+	Total int64 `json:"total,omitempty"`
+	// Array of jet drops.
 	Result             []JetDropsByPulseNumberResponse200Result `json:"result,omitempty"`
 	Code               string                                   `json:"code,omitempty"`
 	Message            string                                   `json:"message,omitempty"`

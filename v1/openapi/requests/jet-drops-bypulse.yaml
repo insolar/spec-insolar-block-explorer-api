@@ -1,5 +1,5 @@
 get:
-  summary: JetDrops by Pulse Number
+  summary: Jet drops by pulse number
   operationId: JetDropsByPulseNumber
   tags:
     - jet-drop

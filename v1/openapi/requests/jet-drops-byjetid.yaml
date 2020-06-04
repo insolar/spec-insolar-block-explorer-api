@@ -1,5 +1,5 @@
 get:
-  summary: JetDrops by JetID
+  summary: Jet drops by jet ID
   operationId: JetDropsByJetID
   tags:
     - jet-drop
@@ -18,11 +18,10 @@ get:
     - $ref: '../parameters/toPulseNumberParam.yaml'
   responses:
     '200':
-      description: A paged array of JetDrops.
+      description: A paged array of jet drops.
       content:
         application/json:
           schema:
-#            type: object
             properties:
               total:
                 type: integer
@@ -31,6 +30,7 @@ get:
                 example: 100
               result:
                 type: array
+                description: Array of jet drops.
                 items:
                   x-merge: true
                   allOf:

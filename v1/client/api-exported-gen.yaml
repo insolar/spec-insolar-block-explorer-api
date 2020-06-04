@@ -81,28 +81,6 @@ paths:
                           type: boolean
                           description: Pulse fullness status.
                           example: true
-                        code:
-                          type: string
-                        message:
-                          type: string
-                        description:
-                          type: string
-                        link:
-                          type: string
-                        validation_failures:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              property:
-                                type: string
-                                description: Property name
-                              failure_reason:
-                                type: string
-                                description: Failure reason
-                      title: PulseResponse200
-                      required:
-                        - validation_failures
                   code:
                     type: string
                   message:
@@ -207,7 +185,7 @@ paths:
                   - validation_failures
   '/api/v1/jet-drops/{jet_drop_id}':
     get:
-      summary: JetDrop by ID
+      summary: Jet drop by ID
       operationId: jetDropByID
       tags:
         - jet-drop
@@ -298,12 +276,12 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason
-                title: JetDrop by IDResponse200
+                title: Jet drop by IDResponse200
                 required:
                   - validation_failures
   '/api/v1/pulses/{pulse_number}/jet-drops':
     get:
-      summary: JetDrops by Pulse Number
+      summary: Jet drops by pulse number
       operationId: JetDropsByPulseNumber
       tags:
         - jet-drop
@@ -325,6 +303,7 @@ paths:
           content:
             application/json:
               schema:
+                type: object
                 properties:
                   total:
                     type: integer
@@ -395,28 +374,6 @@ paths:
                           description: Record hash.
                           example: >-
                             0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
-                        code:
-                          type: string
-                        message:
-                          type: string
-                        description:
-                          type: string
-                        link:
-                          type: string
-                        validation_failures:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              property:
-                                type: string
-                                description: Property name
-                              failure_reason:
-                                type: string
-                                description: Failure reason
-                      title: JetDrop by IDResponse200
-                      required:
-                        - validation_failures
                   code:
                     type: string
                   message:
@@ -436,13 +393,12 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason
-                title: JetDrops by Pulse NumberResponse200
+                title: Jet drops by pulse numberResponse200
                 required:
                   - validation_failures
-                type: object
   '/api/v1/jets/{jet_id}/jet-drops':
     get:
-      summary: JetDrops by JetID
+      summary: Jet drops by jet ID
       operationId: JetDropsByJetID
       tags:
         - jet-drop
@@ -474,6 +430,7 @@ paths:
                     example: 100
                   result:
                     type: array
+                    description: Array of jet drops.
                     items:
                       type: object
                       properties:
@@ -536,28 +493,6 @@ paths:
                           description: Record hash.
                           example: >-
                             0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
-                        code:
-                          type: string
-                        message:
-                          type: string
-                        description:
-                          type: string
-                        link:
-                          type: string
-                        validation_failures:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              property:
-                                type: string
-                                description: Property name
-                              failure_reason:
-                                type: string
-                                description: Failure reason
-                      title: JetDrop by IDResponse200
-                      required:
-                        - validation_failures
                   code:
                     type: string
                   message:
@@ -577,13 +512,13 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason
-                title: JetDrops by JetIDResponse200
+                title: Jet drops by jet IDResponse200
                 required:
                   - validation_failures
                 type: object
   '/api/v1/jet-drops/{jet_drop_id}/records':
     get:
-      summary: JetDrop records
+      summary: Jet drop records
       operationId: jet_drop_records
       tags:
         - record
@@ -666,7 +601,7 @@ paths:
                           type: integer
                           format: int64
                           description: Pulse number.
-                          example: 43612021
+                          example: 436120213
                         jet_id:
                           type: string
                           description: Jet ID.
@@ -702,7 +637,7 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason
-                title: JetDrop recordsResponse200
+                title: Jet drop recordsResponse200
                 required:
                   - validation_failures
                 type: object
@@ -793,7 +728,7 @@ paths:
                           type: integer
                           format: int64
                           description: Pulse number.
-                          example: 43612021
+                          example: 436120213
                         jet_id:
                           type: string
                           description: Jet ID.
@@ -910,104 +845,103 @@ paths:
                   - validation_failures
                 type: object
 components:
-  schemas:
-    responses-search-pulse-yaml:
-      description: Pulse response for Search.
-      title: Pulse response.
-      properties:
-        type:
-          type: string
-          description: Result type.
-          enum:
-            - pulse
-          example: pulse
-        meta:
-          type: object
-          description: Meta data.
-          properties:
-            pulse_number:
-              type: integer
-              format: int64
-              description: Pulse Number.
-              example: 1
-      x-json-schema-id: responses/search-pulse.yaml
-    responses-search-record-yaml:
-      description: Record response for Search.
-      title: Record response.
-      properties:
-        type:
-          type: string
-          description: Result type.
-          enum:
-            - record
-          example: record
-        meta:
-          type: object
-          description: Meta data.
-          properties:
-            record_ref:
-              type: string
-              description: Record reference.
-              example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
-      x-json-schema-id: responses/search-record.yaml
-    responses-search-jet-drop-yaml:
-      description: Record response for Search.
-      title: Record response.
-      properties:
-        type:
-          type: string
-          description: Result type.
-          enum:
-            - jet-drop
-          example: jet-drop
-        meta:
-          type: object
-          description: Meta data.
-          properties:
-            jet_drop_id:
-              type: string
-              description: JetDrop ID.
-              example: '43612021:001'
-      x-json-schema-id: responses/search-jet-drop.yaml
-    responses-search-lifeline-yaml:
-      description: Lifeline response for Search.
-      title: Record response.
-      properties:
-        type:
-          type: string
-          description: Result type.
-          enum:
-            - lifeline
-          example: lifeline
-        meta:
-          type: object
-          description: Meta data.
-          properties:
-            object_reference:
-              type: string
-              description: Object reference.
-              example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-      x-json-schema-id: responses/search-lifeline.yaml
-    responses-search-jetid-yaml:
-      description: Record response for Search.
-      title: Record response.
-      properties:
-        type:
-          type: string
-          description: Result type.
-          enum:
-            - jetid
-          example: jetid
-        meta:
-          type: object
-          description: Meta data.
-          properties:
-            jet-id:
-              type: string
-              description: Jet ID.
-              example: '0010'
-      x-json-schema-id: responses/search-jetid.yaml
   parameters:
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: The numbers of items to return.
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      description: The number of items to skip before starting to collect the result set.
+    fromPulseNumberParam:
+      in: query
+      name: from_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: From which Pulse number.
+    toPulseNumberParam:
+      in: query
+      name: to_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: To which Pulse number.
+    fromJetDropAmountParam:
+      in: query
+      name: from_jet_drop_amount
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: To which jet_drop_amount.
+    toJetDropAmountParam:
+      in: query
+      name: to_jet_drop_amount
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: From which jet_drop_amount.
+    pulseNumberPathParam:
+      in: path
+      name: pulse_number
+      required: true
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: The Pulse number.
+    jetDropIdPathParam:
+      name: jet_drop_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of JetDrop.
+    jetIdPathParam:
+      in: path
+      name: jet_id
+      required: true
+      schema:
+        type: string
+      description: The JetID.
+      example: '0010'
+    recordTypeParam:
+      name: type
+      in: query
+      description: The record type.
+      required: false
+      schema:
+        type: string
+        enum:
+          - state
+          - request
+          - result
+    objectReferencePathParam:
+      name: object_reference
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reference of object.
+      example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
     PulsesQueryParameterLimit:
       in: query
       name: limit
@@ -1231,3 +1165,100 @@ components:
       schema:
         type: string
       description: The searching value.
+  schemas:
+    responses-search-pulse-yaml:
+      description: Pulse response for Search.
+      title: Pulse response
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - pulse
+          example: pulse
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            pulse_number:
+              type: integer
+              format: int64
+              description: Pulse Number.
+              example: 1
+      x-json-schema-id: responses/search-pulse.yaml
+    responses-search-record-yaml:
+      description: Record response for Search.
+      title: Record response
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - record
+          example: record
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            record_ref:
+              type: string
+              description: Record reference.
+              example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+      x-json-schema-id: responses/search-record.yaml
+    responses-search-jet-drop-yaml:
+      description: Record response for Search.
+      title: Record response
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - jet-drop
+          example: jet-drop
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            jet_drop_id:
+              type: string
+              description: JetDrop ID.
+              example: '43612021:001'
+      x-json-schema-id: responses/search-jet-drop.yaml
+    responses-search-lifeline-yaml:
+      description: Lifeline response for Search.
+      title: Record response
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - lifeline
+          example: lifeline
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            object_reference:
+              type: string
+              description: Object reference.
+              example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+      x-json-schema-id: responses/search-lifeline.yaml
+    responses-search-jetid-yaml:
+      description: Record response for Search.
+      title: Record response
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - jetid
+          example: jetid
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            jet-id:
+              type: string
+              description: Jet ID.
+              example: '0010'
+      x-json-schema-id: responses/search-jetid.yaml

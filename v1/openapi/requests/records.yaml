@@ -1,5 +1,5 @@
 get:
-  summary: JetDrop records
+  summary: Jet drop records
   operationId: jet_drop_records
   tags:
     - record

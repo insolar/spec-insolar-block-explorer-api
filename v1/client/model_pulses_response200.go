@@ -1,7 +1,7 @@
 /*
  * Insolar Block Explorer API
  *
- * BE description 
+ * BE description
  *
  * API version: 1.0.0
  * Contact: dev-support@insolar.io
@@ -9,14 +9,15 @@
  */
 
 package client
+
 // PulsesResponse200 struct for PulsesResponse200
 type PulsesResponse200 struct {
 	// Total results.
-	Total int64 `json:"total,omitempty"`
-	Result []PulseResponse200 `json:"result,omitempty"`
-	Code string `json:"code,omitempty"`
-	Message string `json:"message,omitempty"`
-	Description string `json:"description,omitempty"`
-	Link string `json:"link,omitempty"`
+	Total              int64                                 `json:"total,omitempty"`
+	Result             []PulsesResponse200Result             `json:"result,omitempty"`
+	Code               string                                `json:"code,omitempty"`
+	Message            string                                `json:"message,omitempty"`
+	Description        string                                `json:"description,omitempty"`
+	Link               string                                `json:"link,omitempty"`
 	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures"`
 }
