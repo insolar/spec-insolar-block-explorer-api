@@ -8,6 +8,9 @@ COPY . ./src/
 RUN npm run export -- --target=api-exported-gen.yaml --collapse \
      && npm run export -- --target=api-exported.yaml
 
+RUN sed -i  's/\%7B/{/g'  api-exported.yaml && \
+    sed -i  's/\%7D/}/g'  api-exported.yaml
+
 RUN openapi-generator generate \
       --input-spec api-exported-gen.yaml \
       --generator-name go \

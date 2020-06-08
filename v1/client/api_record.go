@@ -157,16 +157,16 @@ ObjectLifeline Object Lifeline
  * @param "FromItem" (optional.String) -  The pagination starting point. Accepting pulse_number:order.
  * @param "RecordReference" (optional.String) -  The pagination starting point. Accepting record_reference.
  * @param "Type_" (optional.String) -  The record type.
-@return JetDropRecordsResponse200
+@return ObjectLifelineResponse200
 */
-func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference string, localVarOptionals *ObjectLifelineOpts) (JetDropRecordsResponse200, *_nethttp.Response, error) {
+func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference string, localVarOptionals *ObjectLifelineOpts) (ObjectLifelineResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  JetDropRecordsResponse200
+		localVarReturnValue  ObjectLifelineResponse200
 	)
 
 	// create path and map variables
@@ -231,7 +231,7 @@ func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference 
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v JetDropRecordsResponse200
+			var v ObjectLifelineResponse200
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

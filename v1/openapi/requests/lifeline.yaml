@@ -24,20 +24,7 @@ get:
     - $ref: '../parameters/recordTypeParam.yaml'
   responses:
     '200':
-      description: A paged array of records.
-      content:
-        application/json:
-          schema:
-            properties:
-              total:
-                type: integer
-                format: int64
-                description: Total results.
-                example: 100
-              result:
-                type: array
-                items:
-                  $ref: '../responses/record.yaml#/recordResponse'
+      $ref: "../responses/lifeline.yaml"
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '500':

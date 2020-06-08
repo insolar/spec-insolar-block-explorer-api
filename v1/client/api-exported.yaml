@@ -201,7 +201,7 @@ paths:
                       - '43648101:0010'
                     items:
                       $ref: >-
-                        #/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D/get/responses/200/content/application~1json/schema/properties/next_jet_drop_id/items
+                        #/paths/~1api~1v1~1jet-drops~1{jet_drop_id}/get/responses/200/content/application~1json/schema/properties/next_jet_drop_id/items
                   jet_id:
                     type: string
                     description: Jet ID.
@@ -230,7 +230,7 @@ paths:
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
-          $ref: '#/paths/~1api~1v1~1pulses~1%7Bpulse_number%7D/get/responses/404'
+          $ref: '#/paths/~1api~1v1~1pulses~1{pulse_number}/get/responses/404'
         '500':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
   '/api/v1/pulses/{pulse_number}/jet-drops':
@@ -296,7 +296,7 @@ paths:
                             - '43648101:0010'
                           items:
                             $ref: >-
-                              #/paths/~1api~1v1~1pulses~1%7Bpulse_number%7D~1jet-drops/get/responses/200/content/application~1json/schema/properties/result/items/properties/next_jet_drop_id/items
+                              #/paths/~1api~1v1~1pulses~1{pulse_number}~1jet-drops/get/responses/200/content/application~1json/schema/properties/result/items/properties/next_jet_drop_id/items
                         jet_id:
                           type: string
                           description: Jet ID.
@@ -392,7 +392,7 @@ paths:
                             - '43648101:0010'
                           items:
                             $ref: >-
-                              #/paths/~1api~1v1~1pulses~1%7Bpulse_number%7D~1jet-drops/get/responses/200/content/application~1json/schema/properties/result/items/properties/next_jet_drop_id/items
+                              #/paths/~1api~1v1~1pulses~1{pulse_number}~1jet-drops/get/responses/200/content/application~1json/schema/properties/result/items/properties/next_jet_drop_id/items
                         jet_id:
                           type: string
                           description: Jet ID.
@@ -556,21 +556,7 @@ paths:
         - $ref: '#/components/parameters/recordTypeParam'
       responses:
         '200':
-          description: A paged array of records.
-          content:
-            application/json:
-              schema:
-                properties:
-                  total:
-                    type: integer
-                    format: int64
-                    description: Total results.
-                    example: 100
-                  result:
-                    type: array
-                    items:
-                      $ref: >-
-                        #/paths/~1api~1v1~1jet-drops~1%7Bjet_drop_id%7D~1records/get/responses/200/content/application~1json/schema/properties/result/items
+          $ref: '#/components/responses/customlifeline'
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '500':
@@ -603,7 +589,7 @@ paths:
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
-          $ref: '#/paths/~1api~1v1~1pulses~1%7Bpulse_number%7D/get/responses/404'
+          $ref: '#/paths/~1api~1v1~1pulses~1{pulse_number}/get/responses/404'
         '500':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
 components:
@@ -704,6 +690,37 @@ components:
         type: string
       description: The reference of object.
       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+  responses:
+    customlifeline:
+      type: object
+      description: A paged array of records by lifeline.
+      content:
+        application/json:
+          schema:
+            properties:
+              total:
+                type: integer
+                format: int64
+                description: Total results.
+                example: 100
+              result:
+                type: array
+                items:
+                  allOf:
+                    - properties:
+                        custom_reference:
+                          type: string
+                          description: custom Record reference.
+                          example: >-
+                            insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
+                          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+                    - properties:
+                        prev_record_reference:
+                          type: string
+                          description: Previous record reference.
+                          example: >-
+                            insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record
+                          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
   schemas:
     responses-search-pulse:
       description: Pulse response for Search.

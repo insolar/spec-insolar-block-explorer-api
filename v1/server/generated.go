@@ -114,6 +114,23 @@ type ToJetDropAmountParam int
 // ToPulseNumberParam defines model for toPulseNumberParam.
 type ToPulseNumberParam int64
 
+// Customlifeline defines model for customlifeline.
+type Customlifeline struct {
+	Result *[]struct {
+		// Embedded fields due to inline allOf schema
+
+		// custom Record reference.
+		CustomReference *string `json:"custom_reference,omitempty"`
+		// Embedded fields due to inline allOf schema
+
+		// Previous record reference.
+		PrevRecordReference *string `json:"prev_record_reference,omitempty"`
+	} `json:"result,omitempty"`
+
+	// Total results.
+	Total *int64 `json:"total,omitempty"`
+}
+
 // JetDropRecordsParams defines parameters for JetDropRecords.
 type JetDropRecordsParams struct {
 
