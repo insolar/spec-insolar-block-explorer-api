@@ -1,18 +1,6 @@
-type: object
 description: A paged array of records by lifeline.
-x-component: 'responses/customlifeline'
+x-component: 'responses/recordsResponse'
 content:
   application/json:
     schema:
-      properties:
-        total:
-          type: integer
-          format: int64
-          description: Total results.
-          example: 100
-        result:
-          type: array
-          items:
-            allOf:
-              - $ref: '../schemaParameters/reference.yaml'
-              - $ref: '../schemaParameters/prev_record_reference.yaml'
+      $ref: '../schemas/records.yaml'

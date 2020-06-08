@@ -11,6 +11,54 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// Record defines model for record.
+type Record struct {
+
+	// Record hash.
+	Hash *string `json:"hash,omitempty"`
+
+	// JetDrop ID is concantination of jet_id and pulse_number.
+	JetDropId *string `json:"jet_drop_id,omitempty"`
+
+	// Jet ID.
+	JetId *string `json:"jet_id,omitempty"`
+
+	// Object reference.
+	ObjectReference *string `json:"object_reference,omitempty"`
+
+	// Order is the record order number in the Jet Drop.
+	Order *int64 `json:"order,omitempty"`
+
+	// Record payload.
+	Payload *string `json:"payload,omitempty"`
+
+	// Previous record reference.
+	PrevRecordReference *string `json:"prev_record_reference,omitempty"`
+
+	// Prototype reference.
+	PrototypeReference *string `json:"prototype_reference,omitempty"`
+
+	// Pulse number.
+	PulseNumber *int64 `json:"pulse_number,omitempty"`
+
+	// Record reference.
+	Reference *string `json:"reference,omitempty"`
+
+	// Unix timestamp.
+	Timestamp *int64 `json:"timestamp,omitempty"`
+
+	// Record type.
+	Type *string `json:"type,omitempty"`
+}
+
+// Records defines model for records.
+type Records struct {
+	Result *[]Record `json:"result,omitempty"`
+
+	// Total results.
+	Total *int64 `json:"total,omitempty"`
+}
+
 // ResponsesSearchJetDrop defines model for responses-search-jet-drop.
 type ResponsesSearchJetDrop struct {
 
@@ -114,22 +162,8 @@ type ToJetDropAmountParam int
 // ToPulseNumberParam defines model for toPulseNumberParam.
 type ToPulseNumberParam int64
 
-// Customlifeline defines model for customlifeline.
-type Customlifeline struct {
-	Result *[]struct {
-		// Embedded fields due to inline allOf schema
-
-		// custom Record reference.
-		CustomReference *string `json:"custom_reference,omitempty"`
-		// Embedded fields due to inline allOf schema
-
-		// Previous record reference.
-		PrevRecordReference *string `json:"prev_record_reference,omitempty"`
-	} `json:"result,omitempty"`
-
-	// Total results.
-	Total *int64 `json:"total,omitempty"`
-}
+// RecordsResponse defines model for recordsResponse.
+type RecordsResponse Records
 
 // JetDropRecordsParams defines parameters for JetDropRecords.
 type JetDropRecordsParams struct {

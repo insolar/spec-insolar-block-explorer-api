@@ -1,0 +1,12 @@
+x-component: "schemas/records"
+description: A paged array of records.
+properties:
+  total:
+    type: integer
+    format: int64
+    description: Total results.
+    example: 100
+  result:
+    type: array
+    items:
+      $ref: '../schemas/record.yaml'

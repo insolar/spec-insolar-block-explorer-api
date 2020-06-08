@@ -9,11 +9,11 @@
  */
 
 package client
-// JetDropRecordsResponse200 struct for JetDropRecordsResponse200
-type JetDropRecordsResponse200 struct {
+// Records A paged array of records.
+type Records struct {
 	// Total results.
 	Total int64 `json:"total,omitempty"`
-	Result []JetDropRecordsResponse200Result `json:"result,omitempty"`
+	Result []map[string]interface{} `json:"result,omitempty"`
 	Code string `json:"code,omitempty"`
 	Message string `json:"message,omitempty"`
 	Description string `json:"description,omitempty"`

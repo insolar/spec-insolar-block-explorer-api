@@ -44,16 +44,16 @@ JetDropRecords Jet drop records
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
  * @param "FromItem" (optional.String) -  The pagination starting point. Accepting pulse_number:order.
  * @param "Type_" (optional.String) -  The record type.
-@return JetDropRecordsResponse200
+@return ObjectLifelineResponse200
 */
-func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string, localVarOptionals *JetDropRecordsOpts) (JetDropRecordsResponse200, *_nethttp.Response, error) {
+func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string, localVarOptionals *JetDropRecordsOpts) (ObjectLifelineResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  JetDropRecordsResponse200
+		localVarReturnValue  ObjectLifelineResponse200
 	)
 
 	// create path and map variables
@@ -115,7 +115,7 @@ func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v JetDropRecordsResponse200
+			var v ObjectLifelineResponse200
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

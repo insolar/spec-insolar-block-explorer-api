@@ -5,8 +5,8 @@ ENV OUTPUT_DIR=/package
 
 COPY . ./src/
 
-RUN npm run export -- --target=api-exported-gen.yaml --collapse \
-     && npm run export -- --target=api-exported.yaml
+RUN npm --stack-size=65500 run export -- --target=api-exported-gen.yaml --collapse \
+     && npm --stack-size=65500 run export -- --target=api-exported.yaml
 
 RUN sed -i  's/\%7B/{/g'  api-exported.yaml && \
     sed -i  's/\%7D/}/g'  api-exported.yaml

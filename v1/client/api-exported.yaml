@@ -442,89 +442,7 @@ paths:
         - $ref: '#/components/parameters/jetDropIdPathParam'
       responses:
         '200':
-          description: A paged array of records.
-          content:
-            application/json:
-              schema:
-                properties:
-                  total:
-                    type: integer
-                    format: int64
-                    description: Total results.
-                    example: 100
-                  result:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        reference:
-                          type: string
-                          description: Record reference.
-                          example: >-
-                            insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
-                          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-                        prev_record_reference:
-                          type: string
-                          description: Previous record reference.
-                          example: >-
-                            insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record
-                          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-                        object_reference:
-                          type: string
-                          description: Object reference.
-                          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-                          pattern: >-
-                            ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
-                        prototype_reference:
-                          type: string
-                          description: Prototype reference.
-                          example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
-                          pattern: >-
-                            ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
-                        type:
-                          type: string
-                          description: Record type.
-                          enum:
-                            - state
-                            - request
-                            - result
-                          example: state
-                        timestamp:
-                          type: integer
-                          format: int64
-                          description: Unix timestamp.
-                          example: 1451743413
-                        payload:
-                          type: string
-                          description: Record payload.
-                          example: >-
-                            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
-                        hash:
-                          type: string
-                          description: Record hash.
-                          example: >-
-                            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
-                        pulse_number:
-                          type: integer
-                          format: int64
-                          description: Pulse number.
-                          example: 436120213
-                        jet_id:
-                          type: string
-                          description: Jet ID.
-                          example: '0010'
-                          pattern: '^([0-1]{2,64})$'
-                        jet_drop_id:
-                          type: string
-                          description: >-
-                            JetDrop ID is concantination of jet_id and
-                            pulse_number.
-                          example: '43648102:0010'
-                        order:
-                          type: integer
-                          format: int64
-                          description: Order is the record order number in the Jet Drop.
-                          example: '3'
+          $ref: '#/components/responses/recordsResponse'
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '500':
@@ -556,7 +474,7 @@ paths:
         - $ref: '#/components/parameters/recordTypeParam'
       responses:
         '200':
-          $ref: '#/components/responses/customlifeline'
+          $ref: '#/components/responses/recordsResponse'
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '500':
@@ -691,37 +609,25 @@ components:
       description: The reference of object.
       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
   responses:
-    customlifeline:
-      type: object
+    recordsResponse:
       description: A paged array of records by lifeline.
       content:
         application/json:
           schema:
-            properties:
-              total:
-                type: integer
-                format: int64
-                description: Total results.
-                example: 100
-              result:
-                type: array
-                items:
-                  allOf:
-                    - properties:
-                        custom_reference:
-                          type: string
-                          description: custom Record reference.
-                          example: >-
-                            insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
-                          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-                    - properties:
-                        prev_record_reference:
-                          type: string
-                          description: Previous record reference.
-                          example: >-
-                            insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record
-                          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+            $ref: '#/components/schemas/records'
   schemas:
+    records:
+      description: A paged array of records.
+      properties:
+        total:
+          type: integer
+          format: int64
+          description: Total results.
+          example: 100
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/record'
     responses-search-pulse:
       description: Pulse response for Search.
       title: Pulse response
@@ -818,3 +724,68 @@ components:
               description: Jet ID.
               example: '0010'
       x-json-schema-id: responses/search-jetid
+    record:
+      description: Record representation.
+      properties:
+        reference:
+          type: string
+          description: Record reference.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        prev_record_reference:
+          type: string
+          description: Previous record reference.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        object_reference:
+          type: string
+          description: Object reference.
+          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        prototype_reference:
+          type: string
+          description: Prototype reference.
+          example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        type:
+          type: string
+          description: Record type.
+          enum:
+            - state
+            - request
+            - result
+          example: state
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp.
+          example: 1451743413
+        payload:
+          type: string
+          description: Record payload.
+          example: >-
+            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
+        hash:
+          type: string
+          description: Record hash.
+          example: >-
+            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 436120213
+        jet_id:
+          type: string
+          description: Jet ID.
+          example: '0010'
+          pattern: '^([0-1]{2,64})$'
+        jet_drop_id:
+          type: string
+          description: JetDrop ID is concantination of jet_id and pulse_number.
+          example: '43648102:0010'
+        order:
+          type: integer
+          format: int64
+          description: Order is the record order number in the Jet Drop.
+          example: '3'

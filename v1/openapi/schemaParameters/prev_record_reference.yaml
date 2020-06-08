@@ -1,7 +1,0 @@
-#x-component: 'schemaParameters/prev_record_reference'
-properties:
-  prev_record_reference:
-    type: string
-    description: Previous record reference.
-    example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record"
-    pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'

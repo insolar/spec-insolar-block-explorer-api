@@ -17,22 +17,7 @@ get:
     - $ref: '../parameters/jetDropIdPathParam.yaml'
   responses:
     '200':
-      description: A paged array of records.
-      content:
-        application/json:
-          schema:
-            properties:
-              total:
-                type: integer
-                format: int64
-                description: Total results.
-                example: 100
-              result:
-                type: array
-                items:
-                  x-merge: true
-                  allOf:
-                    - $ref: '../responses/record.yaml#/recordResponse'
+      $ref: '../responses/records.yaml'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '500':

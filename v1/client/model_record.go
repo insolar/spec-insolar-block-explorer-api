@@ -9,8 +9,8 @@
  */
 
 package client
-// JetDropRecordsResponse200Result struct for JetDropRecordsResponse200Result
-type JetDropRecordsResponse200Result struct {
+// Record Record representation.
+type Record struct {
 	// Record reference.
 	Reference string `json:"reference,omitempty"`
 	// Previous record reference.

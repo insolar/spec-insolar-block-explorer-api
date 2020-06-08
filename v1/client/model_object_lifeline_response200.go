@@ -9,7 +9,7 @@
  */
 
 package client
-// ObjectLifelineResponse200 struct for ObjectLifelineResponse200
+// ObjectLifelineResponse200 A paged array of records.
 type ObjectLifelineResponse200 struct {
 	// Total results.
 	Total int64 `json:"total,omitempty"`
