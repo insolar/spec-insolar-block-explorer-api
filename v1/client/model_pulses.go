@@ -13,7 +13,7 @@ package client
 type Pulses struct {
 	// Total results.
 	Total int64 `json:"total,omitempty"`
-	Result []PulsesResponse200Result `json:"result,omitempty"`
+	Result []PulseResponse200 `json:"result,omitempty"`
 	Code string `json:"code,omitempty"`
 	Message string `json:"message,omitempty"`
 	Description string `json:"description,omitempty"`

@@ -10,6 +10,4 @@ properties:
   result:
     type: array
     items:
-      type: object
-      allOf:
-        - $ref: './pulse.yaml'
+      $ref: './pulse.yaml'

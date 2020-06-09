@@ -14,5 +14,4 @@ properties:
     type: array
     items:
       type: object
-      allOf:
-        - $ref: './code-validation-failures.yaml'
+      $ref: './code-validation-failures.yaml'

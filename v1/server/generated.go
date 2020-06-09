@@ -20,14 +20,11 @@ type CodeError struct {
 
 // CodeValidationError defines model for code-validation-error.
 type CodeValidationError struct {
-	Code               *string `json:"code,omitempty"`
-	Description        *string `json:"description,omitempty"`
-	Link               *string `json:"link,omitempty"`
-	Message            *string `json:"message,omitempty"`
-	ValidationFailures *[]struct {
-		// Embedded struct due to allOf(#/components/schemas/code-validation-failures)
-		CodeValidationFailures
-	} `json:"validation_failures,omitempty"`
+	Code               *string                   `json:"code,omitempty"`
+	Description        *string                   `json:"description,omitempty"`
+	Link               *string                   `json:"link,omitempty"`
+	Message            *string                   `json:"message,omitempty"`
+	ValidationFailures *[]CodeValidationFailures `json:"validation_failures,omitempty"`
 }
 
 // CodeValidationFailures defines model for code-validation-failures.
@@ -103,10 +100,7 @@ type Pulse struct {
 
 // Pulses defines model for pulses.
 type Pulses struct {
-	Result *[]struct {
-		// Embedded struct due to allOf(#/components/schemas/pulse)
-		Pulse
-	} `json:"result,omitempty"`
+	Result *[]Pulse `json:"result,omitempty"`
 
 	// Total results.
 	Total *int64 `json:"total,omitempty"`

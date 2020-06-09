@@ -10,5 +10,4 @@ properties:
   result:
     type: array
     items:
-      allOf:
-        - $ref: './record.yaml'
+      $ref: './record.yaml'

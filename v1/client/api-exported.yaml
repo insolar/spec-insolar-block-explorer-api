@@ -380,9 +380,7 @@ components:
         result:
           type: array
           items:
-            type: object
-            allOf:
-              - $ref: '#/components/schemas/pulse'
+            $ref: '#/components/schemas/pulse'
     code-validation-error:
       description: Responce codes.
       type: object
@@ -398,9 +396,7 @@ components:
         validation_failures:
           type: array
           items:
-            type: object
-            allOf:
-              - $ref: '#/components/schemas/code-validation-failures'
+            $ref: '#/components/schemas/code-validation-failures'
     code-error:
       description: Responce codes.
       type: object
