@@ -393,6 +393,7 @@ components:
   schemas:
     pulses:
       description: A paged array of Pulses.
+      type: object
       properties:
         total:
           type: integer
@@ -402,9 +403,12 @@ components:
         result:
           type: array
           items:
-            $ref: '#/components/schemas/pulse'
+            type: object
+            allOf:
+              - $ref: '#/components/schemas/pulse'
     pulse:
       description: Pulse representation.
+      type: object
       properties:
         pulse_number:
           type: integer
@@ -442,6 +446,7 @@ components:
           example: true
     jet-drop:
       description: JetDrop representation.
+      type: object
       properties:
         jet_drop_id:
           type: string
@@ -498,6 +503,7 @@ components:
             0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
     jet-drops:
       description: A paged array of Pulses.
+      type: object
       properties:
         total:
           type: integer
@@ -510,6 +516,7 @@ components:
             $ref: '#/components/schemas/jet-drop'
     records:
       description: A paged array of records.
+      type: object
       properties:
         total:
           type: integer
@@ -618,6 +625,7 @@ components:
       x-json-schema-id: responses/search-jetid
     record:
       description: Record representation.
+      type: object
       properties:
         reference:
           type: string

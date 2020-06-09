@@ -13,7 +13,7 @@ package client
 type ObjectLifelineResponse200 struct {
 	// Total results.
 	Total int64 `json:"total,omitempty"`
-	Result []map[string]interface{} `json:"result,omitempty"`
+	Result []ObjectLifelineResponse200Result `json:"result,omitempty"`
 	Code string `json:"code,omitempty"`
 	Message string `json:"message,omitempty"`
 	Description string `json:"description,omitempty"`

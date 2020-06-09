@@ -1,5 +1,6 @@
 x-component: 'schemas/jet-drop'
 description: JetDrop representation.
+type: object
 properties:
   jet_drop_id:
     type: string

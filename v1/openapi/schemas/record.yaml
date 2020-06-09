@@ -1,5 +1,6 @@
 x-component: "schemas/record"
 description: Record representation.
+type: object
 properties:
   reference:
     type: string

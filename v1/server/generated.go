@@ -74,7 +74,10 @@ type Pulse struct {
 
 // Pulses defines model for pulses.
 type Pulses struct {
-	Result *[]Pulse `json:"result,omitempty"`
+	Result *[]struct {
+		// Embedded struct due to allOf(#/components/schemas/pulse)
+		Pulse
+	} `json:"result,omitempty"`
 
 	// Total results.
 	Total *int64 `json:"total,omitempty"`

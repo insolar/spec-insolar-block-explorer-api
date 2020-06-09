@@ -37,6 +37,7 @@ paths:
             application/json:
               schema:
                 description: A paged array of Pulses.
+                type: object
                 properties:
                   total:
                     type: integer
@@ -46,6 +47,7 @@ paths:
                   result:
                     type: array
                     items:
+                      type: object
                       description: Pulse representation.
                       properties:
                         pulse_number:
@@ -82,29 +84,6 @@ paths:
                           type: boolean
                           description: Pulse fullness status.
                           example: true
-                        code:
-                          type: string
-                        message:
-                          type: string
-                        description:
-                          type: string
-                        link:
-                          type: string
-                        validation_failures:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              property:
-                                type: string
-                                description: Property name
-                              failure_reason:
-                                type: string
-                                description: Failure reason
-                      title: PulseResponse200
-                      required:
-                        - validation_failures
-                      type: object
                   code:
                     type: string
                   message:
@@ -127,7 +106,6 @@ paths:
                 title: PulsesResponse200
                 required:
                   - validation_failures
-                type: object
   '/api/v1/pulses/{pulse_number}':
     get:
       summary: Pulse
@@ -150,6 +128,7 @@ paths:
             application/json:
               schema:
                 description: Pulse representation.
+                type: object
                 properties:
                   pulse_number:
                     type: integer
@@ -207,7 +186,6 @@ paths:
                 title: PulseResponse200
                 required:
                   - validation_failures
-                type: object
   '/api/v1/jet-drops/{jet_drop_id}':
     get:
       summary: Jet drop by ID
@@ -228,6 +206,7 @@ paths:
             application/json:
               schema:
                 description: JetDrop representation.
+                type: object
                 properties:
                   jet_drop_id:
                     type: string
@@ -304,7 +283,6 @@ paths:
                 title: Jet drop by IDResponse200
                 required:
                   - validation_failures
-                type: object
   '/api/v1/pulses/{pulse_number}/jet-drops':
     get:
       summary: Jet drops by pulse number
@@ -330,6 +308,7 @@ paths:
             application/json:
               schema:
                 description: A paged array of Pulses.
+                type: object
                 properties:
                   total:
                     type: integer
@@ -340,6 +319,7 @@ paths:
                     type: array
                     items:
                       description: JetDrop representation.
+                      type: object
                       properties:
                         jet_drop_id:
                           type: string
@@ -422,7 +402,6 @@ paths:
                       title: Jet drop by IDResponse200
                       required:
                         - validation_failures
-                      type: object
                   code:
                     type: string
                   message:
@@ -445,7 +424,6 @@ paths:
                 title: Jet drops by jet IDResponse200
                 required:
                   - validation_failures
-                type: object
   '/api/v1/jets/{jet_id}/jet-drops':
     get:
       summary: Jet drops by jet ID
@@ -473,6 +451,7 @@ paths:
             application/json:
               schema:
                 description: A paged array of Pulses.
+                type: object
                 properties:
                   total:
                     type: integer
@@ -483,6 +462,7 @@ paths:
                     type: array
                     items:
                       description: JetDrop representation.
+                      type: object
                       properties:
                         jet_drop_id:
                           type: string
@@ -565,7 +545,6 @@ paths:
                       title: Jet drop by IDResponse200
                       required:
                         - validation_failures
-                      type: object
                   code:
                     type: string
                   message:
@@ -588,7 +567,6 @@ paths:
                 title: Jet drops by jet IDResponse200
                 required:
                   - validation_failures
-                type: object
   '/api/v1/jet-drops/{jet_drop_id}/records':
     get:
       summary: Jet drop records
@@ -613,6 +591,7 @@ paths:
             application/json:
               schema:
                 description: A paged array of records.
+                type: object
                 properties:
                   total:
                     type: integer
@@ -623,6 +602,7 @@ paths:
                     type: array
                     items:
                       description: Record representation.
+                      type: object
                       properties:
                         reference:
                           type: string
@@ -714,7 +694,6 @@ paths:
                 title: Object LifelineResponse200
                 required:
                   - validation_failures
-                type: object
   '/api/v1/lifeline/{object_reference}/records':
     get:
       summary: Object Lifeline
@@ -741,6 +720,7 @@ paths:
             application/json:
               schema:
                 description: A paged array of records.
+                type: object
                 properties:
                   total:
                     type: integer
@@ -751,6 +731,7 @@ paths:
                     type: array
                     items:
                       description: Record representation.
+                      type: object
                       properties:
                         reference:
                           type: string
@@ -842,7 +823,6 @@ paths:
                 title: Object LifelineResponse200
                 required:
                   - validation_failures
-                type: object
   /api/v1/search:
     get:
       summary: Search Data
@@ -1247,6 +1227,7 @@ components:
         application/json:
           schema:
             description: A paged array of Pulses.
+            type: object
             properties:
               total:
                 type: integer
@@ -1256,6 +1237,7 @@ components:
               result:
                 type: array
                 items:
+                  type: object
                   description: Pulse representation.
                   properties:
                     pulse_number:
@@ -1292,29 +1274,6 @@ components:
                       type: boolean
                       description: Pulse fullness status.
                       example: true
-                    code:
-                      type: string
-                    message:
-                      type: string
-                    description:
-                      type: string
-                    link:
-                      type: string
-                    validation_failures:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          property:
-                            type: string
-                            description: Property name
-                          failure_reason:
-                            type: string
-                            description: Failure reason
-                  title: PulseResponse200
-                  required:
-                    - validation_failures
-                  type: object
               code:
                 type: string
               message:
@@ -1337,13 +1296,13 @@ components:
             title: PulsesResponse200
             required:
               - validation_failures
-            type: object
     pulseResponse:
       description: Internal server error. Unable to process request due to an error.
       content:
         application/json:
           schema:
             description: Pulse representation.
+            type: object
             properties:
               pulse_number:
                 type: integer
@@ -1401,13 +1360,13 @@ components:
             title: PulseResponse200
             required:
               - validation_failures
-            type: object
     jetDropResponse:
       description: Internal server error. Unable to process request due to an error.
       content:
         application/json:
           schema:
             description: JetDrop representation.
+            type: object
             properties:
               jet_drop_id:
                 type: string
@@ -1484,13 +1443,13 @@ components:
             title: Jet drop by IDResponse200
             required:
               - validation_failures
-            type: object
     jetDropsResponse:
       description: Internal server error. Unable to process request due to an error.
       content:
         application/json:
           schema:
             description: A paged array of Pulses.
+            type: object
             properties:
               total:
                 type: integer
@@ -1501,6 +1460,7 @@ components:
                 type: array
                 items:
                   description: JetDrop representation.
+                  type: object
                   properties:
                     jet_drop_id:
                       type: string
@@ -1581,7 +1541,6 @@ components:
                   title: Jet drop by IDResponse200
                   required:
                     - validation_failures
-                  type: object
               code:
                 type: string
               message:
@@ -1604,13 +1563,13 @@ components:
             title: Jet drops by jet IDResponse200
             required:
               - validation_failures
-            type: object
     recordsResponse:
       description: Internal server error. Unable to process request due to an error.
       content:
         application/json:
           schema:
             description: A paged array of records.
+            type: object
             properties:
               total:
                 type: integer
@@ -1621,6 +1580,7 @@ components:
                 type: array
                 items:
                   description: Record representation.
+                  type: object
                   properties:
                     reference:
                       type: string
@@ -1708,10 +1668,10 @@ components:
             title: Object LifelineResponse200
             required:
               - validation_failures
-            type: object
   schemas:
     pulses:
       description: A paged array of Pulses.
+      type: object
       properties:
         total:
           type: integer
@@ -1721,6 +1681,7 @@ components:
         result:
           type: array
           items:
+            type: object
             description: Pulse representation.
             properties:
               pulse_number:
@@ -1757,29 +1718,6 @@ components:
                 type: boolean
                 description: Pulse fullness status.
                 example: true
-              code:
-                type: string
-              message:
-                type: string
-              description:
-                type: string
-              link:
-                type: string
-              validation_failures:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    property:
-                      type: string
-                      description: Property name
-                    failure_reason:
-                      type: string
-                      description: Failure reason
-            title: PulseResponse200
-            required:
-              - validation_failures
-            type: object
         code:
           type: string
         message:
@@ -1802,9 +1740,9 @@ components:
       title: PulsesResponse200
       required:
         - validation_failures
-      type: object
     pulse:
       description: Pulse representation.
+      type: object
       properties:
         pulse_number:
           type: integer
@@ -1862,9 +1800,9 @@ components:
       title: PulseResponse200
       required:
         - validation_failures
-      type: object
     jet-drop:
       description: JetDrop representation.
+      type: object
       properties:
         jet_drop_id:
           type: string
@@ -1941,9 +1879,9 @@ components:
       title: Jet drop by IDResponse200
       required:
         - validation_failures
-      type: object
     jet-drops:
       description: A paged array of Pulses.
+      type: object
       properties:
         total:
           type: integer
@@ -1954,6 +1892,7 @@ components:
           type: array
           items:
             description: JetDrop representation.
+            type: object
             properties:
               jet_drop_id:
                 type: string
@@ -2030,7 +1969,6 @@ components:
             title: Jet drop by IDResponse200
             required:
               - validation_failures
-            type: object
         code:
           type: string
         message:
@@ -2053,9 +1991,9 @@ components:
       title: Jet drops by jet IDResponse200
       required:
         - validation_failures
-      type: object
     records:
       description: A paged array of records.
+      type: object
       properties:
         total:
           type: integer
@@ -2066,6 +2004,7 @@ components:
           type: array
           items:
             description: Record representation.
+            type: object
             properties:
               reference:
                 type: string
@@ -2151,7 +2090,6 @@ components:
       title: Object LifelineResponse200
       required:
         - validation_failures
-      type: object
     responses-search-pulse:
       description: Pulse response for Search.
       title: Pulse response
@@ -2250,6 +2188,7 @@ components:
       x-json-schema-id: responses/search-jetid
     record:
       description: Record representation.
+      type: object
       properties:
         reference:
           type: string

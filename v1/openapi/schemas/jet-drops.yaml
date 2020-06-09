@@ -1,5 +1,6 @@
 x-component: 'schemas/jet-drops'
 description: A paged array of Pulses.
+type: object
 properties:
   total:
     type: integer

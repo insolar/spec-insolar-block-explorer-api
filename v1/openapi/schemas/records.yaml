@@ -1,5 +1,6 @@
 x-component: "schemas/records"
 description: A paged array of records.
+type: object
 properties:
   total:
     type: integer
@@ -9,4 +10,5 @@ properties:
   result:
     type: array
     items:
-      $ref: '../schemas/record.yaml'
+      allOf:
+        - $ref: './record.yaml'

@@ -1,5 +1,6 @@
 x-component: 'schemas/pulses'
 description: A paged array of Pulses.
+type: object
 properties:
   total:
     type: integer
@@ -9,5 +10,6 @@ properties:
   result:
     type: array
     items:
+      type: object
       allOf:
         - $ref: './pulse.yaml'
