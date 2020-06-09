@@ -43,7 +43,7 @@ type JetDrop struct {
 	// Record hash.
 	Hash *string `json:"hash,omitempty"`
 
-	// JetDrop ID is concantination of jet_id and pulse_number.
+	// JetDrop ID is concatenation of jet_id and pulse_number.
 	JetDropId *string `json:"jet_drop_id,omitempty"`
 
 	// Jet ID.
@@ -112,7 +112,10 @@ type Record struct {
 	// Record hash.
 	Hash *string `json:"hash,omitempty"`
 
-	// JetDrop ID is concantination of jet_id and pulse_number.
+	// Index is concatenation of pulse_number and order.
+	Index *string `json:"index,omitempty"`
+
+	// JetDrop ID is concatenation of jet_id and pulse_number.
 	JetDropId *string `json:"jet_drop_id,omitempty"`
 
 	// Jet ID.
@@ -168,20 +171,6 @@ type SearchJetDrop struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// SearchJetid defines model for search-jetid.
-type SearchJetid struct {
-
-	// Meta data.
-	Meta *struct {
-
-		// Jet ID.
-		JetId *string `json:"jet-id,omitempty"`
-	} `json:"meta,omitempty"`
-
-	// Result type.
-	Type *string `json:"type,omitempty"`
-}
-
 // SearchLifeline defines model for search-lifeline.
 type SearchLifeline struct {
 
@@ -216,8 +205,11 @@ type SearchRecord struct {
 	// Meta data.
 	Meta *struct {
 
-		// Record reference.
-		RecordRef *string `json:"record_ref,omitempty"`
+		// Index is concatenation of pulse_number and order.
+		Index *string `json:"index,omitempty"`
+
+		// Object reference.
+		ObjectReference *string `json:"object_reference,omitempty"`
 	} `json:"meta,omitempty"`
 
 	// Result type.

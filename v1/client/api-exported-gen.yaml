@@ -229,7 +229,7 @@ paths:
                 properties:
                   jet_drop_id:
                     type: string
-                    description: JetDrop ID is concantination of jet_id and pulse_number.
+                    description: JetDrop ID is concatenation of jet_id and pulse_number.
                     example: '43648102:0010'
                     pattern: '^(\d+:[0-1]{2,64})$'
                   next_jet_drop_id:
@@ -241,7 +241,7 @@ paths:
                       - '43648104:00101'
                     items:
                       type: string
-                      description: JetDrop ID is concantination of jet_id and pulse_number
+                      description: JetDrop ID is concatenation of jet_id and pulse_number
                       example: '43648102:0010'
                       pattern: '^(\d+:[0-1]{2,64})$'
                   prev_jet_drop_id:
@@ -252,7 +252,7 @@ paths:
                       - '43648101:0010'
                     items:
                       type: string
-                      description: JetDrop ID is concantination of jet_id and pulse_number
+                      description: JetDrop ID is concatenation of jet_id and pulse_number
                       example: '43648102:0010'
                       pattern: '^(\d+:[0-1]{2,64})$'
                   jet_id:
@@ -342,7 +342,7 @@ paths:
                         jet_drop_id:
                           type: string
                           description: >-
-                            JetDrop ID is concantination of jet_id and
+                            JetDrop ID is concatenation of jet_id and
                             pulse_number.
                           example: '43648102:0010'
                           pattern: '^(\d+:[0-1]{2,64})$'
@@ -356,7 +356,7 @@ paths:
                           items:
                             type: string
                             description: >-
-                              JetDrop ID is concantination of jet_id and
+                              JetDrop ID is concatenation of jet_id and
                               pulse_number
                             example: '43648102:0010'
                             pattern: '^(\d+:[0-1]{2,64})$'
@@ -369,7 +369,7 @@ paths:
                           items:
                             type: string
                             description: >-
-                              JetDrop ID is concantination of jet_id and
+                              JetDrop ID is concatenation of jet_id and
                               pulse_number
                             example: '43648102:0010'
                             pattern: '^(\d+:[0-1]{2,64})$'
@@ -483,7 +483,7 @@ paths:
                         jet_drop_id:
                           type: string
                           description: >-
-                            JetDrop ID is concantination of jet_id and
+                            JetDrop ID is concatenation of jet_id and
                             pulse_number.
                           example: '43648102:0010'
                           pattern: '^(\d+:[0-1]{2,64})$'
@@ -497,7 +497,7 @@ paths:
                           items:
                             type: string
                             description: >-
-                              JetDrop ID is concantination of jet_id and
+                              JetDrop ID is concatenation of jet_id and
                               pulse_number
                             example: '43648102:0010'
                             pattern: '^(\d+:[0-1]{2,64})$'
@@ -510,7 +510,7 @@ paths:
                           items:
                             type: string
                             description: >-
-                              JetDrop ID is concantination of jet_id and
+                              JetDrop ID is concatenation of jet_id and
                               pulse_number
                             example: '43648102:0010'
                             pattern: '^(\d+:[0-1]{2,64})$'
@@ -678,7 +678,7 @@ paths:
                         jet_drop_id:
                           type: string
                           description: >-
-                            JetDrop ID is concantination of jet_id and
+                            JetDrop ID is concatenation of jet_id and
                             pulse_number.
                           example: '43648102:0010'
                         order:
@@ -686,6 +686,10 @@ paths:
                           format: int64
                           description: Order is the record order number in the Jet Drop.
                           example: '3'
+                        index:
+                          type: string
+                          description: Index is concatenation of pulse_number and order.
+                          example: '43648102:7'
                   code:
                     type: string
                   message:
@@ -806,7 +810,7 @@ paths:
                         jet_drop_id:
                           type: string
                           description: >-
-                            JetDrop ID is concantination of jet_id and
+                            JetDrop ID is concatenation of jet_id and
                             pulse_number.
                           example: '43648102:0010'
                         order:
@@ -814,6 +818,10 @@ paths:
                           format: int64
                           description: Order is the record order number in the Jet Drop.
                           example: '3'
+                        index:
+                          type: string
+                          description: Index is concatenation of pulse_number and order.
+                          example: '43648102:7'
                   code:
                     type: string
                   message:
@@ -861,8 +869,7 @@ paths:
                       - record
                       - jet-drop
                       - lifeline
-                      - jetid
-                    example: jetid
+                    example: lifeline
                   meta:
                     type: object
                     description: Meta data.
@@ -872,23 +879,19 @@ paths:
                         format: int64
                         description: Pulse Number.
                         example: 1
-                      record_ref:
-                        type: string
-                        description: Record reference.
-                        example: >-
-                          insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
-                      jet_drop_id:
-                        type: string
-                        description: JetDrop ID.
-                        example: '43612021:001'
                       object_reference:
                         type: string
                         description: Object reference.
                         example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-                      jet-id:
+                        pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+                      index:
                         type: string
-                        description: Jet ID.
-                        example: '0010'
+                        description: Index is concatenation of pulse_number and order.
+                        example: '43648102:7'
+                      jet_drop_id:
+                        type: string
+                        description: JetDrop ID.
+                        example: '43612021:001'
                   code:
                     type: string
                   message:
@@ -1451,7 +1454,7 @@ components:
             properties:
               jet_drop_id:
                 type: string
-                description: JetDrop ID is concantination of jet_id and pulse_number.
+                description: JetDrop ID is concatenation of jet_id and pulse_number.
                 example: '43648102:0010'
                 pattern: '^(\d+:[0-1]{2,64})$'
               next_jet_drop_id:
@@ -1463,7 +1466,7 @@ components:
                   - '43648104:00101'
                 items:
                   type: string
-                  description: JetDrop ID is concantination of jet_id and pulse_number
+                  description: JetDrop ID is concatenation of jet_id and pulse_number
                   example: '43648102:0010'
                   pattern: '^(\d+:[0-1]{2,64})$'
               prev_jet_drop_id:
@@ -1474,7 +1477,7 @@ components:
                   - '43648101:0010'
                 items:
                   type: string
-                  description: JetDrop ID is concantination of jet_id and pulse_number
+                  description: JetDrop ID is concatenation of jet_id and pulse_number
                   example: '43648102:0010'
                   pattern: '^(\d+:[0-1]{2,64})$'
               jet_id:
@@ -1544,7 +1547,7 @@ components:
                   properties:
                     jet_drop_id:
                       type: string
-                      description: JetDrop ID is concantination of jet_id and pulse_number.
+                      description: JetDrop ID is concatenation of jet_id and pulse_number.
                       example: '43648102:0010'
                       pattern: '^(\d+:[0-1]{2,64})$'
                     next_jet_drop_id:
@@ -1556,9 +1559,7 @@ components:
                         - '43648104:00101'
                       items:
                         type: string
-                        description: >-
-                          JetDrop ID is concantination of jet_id and
-                          pulse_number
+                        description: JetDrop ID is concatenation of jet_id and pulse_number
                         example: '43648102:0010'
                         pattern: '^(\d+:[0-1]{2,64})$'
                     prev_jet_drop_id:
@@ -1569,9 +1570,7 @@ components:
                         - '43648101:0010'
                       items:
                         type: string
-                        description: >-
-                          JetDrop ID is concantination of jet_id and
-                          pulse_number
+                        description: JetDrop ID is concatenation of jet_id and pulse_number
                         example: '43648102:0010'
                         pattern: '^(\d+:[0-1]{2,64})$'
                     jet_id:
@@ -1717,13 +1716,17 @@ components:
                       pattern: '^([0-1]{2,64})$'
                     jet_drop_id:
                       type: string
-                      description: JetDrop ID is concantination of jet_id and pulse_number.
+                      description: JetDrop ID is concatenation of jet_id and pulse_number.
                       example: '43648102:0010'
                     order:
                       type: integer
                       format: int64
                       description: Order is the record order number in the Jet Drop.
                       example: '3'
+                    index:
+                      type: string
+                      description: Index is concatenation of pulse_number and order.
+                      example: '43648102:7'
               code:
                 type: string
               message:
@@ -1762,8 +1765,7 @@ components:
                   - record
                   - jet-drop
                   - lifeline
-                  - jetid
-                example: jetid
+                example: lifeline
               meta:
                 type: object
                 description: Meta data.
@@ -1773,23 +1775,19 @@ components:
                     format: int64
                     description: Pulse Number.
                     example: 1
-                  record_ref:
-                    type: string
-                    description: Record reference.
-                    example: >-
-                      insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
-                  jet_drop_id:
-                    type: string
-                    description: JetDrop ID.
-                    example: '43612021:001'
                   object_reference:
                     type: string
                     description: Object reference.
                     example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-                  jet-id:
+                    pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+                  index:
                     type: string
-                    description: Jet ID.
-                    example: '0010'
+                    description: Index is concatenation of pulse_number and order.
+                    example: '43648102:7'
+                  jet_drop_id:
+                    type: string
+                    description: JetDrop ID.
+                    example: '43612021:001'
               code:
                 type: string
               message:
@@ -2001,7 +1999,7 @@ components:
       properties:
         jet_drop_id:
           type: string
-          description: JetDrop ID is concantination of jet_id and pulse_number.
+          description: JetDrop ID is concatenation of jet_id and pulse_number.
           example: '43648102:0010'
           pattern: '^(\d+:[0-1]{2,64})$'
         next_jet_drop_id:
@@ -2013,7 +2011,7 @@ components:
             - '43648104:00101'
           items:
             type: string
-            description: JetDrop ID is concantination of jet_id and pulse_number
+            description: JetDrop ID is concatenation of jet_id and pulse_number
             example: '43648102:0010'
             pattern: '^(\d+:[0-1]{2,64})$'
         prev_jet_drop_id:
@@ -2024,7 +2022,7 @@ components:
             - '43648101:0010'
           items:
             type: string
-            description: JetDrop ID is concantination of jet_id and pulse_number
+            description: JetDrop ID is concatenation of jet_id and pulse_number
             example: '43648102:0010'
             pattern: '^(\d+:[0-1]{2,64})$'
         jet_id:
@@ -2090,7 +2088,7 @@ components:
             properties:
               jet_drop_id:
                 type: string
-                description: JetDrop ID is concantination of jet_id and pulse_number.
+                description: JetDrop ID is concatenation of jet_id and pulse_number.
                 example: '43648102:0010'
                 pattern: '^(\d+:[0-1]{2,64})$'
               next_jet_drop_id:
@@ -2102,7 +2100,7 @@ components:
                   - '43648104:00101'
                 items:
                   type: string
-                  description: JetDrop ID is concantination of jet_id and pulse_number
+                  description: JetDrop ID is concatenation of jet_id and pulse_number
                   example: '43648102:0010'
                   pattern: '^(\d+:[0-1]{2,64})$'
               prev_jet_drop_id:
@@ -2113,7 +2111,7 @@ components:
                   - '43648101:0010'
                 items:
                   type: string
-                  description: JetDrop ID is concantination of jet_id and pulse_number
+                  description: JetDrop ID is concatenation of jet_id and pulse_number
                   example: '43648102:0010'
                   pattern: '^(\d+:[0-1]{2,64})$'
               jet_id:
@@ -2253,13 +2251,17 @@ components:
                 pattern: '^([0-1]{2,64})$'
               jet_drop_id:
                 type: string
-                description: JetDrop ID is concantination of jet_id and pulse_number.
+                description: JetDrop ID is concatenation of jet_id and pulse_number.
                 example: '43648102:0010'
               order:
                 type: integer
                 format: int64
                 description: Order is the record order number in the Jet Drop.
                 example: '3'
+              index:
+                type: string
+                description: Index is concatenation of pulse_number and order.
+                example: '43648102:7'
         code:
           type: string
         message:
@@ -2316,10 +2318,15 @@ components:
           type: object
           description: Meta data.
           properties:
-            record_ref:
+            object_reference:
               type: string
-              description: Record reference.
-              example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+              description: Object reference.
+              example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+              pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+            index:
+              type: string
+              description: Index is concatenation of pulse_number and order.
+              example: '43648102:7'
     search-jet-drop:
       description: Jet drop response for Search.
       title: Jet drop response
@@ -2358,25 +2365,6 @@ components:
               type: string
               description: Object reference.
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-    search-jetid:
-      description: Jet ID response for Search.
-      title: Jet ID response
-      type: object
-      properties:
-        type:
-          type: string
-          description: Result type.
-          enum:
-            - jetid
-          example: jetid
-        meta:
-          type: object
-          description: Meta data.
-          properties:
-            jet-id:
-              type: string
-              description: Jet ID.
-              example: '0010'
     code-validation-failures:
       description: Validation Failure.
       type: object
@@ -2446,10 +2434,14 @@ components:
           pattern: '^([0-1]{2,64})$'
         jet_drop_id:
           type: string
-          description: JetDrop ID is concantination of jet_id and pulse_number.
+          description: JetDrop ID is concatenation of jet_id and pulse_number.
           example: '43648102:0010'
         order:
           type: integer
           format: int64
           description: Order is the record order number in the Jet Drop.
           example: '3'
+        index:
+          type: string
+          description: Index is concatenation of pulse_number and order.
+          example: '43648102:7'

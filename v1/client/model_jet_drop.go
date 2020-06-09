@@ -11,7 +11,7 @@
 package client
 // JetDrop Responce codes.
 type JetDrop struct {
-	// JetDrop ID is concantination of jet_id and pulse_number.
+	// JetDrop ID is concatenation of jet_id and pulse_number.
 	JetDropId string `json:"jet_drop_id,omitempty"`
 	// Next jet_drop_id.
 	NextJetDropId []string `json:"next_jet_drop_id,omitempty"`
