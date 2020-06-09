@@ -1,0 +1,6 @@
+x-component: 'responses/jetDropsResponse'
+description: A paged array of jet drops.
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/jet-drops.yaml'

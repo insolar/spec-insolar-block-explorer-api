@@ -1,0 +1,10 @@
+x-component: 'schemas/code-validation-failures'
+description: Validation Failure.
+type: object
+properties:
+  property:
+    type: string
+    description: Property name.
+  failure_reason:
+    type: string
+    description: Failure reason.

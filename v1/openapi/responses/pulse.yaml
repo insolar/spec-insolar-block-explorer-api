@@ -1,0 +1,6 @@
+x-component: 'responses/pulseResponse'
+description: A Pulse.
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/pulse.yaml'

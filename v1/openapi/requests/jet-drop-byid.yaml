@@ -1,0 +1,16 @@
+get:
+  summary: Jet drop by ID
+  operationId: jetDropByID
+  tags:
+    - jet-drop
+  parameters:
+    - $ref: '../parameters/jetDropIdPathParam.yaml'
+  responses:
+    '200':
+      $ref: '../responses/jet-drop.yaml'
+    '400':
+      $ref: "../responses/400.yaml"
+    '404':
+      $ref: "../responses/404.yaml"
+    '500':
+      $ref: "../responses/500.yaml"

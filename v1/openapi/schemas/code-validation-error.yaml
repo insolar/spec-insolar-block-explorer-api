@@ -1,0 +1,17 @@
+x-component: 'schemas/code-validation-error'
+description: Responce codes.
+type: object
+properties:
+  code:
+    type: string
+  message:
+    type: string
+  description:
+    type: string
+  link:
+    type: string
+  validation_failures:
+    type: array
+    items:
+      type: object
+      $ref: './code-validation-failures.yaml'

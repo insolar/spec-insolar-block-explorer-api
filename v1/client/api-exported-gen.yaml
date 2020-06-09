@@ -1,197 +1,2455 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: Swagger Petstore
-  license:
-    name: MIT
+  title: Insolar Block Explorer API
+  contact:
+    name: Insolar dev team
+    url: 'https://insolar.io/team.html'
+    email: dev-support@insolar.io
+  description: |
+    BE description
 servers:
-  - url: 'http://petstore.swagger.io/v1'
+  - url: example.com
+    description: The test server.
+tags:
+  - name: pulse
+  - name: jet-drop
+  - name: record
 paths:
-  /pets:
+  /api/v1/pulses:
     get:
-      summary: List all pets
-      operationId: listPets
+      summary: Pulses
+      operationId: pulses
       tags:
-        - pets
+        - pulse
       parameters:
-        - $ref: '#/components/parameters/ListAllPetsQueryParameterLimit'
+        - $ref: '#/components/parameters/PulsesQueryParameterLimit'
+        - $ref: '#/components/parameters/PulsesQueryParameterOffset'
+        - $ref: '#/components/parameters/PulsesQueryParameterFrom_item'
+        - $ref: '#/components/parameters/PulsesQueryParameterFrom_pulse_number'
+        - $ref: '#/components/parameters/PulsesQueryParameterTo_pulse_number'
+        - $ref: '#/components/parameters/PulsesQueryParameterFrom_jet_drop_amount'
+        - $ref: '#/components/parameters/PulsesQueryParameterTo_jet_drop_amount'
       responses:
         '200':
-          description: unexpected error
-          headers:
-            x-next:
-              description: A link to the next page of responses
-              schema:
-                type: string
+          description: Internal server error. Unable to process request due to an error.
           content:
             application/json:
               schema:
+                description: Responce codes.
                 type: object
-                items:
-                  type: object
-                  required:
-                    - id
-                    - name
-                    - code
-                    - message
-                  properties:
-                    id:
-                      type: integer
-                      format: int64
-                    name:
-                      type: string
-                    tag:
-                      type: string
-                    code:
-                      type: integer
-                      format: int32
-                    message:
-                      type: string
-                  title: Info for a specific petResponse200
-                title: List all petsResponse200
-                required:
-                  - code
-                  - message
                 properties:
-                  code:
-                    type: integer
-                    format: int32
-                  message:
-                    type: string
-    post:
-      summary: Create a pet
-      operationId: createPets
-      tags:
-        - pets
-      responses:
-        '201':
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                title: Create a petResponse201
-                type: object
-                required:
-                  - code
-                  - message
-                properties:
-                  code:
-                    type: integer
-                    format: int32
-                  message:
-                    type: string
-  '/pets/{petId}':
-    get:
-      summary: Info for a specific pet
-      operationId: showPetById
-      tags:
-        - pets
-      parameters:
-        - name: petId
-          in: path
-          required: true
-          description: The id of the pet to retrieve
-          schema:
-            type: string
-      responses:
-        '200':
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - id
-                  - name
-                  - code
-                  - message
-                properties:
-                  id:
+                  total:
                     type: integer
                     format: int64
-                  name:
-                    type: string
-                  tag:
-                    type: string
+                    description: Total results.
+                    example: 100
+                  result:
+                    type: array
+                    items:
+                      description: Responce codes.
+                      type: object
+                      properties:
+                        pulse_number:
+                          type: integer
+                          format: int64
+                          description: Pulse number.
+                          example: 43648102
+                        prev_pulse_number:
+                          type: integer
+                          format: int64
+                          description: Previous pulse number.
+                          example: 43648092
+                        next_pulse_number:
+                          type: integer
+                          format: int64
+                          description: Next pulse number.
+                          example: 43648112
+                        jet_drop_amount:
+                          type: integer
+                          format: int64
+                          description: Amount of all Jet Drop in the Pulse.
+                          example: 16
+                        record_amount:
+                          type: integer
+                          format: int64
+                          description: Number of all records in the Pulse.
+                          example: 245
+                        timestamp:
+                          type: integer
+                          format: int64
+                          description: Unix timestamp.
+                          example: 1451743413
+                        is_complete:
+                          type: boolean
+                          description: Pulse fullness status.
+                          example: true
+                        code:
+                          type: string
+                        message:
+                          type: string
+                        description:
+                          type: string
+                        link:
+                          type: string
+                        validation_failures:
+                          type: array
+                          items:
+                            description: Validation Failure.
+                            type: object
+                            properties:
+                              property:
+                                type: string
+                                description: Property name.
+                              failure_reason:
+                                type: string
+                                description: Failure reason.
+                      title: PulseResponse200
                   code:
-                    type: integer
-                    format: int32
+                    type: string
                   message:
                     type: string
-                title: Info for a specific petResponse200
-components:
-  schemas:
-    Pet:
-      type: object
-      required:
-        - id
-        - name
-        - code
-        - message
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        tag:
-          type: string
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-      title: Info for a specific petResponse200
-    Pets:
-      type: object
-      items:
-        type: object
-        required:
-          - id
-          - name
-          - code
-          - message
-        properties:
-          id:
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      description: Validation Failure.
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name.
+                        failure_reason:
+                          type: string
+                          description: Failure reason.
+                title: PulsesResponse200
+  '/api/v1/pulses/{pulse_number}':
+    get:
+      summary: Pulse
+      operationId: pulse
+      tags:
+        - pulse
+      parameters:
+        - in: path
+          name: pulse_number
+          required: true
+          schema:
             type: integer
             format: int64
-          name:
+            minimum: 0
+          description: The Pulse number.
+      responses:
+        '200':
+          description: Internal server error. Unable to process request due to an error.
+          content:
+            application/json:
+              schema:
+                description: Responce codes.
+                type: object
+                properties:
+                  pulse_number:
+                    type: integer
+                    format: int64
+                    description: Pulse number.
+                    example: 43648102
+                  prev_pulse_number:
+                    type: integer
+                    format: int64
+                    description: Previous pulse number.
+                    example: 43648092
+                  next_pulse_number:
+                    type: integer
+                    format: int64
+                    description: Next pulse number.
+                    example: 43648112
+                  jet_drop_amount:
+                    type: integer
+                    format: int64
+                    description: Amount of all Jet Drop in the Pulse.
+                    example: 16
+                  record_amount:
+                    type: integer
+                    format: int64
+                    description: Number of all records in the Pulse.
+                    example: 245
+                  timestamp:
+                    type: integer
+                    format: int64
+                    description: Unix timestamp.
+                    example: 1451743413
+                  is_complete:
+                    type: boolean
+                    description: Pulse fullness status.
+                    example: true
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      description: Validation Failure.
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name.
+                        failure_reason:
+                          type: string
+                          description: Failure reason.
+                title: PulseResponse200
+  '/api/v1/jet-drops/{jet_drop_id}':
+    get:
+      summary: Jet drop by ID
+      operationId: jetDropByID
+      tags:
+        - jet-drop
+      parameters:
+        - name: jet_drop_id
+          in: path
+          required: true
+          schema:
             type: string
-          tag:
-            type: string
-          code:
+          description: The ID of JetDrop.
+      responses:
+        '200':
+          description: Internal server error. Unable to process request due to an error.
+          content:
+            application/json:
+              schema:
+                description: Responce codes.
+                type: object
+                properties:
+                  jet_drop_id:
+                    type: string
+                    description: JetDrop ID is concantination of jet_id and pulse_number.
+                    example: '43648102:0010'
+                    pattern: '^(\d+:[0-1]{2,64})$'
+                  next_jet_drop_id:
+                    type: array
+                    format: string
+                    description: Next jet_drop_id.
+                    example:
+                      - '43648104:00100'
+                      - '43648104:00101'
+                    items:
+                      type: string
+                      description: JetDrop ID is concantination of jet_id and pulse_number
+                      example: '43648102:0010'
+                      pattern: '^(\d+:[0-1]{2,64})$'
+                  prev_jet_drop_id:
+                    type: array
+                    format: string
+                    description: Previous jet_drop_id.
+                    example:
+                      - '43648101:0010'
+                    items:
+                      type: string
+                      description: JetDrop ID is concantination of jet_id and pulse_number
+                      example: '43648102:0010'
+                      pattern: '^(\d+:[0-1]{2,64})$'
+                  jet_id:
+                    type: string
+                    description: Jet ID.
+                    example: '0010'
+                    pattern: '^([0-1]{2,64})$'
+                  pulse_number:
+                    type: integer
+                    format: int64
+                    description: Pulse number.
+                    example: 43612021
+                  record_amount:
+                    type: integer
+                    format: int64
+                    description: Number of all records in the pulse.
+                    example: 245
+                  timestamp:
+                    type: integer
+                    format: int64
+                    description: Unix timestamp.
+                    example: 1451743413
+                  hash:
+                    type: string
+                    description: Record hash.
+                    example: >-
+                      0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      description: Validation Failure.
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name.
+                        failure_reason:
+                          type: string
+                          description: Failure reason.
+                title: Jet drop by IDResponse200
+  '/api/v1/pulses/{pulse_number}/jet-drops':
+    get:
+      summary: Jet drops by pulse number
+      operationId: JetDropsByPulseNumber
+      tags:
+        - jet-drop
+      parameters:
+        - in: path
+          name: pulse_number
+          required: true
+          schema:
             type: integer
-            format: int32
-          message:
+            format: int64
+            minimum: 0
+          description: The Pulse number.
+        - $ref: '#/components/parameters/JetDropsByPulseNumberQueryParameterLimit'
+        - $ref: '#/components/parameters/JetDropsByPulseNumberQueryParameterOffset'
+        - $ref: '#/components/parameters/JetDropsByPulseNumberQueryParameterFrom_item'
+      responses:
+        '200':
+          description: Internal server error. Unable to process request due to an error.
+          content:
+            application/json:
+              schema:
+                description: Responce codes.
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    format: int64
+                    description: Total results.
+                    example: 100
+                  result:
+                    type: array
+                    items:
+                      description: Responce codes.
+                      type: object
+                      properties:
+                        jet_drop_id:
+                          type: string
+                          description: >-
+                            JetDrop ID is concantination of jet_id and
+                            pulse_number.
+                          example: '43648102:0010'
+                          pattern: '^(\d+:[0-1]{2,64})$'
+                        next_jet_drop_id:
+                          type: array
+                          format: string
+                          description: Next jet_drop_id.
+                          example:
+                            - '43648104:00100'
+                            - '43648104:00101'
+                          items:
+                            type: string
+                            description: >-
+                              JetDrop ID is concantination of jet_id and
+                              pulse_number
+                            example: '43648102:0010'
+                            pattern: '^(\d+:[0-1]{2,64})$'
+                        prev_jet_drop_id:
+                          type: array
+                          format: string
+                          description: Previous jet_drop_id.
+                          example:
+                            - '43648101:0010'
+                          items:
+                            type: string
+                            description: >-
+                              JetDrop ID is concantination of jet_id and
+                              pulse_number
+                            example: '43648102:0010'
+                            pattern: '^(\d+:[0-1]{2,64})$'
+                        jet_id:
+                          type: string
+                          description: Jet ID.
+                          example: '0010'
+                          pattern: '^([0-1]{2,64})$'
+                        pulse_number:
+                          type: integer
+                          format: int64
+                          description: Pulse number.
+                          example: 43612021
+                        record_amount:
+                          type: integer
+                          format: int64
+                          description: Number of all records in the pulse.
+                          example: 245
+                        timestamp:
+                          type: integer
+                          format: int64
+                          description: Unix timestamp.
+                          example: 1451743413
+                        hash:
+                          type: string
+                          description: Record hash.
+                          example: >-
+                            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                        code:
+                          type: string
+                        message:
+                          type: string
+                        description:
+                          type: string
+                        link:
+                          type: string
+                        validation_failures:
+                          type: array
+                          items:
+                            description: Validation Failure.
+                            type: object
+                            properties:
+                              property:
+                                type: string
+                                description: Property name.
+                              failure_reason:
+                                type: string
+                                description: Failure reason.
+                      title: Jet drop by IDResponse200
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      description: Validation Failure.
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name.
+                        failure_reason:
+                          type: string
+                          description: Failure reason.
+                title: Jet drops by jet IDResponse200
+  '/api/v1/jets/{jet_id}/jet-drops':
+    get:
+      summary: Jet drops by jet ID
+      operationId: JetDropsByJetID
+      tags:
+        - jet-drop
+      parameters:
+        - in: path
+          name: jet_id
+          required: true
+          schema:
             type: string
-        title: Info for a specific petResponse200
-      title: List all petsResponse200
-      required:
-        - code
-        - message
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-    Error:
-      type: object
-      required:
-        - code
-        - message
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
+          description: The JetID.
+          example: '0010'
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterLimit'
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterOffset'
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterFrom_item'
+        - $ref: >-
+            #/components/parameters/JetDropsByJetIDQueryParameterFrom_pulse_number
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterTo_pulse_number'
+      responses:
+        '200':
+          description: Internal server error. Unable to process request due to an error.
+          content:
+            application/json:
+              schema:
+                description: Responce codes.
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    format: int64
+                    description: Total results.
+                    example: 100
+                  result:
+                    type: array
+                    items:
+                      description: Responce codes.
+                      type: object
+                      properties:
+                        jet_drop_id:
+                          type: string
+                          description: >-
+                            JetDrop ID is concantination of jet_id and
+                            pulse_number.
+                          example: '43648102:0010'
+                          pattern: '^(\d+:[0-1]{2,64})$'
+                        next_jet_drop_id:
+                          type: array
+                          format: string
+                          description: Next jet_drop_id.
+                          example:
+                            - '43648104:00100'
+                            - '43648104:00101'
+                          items:
+                            type: string
+                            description: >-
+                              JetDrop ID is concantination of jet_id and
+                              pulse_number
+                            example: '43648102:0010'
+                            pattern: '^(\d+:[0-1]{2,64})$'
+                        prev_jet_drop_id:
+                          type: array
+                          format: string
+                          description: Previous jet_drop_id.
+                          example:
+                            - '43648101:0010'
+                          items:
+                            type: string
+                            description: >-
+                              JetDrop ID is concantination of jet_id and
+                              pulse_number
+                            example: '43648102:0010'
+                            pattern: '^(\d+:[0-1]{2,64})$'
+                        jet_id:
+                          type: string
+                          description: Jet ID.
+                          example: '0010'
+                          pattern: '^([0-1]{2,64})$'
+                        pulse_number:
+                          type: integer
+                          format: int64
+                          description: Pulse number.
+                          example: 43612021
+                        record_amount:
+                          type: integer
+                          format: int64
+                          description: Number of all records in the pulse.
+                          example: 245
+                        timestamp:
+                          type: integer
+                          format: int64
+                          description: Unix timestamp.
+                          example: 1451743413
+                        hash:
+                          type: string
+                          description: Record hash.
+                          example: >-
+                            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                        code:
+                          type: string
+                        message:
+                          type: string
+                        description:
+                          type: string
+                        link:
+                          type: string
+                        validation_failures:
+                          type: array
+                          items:
+                            description: Validation Failure.
+                            type: object
+                            properties:
+                              property:
+                                type: string
+                                description: Property name.
+                              failure_reason:
+                                type: string
+                                description: Failure reason.
+                      title: Jet drop by IDResponse200
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      description: Validation Failure.
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name.
+                        failure_reason:
+                          type: string
+                          description: Failure reason.
+                title: Jet drops by jet IDResponse200
+  '/api/v1/jet-drops/{jet_drop_id}/records':
+    get:
+      summary: Jet drop records
+      operationId: jet_drop_records
+      tags:
+        - record
+      parameters:
+        - $ref: '#/components/parameters/JetDropRecordsQueryParameterLimit'
+        - $ref: '#/components/parameters/JetDropRecordsQueryParameterOffset'
+        - $ref: '#/components/parameters/JetDropRecordsQueryParameterFrom_item'
+        - $ref: '#/components/parameters/JetDropRecordsQueryParameterType'
+        - name: jet_drop_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of JetDrop.
+      responses:
+        '200':
+          description: Internal server error. Unable to process request due to an error.
+          content:
+            application/json:
+              schema:
+                description: Responce codes.
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    format: int64
+                    description: Total results.
+                    example: 100
+                  result:
+                    type: array
+                    items:
+                      description: Record representation.
+                      type: object
+                      properties:
+                        reference:
+                          type: string
+                          description: Record reference.
+                          example: >-
+                            insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
+                          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+                        prev_record_reference:
+                          type: string
+                          description: Previous record reference.
+                          example: >-
+                            insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record
+                          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+                        object_reference:
+                          type: string
+                          description: Object reference.
+                          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                          pattern: >-
+                            ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
+                        prototype_reference:
+                          type: string
+                          description: Prototype reference.
+                          example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+                          pattern: >-
+                            ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
+                        type:
+                          type: string
+                          description: Record type.
+                          enum:
+                            - state
+                            - request
+                            - result
+                          example: state
+                        timestamp:
+                          type: integer
+                          format: int64
+                          description: Unix timestamp.
+                          example: 1451743413
+                        payload:
+                          type: string
+                          description: Record payload.
+                          example: >-
+                            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
+                        hash:
+                          type: string
+                          description: Record hash.
+                          example: >-
+                            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                        pulse_number:
+                          type: integer
+                          format: int64
+                          description: Pulse number.
+                          example: 436120213
+                        jet_id:
+                          type: string
+                          description: Jet ID.
+                          example: '0010'
+                          pattern: '^([0-1]{2,64})$'
+                        jet_drop_id:
+                          type: string
+                          description: >-
+                            JetDrop ID is concantination of jet_id and
+                            pulse_number.
+                          example: '43648102:0010'
+                        order:
+                          type: integer
+                          format: int64
+                          description: Order is the record order number in the Jet Drop.
+                          example: '3'
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      description: Validation Failure.
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name.
+                        failure_reason:
+                          type: string
+                          description: Failure reason.
+                title: Object LifelineResponse200
+  '/api/v1/lifeline/{object_reference}/records':
+    get:
+      summary: Object Lifeline
+      operationId: object_lifeline
+      tags:
+        - record
+      parameters:
+        - name: object_reference
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The reference of object.
+          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterLimit'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterOffset'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterFrom_item'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterRecord_reference'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterType'
+      responses:
+        '200':
+          description: Internal server error. Unable to process request due to an error.
+          content:
+            application/json:
+              schema:
+                description: Responce codes.
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    format: int64
+                    description: Total results.
+                    example: 100
+                  result:
+                    type: array
+                    items:
+                      description: Record representation.
+                      type: object
+                      properties:
+                        reference:
+                          type: string
+                          description: Record reference.
+                          example: >-
+                            insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
+                          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+                        prev_record_reference:
+                          type: string
+                          description: Previous record reference.
+                          example: >-
+                            insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record
+                          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+                        object_reference:
+                          type: string
+                          description: Object reference.
+                          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                          pattern: >-
+                            ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
+                        prototype_reference:
+                          type: string
+                          description: Prototype reference.
+                          example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+                          pattern: >-
+                            ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
+                        type:
+                          type: string
+                          description: Record type.
+                          enum:
+                            - state
+                            - request
+                            - result
+                          example: state
+                        timestamp:
+                          type: integer
+                          format: int64
+                          description: Unix timestamp.
+                          example: 1451743413
+                        payload:
+                          type: string
+                          description: Record payload.
+                          example: >-
+                            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
+                        hash:
+                          type: string
+                          description: Record hash.
+                          example: >-
+                            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                        pulse_number:
+                          type: integer
+                          format: int64
+                          description: Pulse number.
+                          example: 436120213
+                        jet_id:
+                          type: string
+                          description: Jet ID.
+                          example: '0010'
+                          pattern: '^([0-1]{2,64})$'
+                        jet_drop_id:
+                          type: string
+                          description: >-
+                            JetDrop ID is concantination of jet_id and
+                            pulse_number.
+                          example: '43648102:0010'
+                        order:
+                          type: integer
+                          format: int64
+                          description: Order is the record order number in the Jet Drop.
+                          example: '3'
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      description: Validation Failure.
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name.
+                        failure_reason:
+                          type: string
+                          description: Failure reason.
+                title: Object LifelineResponse200
+  /api/v1/search:
+    get:
+      summary: Search Data
+      operationId: search
+      tags:
+        - search
+      parameters:
+        - $ref: '#/components/parameters/SearchDataQueryParameterValue'
+      responses:
+        '200':
+          description: Internal server error. Unable to process request due to an error.
+          content:
+            application/json:
+              schema:
+                description: Responce codes.
+                title: Search DataResponse200
+                type: object
+                properties:
+                  type:
+                    type: string
+                    description: Result type.
+                    enum:
+                      - pulse
+                      - record
+                      - jet-drop
+                      - lifeline
+                      - jetid
+                    example: jetid
+                  meta:
+                    type: object
+                    description: Meta data.
+                    properties:
+                      pulse_number:
+                        type: integer
+                        format: int64
+                        description: Pulse Number.
+                        example: 1
+                      record_ref:
+                        type: string
+                        description: Record reference.
+                        example: >-
+                          insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
+                      jet_drop_id:
+                        type: string
+                        description: JetDrop ID.
+                        example: '43612021:001'
+                      object_reference:
+                        type: string
+                        description: Object reference.
+                        example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                      jet-id:
+                        type: string
+                        description: Jet ID.
+                        example: '0010'
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  description:
+                    type: string
+                  link:
+                    type: string
+                  validation_failures:
+                    type: array
+                    items:
+                      description: Validation Failure.
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                          description: Property name.
+                        failure_reason:
+                          type: string
+                          description: Failure reason.
+components:
   parameters:
-    ListAllPetsQueryParameterLimit:
-      name: limit
+    limitParam:
       in: query
-      description: How many items to return at one time (max 100)
+      name: limit
       required: false
       schema:
         type: integer
-        format: int32
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: The numbers of items to return.
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      description: The number of items to skip before starting to collect the result set.
+    fromPulseNumberParam:
+      in: query
+      name: from_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: From which Pulse number.
+    toPulseNumberParam:
+      in: query
+      name: to_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: To which Pulse number.
+    fromJetDropAmountParam:
+      in: query
+      name: from_jet_drop_amount
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: To which jet_drop_amount.
+    toJetDropAmountParam:
+      in: query
+      name: to_jet_drop_amount
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: From which jet_drop_amount.
+    pulseNumberPathParam:
+      in: path
+      name: pulse_number
+      required: true
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: The Pulse number.
+    jetDropIdPathParam:
+      name: jet_drop_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of JetDrop.
+    jetIdPathParam:
+      in: path
+      name: jet_id
+      required: true
+      schema:
+        type: string
+      description: The JetID.
+      example: '0010'
+    recordTypeParam:
+      name: type
+      in: query
+      description: The record type.
+      required: false
+      schema:
+        type: string
+        enum:
+          - state
+          - request
+          - result
+    objectReferencePathParam:
+      name: object_reference
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reference of object.
+      example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+    PulsesQueryParameterLimit:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: The numbers of items to return.
+    PulsesQueryParameterOffset:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      description: The number of items to skip before starting to collect the result set.
+    PulsesQueryParameterFrom_item:
+      name: from_item
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int64
+      description: The pagination starting point. Accepting pulse_number.
+    PulsesQueryParameterFrom_pulse_number:
+      in: query
+      name: from_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: From which Pulse number.
+    PulsesQueryParameterTo_pulse_number:
+      in: query
+      name: to_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: To which Pulse number.
+    PulsesQueryParameterFrom_jet_drop_amount:
+      in: query
+      name: from_jet_drop_amount
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: To which jet_drop_amount.
+    PulsesQueryParameterTo_jet_drop_amount:
+      in: query
+      name: to_jet_drop_amount
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: From which jet_drop_amount.
+    JetDropsByPulseNumberQueryParameterLimit:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: The numbers of items to return.
+    JetDropsByPulseNumberQueryParameterOffset:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      description: The number of items to skip before starting to collect the result set.
+    JetDropsByPulseNumberQueryParameterFrom_item:
+      name: from_item
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The pagination starting point. Accepting jet_drop_id.
+    JetDropsByJetIDQueryParameterLimit:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: The numbers of items to return.
+    JetDropsByJetIDQueryParameterOffset:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      description: The number of items to skip before starting to collect the result set.
+    JetDropsByJetIDQueryParameterFrom_item:
+      name: from_item
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The pagination starting point. Accepting jet_id.
+      example: '0010'
+    JetDropsByJetIDQueryParameterFrom_pulse_number:
+      in: query
+      name: from_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: From which Pulse number.
+    JetDropsByJetIDQueryParameterTo_pulse_number:
+      in: query
+      name: to_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: To which Pulse number.
+    JetDropRecordsQueryParameterLimit:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: The numbers of items to return.
+    JetDropRecordsQueryParameterOffset:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      description: The number of items to skip before starting to collect the result set.
+    JetDropRecordsQueryParameterFrom_item:
+      name: from_item
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'The pagination starting point. Accepting pulse_number:order.'
+      example: '43612021:3'
+    JetDropRecordsQueryParameterType:
+      name: type
+      in: query
+      description: The record type.
+      required: false
+      schema:
+        type: string
+        enum:
+          - state
+          - request
+          - result
+    ObjectLifelineQueryParameterLimit:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: The numbers of items to return.
+    ObjectLifelineQueryParameterOffset:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      description: The number of items to skip before starting to collect the result set.
+    ObjectLifelineQueryParameterFrom_item:
+      name: from_item
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'The pagination starting point. Accepting pulse_number:order.'
+      example: '43612021:3'
+    ObjectLifelineQueryParameterRecord_reference:
+      name: record_reference
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The pagination starting point. Accepting record_reference.
+      example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+    ObjectLifelineQueryParameterType:
+      name: type
+      in: query
+      description: The record type.
+      required: false
+      schema:
+        type: string
+        enum:
+          - state
+          - request
+          - result
+    SearchDataQueryParameterValue:
+      name: value
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The searching value.
+  responses:
+    pulsesResponse:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            description: Responce codes.
+            type: object
+            properties:
+              total:
+                type: integer
+                format: int64
+                description: Total results.
+                example: 100
+              result:
+                type: array
+                items:
+                  description: Responce codes.
+                  type: object
+                  properties:
+                    pulse_number:
+                      type: integer
+                      format: int64
+                      description: Pulse number.
+                      example: 43648102
+                    prev_pulse_number:
+                      type: integer
+                      format: int64
+                      description: Previous pulse number.
+                      example: 43648092
+                    next_pulse_number:
+                      type: integer
+                      format: int64
+                      description: Next pulse number.
+                      example: 43648112
+                    jet_drop_amount:
+                      type: integer
+                      format: int64
+                      description: Amount of all Jet Drop in the Pulse.
+                      example: 16
+                    record_amount:
+                      type: integer
+                      format: int64
+                      description: Number of all records in the Pulse.
+                      example: 245
+                    timestamp:
+                      type: integer
+                      format: int64
+                      description: Unix timestamp.
+                      example: 1451743413
+                    is_complete:
+                      type: boolean
+                      description: Pulse fullness status.
+                      example: true
+                    code:
+                      type: string
+                    message:
+                      type: string
+                    description:
+                      type: string
+                    link:
+                      type: string
+                    validation_failures:
+                      type: array
+                      items:
+                        description: Validation Failure.
+                        type: object
+                        properties:
+                          property:
+                            type: string
+                            description: Property name.
+                          failure_reason:
+                            type: string
+                            description: Failure reason.
+                  title: PulseResponse200
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  description: Validation Failure.
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name.
+                    failure_reason:
+                      type: string
+                      description: Failure reason.
+            title: PulsesResponse200
+    400Response:
+      description: >
+        Bad request. One or more of the query parameters failed validation or
+        was not provided.
+
+        The request should not be attempted until the parameters are changed.
+
+        The fields that failed validation will be detailed where possible.
+      content:
+        application/json:
+          schema:
+            description: Responce codes.
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  description: Validation Failure.
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name.
+                    failure_reason:
+                      type: string
+                      description: Failure reason.
+    500Response:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            description: Responce codes.
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+    pulseResponse:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            description: Responce codes.
+            type: object
+            properties:
+              pulse_number:
+                type: integer
+                format: int64
+                description: Pulse number.
+                example: 43648102
+              prev_pulse_number:
+                type: integer
+                format: int64
+                description: Previous pulse number.
+                example: 43648092
+              next_pulse_number:
+                type: integer
+                format: int64
+                description: Next pulse number.
+                example: 43648112
+              jet_drop_amount:
+                type: integer
+                format: int64
+                description: Amount of all Jet Drop in the Pulse.
+                example: 16
+              record_amount:
+                type: integer
+                format: int64
+                description: Number of all records in the Pulse.
+                example: 245
+              timestamp:
+                type: integer
+                format: int64
+                description: Unix timestamp.
+                example: 1451743413
+              is_complete:
+                type: boolean
+                description: Pulse fullness status.
+                example: true
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  description: Validation Failure.
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name.
+                    failure_reason:
+                      type: string
+                      description: Failure reason.
+            title: PulseResponse200
+    404Response:
+      description: >-
+        Not found. The specified Resource does not exist. No body response
+        required.
+    jetDropResponse:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            description: Responce codes.
+            type: object
+            properties:
+              jet_drop_id:
+                type: string
+                description: JetDrop ID is concantination of jet_id and pulse_number.
+                example: '43648102:0010'
+                pattern: '^(\d+:[0-1]{2,64})$'
+              next_jet_drop_id:
+                type: array
+                format: string
+                description: Next jet_drop_id.
+                example:
+                  - '43648104:00100'
+                  - '43648104:00101'
+                items:
+                  type: string
+                  description: JetDrop ID is concantination of jet_id and pulse_number
+                  example: '43648102:0010'
+                  pattern: '^(\d+:[0-1]{2,64})$'
+              prev_jet_drop_id:
+                type: array
+                format: string
+                description: Previous jet_drop_id.
+                example:
+                  - '43648101:0010'
+                items:
+                  type: string
+                  description: JetDrop ID is concantination of jet_id and pulse_number
+                  example: '43648102:0010'
+                  pattern: '^(\d+:[0-1]{2,64})$'
+              jet_id:
+                type: string
+                description: Jet ID.
+                example: '0010'
+                pattern: '^([0-1]{2,64})$'
+              pulse_number:
+                type: integer
+                format: int64
+                description: Pulse number.
+                example: 43612021
+              record_amount:
+                type: integer
+                format: int64
+                description: Number of all records in the pulse.
+                example: 245
+              timestamp:
+                type: integer
+                format: int64
+                description: Unix timestamp.
+                example: 1451743413
+              hash:
+                type: string
+                description: Record hash.
+                example: >-
+                  0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  description: Validation Failure.
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name.
+                    failure_reason:
+                      type: string
+                      description: Failure reason.
+            title: Jet drop by IDResponse200
+    jetDropsResponse:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            description: Responce codes.
+            type: object
+            properties:
+              total:
+                type: integer
+                format: int64
+                description: Total results.
+                example: 100
+              result:
+                type: array
+                items:
+                  description: Responce codes.
+                  type: object
+                  properties:
+                    jet_drop_id:
+                      type: string
+                      description: JetDrop ID is concantination of jet_id and pulse_number.
+                      example: '43648102:0010'
+                      pattern: '^(\d+:[0-1]{2,64})$'
+                    next_jet_drop_id:
+                      type: array
+                      format: string
+                      description: Next jet_drop_id.
+                      example:
+                        - '43648104:00100'
+                        - '43648104:00101'
+                      items:
+                        type: string
+                        description: >-
+                          JetDrop ID is concantination of jet_id and
+                          pulse_number
+                        example: '43648102:0010'
+                        pattern: '^(\d+:[0-1]{2,64})$'
+                    prev_jet_drop_id:
+                      type: array
+                      format: string
+                      description: Previous jet_drop_id.
+                      example:
+                        - '43648101:0010'
+                      items:
+                        type: string
+                        description: >-
+                          JetDrop ID is concantination of jet_id and
+                          pulse_number
+                        example: '43648102:0010'
+                        pattern: '^(\d+:[0-1]{2,64})$'
+                    jet_id:
+                      type: string
+                      description: Jet ID.
+                      example: '0010'
+                      pattern: '^([0-1]{2,64})$'
+                    pulse_number:
+                      type: integer
+                      format: int64
+                      description: Pulse number.
+                      example: 43612021
+                    record_amount:
+                      type: integer
+                      format: int64
+                      description: Number of all records in the pulse.
+                      example: 245
+                    timestamp:
+                      type: integer
+                      format: int64
+                      description: Unix timestamp.
+                      example: 1451743413
+                    hash:
+                      type: string
+                      description: Record hash.
+                      example: >-
+                        0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                    code:
+                      type: string
+                    message:
+                      type: string
+                    description:
+                      type: string
+                    link:
+                      type: string
+                    validation_failures:
+                      type: array
+                      items:
+                        description: Validation Failure.
+                        type: object
+                        properties:
+                          property:
+                            type: string
+                            description: Property name.
+                          failure_reason:
+                            type: string
+                            description: Failure reason.
+                  title: Jet drop by IDResponse200
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  description: Validation Failure.
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name.
+                    failure_reason:
+                      type: string
+                      description: Failure reason.
+            title: Jet drops by jet IDResponse200
+    recordsResponse:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            description: Responce codes.
+            type: object
+            properties:
+              total:
+                type: integer
+                format: int64
+                description: Total results.
+                example: 100
+              result:
+                type: array
+                items:
+                  description: Record representation.
+                  type: object
+                  properties:
+                    reference:
+                      type: string
+                      description: Record reference.
+                      example: >-
+                        insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
+                      pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+                    prev_record_reference:
+                      type: string
+                      description: Previous record reference.
+                      example: >-
+                        insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record
+                      pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+                    object_reference:
+                      type: string
+                      description: Object reference.
+                      example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                      pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+                    prototype_reference:
+                      type: string
+                      description: Prototype reference.
+                      example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+                      pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+                    type:
+                      type: string
+                      description: Record type.
+                      enum:
+                        - state
+                        - request
+                        - result
+                      example: state
+                    timestamp:
+                      type: integer
+                      format: int64
+                      description: Unix timestamp.
+                      example: 1451743413
+                    payload:
+                      type: string
+                      description: Record payload.
+                      example: >-
+                        0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
+                    hash:
+                      type: string
+                      description: Record hash.
+                      example: >-
+                        0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                    pulse_number:
+                      type: integer
+                      format: int64
+                      description: Pulse number.
+                      example: 436120213
+                    jet_id:
+                      type: string
+                      description: Jet ID.
+                      example: '0010'
+                      pattern: '^([0-1]{2,64})$'
+                    jet_drop_id:
+                      type: string
+                      description: JetDrop ID is concantination of jet_id and pulse_number.
+                      example: '43648102:0010'
+                    order:
+                      type: integer
+                      format: int64
+                      description: Order is the record order number in the Jet Drop.
+                      example: '3'
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  description: Validation Failure.
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name.
+                    failure_reason:
+                      type: string
+                      description: Failure reason.
+            title: Object LifelineResponse200
+    searchResponse:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            description: Responce codes.
+            title: Search DataResponse200
+            type: object
+            properties:
+              type:
+                type: string
+                description: Result type.
+                enum:
+                  - pulse
+                  - record
+                  - jet-drop
+                  - lifeline
+                  - jetid
+                example: jetid
+              meta:
+                type: object
+                description: Meta data.
+                properties:
+                  pulse_number:
+                    type: integer
+                    format: int64
+                    description: Pulse Number.
+                    example: 1
+                  record_ref:
+                    type: string
+                    description: Record reference.
+                    example: >-
+                      insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
+                  jet_drop_id:
+                    type: string
+                    description: JetDrop ID.
+                    example: '43612021:001'
+                  object_reference:
+                    type: string
+                    description: Object reference.
+                    example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                  jet-id:
+                    type: string
+                    description: Jet ID.
+                    example: '0010'
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  description: Validation Failure.
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name.
+                    failure_reason:
+                      type: string
+                      description: Failure reason.
+  schemas:
+    pulses:
+      description: Responce codes.
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+          description: Total results.
+          example: 100
+        result:
+          type: array
+          items:
+            description: Responce codes.
+            type: object
+            properties:
+              pulse_number:
+                type: integer
+                format: int64
+                description: Pulse number.
+                example: 43648102
+              prev_pulse_number:
+                type: integer
+                format: int64
+                description: Previous pulse number.
+                example: 43648092
+              next_pulse_number:
+                type: integer
+                format: int64
+                description: Next pulse number.
+                example: 43648112
+              jet_drop_amount:
+                type: integer
+                format: int64
+                description: Amount of all Jet Drop in the Pulse.
+                example: 16
+              record_amount:
+                type: integer
+                format: int64
+                description: Number of all records in the Pulse.
+                example: 245
+              timestamp:
+                type: integer
+                format: int64
+                description: Unix timestamp.
+                example: 1451743413
+              is_complete:
+                type: boolean
+                description: Pulse fullness status.
+                example: true
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  description: Validation Failure.
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name.
+                    failure_reason:
+                      type: string
+                      description: Failure reason.
+            title: PulseResponse200
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        validation_failures:
+          type: array
+          items:
+            description: Validation Failure.
+            type: object
+            properties:
+              property:
+                type: string
+                description: Property name.
+              failure_reason:
+                type: string
+                description: Failure reason.
+      title: PulsesResponse200
+    code-validation-error:
+      description: Responce codes.
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        validation_failures:
+          type: array
+          items:
+            description: Validation Failure.
+            type: object
+            properties:
+              property:
+                type: string
+                description: Property name.
+              failure_reason:
+                type: string
+                description: Failure reason.
+    code-error:
+      description: Responce codes.
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+    pulse:
+      description: Responce codes.
+      type: object
+      properties:
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 43648102
+        prev_pulse_number:
+          type: integer
+          format: int64
+          description: Previous pulse number.
+          example: 43648092
+        next_pulse_number:
+          type: integer
+          format: int64
+          description: Next pulse number.
+          example: 43648112
+        jet_drop_amount:
+          type: integer
+          format: int64
+          description: Amount of all Jet Drop in the Pulse.
+          example: 16
+        record_amount:
+          type: integer
+          format: int64
+          description: Number of all records in the Pulse.
+          example: 245
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp.
+          example: 1451743413
+        is_complete:
+          type: boolean
+          description: Pulse fullness status.
+          example: true
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        validation_failures:
+          type: array
+          items:
+            description: Validation Failure.
+            type: object
+            properties:
+              property:
+                type: string
+                description: Property name.
+              failure_reason:
+                type: string
+                description: Failure reason.
+      title: PulseResponse200
+    jet-drop:
+      description: Responce codes.
+      type: object
+      properties:
+        jet_drop_id:
+          type: string
+          description: JetDrop ID is concantination of jet_id and pulse_number.
+          example: '43648102:0010'
+          pattern: '^(\d+:[0-1]{2,64})$'
+        next_jet_drop_id:
+          type: array
+          format: string
+          description: Next jet_drop_id.
+          example:
+            - '43648104:00100'
+            - '43648104:00101'
+          items:
+            type: string
+            description: JetDrop ID is concantination of jet_id and pulse_number
+            example: '43648102:0010'
+            pattern: '^(\d+:[0-1]{2,64})$'
+        prev_jet_drop_id:
+          type: array
+          format: string
+          description: Previous jet_drop_id.
+          example:
+            - '43648101:0010'
+          items:
+            type: string
+            description: JetDrop ID is concantination of jet_id and pulse_number
+            example: '43648102:0010'
+            pattern: '^(\d+:[0-1]{2,64})$'
+        jet_id:
+          type: string
+          description: Jet ID.
+          example: '0010'
+          pattern: '^([0-1]{2,64})$'
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 43612021
+        record_amount:
+          type: integer
+          format: int64
+          description: Number of all records in the pulse.
+          example: 245
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp.
+          example: 1451743413
+        hash:
+          type: string
+          description: Record hash.
+          example: >-
+            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        validation_failures:
+          type: array
+          items:
+            description: Validation Failure.
+            type: object
+            properties:
+              property:
+                type: string
+                description: Property name.
+              failure_reason:
+                type: string
+                description: Failure reason.
+      title: Jet drop by IDResponse200
+    jet-drops:
+      description: Responce codes.
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+          description: Total results.
+          example: 100
+        result:
+          type: array
+          items:
+            description: Responce codes.
+            type: object
+            properties:
+              jet_drop_id:
+                type: string
+                description: JetDrop ID is concantination of jet_id and pulse_number.
+                example: '43648102:0010'
+                pattern: '^(\d+:[0-1]{2,64})$'
+              next_jet_drop_id:
+                type: array
+                format: string
+                description: Next jet_drop_id.
+                example:
+                  - '43648104:00100'
+                  - '43648104:00101'
+                items:
+                  type: string
+                  description: JetDrop ID is concantination of jet_id and pulse_number
+                  example: '43648102:0010'
+                  pattern: '^(\d+:[0-1]{2,64})$'
+              prev_jet_drop_id:
+                type: array
+                format: string
+                description: Previous jet_drop_id.
+                example:
+                  - '43648101:0010'
+                items:
+                  type: string
+                  description: JetDrop ID is concantination of jet_id and pulse_number
+                  example: '43648102:0010'
+                  pattern: '^(\d+:[0-1]{2,64})$'
+              jet_id:
+                type: string
+                description: Jet ID.
+                example: '0010'
+                pattern: '^([0-1]{2,64})$'
+              pulse_number:
+                type: integer
+                format: int64
+                description: Pulse number.
+                example: 43612021
+              record_amount:
+                type: integer
+                format: int64
+                description: Number of all records in the pulse.
+                example: 245
+              timestamp:
+                type: integer
+                format: int64
+                description: Unix timestamp.
+                example: 1451743413
+              hash:
+                type: string
+                description: Record hash.
+                example: >-
+                  0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  description: Validation Failure.
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name.
+                    failure_reason:
+                      type: string
+                      description: Failure reason.
+            title: Jet drop by IDResponse200
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        validation_failures:
+          type: array
+          items:
+            description: Validation Failure.
+            type: object
+            properties:
+              property:
+                type: string
+                description: Property name.
+              failure_reason:
+                type: string
+                description: Failure reason.
+      title: Jet drops by jet IDResponse200
+    records:
+      description: Responce codes.
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+          description: Total results.
+          example: 100
+        result:
+          type: array
+          items:
+            description: Record representation.
+            type: object
+            properties:
+              reference:
+                type: string
+                description: Record reference.
+                example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+                pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+              prev_record_reference:
+                type: string
+                description: Previous record reference.
+                example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
+                pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+              object_reference:
+                type: string
+                description: Object reference.
+                example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+              prototype_reference:
+                type: string
+                description: Prototype reference.
+                example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+                pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+              type:
+                type: string
+                description: Record type.
+                enum:
+                  - state
+                  - request
+                  - result
+                example: state
+              timestamp:
+                type: integer
+                format: int64
+                description: Unix timestamp.
+                example: 1451743413
+              payload:
+                type: string
+                description: Record payload.
+                example: >-
+                  0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
+              hash:
+                type: string
+                description: Record hash.
+                example: >-
+                  0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+              pulse_number:
+                type: integer
+                format: int64
+                description: Pulse number.
+                example: 436120213
+              jet_id:
+                type: string
+                description: Jet ID.
+                example: '0010'
+                pattern: '^([0-1]{2,64})$'
+              jet_drop_id:
+                type: string
+                description: JetDrop ID is concantination of jet_id and pulse_number.
+                example: '43648102:0010'
+              order:
+                type: integer
+                format: int64
+                description: Order is the record order number in the Jet Drop.
+                example: '3'
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        validation_failures:
+          type: array
+          items:
+            description: Validation Failure.
+            type: object
+            properties:
+              property:
+                type: string
+                description: Property name.
+              failure_reason:
+                type: string
+                description: Failure reason.
+      title: Object LifelineResponse200
+    search-pulse:
+      description: Pulse response for Search.
+      title: Pulse response
+      type: object
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - pulse
+          example: pulse
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            pulse_number:
+              type: integer
+              format: int64
+              description: Pulse Number.
+              example: 1
+    search-record:
+      description: Record response for Search.
+      title: Record response
+      type: object
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - record
+          example: record
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            record_ref:
+              type: string
+              description: Record reference.
+              example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+    search-jet-drop:
+      description: Jet drop response for Search.
+      title: Jet drop response
+      type: object
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - jet-drop
+          example: jet-drop
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            jet_drop_id:
+              type: string
+              description: JetDrop ID.
+              example: '43612021:001'
+    search-lifeline:
+      description: Lifeline response for Search.
+      title: Lifeline response
+      type: object
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - lifeline
+          example: lifeline
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            object_reference:
+              type: string
+              description: Object reference.
+              example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+    search-jetid:
+      description: Jet ID response for Search.
+      title: Jet ID response
+      type: object
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - jetid
+          example: jetid
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            jet-id:
+              type: string
+              description: Jet ID.
+              example: '0010'
+    code-validation-failures:
+      description: Validation Failure.
+      type: object
+      properties:
+        property:
+          type: string
+          description: Property name.
+        failure_reason:
+          type: string
+          description: Failure reason.
+    record:
+      description: Record representation.
+      type: object
+      properties:
+        reference:
+          type: string
+          description: Record reference.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        prev_record_reference:
+          type: string
+          description: Previous record reference.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        object_reference:
+          type: string
+          description: Object reference.
+          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        prototype_reference:
+          type: string
+          description: Prototype reference.
+          example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        type:
+          type: string
+          description: Record type.
+          enum:
+            - state
+            - request
+            - result
+          example: state
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp.
+          example: 1451743413
+        payload:
+          type: string
+          description: Record payload.
+          example: >-
+            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
+        hash:
+          type: string
+          description: Record hash.
+          example: >-
+            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 436120213
+        jet_id:
+          type: string
+          description: Jet ID.
+          example: '0010'
+          pattern: '^([0-1]{2,64})$'
+        jet_drop_id:
+          type: string
+          description: JetDrop ID is concantination of jet_id and pulse_number.
+          example: '43648102:0010'
+        order:
+          type: integer
+          format: int64
+          description: Order is the record order number in the Jet Drop.
+          example: '3'

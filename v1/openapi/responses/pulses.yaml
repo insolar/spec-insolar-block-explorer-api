@@ -1,0 +1,6 @@
+x-component: 'responses/pulsesResponse'
+description: A paged array of Pulses.
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/pulses.yaml'

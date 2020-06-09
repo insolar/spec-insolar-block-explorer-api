@@ -1,0 +1,26 @@
+get:
+  summary: Pulses
+  operationId: pulses
+  tags:
+    - pulse
+  parameters:
+    - $ref: '../parameters/limitParam.yaml'
+    - $ref: '../parameters/offsetParam.yaml'
+    - name: from_item
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int64
+      description: The pagination starting point. Accepting pulse_number.
+    - $ref: '../parameters/fromPulseNumberParam.yaml'
+    - $ref: '../parameters/toPulseNumberParam.yaml'
+    - $ref: '../parameters/fromJetDropAmountParam.yaml'
+    - $ref: '../parameters/toJetDropAmountParam.yaml'
+  responses:
+    '200':
+      $ref: '../responses/pulses.yaml'
+    '400':
+      $ref: "../responses/400.yaml"
+    '500':
+      $ref: "../responses/500.yaml"

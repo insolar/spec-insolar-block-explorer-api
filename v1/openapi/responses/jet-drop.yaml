@@ -1,0 +1,6 @@
+x-component: 'responses/jetDropResponse'
+description: A JetDrop.
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/jet-drop.yaml'

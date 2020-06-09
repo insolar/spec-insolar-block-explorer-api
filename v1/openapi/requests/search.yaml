@@ -1,0 +1,21 @@
+get:
+  summary: Search Data
+  operationId: search
+  tags:
+    - search
+  parameters:
+    - name: value
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The searching value.
+  responses:
+    '200':
+      $ref: '../responses/search.yaml'
+    '400':
+      $ref: "../responses/400.yaml"
+    '404':
+      $ref: "../responses/404.yaml"
+    '500':
+      $ref: "../responses/500.yaml"

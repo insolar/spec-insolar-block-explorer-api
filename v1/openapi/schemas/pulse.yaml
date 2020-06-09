@@ -1,0 +1,38 @@
+x-component: 'schemas/pulse'
+description: Pulse representation.
+type: object
+properties:
+  pulse_number:
+    type: integer
+    format: int64
+    description: Pulse number.
+    example: 43648102
+  prev_pulse_number:
+    type: integer
+    format: int64
+    description: Previous pulse number.
+    example: 43648092
+  next_pulse_number:
+    type: integer
+    format: int64
+    description: Next pulse number.
+    example: 43648112
+  jet_drop_amount:
+    type: integer
+    format: int64
+    description: Amount of all Jet Drop in the Pulse.
+    example: 16
+  record_amount:
+    type: integer
+    format: int64
+    description: Number of all records in the Pulse.
+    example: 245
+  timestamp:
+    type: integer
+    format: int64
+    description: Unix timestamp.
+    example: 1451743413
+  is_complete:
+    type: boolean
+    description: Pulse fullness status.
+    example: true

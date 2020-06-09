@@ -1,0 +1,11 @@
+x-component: 'parameters/recordTypeParam'
+name: type
+in: query
+description: The record type.
+required: false
+schema:
+  type: string
+  enum:
+    - state
+    - request
+    - result
