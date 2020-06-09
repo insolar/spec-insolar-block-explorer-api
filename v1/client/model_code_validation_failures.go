@@ -9,8 +9,8 @@
  */
 
 package client
-// PulsesResponse200ValidationFailures Validation Failure.
-type PulsesResponse200ValidationFailures struct {
+// CodeValidationFailures Validation Failure.
+type CodeValidationFailures struct {
 	// Property name.
 	Property string `json:"property,omitempty"`
 	// Failure reason.

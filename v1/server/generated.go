@@ -11,6 +11,35 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// CodeError defines model for code-error.
+type CodeError struct {
+	Code        *string `json:"code,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Message     *string `json:"message,omitempty"`
+}
+
+// CodeValidationError defines model for code-validation-error.
+type CodeValidationError struct {
+	Code               *string `json:"code,omitempty"`
+	Description        *string `json:"description,omitempty"`
+	Link               *string `json:"link,omitempty"`
+	Message            *string `json:"message,omitempty"`
+	ValidationFailures *[]struct {
+		// Embedded struct due to allOf(#/components/schemas/code-validation-failures)
+		CodeValidationFailures
+	} `json:"validation_failures,omitempty"`
+}
+
+// CodeValidationFailures defines model for code-validation-failures.
+type CodeValidationFailures struct {
+
+	// Failure reason.
+	FailureReason *string `json:"failure_reason,omitempty"`
+
+	// Property name.
+	Property *string `json:"property,omitempty"`
+}
+
 // JetDrop defines model for jet-drop.
 type JetDrop struct {
 
@@ -233,6 +262,12 @@ type ToJetDropAmountParam int
 
 // ToPulseNumberParam defines model for toPulseNumberParam.
 type ToPulseNumberParam int64
+
+// N400Response defines model for 400Response.
+type N400Response CodeValidationError
+
+// N500Response defines model for 500Response.
+type N500Response CodeError
 
 // JetDropResponse defines model for jetDropResponse.
 type JetDropResponse JetDrop

@@ -9,7 +9,7 @@
  */
 
 package client
-// JetDropByIdResponse200 JetDrop representation.
+// JetDropByIdResponse200 Responce codes.
 type JetDropByIdResponse200 struct {
 	// JetDrop ID is concantination of jet_id and pulse_number.
 	JetDropId string `json:"jet_drop_id,omitempty"`
@@ -31,5 +31,5 @@ type JetDropByIdResponse200 struct {
 	Message string `json:"message,omitempty"`
 	Description string `json:"description,omitempty"`
 	Link string `json:"link,omitempty"`
-	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures"`
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

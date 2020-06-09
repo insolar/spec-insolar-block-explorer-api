@@ -9,7 +9,7 @@
  */
 
 package client
-// SearchDataResponse200 Jet ID response for Search.
+// SearchDataResponse200 Responce codes.
 type SearchDataResponse200 struct {
 	// Result type.
 	Type string `json:"type,omitempty"`
@@ -18,5 +18,5 @@ type SearchDataResponse200 struct {
 	Message string `json:"message,omitempty"`
 	Description string `json:"description,omitempty"`
 	Link string `json:"link,omitempty"`
-	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures"`
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

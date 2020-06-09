@@ -9,7 +9,7 @@
  */
 
 package client
-// JetDrops A paged array of Pulses.
+// JetDrops Responce codes.
 type JetDrops struct {
 	// Total results.
 	Total int64 `json:"total,omitempty"`
@@ -18,5 +18,5 @@ type JetDrops struct {
 	Message string `json:"message,omitempty"`
 	Description string `json:"description,omitempty"`
 	Link string `json:"link,omitempty"`
-	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures"`
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

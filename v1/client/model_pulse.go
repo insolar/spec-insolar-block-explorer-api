@@ -9,7 +9,7 @@
  */
 
 package client
-// Pulse Pulse representation.
+// Pulse Responce codes.
 type Pulse struct {
 	// Pulse number.
 	PulseNumber int64 `json:"pulse_number,omitempty"`
@@ -29,5 +29,5 @@ type Pulse struct {
 	Message string `json:"message,omitempty"`
 	Description string `json:"description,omitempty"`
 	Link string `json:"link,omitempty"`
-	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures"`
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

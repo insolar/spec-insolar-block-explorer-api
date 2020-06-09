@@ -9,8 +9,8 @@ get:
     '200':
       $ref: '../responses/jet-drop.yaml'
     '400':
-      $ref: "../responses/codes.yaml/#/responses/400"
+      $ref: "../responses/400.yaml"
     '404':
-      $ref: "../responses/codes.yaml/#/responses/404"
+      $ref: "../responses/404.yaml"
     '500':
-      $ref: "../responses/codes.yaml/#/responses/500"
+      $ref: "../responses/500.yaml"

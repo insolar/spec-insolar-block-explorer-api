@@ -1,0 +1,6 @@
+x-component: 'responses/500Response'
+description: Internal server error. Unable to process request due to an error.
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/code-error.yaml'

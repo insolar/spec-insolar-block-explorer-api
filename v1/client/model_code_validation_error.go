@@ -9,11 +9,8 @@
  */
 
 package client
-// ObjectLifelineResponse200 Responce codes.
-type ObjectLifelineResponse200 struct {
-	// Total results.
-	Total int64 `json:"total,omitempty"`
-	Result []ObjectLifelineResponse200Result `json:"result,omitempty"`
+// CodeValidationError Responce codes.
+type CodeValidationError struct {
 	Code string `json:"code,omitempty"`
 	Message string `json:"message,omitempty"`
 	Description string `json:"description,omitempty"`

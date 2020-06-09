@@ -40,54 +40,9 @@ paths:
         '200':
           $ref: '#/components/responses/pulsesResponse'
         '400':
-          description: >
-            Bad request. One or more of the query parameters failed validation
-            or was not provided.
-
-            The request should not be attempted until the parameters are
-            changed.
-
-            The fields that failed validation will be detailed where possible.
-          content:
-            application/json:
-              schema:
-                required:
-                  - validation_failures
-                properties:
-                  code:
-                    type: string
-                  message:
-                    type: string
-                  description:
-                    type: string
-                  link:
-                    type: string
-                  validation_failures:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        property:
-                          type: string
-                          description: Property name
-                        failure_reason:
-                          type: string
-                          description: Failure reason
+          $ref: '#/components/responses/400Response'
         '500':
-          description: Internal server error. Unable to process request due to an error.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: string
-                  message:
-                    type: string
-                  description:
-                    type: string
-                  link:
-                    type: string
+          $ref: '#/components/responses/500Response'
   '/api/v1/pulses/{pulse_number}':
     get:
       summary: Pulse
@@ -100,13 +55,11 @@ paths:
         '200':
           $ref: '#/components/responses/pulseResponse'
         '400':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
+          $ref: '#/components/responses/400Response'
         '404':
-          description: >-
-            Not found. The specified Resource does not exist. No body response
-            required.
+          $ref: '#/components/responses/404Response'
         '500':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
+          $ref: '#/components/responses/500Response'
   '/api/v1/jet-drops/{jet_drop_id}':
     get:
       summary: Jet drop by ID
@@ -119,11 +72,11 @@ paths:
         '200':
           $ref: '#/components/responses/jetDropResponse'
         '400':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
+          $ref: '#/components/responses/400Response'
         '404':
-          $ref: '#/paths/~1api~1v1~1pulses~1{pulse_number}/get/responses/404'
+          $ref: '#/components/responses/404Response'
         '500':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
+          $ref: '#/components/responses/500Response'
   '/api/v1/pulses/{pulse_number}/jet-drops':
     get:
       summary: Jet drops by pulse number
@@ -144,9 +97,9 @@ paths:
         '200':
           $ref: '#/components/responses/jetDropsResponse'
         '400':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
+          $ref: '#/components/responses/400Response'
         '500':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
+          $ref: '#/components/responses/500Response'
   '/api/v1/jets/{jet_id}/jet-drops':
     get:
       summary: Jet drops by jet ID
@@ -170,9 +123,9 @@ paths:
         '200':
           $ref: '#/components/responses/jetDropsResponse'
         '400':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
+          $ref: '#/components/responses/400Response'
         '500':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
+          $ref: '#/components/responses/500Response'
   '/api/v1/jet-drops/{jet_drop_id}/records':
     get:
       summary: Jet drop records
@@ -195,9 +148,9 @@ paths:
         '200':
           $ref: '#/components/responses/recordsResponse'
         '400':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
+          $ref: '#/components/responses/400Response'
         '500':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
+          $ref: '#/components/responses/500Response'
   '/api/v1/lifeline/{object_reference}/records':
     get:
       summary: Object Lifeline
@@ -227,9 +180,9 @@ paths:
         '200':
           $ref: '#/components/responses/recordsResponse'
         '400':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
+          $ref: '#/components/responses/400Response'
         '500':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
+          $ref: '#/components/responses/500Response'
   /api/v1/search:
     get:
       summary: Search Data
@@ -247,11 +200,11 @@ paths:
         '200':
           $ref: '#/components/responses/searchResponse'
         '400':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
+          $ref: '#/components/responses/400Response'
         '404':
-          $ref: '#/paths/~1api~1v1~1pulses~1{pulse_number}/get/responses/404'
+          $ref: '#/components/responses/404Response'
         '500':
-          $ref: '#/paths/~1api~1v1~1pulses/get/responses/500'
+          $ref: '#/components/responses/500Response'
 components:
   parameters:
     limitParam:
@@ -357,12 +310,34 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/pulses'
+    400Response:
+      description: >
+        Bad request. One or more of the query parameters failed validation or
+        was not provided.
+
+        The request should not be attempted until the parameters are changed.
+
+        The fields that failed validation will be detailed where possible.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/code-validation-error'
+    500Response:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/code-error'
     pulseResponse:
       description: A Pulse.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/pulse'
+    404Response:
+      description: >-
+        Not found. The specified Resource does not exist. No body response
+        required.
     jetDropResponse:
       description: A JetDrop.
       content:
@@ -408,6 +383,34 @@ components:
             type: object
             allOf:
               - $ref: '#/components/schemas/pulse'
+    code-validation-error:
+      description: Responce codes.
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        validation_failures:
+          type: array
+          items:
+            type: object
+            allOf:
+              - $ref: '#/components/schemas/code-validation-failures'
+    code-error:
+      description: Responce codes.
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
     pulse:
       description: Pulse representation.
       type: object
@@ -625,6 +628,16 @@ components:
               type: string
               description: Jet ID.
               example: '0010'
+    code-validation-failures:
+      description: Validation Failure.
+      type: object
+      properties:
+        property:
+          type: string
+          description: Property name.
+        failure_reason:
+          type: string
+          description: Failure reason.
     record:
       description: Record representation.
       type: object

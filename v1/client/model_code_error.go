@@ -9,14 +9,9 @@
  */
 
 package client
-// Records Responce codes.
-type Records struct {
-	// Total results.
-	Total int64 `json:"total,omitempty"`
-	Result []ObjectLifelineResponse200Result `json:"result,omitempty"`
+// CodeError Responce codes.
+type CodeError struct {
 	Code string `json:"code,omitempty"`
 	Message string `json:"message,omitempty"`
 	Description string `json:"description,omitempty"`
-	Link string `json:"link,omitempty"`
-	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

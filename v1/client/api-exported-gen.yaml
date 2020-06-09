@@ -36,7 +36,7 @@ paths:
           content:
             application/json:
               schema:
-                description: A paged array of Pulses.
+                description: Responce codes.
                 type: object
                 properties:
                   total:
@@ -96,16 +96,15 @@ paths:
                     type: array
                     items:
                       type: object
+                      description: Validation Failure.
                       properties:
                         property:
                           type: string
-                          description: Property name
+                          description: Property name.
                         failure_reason:
                           type: string
-                          description: Failure reason
+                          description: Failure reason.
                 title: PulsesResponse200
-                required:
-                  - validation_failures
   '/api/v1/pulses/{pulse_number}':
     get:
       summary: Pulse
@@ -127,7 +126,7 @@ paths:
           content:
             application/json:
               schema:
-                description: Pulse representation.
+                description: Responce codes.
                 type: object
                 properties:
                   pulse_number:
@@ -176,16 +175,15 @@ paths:
                     type: array
                     items:
                       type: object
+                      description: Validation Failure.
                       properties:
                         property:
                           type: string
-                          description: Property name
+                          description: Property name.
                         failure_reason:
                           type: string
-                          description: Failure reason
+                          description: Failure reason.
                 title: PulseResponse200
-                required:
-                  - validation_failures
   '/api/v1/jet-drops/{jet_drop_id}':
     get:
       summary: Jet drop by ID
@@ -205,7 +203,7 @@ paths:
           content:
             application/json:
               schema:
-                description: JetDrop representation.
+                description: Responce codes.
                 type: object
                 properties:
                   jet_drop_id:
@@ -273,16 +271,15 @@ paths:
                     type: array
                     items:
                       type: object
+                      description: Validation Failure.
                       properties:
                         property:
                           type: string
-                          description: Property name
+                          description: Property name.
                         failure_reason:
                           type: string
-                          description: Failure reason
+                          description: Failure reason.
                 title: Jet drop by IDResponse200
-                required:
-                  - validation_failures
   '/api/v1/pulses/{pulse_number}/jet-drops':
     get:
       summary: Jet drops by pulse number
@@ -307,7 +304,7 @@ paths:
           content:
             application/json:
               schema:
-                description: A paged array of Pulses.
+                description: Responce codes.
                 type: object
                 properties:
                   total:
@@ -318,7 +315,7 @@ paths:
                   result:
                     type: array
                     items:
-                      description: JetDrop representation.
+                      description: Responce codes.
                       type: object
                       properties:
                         jet_drop_id:
@@ -392,16 +389,15 @@ paths:
                           type: array
                           items:
                             type: object
+                            description: Validation Failure.
                             properties:
                               property:
                                 type: string
-                                description: Property name
+                                description: Property name.
                               failure_reason:
                                 type: string
-                                description: Failure reason
+                                description: Failure reason.
                       title: Jet drop by IDResponse200
-                      required:
-                        - validation_failures
                   code:
                     type: string
                   message:
@@ -414,16 +410,15 @@ paths:
                     type: array
                     items:
                       type: object
+                      description: Validation Failure.
                       properties:
                         property:
                           type: string
-                          description: Property name
+                          description: Property name.
                         failure_reason:
                           type: string
-                          description: Failure reason
+                          description: Failure reason.
                 title: Jet drops by jet IDResponse200
-                required:
-                  - validation_failures
   '/api/v1/jets/{jet_id}/jet-drops':
     get:
       summary: Jet drops by jet ID
@@ -450,7 +445,7 @@ paths:
           content:
             application/json:
               schema:
-                description: A paged array of Pulses.
+                description: Responce codes.
                 type: object
                 properties:
                   total:
@@ -461,7 +456,7 @@ paths:
                   result:
                     type: array
                     items:
-                      description: JetDrop representation.
+                      description: Responce codes.
                       type: object
                       properties:
                         jet_drop_id:
@@ -535,16 +530,15 @@ paths:
                           type: array
                           items:
                             type: object
+                            description: Validation Failure.
                             properties:
                               property:
                                 type: string
-                                description: Property name
+                                description: Property name.
                               failure_reason:
                                 type: string
-                                description: Failure reason
+                                description: Failure reason.
                       title: Jet drop by IDResponse200
-                      required:
-                        - validation_failures
                   code:
                     type: string
                   message:
@@ -557,16 +551,15 @@ paths:
                     type: array
                     items:
                       type: object
+                      description: Validation Failure.
                       properties:
                         property:
                           type: string
-                          description: Property name
+                          description: Property name.
                         failure_reason:
                           type: string
-                          description: Failure reason
+                          description: Failure reason.
                 title: Jet drops by jet IDResponse200
-                required:
-                  - validation_failures
   '/api/v1/jet-drops/{jet_drop_id}/records':
     get:
       summary: Jet drop records
@@ -590,7 +583,7 @@ paths:
           content:
             application/json:
               schema:
-                description: A paged array of records.
+                description: Responce codes.
                 type: object
                 properties:
                   total:
@@ -684,16 +677,15 @@ paths:
                     type: array
                     items:
                       type: object
+                      description: Validation Failure.
                       properties:
                         property:
                           type: string
-                          description: Property name
+                          description: Property name.
                         failure_reason:
                           type: string
-                          description: Failure reason
+                          description: Failure reason.
                 title: Object LifelineResponse200
-                required:
-                  - validation_failures
   '/api/v1/lifeline/{object_reference}/records':
     get:
       summary: Object Lifeline
@@ -719,7 +711,7 @@ paths:
           content:
             application/json:
               schema:
-                description: A paged array of records.
+                description: Responce codes.
                 type: object
                 properties:
                   total:
@@ -813,16 +805,15 @@ paths:
                     type: array
                     items:
                       type: object
+                      description: Validation Failure.
                       properties:
                         property:
                           type: string
-                          description: Property name
+                          description: Property name.
                         failure_reason:
                           type: string
-                          description: Failure reason
+                          description: Failure reason.
                 title: Object LifelineResponse200
-                required:
-                  - validation_failures
   /api/v1/search:
     get:
       summary: Search Data
@@ -837,7 +828,7 @@ paths:
           content:
             application/json:
               schema:
-                description: Jet ID response for Search.
+                description: Responce codes.
                 title: Search DataResponse200
                 type: object
                 properties:
@@ -889,15 +880,14 @@ paths:
                     type: array
                     items:
                       type: object
+                      description: Validation Failure.
                       properties:
                         property:
                           type: string
-                          description: Property name
+                          description: Property name.
                         failure_reason:
                           type: string
-                          description: Failure reason
-                required:
-                  - validation_failures
+                          description: Failure reason.
 components:
   parameters:
     limitParam:
@@ -1225,7 +1215,7 @@ components:
       content:
         application/json:
           schema:
-            description: A paged array of Pulses.
+            description: Responce codes.
             type: object
             properties:
               total:
@@ -1285,22 +1275,69 @@ components:
                 type: array
                 items:
                   type: object
+                  description: Validation Failure.
                   properties:
                     property:
                       type: string
-                      description: Property name
+                      description: Property name.
                     failure_reason:
                       type: string
-                      description: Failure reason
+                      description: Failure reason.
             title: PulsesResponse200
-            required:
-              - validation_failures
+    400Response:
+      description: >
+        Bad request. One or more of the query parameters failed validation or
+        was not provided.
+
+        The request should not be attempted until the parameters are changed.
+
+        The fields that failed validation will be detailed where possible.
+      content:
+        application/json:
+          schema:
+            description: Responce codes.
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  type: object
+                  description: Validation Failure.
+                  properties:
+                    property:
+                      type: string
+                      description: Property name.
+                    failure_reason:
+                      type: string
+                      description: Failure reason.
+    500Response:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            description: Responce codes.
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
     pulseResponse:
       description: Internal server error. Unable to process request due to an error.
       content:
         application/json:
           schema:
-            description: Pulse representation.
+            description: Responce codes.
             type: object
             properties:
               pulse_number:
@@ -1349,22 +1386,25 @@ components:
                 type: array
                 items:
                   type: object
+                  description: Validation Failure.
                   properties:
                     property:
                       type: string
-                      description: Property name
+                      description: Property name.
                     failure_reason:
                       type: string
-                      description: Failure reason
+                      description: Failure reason.
             title: PulseResponse200
-            required:
-              - validation_failures
+    404Response:
+      description: >-
+        Not found. The specified Resource does not exist. No body response
+        required.
     jetDropResponse:
       description: Internal server error. Unable to process request due to an error.
       content:
         application/json:
           schema:
-            description: JetDrop representation.
+            description: Responce codes.
             type: object
             properties:
               jet_drop_id:
@@ -1432,22 +1472,21 @@ components:
                 type: array
                 items:
                   type: object
+                  description: Validation Failure.
                   properties:
                     property:
                       type: string
-                      description: Property name
+                      description: Property name.
                     failure_reason:
                       type: string
-                      description: Failure reason
+                      description: Failure reason.
             title: Jet drop by IDResponse200
-            required:
-              - validation_failures
     jetDropsResponse:
       description: Internal server error. Unable to process request due to an error.
       content:
         application/json:
           schema:
-            description: A paged array of Pulses.
+            description: Responce codes.
             type: object
             properties:
               total:
@@ -1458,7 +1497,7 @@ components:
               result:
                 type: array
                 items:
-                  description: JetDrop representation.
+                  description: Responce codes.
                   type: object
                   properties:
                     jet_drop_id:
@@ -1530,16 +1569,15 @@ components:
                       type: array
                       items:
                         type: object
+                        description: Validation Failure.
                         properties:
                           property:
                             type: string
-                            description: Property name
+                            description: Property name.
                           failure_reason:
                             type: string
-                            description: Failure reason
+                            description: Failure reason.
                   title: Jet drop by IDResponse200
-                  required:
-                    - validation_failures
               code:
                 type: string
               message:
@@ -1552,22 +1590,21 @@ components:
                 type: array
                 items:
                   type: object
+                  description: Validation Failure.
                   properties:
                     property:
                       type: string
-                      description: Property name
+                      description: Property name.
                     failure_reason:
                       type: string
-                      description: Failure reason
+                      description: Failure reason.
             title: Jet drops by jet IDResponse200
-            required:
-              - validation_failures
     recordsResponse:
       description: Internal server error. Unable to process request due to an error.
       content:
         application/json:
           schema:
-            description: A paged array of records.
+            description: Responce codes.
             type: object
             properties:
               total:
@@ -1657,22 +1694,21 @@ components:
                 type: array
                 items:
                   type: object
+                  description: Validation Failure.
                   properties:
                     property:
                       type: string
-                      description: Property name
+                      description: Property name.
                     failure_reason:
                       type: string
-                      description: Failure reason
+                      description: Failure reason.
             title: Object LifelineResponse200
-            required:
-              - validation_failures
     searchResponse:
       description: Internal server error. Unable to process request due to an error.
       content:
         application/json:
           schema:
-            description: Jet ID response for Search.
+            description: Responce codes.
             title: Search DataResponse200
             type: object
             properties:
@@ -1724,18 +1760,17 @@ components:
                 type: array
                 items:
                   type: object
+                  description: Validation Failure.
                   properties:
                     property:
                       type: string
-                      description: Property name
+                      description: Property name.
                     failure_reason:
                       type: string
-                      description: Failure reason
-            required:
-              - validation_failures
+                      description: Failure reason.
   schemas:
     pulses:
-      description: A paged array of Pulses.
+      description: Responce codes.
       type: object
       properties:
         total:
@@ -1795,18 +1830,51 @@ components:
           type: array
           items:
             type: object
+            description: Validation Failure.
             properties:
               property:
                 type: string
-                description: Property name
+                description: Property name.
               failure_reason:
                 type: string
-                description: Failure reason
+                description: Failure reason.
       title: PulsesResponse200
-      required:
-        - validation_failures
+    code-validation-error:
+      description: Responce codes.
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        validation_failures:
+          type: array
+          items:
+            type: object
+            description: Validation Failure.
+            properties:
+              property:
+                type: string
+                description: Property name.
+              failure_reason:
+                type: string
+                description: Failure reason.
+    code-error:
+      description: Responce codes.
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
     pulse:
-      description: Pulse representation.
+      description: Responce codes.
       type: object
       properties:
         pulse_number:
@@ -1855,18 +1923,17 @@ components:
           type: array
           items:
             type: object
+            description: Validation Failure.
             properties:
               property:
                 type: string
-                description: Property name
+                description: Property name.
               failure_reason:
                 type: string
-                description: Failure reason
+                description: Failure reason.
       title: PulseResponse200
-      required:
-        - validation_failures
     jet-drop:
-      description: JetDrop representation.
+      description: Responce codes.
       type: object
       properties:
         jet_drop_id:
@@ -1934,18 +2001,17 @@ components:
           type: array
           items:
             type: object
+            description: Validation Failure.
             properties:
               property:
                 type: string
-                description: Property name
+                description: Property name.
               failure_reason:
                 type: string
-                description: Failure reason
+                description: Failure reason.
       title: Jet drop by IDResponse200
-      required:
-        - validation_failures
     jet-drops:
-      description: A paged array of Pulses.
+      description: Responce codes.
       type: object
       properties:
         total:
@@ -1956,7 +2022,7 @@ components:
         result:
           type: array
           items:
-            description: JetDrop representation.
+            description: Responce codes.
             type: object
             properties:
               jet_drop_id:
@@ -2024,16 +2090,15 @@ components:
                 type: array
                 items:
                   type: object
+                  description: Validation Failure.
                   properties:
                     property:
                       type: string
-                      description: Property name
+                      description: Property name.
                     failure_reason:
                       type: string
-                      description: Failure reason
+                      description: Failure reason.
             title: Jet drop by IDResponse200
-            required:
-              - validation_failures
         code:
           type: string
         message:
@@ -2046,18 +2111,17 @@ components:
           type: array
           items:
             type: object
+            description: Validation Failure.
             properties:
               property:
                 type: string
-                description: Property name
+                description: Property name.
               failure_reason:
                 type: string
-                description: Failure reason
+                description: Failure reason.
       title: Jet drops by jet IDResponse200
-      required:
-        - validation_failures
     records:
-      description: A paged array of records.
+      description: Responce codes.
       type: object
       properties:
         total:
@@ -2145,16 +2209,15 @@ components:
           type: array
           items:
             type: object
+            description: Validation Failure.
             properties:
               property:
                 type: string
-                description: Property name
+                description: Property name.
               failure_reason:
                 type: string
-                description: Failure reason
+                description: Failure reason.
       title: Object LifelineResponse200
-      required:
-        - validation_failures
     search-pulse:
       description: Pulse response for Search.
       title: Pulse response
@@ -2251,6 +2314,16 @@ components:
               type: string
               description: Jet ID.
               example: '0010'
+    code-validation-failures:
+      description: Validation Failure.
+      type: object
+      properties:
+        property:
+          type: string
+          description: Property name.
+        failure_reason:
+          type: string
+          description: Failure reason.
     record:
       description: Record representation.
       type: object
