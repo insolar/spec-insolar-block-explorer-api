@@ -9,9 +9,9 @@
  */
 
 package client
-// ResponsesSearchLifeline Lifeline response for Search.
-type ResponsesSearchLifeline struct {
+// SearchRecord Record response for Search.
+type SearchRecord struct {
 	// Result type.
 	Type string `json:"type,omitempty"`
-	Meta ResponsesSearchLifelineMeta `json:"meta,omitempty"`
+	Meta SearchRecordMeta `json:"meta,omitempty"`
 }

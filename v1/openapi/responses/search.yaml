@@ -1,11 +1,11 @@
-$schema: http://json-schema.org/draft-07/schema#
-$id: responses/search
-type: object
-description: Search representation.
-searchResponse:
-  oneOf:
-    - $ref: 'search-pulse.yaml'
-    - $ref: 'search-record.yaml'
-    - $ref: 'search-jet-drop.yaml'
-    - $ref: 'search-lifeline.yaml'
-    - $ref: 'search-jetid.yaml'
+x-component: 'responses/searchResponse'
+description: A Search ability.
+content:
+  application/json:
+    schema:
+      oneOf:
+        - $ref: '../schemas/search-pulse.yaml'
+        - $ref: '../schemas/search-record.yaml'
+        - $ref: '../schemas/search-jet-drop.yaml'
+        - $ref: '../schemas/search-lifeline.yaml'
+        - $ref: '../schemas/search-jetid.yaml'

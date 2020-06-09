@@ -839,6 +839,7 @@ paths:
               schema:
                 description: Jet ID response for Search.
                 title: Search DataResponse200
+                type: object
                 properties:
                   type:
                     type: string
@@ -895,10 +896,8 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason
-                x-json-schema-id: responses/search-jetid
                 required:
                   - validation_failures
-                type: object
 components:
   parameters:
     limitParam:
@@ -1668,6 +1667,72 @@ components:
             title: Object LifelineResponse200
             required:
               - validation_failures
+    searchResponse:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            description: Jet ID response for Search.
+            title: Search DataResponse200
+            type: object
+            properties:
+              type:
+                type: string
+                description: Result type.
+                enum:
+                  - pulse
+                  - record
+                  - jet-drop
+                  - lifeline
+                  - jetid
+                example: jetid
+              meta:
+                type: object
+                description: Meta data.
+                properties:
+                  pulse_number:
+                    type: integer
+                    format: int64
+                    description: Pulse Number.
+                    example: 1
+                  record_ref:
+                    type: string
+                    description: Record reference.
+                    example: >-
+                      insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
+                  jet_drop_id:
+                    type: string
+                    description: JetDrop ID.
+                    example: '43612021:001'
+                  object_reference:
+                    type: string
+                    description: Object reference.
+                    example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                  jet-id:
+                    type: string
+                    description: Jet ID.
+                    example: '0010'
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name
+                    failure_reason:
+                      type: string
+                      description: Failure reason
+            required:
+              - validation_failures
   schemas:
     pulses:
       description: A paged array of Pulses.
@@ -2090,9 +2155,10 @@ components:
       title: Object LifelineResponse200
       required:
         - validation_failures
-    responses-search-pulse:
+    search-pulse:
       description: Pulse response for Search.
       title: Pulse response
+      type: object
       properties:
         type:
           type: string
@@ -2109,10 +2175,10 @@ components:
               format: int64
               description: Pulse Number.
               example: 1
-      x-json-schema-id: responses/search-pulse
-    responses-search-record:
+    search-record:
       description: Record response for Search.
       title: Record response
+      type: object
       properties:
         type:
           type: string
@@ -2128,10 +2194,10 @@ components:
               type: string
               description: Record reference.
               example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
-      x-json-schema-id: responses/search-record
-    responses-search-jet-drop:
+    search-jet-drop:
       description: Jet drop response for Search.
       title: Jet drop response
+      type: object
       properties:
         type:
           type: string
@@ -2147,10 +2213,10 @@ components:
               type: string
               description: JetDrop ID.
               example: '43612021:001'
-      x-json-schema-id: responses/search-jet-drop
-    responses-search-lifeline:
+    search-lifeline:
       description: Lifeline response for Search.
       title: Lifeline response
+      type: object
       properties:
         type:
           type: string
@@ -2166,10 +2232,10 @@ components:
               type: string
               description: Object reference.
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-      x-json-schema-id: responses/search-lifeline
-    responses-search-jetid:
+    search-jetid:
       description: Jet ID response for Search.
       title: Jet ID response
+      type: object
       properties:
         type:
           type: string
@@ -2185,7 +2251,6 @@ components:
               type: string
               description: Jet ID.
               example: '0010'
-      x-json-schema-id: responses/search-jetid
     record:
       description: Record representation.
       type: object

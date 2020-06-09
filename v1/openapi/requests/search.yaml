@@ -12,11 +12,7 @@ get:
       description: The searching value.
   responses:
     '200':
-      description: A Search ability.
-      content:
-        application/json:
-          schema:
-            $ref: '../responses/search.yaml#/searchResponse'
+      $ref: '../responses/search.yaml'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '404':

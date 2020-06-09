@@ -9,8 +9,8 @@
  */
 
 package client
-// ResponsesSearchLifelineMeta Meta data.
-type ResponsesSearchLifelineMeta struct {
-	// Object reference.
-	ObjectReference string `json:"object_reference,omitempty"`
+// SearchPulseMeta Meta data.
+type SearchPulseMeta struct {
+	// Pulse Number.
+	PulseNumber int64 `json:"pulse_number,omitempty"`
 }

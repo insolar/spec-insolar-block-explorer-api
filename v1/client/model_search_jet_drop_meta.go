@@ -9,9 +9,8 @@
  */
 
 package client
-// ResponsesSearchJetid Jet ID response for Search.
-type ResponsesSearchJetid struct {
-	// Result type.
-	Type string `json:"type,omitempty"`
-	Meta ResponsesSearchJetidMeta `json:"meta,omitempty"`
+// SearchJetDropMeta Meta data.
+type SearchJetDropMeta struct {
+	// JetDrop ID.
+	JetDropId string `json:"jet_drop_id,omitempty"`
 }

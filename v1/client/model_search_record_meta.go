@@ -9,8 +9,8 @@
  */
 
 package client
-// ResponsesSearchJetidMeta Meta data.
-type ResponsesSearchJetidMeta struct {
-	// Jet ID.
-	JetId string `json:"jet-id,omitempty"`
+// SearchRecordMeta Meta data.
+type SearchRecordMeta struct {
+	// Record reference.
+	RecordRef string `json:"record_ref,omitempty"`
 }

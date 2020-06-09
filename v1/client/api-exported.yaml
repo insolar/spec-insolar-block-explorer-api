@@ -245,16 +245,7 @@ paths:
           description: The searching value.
       responses:
         '200':
-          description: A Search ability.
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  - $ref: '#/components/schemas/responses-search-pulse'
-                  - $ref: '#/components/schemas/responses-search-record'
-                  - $ref: '#/components/schemas/responses-search-jet-drop'
-                  - $ref: '#/components/schemas/responses-search-lifeline'
-                  - $ref: '#/components/schemas/responses-search-jetid'
+          $ref: '#/components/responses/searchResponse'
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
@@ -390,6 +381,17 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/records'
+    searchResponse:
+      description: A Search ability.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '#/components/schemas/search-pulse'
+              - $ref: '#/components/schemas/search-record'
+              - $ref: '#/components/schemas/search-jet-drop'
+              - $ref: '#/components/schemas/search-lifeline'
+              - $ref: '#/components/schemas/search-jetid'
   schemas:
     pulses:
       description: A paged array of Pulses.
@@ -527,9 +529,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/record'
-    responses-search-pulse:
+    search-pulse:
       description: Pulse response for Search.
       title: Pulse response
+      type: object
       properties:
         type:
           type: string
@@ -546,10 +549,10 @@ components:
               format: int64
               description: Pulse Number.
               example: 1
-      x-json-schema-id: responses/search-pulse
-    responses-search-record:
+    search-record:
       description: Record response for Search.
       title: Record response
+      type: object
       properties:
         type:
           type: string
@@ -565,10 +568,10 @@ components:
               type: string
               description: Record reference.
               example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
-      x-json-schema-id: responses/search-record
-    responses-search-jet-drop:
+    search-jet-drop:
       description: Jet drop response for Search.
       title: Jet drop response
+      type: object
       properties:
         type:
           type: string
@@ -584,10 +587,10 @@ components:
               type: string
               description: JetDrop ID.
               example: '43612021:001'
-      x-json-schema-id: responses/search-jet-drop
-    responses-search-lifeline:
+    search-lifeline:
       description: Lifeline response for Search.
       title: Lifeline response
+      type: object
       properties:
         type:
           type: string
@@ -603,10 +606,10 @@ components:
               type: string
               description: Object reference.
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-      x-json-schema-id: responses/search-lifeline
-    responses-search-jetid:
+    search-jetid:
       description: Jet ID response for Search.
       title: Jet ID response
+      type: object
       properties:
         type:
           type: string
@@ -622,7 +625,6 @@ components:
               type: string
               description: Jet ID.
               example: '0010'
-      x-json-schema-id: responses/search-jetid
     record:
       description: Record representation.
       type: object

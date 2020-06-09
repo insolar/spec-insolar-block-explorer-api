@@ -9,8 +9,8 @@
  */
 
 package client
-// ResponsesSearchJetDropMeta Meta data.
-type ResponsesSearchJetDropMeta struct {
-	// JetDrop ID.
-	JetDropId string `json:"jet_drop_id,omitempty"`
+// SearchLifelineMeta Meta data.
+type SearchLifelineMeta struct {
+	// Object reference.
+	ObjectReference string `json:"object_reference,omitempty"`
 }

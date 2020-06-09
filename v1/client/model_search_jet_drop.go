@@ -9,8 +9,9 @@
  */
 
 package client
-// ResponsesSearchPulseMeta Meta data.
-type ResponsesSearchPulseMeta struct {
-	// Pulse Number.
-	PulseNumber int64 `json:"pulse_number,omitempty"`
+// SearchJetDrop Jet drop response for Search.
+type SearchJetDrop struct {
+	// Result type.
+	Type string `json:"type,omitempty"`
+	Meta SearchJetDropMeta `json:"meta,omitempty"`
 }

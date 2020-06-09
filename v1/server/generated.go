@@ -131,8 +131,8 @@ type Records struct {
 	Total *int64 `json:"total,omitempty"`
 }
 
-// ResponsesSearchJetDrop defines model for responses-search-jet-drop.
-type ResponsesSearchJetDrop struct {
+// SearchJetDrop defines model for search-jet-drop.
+type SearchJetDrop struct {
 
 	// Meta data.
 	Meta *struct {
@@ -145,8 +145,8 @@ type ResponsesSearchJetDrop struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// ResponsesSearchJetid defines model for responses-search-jetid.
-type ResponsesSearchJetid struct {
+// SearchJetid defines model for search-jetid.
+type SearchJetid struct {
 
 	// Meta data.
 	Meta *struct {
@@ -159,8 +159,8 @@ type ResponsesSearchJetid struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// ResponsesSearchLifeline defines model for responses-search-lifeline.
-type ResponsesSearchLifeline struct {
+// SearchLifeline defines model for search-lifeline.
+type SearchLifeline struct {
 
 	// Meta data.
 	Meta *struct {
@@ -173,8 +173,8 @@ type ResponsesSearchLifeline struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// ResponsesSearchPulse defines model for responses-search-pulse.
-type ResponsesSearchPulse struct {
+// SearchPulse defines model for search-pulse.
+type SearchPulse struct {
 
 	// Meta data.
 	Meta *struct {
@@ -187,8 +187,8 @@ type ResponsesSearchPulse struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// ResponsesSearchRecord defines model for responses-search-record.
-type ResponsesSearchRecord struct {
+// SearchRecord defines model for search-record.
+type SearchRecord struct {
 
 	// Meta data.
 	Meta *struct {
@@ -248,6 +248,9 @@ type PulsesResponse Pulses
 
 // RecordsResponse defines model for recordsResponse.
 type RecordsResponse Records
+
+// SearchResponse defines model for searchResponse.
+type SearchResponse interface{}
 
 // JetDropRecordsParams defines parameters for JetDropRecords.
 type JetDropRecordsParams struct {
