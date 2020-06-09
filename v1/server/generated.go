@@ -11,6 +11,42 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// JetDrop defines model for jet-drop.
+type JetDrop struct {
+
+	// Record hash.
+	Hash *string `json:"hash,omitempty"`
+
+	// JetDrop ID is concantination of jet_id and pulse_number.
+	JetDropId *string `json:"jet_drop_id,omitempty"`
+
+	// Jet ID.
+	JetId *string `json:"jet_id,omitempty"`
+
+	// Next jet_drop_id.
+	NextJetDropId *[]string `json:"next_jet_drop_id,omitempty"`
+
+	// Previous jet_drop_id.
+	PrevJetDropId *[]string `json:"prev_jet_drop_id,omitempty"`
+
+	// Pulse number.
+	PulseNumber *int64 `json:"pulse_number,omitempty"`
+
+	// Number of all records in the pulse.
+	RecordAmount *int64 `json:"record_amount,omitempty"`
+
+	// Unix timestamp.
+	Timestamp *int64 `json:"timestamp,omitempty"`
+}
+
+// JetDrops defines model for jet-drops.
+type JetDrops struct {
+	Result *[]JetDrop `json:"result,omitempty"`
+
+	// Total results.
+	Total *int64 `json:"total,omitempty"`
+}
+
 // Pulse defines model for pulse.
 type Pulse struct {
 
@@ -194,6 +230,12 @@ type ToJetDropAmountParam int
 
 // ToPulseNumberParam defines model for toPulseNumberParam.
 type ToPulseNumberParam int64
+
+// JetDropResponse defines model for jetDropResponse.
+type JetDropResponse JetDrop
+
+// JetDropsResponse defines model for jetDropsResponse.
+type JetDropsResponse JetDrops
 
 // PulseResponse defines model for pulseResponse.
 type PulseResponse Pulse

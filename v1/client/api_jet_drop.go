@@ -244,16 +244,16 @@ JetDropsByPulseNumber Jet drops by pulse number
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
  * @param "FromItem" (optional.String) -  The pagination starting point. Accepting jet_drop_id.
-@return JetDropsByPulseNumberResponse200
+@return JetDropsByJetIdResponse200
 */
-func (a *JetDropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNumber int64, localVarOptionals *JetDropsByPulseNumberOpts) (JetDropsByPulseNumberResponse200, *_nethttp.Response, error) {
+func (a *JetDropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNumber int64, localVarOptionals *JetDropsByPulseNumberOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  JetDropsByPulseNumberResponse200
+		localVarReturnValue  JetDropsByJetIdResponse200
 	)
 
 	// create path and map variables
@@ -315,7 +315,7 @@ func (a *JetDropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNum
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v JetDropsByPulseNumberResponse200
+			var v JetDropsByJetIdResponse200
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

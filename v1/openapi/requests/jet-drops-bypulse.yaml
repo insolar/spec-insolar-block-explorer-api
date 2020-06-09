@@ -15,23 +15,7 @@ get:
       description: The pagination starting point. Accepting jet_drop_id.
   responses:
     '200':
-      description: A paged array of JetDrops.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              total:
-                type: integer
-                format: int64
-                description: Total results.
-                example: 100
-              result:
-                type: array
-                items:
-                  x-merge: true
-                  allOf:
-                    - $ref: '../responses/jet-drop.yaml#/jetDropResponse'
+      $ref: '../responses/jet-drops.yaml'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '500':

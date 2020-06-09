@@ -9,8 +9,8 @@
  */
 
 package client
-// JetDropsByPulseNumberResponse200Result struct for JetDropsByPulseNumberResponse200Result
-type JetDropsByPulseNumberResponse200Result struct {
+// JetDrop JetDrop representation.
+type JetDrop struct {
 	// JetDrop ID is concantination of jet_id and pulse_number.
 	JetDropId string `json:"jet_drop_id,omitempty"`
 	// Next jet_drop_id.
@@ -27,4 +27,9 @@ type JetDropsByPulseNumberResponse200Result struct {
 	Timestamp int64 `json:"timestamp,omitempty"`
 	// Record hash.
 	Hash string `json:"hash,omitempty"`
+	Code string `json:"code,omitempty"`
+	Message string `json:"message,omitempty"`
+	Description string `json:"description,omitempty"`
+	Link string `json:"link,omitempty"`
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures"`
 }

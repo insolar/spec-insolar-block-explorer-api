@@ -7,11 +7,7 @@ get:
     - $ref: '../parameters/jetDropIdPathParam.yaml'
   responses:
     '200':
-      description: A JetDrop.
-      content:
-        application/json:
-          schema:
-            $ref: '../responses/jet-drop.yaml/#/jetDropResponse'
+      $ref: '../responses/jet-drop.yaml'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '404':

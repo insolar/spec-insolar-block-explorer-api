@@ -9,12 +9,11 @@
  */
 
 package client
-// JetDropsByJetIdResponse200 struct for JetDropsByJetIdResponse200
+// JetDropsByJetIdResponse200 A paged array of Pulses.
 type JetDropsByJetIdResponse200 struct {
 	// Total results.
 	Total int64 `json:"total,omitempty"`
-	// Array of jet drops.
-	Result []JetDropsByPulseNumberResponse200Result `json:"result,omitempty"`
+	Result []JetDropByIdResponse200 `json:"result,omitempty"`
 	Code string `json:"code,omitempty"`
 	Message string `json:"message,omitempty"`
 	Description string `json:"description,omitempty"`

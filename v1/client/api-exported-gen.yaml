@@ -227,7 +227,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                description: JetDrop representation.
                 properties:
                   jet_drop_id:
                     type: string
@@ -304,6 +304,7 @@ paths:
                 title: Jet drop by IDResponse200
                 required:
                   - validation_failures
+                type: object
   '/api/v1/pulses/{pulse_number}/jet-drops':
     get:
       summary: Jet drops by pulse number
@@ -328,7 +329,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                description: A paged array of Pulses.
                 properties:
                   total:
                     type: integer
@@ -338,7 +339,7 @@ paths:
                   result:
                     type: array
                     items:
-                      type: object
+                      description: JetDrop representation.
                       properties:
                         jet_drop_id:
                           type: string
@@ -399,6 +400,29 @@ paths:
                           description: Record hash.
                           example: >-
                             0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                        code:
+                          type: string
+                        message:
+                          type: string
+                        description:
+                          type: string
+                        link:
+                          type: string
+                        validation_failures:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              property:
+                                type: string
+                                description: Property name
+                              failure_reason:
+                                type: string
+                                description: Failure reason
+                      title: Jet drop by IDResponse200
+                      required:
+                        - validation_failures
+                      type: object
                   code:
                     type: string
                   message:
@@ -418,9 +442,10 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason
-                title: Jet drops by pulse numberResponse200
+                title: Jet drops by jet IDResponse200
                 required:
                   - validation_failures
+                type: object
   '/api/v1/jets/{jet_id}/jet-drops':
     get:
       summary: Jet drops by jet ID
@@ -447,6 +472,7 @@ paths:
           content:
             application/json:
               schema:
+                description: A paged array of Pulses.
                 properties:
                   total:
                     type: integer
@@ -455,9 +481,8 @@ paths:
                     example: 100
                   result:
                     type: array
-                    description: Array of jet drops.
                     items:
-                      type: object
+                      description: JetDrop representation.
                       properties:
                         jet_drop_id:
                           type: string
@@ -518,6 +543,29 @@ paths:
                           description: Record hash.
                           example: >-
                             0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                        code:
+                          type: string
+                        message:
+                          type: string
+                        description:
+                          type: string
+                        link:
+                          type: string
+                        validation_failures:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              property:
+                                type: string
+                                description: Property name
+                              failure_reason:
+                                type: string
+                                description: Failure reason
+                      title: Jet drop by IDResponse200
+                      required:
+                        - validation_failures
+                      type: object
                   code:
                     type: string
                   message:
@@ -1354,6 +1402,209 @@ components:
             required:
               - validation_failures
             type: object
+    jetDropResponse:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            description: JetDrop representation.
+            properties:
+              jet_drop_id:
+                type: string
+                description: JetDrop ID is concantination of jet_id and pulse_number.
+                example: '43648102:0010'
+                pattern: '^(\d+:[0-1]{2,64})$'
+              next_jet_drop_id:
+                type: array
+                format: string
+                description: Next jet_drop_id.
+                example:
+                  - '43648104:00100'
+                  - '43648104:00101'
+                items:
+                  type: string
+                  description: JetDrop ID is concantination of jet_id and pulse_number
+                  example: '43648102:0010'
+                  pattern: '^(\d+:[0-1]{2,64})$'
+              prev_jet_drop_id:
+                type: array
+                format: string
+                description: Previous jet_drop_id.
+                example:
+                  - '43648101:0010'
+                items:
+                  type: string
+                  description: JetDrop ID is concantination of jet_id and pulse_number
+                  example: '43648102:0010'
+                  pattern: '^(\d+:[0-1]{2,64})$'
+              jet_id:
+                type: string
+                description: Jet ID.
+                example: '0010'
+                pattern: '^([0-1]{2,64})$'
+              pulse_number:
+                type: integer
+                format: int64
+                description: Pulse number.
+                example: 43612021
+              record_amount:
+                type: integer
+                format: int64
+                description: Number of all records in the pulse.
+                example: 245
+              timestamp:
+                type: integer
+                format: int64
+                description: Unix timestamp.
+                example: 1451743413
+              hash:
+                type: string
+                description: Record hash.
+                example: >-
+                  0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name
+                    failure_reason:
+                      type: string
+                      description: Failure reason
+            title: Jet drop by IDResponse200
+            required:
+              - validation_failures
+            type: object
+    jetDropsResponse:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            description: A paged array of Pulses.
+            properties:
+              total:
+                type: integer
+                format: int64
+                description: Total results.
+                example: 100
+              result:
+                type: array
+                items:
+                  description: JetDrop representation.
+                  properties:
+                    jet_drop_id:
+                      type: string
+                      description: JetDrop ID is concantination of jet_id and pulse_number.
+                      example: '43648102:0010'
+                      pattern: '^(\d+:[0-1]{2,64})$'
+                    next_jet_drop_id:
+                      type: array
+                      format: string
+                      description: Next jet_drop_id.
+                      example:
+                        - '43648104:00100'
+                        - '43648104:00101'
+                      items:
+                        type: string
+                        description: >-
+                          JetDrop ID is concantination of jet_id and
+                          pulse_number
+                        example: '43648102:0010'
+                        pattern: '^(\d+:[0-1]{2,64})$'
+                    prev_jet_drop_id:
+                      type: array
+                      format: string
+                      description: Previous jet_drop_id.
+                      example:
+                        - '43648101:0010'
+                      items:
+                        type: string
+                        description: >-
+                          JetDrop ID is concantination of jet_id and
+                          pulse_number
+                        example: '43648102:0010'
+                        pattern: '^(\d+:[0-1]{2,64})$'
+                    jet_id:
+                      type: string
+                      description: Jet ID.
+                      example: '0010'
+                      pattern: '^([0-1]{2,64})$'
+                    pulse_number:
+                      type: integer
+                      format: int64
+                      description: Pulse number.
+                      example: 43612021
+                    record_amount:
+                      type: integer
+                      format: int64
+                      description: Number of all records in the pulse.
+                      example: 245
+                    timestamp:
+                      type: integer
+                      format: int64
+                      description: Unix timestamp.
+                      example: 1451743413
+                    hash:
+                      type: string
+                      description: Record hash.
+                      example: >-
+                        0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+                    code:
+                      type: string
+                    message:
+                      type: string
+                    description:
+                      type: string
+                    link:
+                      type: string
+                    validation_failures:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          property:
+                            type: string
+                            description: Property name
+                          failure_reason:
+                            type: string
+                            description: Failure reason
+                  title: Jet drop by IDResponse200
+                  required:
+                    - validation_failures
+                  type: object
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name
+                    failure_reason:
+                      type: string
+                      description: Failure reason
+            title: Jet drops by jet IDResponse200
+            required:
+              - validation_failures
+            type: object
     recordsResponse:
       description: Internal server error. Unable to process request due to an error.
       content:
@@ -1609,6 +1860,197 @@ components:
                 type: string
                 description: Failure reason
       title: PulseResponse200
+      required:
+        - validation_failures
+      type: object
+    jet-drop:
+      description: JetDrop representation.
+      properties:
+        jet_drop_id:
+          type: string
+          description: JetDrop ID is concantination of jet_id and pulse_number.
+          example: '43648102:0010'
+          pattern: '^(\d+:[0-1]{2,64})$'
+        next_jet_drop_id:
+          type: array
+          format: string
+          description: Next jet_drop_id.
+          example:
+            - '43648104:00100'
+            - '43648104:00101'
+          items:
+            type: string
+            description: JetDrop ID is concantination of jet_id and pulse_number
+            example: '43648102:0010'
+            pattern: '^(\d+:[0-1]{2,64})$'
+        prev_jet_drop_id:
+          type: array
+          format: string
+          description: Previous jet_drop_id.
+          example:
+            - '43648101:0010'
+          items:
+            type: string
+            description: JetDrop ID is concantination of jet_id and pulse_number
+            example: '43648102:0010'
+            pattern: '^(\d+:[0-1]{2,64})$'
+        jet_id:
+          type: string
+          description: Jet ID.
+          example: '0010'
+          pattern: '^([0-1]{2,64})$'
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 43612021
+        record_amount:
+          type: integer
+          format: int64
+          description: Number of all records in the pulse.
+          example: 245
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp.
+          example: 1451743413
+        hash:
+          type: string
+          description: Record hash.
+          example: >-
+            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        validation_failures:
+          type: array
+          items:
+            type: object
+            properties:
+              property:
+                type: string
+                description: Property name
+              failure_reason:
+                type: string
+                description: Failure reason
+      title: Jet drop by IDResponse200
+      required:
+        - validation_failures
+      type: object
+    jet-drops:
+      description: A paged array of Pulses.
+      properties:
+        total:
+          type: integer
+          format: int64
+          description: Total results.
+          example: 100
+        result:
+          type: array
+          items:
+            description: JetDrop representation.
+            properties:
+              jet_drop_id:
+                type: string
+                description: JetDrop ID is concantination of jet_id and pulse_number.
+                example: '43648102:0010'
+                pattern: '^(\d+:[0-1]{2,64})$'
+              next_jet_drop_id:
+                type: array
+                format: string
+                description: Next jet_drop_id.
+                example:
+                  - '43648104:00100'
+                  - '43648104:00101'
+                items:
+                  type: string
+                  description: JetDrop ID is concantination of jet_id and pulse_number
+                  example: '43648102:0010'
+                  pattern: '^(\d+:[0-1]{2,64})$'
+              prev_jet_drop_id:
+                type: array
+                format: string
+                description: Previous jet_drop_id.
+                example:
+                  - '43648101:0010'
+                items:
+                  type: string
+                  description: JetDrop ID is concantination of jet_id and pulse_number
+                  example: '43648102:0010'
+                  pattern: '^(\d+:[0-1]{2,64})$'
+              jet_id:
+                type: string
+                description: Jet ID.
+                example: '0010'
+                pattern: '^([0-1]{2,64})$'
+              pulse_number:
+                type: integer
+                format: int64
+                description: Pulse number.
+                example: 43612021
+              record_amount:
+                type: integer
+                format: int64
+                description: Number of all records in the pulse.
+                example: 245
+              timestamp:
+                type: integer
+                format: int64
+                description: Unix timestamp.
+                example: 1451743413
+              hash:
+                type: string
+                description: Record hash.
+                example: >-
+                  0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name
+                    failure_reason:
+                      type: string
+                      description: Failure reason
+            title: Jet drop by IDResponse200
+            required:
+              - validation_failures
+            type: object
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        validation_failures:
+          type: array
+          items:
+            type: object
+            properties:
+              property:
+                type: string
+                description: Property name
+              failure_reason:
+                type: string
+                description: Failure reason
+      title: Jet drops by jet IDResponse200
       required:
         - validation_failures
       type: object

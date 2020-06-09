@@ -117,63 +117,7 @@ paths:
         - $ref: '#/components/parameters/jetDropIdPathParam'
       responses:
         '200':
-          description: A JetDrop.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  jet_drop_id:
-                    type: string
-                    description: JetDrop ID is concantination of jet_id and pulse_number.
-                    example: '43648102:0010'
-                    pattern: '^(\d+:[0-1]{2,64})$'
-                  next_jet_drop_id:
-                    type: array
-                    format: string
-                    description: Next jet_drop_id.
-                    example:
-                      - '43648104:00100'
-                      - '43648104:00101'
-                    items:
-                      type: string
-                      description: JetDrop ID is concantination of jet_id and pulse_number
-                      example: '43648102:0010'
-                      pattern: '^(\d+:[0-1]{2,64})$'
-                  prev_jet_drop_id:
-                    type: array
-                    format: string
-                    description: Previous jet_drop_id.
-                    example:
-                      - '43648101:0010'
-                    items:
-                      $ref: >-
-                        #/paths/~1api~1v1~1jet-drops~1{jet_drop_id}/get/responses/200/content/application~1json/schema/properties/next_jet_drop_id/items
-                  jet_id:
-                    type: string
-                    description: Jet ID.
-                    example: '0010'
-                    pattern: '^([0-1]{2,64})$'
-                  pulse_number:
-                    type: integer
-                    format: int64
-                    description: Pulse number.
-                    example: 43612021
-                  record_amount:
-                    type: integer
-                    format: int64
-                    description: Number of all records in the pulse.
-                    example: 245
-                  timestamp:
-                    type: integer
-                    format: int64
-                    description: Unix timestamp.
-                    example: 1451743413
-                  hash:
-                    type: string
-                    description: Record hash.
-                    example: >-
-                      0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+          $ref: '#/components/responses/jetDropResponse'
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
@@ -198,77 +142,7 @@ paths:
           description: The pagination starting point. Accepting jet_drop_id.
       responses:
         '200':
-          description: A paged array of JetDrops.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  total:
-                    type: integer
-                    format: int64
-                    description: Total results.
-                    example: 100
-                  result:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        jet_drop_id:
-                          type: string
-                          description: >-
-                            JetDrop ID is concantination of jet_id and
-                            pulse_number.
-                          example: '43648102:0010'
-                          pattern: '^(\d+:[0-1]{2,64})$'
-                        next_jet_drop_id:
-                          type: array
-                          format: string
-                          description: Next jet_drop_id.
-                          example:
-                            - '43648104:00100'
-                            - '43648104:00101'
-                          items:
-                            type: string
-                            description: >-
-                              JetDrop ID is concantination of jet_id and
-                              pulse_number
-                            example: '43648102:0010'
-                            pattern: '^(\d+:[0-1]{2,64})$'
-                        prev_jet_drop_id:
-                          type: array
-                          format: string
-                          description: Previous jet_drop_id.
-                          example:
-                            - '43648101:0010'
-                          items:
-                            $ref: >-
-                              #/paths/~1api~1v1~1pulses~1{pulse_number}~1jet-drops/get/responses/200/content/application~1json/schema/properties/result/items/properties/next_jet_drop_id/items
-                        jet_id:
-                          type: string
-                          description: Jet ID.
-                          example: '0010'
-                          pattern: '^([0-1]{2,64})$'
-                        pulse_number:
-                          type: integer
-                          format: int64
-                          description: Pulse number.
-                          example: 43612021
-                        record_amount:
-                          type: integer
-                          format: int64
-                          description: Number of all records in the pulse.
-                          example: 245
-                        timestamp:
-                          type: integer
-                          format: int64
-                          description: Unix timestamp.
-                          example: 1451743413
-                        hash:
-                          type: string
-                          description: Record hash.
-                          example: >-
-                            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+          $ref: '#/components/responses/jetDropsResponse'
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '500':
@@ -294,77 +168,7 @@ paths:
         - $ref: '#/components/parameters/toPulseNumberParam'
       responses:
         '200':
-          description: A paged array of jet drops.
-          content:
-            application/json:
-              schema:
-                properties:
-                  total:
-                    type: integer
-                    format: int64
-                    description: Total results.
-                    example: 100
-                  result:
-                    type: array
-                    description: Array of jet drops.
-                    items:
-                      type: object
-                      properties:
-                        jet_drop_id:
-                          type: string
-                          description: >-
-                            JetDrop ID is concantination of jet_id and
-                            pulse_number.
-                          example: '43648102:0010'
-                          pattern: '^(\d+:[0-1]{2,64})$'
-                        next_jet_drop_id:
-                          type: array
-                          format: string
-                          description: Next jet_drop_id.
-                          example:
-                            - '43648104:00100'
-                            - '43648104:00101'
-                          items:
-                            type: string
-                            description: >-
-                              JetDrop ID is concantination of jet_id and
-                              pulse_number
-                            example: '43648102:0010'
-                            pattern: '^(\d+:[0-1]{2,64})$'
-                        prev_jet_drop_id:
-                          type: array
-                          format: string
-                          description: Previous jet_drop_id.
-                          example:
-                            - '43648101:0010'
-                          items:
-                            $ref: >-
-                              #/paths/~1api~1v1~1pulses~1{pulse_number}~1jet-drops/get/responses/200/content/application~1json/schema/properties/result/items/properties/next_jet_drop_id/items
-                        jet_id:
-                          type: string
-                          description: Jet ID.
-                          example: '0010'
-                          pattern: '^([0-1]{2,64})$'
-                        pulse_number:
-                          type: integer
-                          format: int64
-                          description: Pulse number.
-                          example: 43612021
-                        record_amount:
-                          type: integer
-                          format: int64
-                          description: Number of all records in the pulse.
-                          example: 245
-                        timestamp:
-                          type: integer
-                          format: int64
-                          description: Unix timestamp.
-                          example: 1451743413
-                        hash:
-                          type: string
-                          description: Record hash.
-                          example: >-
-                            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+          $ref: '#/components/responses/jetDropsResponse'
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '500':
@@ -568,6 +372,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/pulse'
+    jetDropResponse:
+      description: A JetDrop.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/jet-drop'
+    jetDropsResponse:
+      description: A paged array of jet drops.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/jet-drops'
     recordsResponse:
       description: A paged array of records by lifeline.
       content:
@@ -624,6 +440,74 @@ components:
           type: boolean
           description: Pulse fullness status.
           example: true
+    jet-drop:
+      description: JetDrop representation.
+      properties:
+        jet_drop_id:
+          type: string
+          description: JetDrop ID is concantination of jet_id and pulse_number.
+          example: '43648102:0010'
+          pattern: '^(\d+:[0-1]{2,64})$'
+        next_jet_drop_id:
+          type: array
+          format: string
+          description: Next jet_drop_id.
+          example:
+            - '43648104:00100'
+            - '43648104:00101'
+          items:
+            type: string
+            description: JetDrop ID is concantination of jet_id and pulse_number
+            example: '43648102:0010'
+            pattern: '^(\d+:[0-1]{2,64})$'
+        prev_jet_drop_id:
+          type: array
+          format: string
+          description: Previous jet_drop_id.
+          example:
+            - '43648101:0010'
+          items:
+            type: string
+            description: JetDrop ID is concantination of jet_id and pulse_number
+            example: '43648102:0010'
+            pattern: '^(\d+:[0-1]{2,64})$'
+        jet_id:
+          type: string
+          description: Jet ID.
+          example: '0010'
+          pattern: '^([0-1]{2,64})$'
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 43612021
+        record_amount:
+          type: integer
+          format: int64
+          description: Number of all records in the pulse.
+          example: 245
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp.
+          example: 1451743413
+        hash:
+          type: string
+          description: Record hash.
+          example: >-
+            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+    jet-drops:
+      description: A paged array of Pulses.
+      properties:
+        total:
+          type: integer
+          format: int64
+          description: Total results.
+          example: 100
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/jet-drop'
     records:
       description: A paged array of records.
       properties:

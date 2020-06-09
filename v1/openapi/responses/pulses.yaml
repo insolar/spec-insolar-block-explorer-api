@@ -3,4 +3,4 @@ description: A paged array of Pulses.
 content:
   application/json:
     schema:
-     $ref: '../schemas/pulses.yaml'
+      $ref: '../schemas/pulses.yaml'

@@ -18,23 +18,7 @@ get:
     - $ref: '../parameters/toPulseNumberParam.yaml'
   responses:
     '200':
-      description: A paged array of jet drops.
-      content:
-        application/json:
-          schema:
-            properties:
-              total:
-                type: integer
-                format: int64
-                description: Total results.
-                example: 100
-              result:
-                type: array
-                description: Array of jet drops.
-                items:
-                  x-merge: true
-                  allOf:
-                    - $ref: '../responses/jet-drop.yaml#/jetDropResponse'
+      $ref: '../responses/jet-drops.yaml'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '500':
