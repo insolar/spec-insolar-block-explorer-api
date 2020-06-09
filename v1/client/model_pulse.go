@@ -9,8 +9,8 @@
  */
 
 package client
-// PulsesResponse200Result struct for PulsesResponse200Result
-type PulsesResponse200Result struct {
+// Pulse Pulse representation.
+type Pulse struct {
 	// Pulse number.
 	PulseNumber int64 `json:"pulse_number,omitempty"`
 	// Previous pulse number.
@@ -25,4 +25,9 @@ type PulsesResponse200Result struct {
 	Timestamp int64 `json:"timestamp,omitempty"`
 	// Pulse fullness status.
 	IsComplete bool `json:"is_complete,omitempty"`
+	Code string `json:"code,omitempty"`
+	Message string `json:"message,omitempty"`
+	Description string `json:"description,omitempty"`
+	Link string `json:"link,omitempty"`
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures"`
 }

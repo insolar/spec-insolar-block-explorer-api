@@ -11,6 +11,39 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// Pulse defines model for pulse.
+type Pulse struct {
+
+	// Pulse fullness status.
+	IsComplete *bool `json:"is_complete,omitempty"`
+
+	// Amount of all Jet Drop in the Pulse.
+	JetDropAmount *int64 `json:"jet_drop_amount,omitempty"`
+
+	// Next pulse number.
+	NextPulseNumber *int64 `json:"next_pulse_number,omitempty"`
+
+	// Previous pulse number.
+	PrevPulseNumber *int64 `json:"prev_pulse_number,omitempty"`
+
+	// Pulse number.
+	PulseNumber *int64 `json:"pulse_number,omitempty"`
+
+	// Number of all records in the Pulse.
+	RecordAmount *int64 `json:"record_amount,omitempty"`
+
+	// Unix timestamp.
+	Timestamp *int64 `json:"timestamp,omitempty"`
+}
+
+// Pulses defines model for pulses.
+type Pulses struct {
+	Result *[]Pulse `json:"result,omitempty"`
+
+	// Total results.
+	Total *int64 `json:"total,omitempty"`
+}
+
 // Record defines model for record.
 type Record struct {
 
@@ -161,6 +194,12 @@ type ToJetDropAmountParam int
 
 // ToPulseNumberParam defines model for toPulseNumberParam.
 type ToPulseNumberParam int64
+
+// PulseResponse defines model for pulseResponse.
+type PulseResponse Pulse
+
+// PulsesResponse defines model for pulsesResponse.
+type PulsesResponse Pulses
 
 // RecordsResponse defines model for recordsResponse.
 type RecordsResponse Records

@@ -9,8 +9,8 @@
  */
 
 package client
-// PulsesResponse200 A paged array of Pulses.
-type PulsesResponse200 struct {
+// Pulses A paged array of Pulses.
+type Pulses struct {
 	// Total results.
 	Total int64 `json:"total,omitempty"`
 	Result []PulseResponse200 `json:"result,omitempty"`

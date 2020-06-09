@@ -19,22 +19,7 @@ get:
     - $ref: '../parameters/toJetDropAmountParam.yaml'
   responses:
     '200':
-      description: A paged array of Pulses.
-      content:
-        application/json:
-          schema:
-            properties:
-              total:
-                type: integer
-                format: int64
-                description: Total results.
-                example: 100
-              result:
-                type: array
-                items:
-                  x-merge: true
-                  allOf:
-                    - $ref: '../responses/pulse.yaml#/pulseResponse'
+      $ref: '../responses/pulses.yaml'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '500':

@@ -38,55 +38,7 @@ paths:
         - $ref: '#/components/parameters/toJetDropAmountParam'
       responses:
         '200':
-          description: A paged array of Pulses.
-          content:
-            application/json:
-              schema:
-                properties:
-                  total:
-                    type: integer
-                    format: int64
-                    description: Total results.
-                    example: 100
-                  result:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        pulse_number:
-                          type: integer
-                          format: int64
-                          description: Pulse number.
-                          example: 43648102
-                        prev_pulse_number:
-                          type: integer
-                          format: int64
-                          description: Previous pulse number.
-                          example: 43648092
-                        next_pulse_number:
-                          type: integer
-                          format: int64
-                          description: Next pulse number.
-                          example: 43648112
-                        jet_drop_amount:
-                          type: integer
-                          format: int64
-                          description: Amount of all Jet Drop in the Pulse.
-                          example: 16
-                        record_amount:
-                          type: integer
-                          format: int64
-                          description: Number of all records in the Pulse.
-                          example: 245
-                        timestamp:
-                          type: integer
-                          format: int64
-                          description: Unix timestamp.
-                          example: 1451743413
-                        is_complete:
-                          type: boolean
-                          description: Pulse fullness status.
-                          example: true
+          $ref: '#/components/responses/pulsesResponse'
         '400':
           description: >
             Bad request. One or more of the query parameters failed validation
@@ -146,12 +98,7 @@ paths:
         - $ref: '#/components/parameters/pulseNumberPathParam'
       responses:
         '200':
-          description: A Pulse.
-          content:
-            application/json:
-              schema:
-                $ref: >-
-                  #/paths/~1api~1v1~1pulses/get/responses/200/content/application~1json/schema/properties/result/items
+          $ref: '#/components/responses/pulseResponse'
         '400':
           $ref: '#/paths/~1api~1v1~1pulses/get/responses/400'
         '404':
@@ -609,6 +556,18 @@ components:
       description: The reference of object.
       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
   responses:
+    pulsesResponse:
+      description: A paged array of Pulses.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/pulses'
+    pulseResponse:
+      description: A Pulse.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/pulse'
     recordsResponse:
       description: A paged array of records by lifeline.
       content:
@@ -616,6 +575,55 @@ components:
           schema:
             $ref: '#/components/schemas/records'
   schemas:
+    pulses:
+      description: A paged array of Pulses.
+      properties:
+        total:
+          type: integer
+          format: int64
+          description: Total results.
+          example: 100
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/pulse'
+    pulse:
+      description: Pulse representation.
+      properties:
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 43648102
+        prev_pulse_number:
+          type: integer
+          format: int64
+          description: Previous pulse number.
+          example: 43648092
+        next_pulse_number:
+          type: integer
+          format: int64
+          description: Next pulse number.
+          example: 43648112
+        jet_drop_amount:
+          type: integer
+          format: int64
+          description: Amount of all Jet Drop in the Pulse.
+          example: 16
+        record_amount:
+          type: integer
+          format: int64
+          description: Number of all records in the Pulse.
+          example: 245
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp.
+          example: 1451743413
+        is_complete:
+          type: boolean
+          description: Pulse fullness status.
+          example: true
     records:
       description: A paged array of records.
       properties:

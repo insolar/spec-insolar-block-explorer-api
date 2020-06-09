@@ -1,0 +1,13 @@
+x-component: 'schemas/pulses'
+description: A paged array of Pulses.
+properties:
+  total:
+    type: integer
+    format: int64
+    description: Total results.
+    example: 100
+  result:
+    type: array
+    items:
+      allOf:
+        - $ref: './pulse.yaml'

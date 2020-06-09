@@ -9,7 +9,7 @@
  */
 
 package client
-// PulseResponse200 struct for PulseResponse200
+// PulseResponse200 Pulse representation.
 type PulseResponse200 struct {
 	// Pulse number.
 	PulseNumber int64 `json:"pulse_number,omitempty"`

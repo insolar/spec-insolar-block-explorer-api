@@ -7,11 +7,7 @@ get:
     - $ref: '../parameters/pulseNumberPathParam.yaml'
   responses:
     '200':
-      description: A Pulse.
-      content:
-        application/json:
-          schema:
-            $ref: '../responses/pulse.yaml#/pulseResponse'
+      $ref: '../responses/pulse.yaml'
     '400':
       $ref: "../responses/codes.yaml/#/responses/400"
     '404':

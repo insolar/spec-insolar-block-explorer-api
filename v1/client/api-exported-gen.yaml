@@ -36,6 +36,7 @@ paths:
           content:
             application/json:
               schema:
+                description: A paged array of Pulses.
                 properties:
                   total:
                     type: integer
@@ -45,7 +46,7 @@ paths:
                   result:
                     type: array
                     items:
-                      type: object
+                      description: Pulse representation.
                       properties:
                         pulse_number:
                           type: integer
@@ -81,6 +82,29 @@ paths:
                           type: boolean
                           description: Pulse fullness status.
                           example: true
+                        code:
+                          type: string
+                        message:
+                          type: string
+                        description:
+                          type: string
+                        link:
+                          type: string
+                        validation_failures:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              property:
+                                type: string
+                                description: Property name
+                              failure_reason:
+                                type: string
+                                description: Failure reason
+                      title: PulseResponse200
+                      required:
+                        - validation_failures
+                      type: object
                   code:
                     type: string
                   message:
@@ -125,7 +149,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                description: Pulse representation.
                 properties:
                   pulse_number:
                     type: integer
@@ -183,6 +207,7 @@ paths:
                 title: PulseResponse200
                 required:
                   - validation_failures
+                type: object
   '/api/v1/jet-drops/{jet_drop_id}':
     get:
       summary: Jet drop by ID
@@ -1168,6 +1193,167 @@ components:
         type: string
       description: The searching value.
   responses:
+    pulsesResponse:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            description: A paged array of Pulses.
+            properties:
+              total:
+                type: integer
+                format: int64
+                description: Total results.
+                example: 100
+              result:
+                type: array
+                items:
+                  description: Pulse representation.
+                  properties:
+                    pulse_number:
+                      type: integer
+                      format: int64
+                      description: Pulse number.
+                      example: 43648102
+                    prev_pulse_number:
+                      type: integer
+                      format: int64
+                      description: Previous pulse number.
+                      example: 43648092
+                    next_pulse_number:
+                      type: integer
+                      format: int64
+                      description: Next pulse number.
+                      example: 43648112
+                    jet_drop_amount:
+                      type: integer
+                      format: int64
+                      description: Amount of all Jet Drop in the Pulse.
+                      example: 16
+                    record_amount:
+                      type: integer
+                      format: int64
+                      description: Number of all records in the Pulse.
+                      example: 245
+                    timestamp:
+                      type: integer
+                      format: int64
+                      description: Unix timestamp.
+                      example: 1451743413
+                    is_complete:
+                      type: boolean
+                      description: Pulse fullness status.
+                      example: true
+                    code:
+                      type: string
+                    message:
+                      type: string
+                    description:
+                      type: string
+                    link:
+                      type: string
+                    validation_failures:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          property:
+                            type: string
+                            description: Property name
+                          failure_reason:
+                            type: string
+                            description: Failure reason
+                  title: PulseResponse200
+                  required:
+                    - validation_failures
+                  type: object
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name
+                    failure_reason:
+                      type: string
+                      description: Failure reason
+            title: PulsesResponse200
+            required:
+              - validation_failures
+            type: object
+    pulseResponse:
+      description: Internal server error. Unable to process request due to an error.
+      content:
+        application/json:
+          schema:
+            description: Pulse representation.
+            properties:
+              pulse_number:
+                type: integer
+                format: int64
+                description: Pulse number.
+                example: 43648102
+              prev_pulse_number:
+                type: integer
+                format: int64
+                description: Previous pulse number.
+                example: 43648092
+              next_pulse_number:
+                type: integer
+                format: int64
+                description: Next pulse number.
+                example: 43648112
+              jet_drop_amount:
+                type: integer
+                format: int64
+                description: Amount of all Jet Drop in the Pulse.
+                example: 16
+              record_amount:
+                type: integer
+                format: int64
+                description: Number of all records in the Pulse.
+                example: 245
+              timestamp:
+                type: integer
+                format: int64
+                description: Unix timestamp.
+                example: 1451743413
+              is_complete:
+                type: boolean
+                description: Pulse fullness status.
+                example: true
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name
+                    failure_reason:
+                      type: string
+                      description: Failure reason
+            title: PulseResponse200
+            required:
+              - validation_failures
+            type: object
     recordsResponse:
       description: Internal server error. Unable to process request due to an error.
       content:
@@ -1273,6 +1459,159 @@ components:
               - validation_failures
             type: object
   schemas:
+    pulses:
+      description: A paged array of Pulses.
+      properties:
+        total:
+          type: integer
+          format: int64
+          description: Total results.
+          example: 100
+        result:
+          type: array
+          items:
+            description: Pulse representation.
+            properties:
+              pulse_number:
+                type: integer
+                format: int64
+                description: Pulse number.
+                example: 43648102
+              prev_pulse_number:
+                type: integer
+                format: int64
+                description: Previous pulse number.
+                example: 43648092
+              next_pulse_number:
+                type: integer
+                format: int64
+                description: Next pulse number.
+                example: 43648112
+              jet_drop_amount:
+                type: integer
+                format: int64
+                description: Amount of all Jet Drop in the Pulse.
+                example: 16
+              record_amount:
+                type: integer
+                format: int64
+                description: Number of all records in the Pulse.
+                example: 245
+              timestamp:
+                type: integer
+                format: int64
+                description: Unix timestamp.
+                example: 1451743413
+              is_complete:
+                type: boolean
+                description: Pulse fullness status.
+                example: true
+              code:
+                type: string
+              message:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+              validation_failures:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property:
+                      type: string
+                      description: Property name
+                    failure_reason:
+                      type: string
+                      description: Failure reason
+            title: PulseResponse200
+            required:
+              - validation_failures
+            type: object
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        validation_failures:
+          type: array
+          items:
+            type: object
+            properties:
+              property:
+                type: string
+                description: Property name
+              failure_reason:
+                type: string
+                description: Failure reason
+      title: PulsesResponse200
+      required:
+        - validation_failures
+      type: object
+    pulse:
+      description: Pulse representation.
+      properties:
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 43648102
+        prev_pulse_number:
+          type: integer
+          format: int64
+          description: Previous pulse number.
+          example: 43648092
+        next_pulse_number:
+          type: integer
+          format: int64
+          description: Next pulse number.
+          example: 43648112
+        jet_drop_amount:
+          type: integer
+          format: int64
+          description: Amount of all Jet Drop in the Pulse.
+          example: 16
+        record_amount:
+          type: integer
+          format: int64
+          description: Number of all records in the Pulse.
+          example: 245
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp.
+          example: 1451743413
+        is_complete:
+          type: boolean
+          description: Pulse fullness status.
+          example: true
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        validation_failures:
+          type: array
+          items:
+            type: object
+            properties:
+              property:
+                type: string
+                description: Property name
+              failure_reason:
+                type: string
+                description: Failure reason
+      title: PulseResponse200
+      required:
+        - validation_failures
+      type: object
     records:
       description: A paged array of records.
       properties:
