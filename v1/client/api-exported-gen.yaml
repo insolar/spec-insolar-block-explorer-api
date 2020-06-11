@@ -25,11 +25,9 @@ paths:
       parameters:
         - $ref: '#/components/parameters/PulsesQueryParameterLimit'
         - $ref: '#/components/parameters/PulsesQueryParameterOffset'
-        - $ref: '#/components/parameters/PulsesQueryParameterFrom_item'
         - $ref: '#/components/parameters/PulsesQueryParameterFrom_pulse_number'
-        - $ref: '#/components/parameters/PulsesQueryParameterTo_pulse_number'
-        - $ref: '#/components/parameters/PulsesQueryParameterFrom_jet_drop_amount'
-        - $ref: '#/components/parameters/PulsesQueryParameterTo_jet_drop_amount'
+        - $ref: '#/components/parameters/PulsesQueryParameterTimestamp_lte'
+        - $ref: '#/components/parameters/PulsesQueryParameterTimestamp_gte'
       responses:
         '200':
           description: Internal server error. Unable to process request due to an error.
@@ -946,31 +944,26 @@ components:
         format: int64
         minimum: 0
       description: From which Pulse number.
-    toPulseNumberParam:
+    timestamp_lte:
       in: query
-      name: to_pulse_number
+      name: timestamp_lte
       required: false
       schema:
         type: integer
         format: int64
-        minimum: 0
-      description: To which Pulse number.
-    fromJetDropAmountParam:
+        description: Unix timestamp.
+        example: 1451743413
+      description: Less than or equals to timestamp.
+    timestamp_gte:
       in: query
-      name: from_jet_drop_amount
+      name: timestamp_gte
       required: false
       schema:
         type: integer
-        minimum: 0
-      description: To which jet_drop_amount.
-    toJetDropAmountParam:
-      in: query
-      name: to_jet_drop_amount
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      description: From which jet_drop_amount.
+        format: int64
+        description: Unix timestamp.
+        example: 1451743413
+      description: Greater than or equals to timestamp.
     pulseNumberPathParam:
       in: path
       name: pulse_number
@@ -995,6 +988,15 @@ components:
         type: string
       description: The JetID.
       example: '0010'
+    toPulseNumberParam:
+      in: query
+      name: to_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: To which Pulse number.
     recordTypeParam:
       name: type
       in: query
@@ -1031,26 +1033,6 @@ components:
         minimum: 0
       description: Greater than pulse_number.
       style: matrix
-    timestamp_lte:
-      in: query
-      name: timestamp_lte
-      required: false
-      schema:
-        type: integer
-        format: int64
-        description: Unix timestamp.
-        example: 1451743413
-      description: Less than or equals to timestamp.
-    timestamp_gte:
-      in: query
-      name: timestamp_gte
-      required: false
-      schema:
-        type: integer
-        format: int64
-        description: Unix timestamp.
-        example: 1451743413
-      description: Greater than or equals to timestamp.
     sort_by_index:
       in: query
       name: sort_by
@@ -1084,14 +1066,6 @@ components:
         minimum: 0
         default: 0
       description: The number of items to skip before starting to collect the result set.
-    PulsesQueryParameterFrom_item:
-      name: from_item
-      in: query
-      required: false
-      schema:
-        type: integer
-        format: int64
-      description: The pagination starting point. Accepting pulse_number.
     PulsesQueryParameterFrom_pulse_number:
       in: query
       name: from_pulse_number
@@ -1101,31 +1075,26 @@ components:
         format: int64
         minimum: 0
       description: From which Pulse number.
-    PulsesQueryParameterTo_pulse_number:
+    PulsesQueryParameterTimestamp_lte:
       in: query
-      name: to_pulse_number
+      name: timestamp_lte
       required: false
       schema:
         type: integer
         format: int64
-        minimum: 0
-      description: To which Pulse number.
-    PulsesQueryParameterFrom_jet_drop_amount:
+        description: Unix timestamp.
+        example: 1451743413
+      description: Less than or equals to timestamp.
+    PulsesQueryParameterTimestamp_gte:
       in: query
-      name: from_jet_drop_amount
+      name: timestamp_gte
       required: false
       schema:
         type: integer
-        minimum: 0
-      description: To which jet_drop_amount.
-    PulsesQueryParameterTo_jet_drop_amount:
-      in: query
-      name: to_jet_drop_amount
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      description: From which jet_drop_amount.
+        format: int64
+        description: Unix timestamp.
+        example: 1451743413
+      description: Greater than or equals to timestamp.
     JetDropsByPulseNumberQueryParameterLimit:
       in: query
       name: limit

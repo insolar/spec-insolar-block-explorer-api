@@ -25,17 +25,9 @@ paths:
       parameters:
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
-        - name: from_item
-          in: query
-          required: false
-          schema:
-            type: integer
-            format: int64
-          description: The pagination starting point. Accepting pulse_number.
         - $ref: '#/components/parameters/fromPulseNumberParam'
-        - $ref: '#/components/parameters/toPulseNumberParam'
-        - $ref: '#/components/parameters/fromJetDropAmountParam'
-        - $ref: '#/components/parameters/toJetDropAmountParam'
+        - $ref: '#/components/parameters/timestamp_lte'
+        - $ref: '#/components/parameters/timestamp_gte'
       responses:
         '200':
           $ref: '#/components/responses/pulsesResponse'
@@ -233,31 +225,26 @@ components:
         format: int64
         minimum: 0
       description: From which Pulse number.
-    toPulseNumberParam:
+    timestamp_lte:
       in: query
-      name: to_pulse_number
+      name: timestamp_lte
       required: false
       schema:
         type: integer
         format: int64
-        minimum: 0
-      description: To which Pulse number.
-    fromJetDropAmountParam:
+        description: Unix timestamp.
+        example: 1451743413
+      description: Less than or equals to timestamp.
+    timestamp_gte:
       in: query
-      name: from_jet_drop_amount
+      name: timestamp_gte
       required: false
       schema:
         type: integer
-        minimum: 0
-      description: To which jet_drop_amount.
-    toJetDropAmountParam:
-      in: query
-      name: to_jet_drop_amount
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      description: From which jet_drop_amount.
+        format: int64
+        description: Unix timestamp.
+        example: 1451743413
+      description: Greater than or equals to timestamp.
     pulseNumberPathParam:
       in: path
       name: pulse_number
@@ -282,6 +269,15 @@ components:
         type: string
       description: The JetID.
       example: '0010'
+    toPulseNumberParam:
+      in: query
+      name: to_pulse_number
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      description: To which Pulse number.
     recordTypeParam:
       name: type
       in: query
@@ -318,26 +314,6 @@ components:
         minimum: 0
       description: Greater than pulse_number.
       style: matrix
-    timestamp_lte:
-      in: query
-      name: timestamp_lte
-      required: false
-      schema:
-        type: integer
-        format: int64
-        description: Unix timestamp.
-        example: 1451743413
-      description: Less than or equals to timestamp.
-    timestamp_gte:
-      in: query
-      name: timestamp_gte
-      required: false
-      schema:
-        type: integer
-        format: int64
-        description: Unix timestamp.
-        example: 1451743413
-      description: Greater than or equals to timestamp.
     sort_by_index:
       in: query
       name: sort_by

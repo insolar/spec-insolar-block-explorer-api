@@ -216,9 +216,6 @@ type SearchRecord struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// FromJetDropAmountParam defines model for fromJetDropAmountParam.
-type FromJetDropAmountParam int
-
 // FromPulseNumberParam defines model for fromPulseNumberParam.
 type FromPulseNumberParam int64
 
@@ -257,9 +254,6 @@ type TimestampGte int64
 
 // TimestampLte defines model for timestamp_lte.
 type TimestampLte int64
-
-// ToJetDropAmountParam defines model for toJetDropAmountParam.
-type ToJetDropAmountParam int
 
 // ToPulseNumberParam defines model for toPulseNumberParam.
 type ToPulseNumberParam int64
@@ -363,20 +357,14 @@ type PulsesParams struct {
 	// The number of items to skip before starting to collect the result set.
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// The pagination starting point. Accepting pulse_number.
-	FromItem *int64 `json:"from_item,omitempty"`
-
 	// From which Pulse number.
 	FromPulseNumber *FromPulseNumberParam `json:"from_pulse_number,omitempty"`
 
-	// To which Pulse number.
-	ToPulseNumber *ToPulseNumberParam `json:"to_pulse_number,omitempty"`
+	// Less than or equals to timestamp.
+	TimestampLte *TimestampLte `json:"timestamp_lte,omitempty"`
 
-	// To which jet_drop_amount.
-	FromJetDropAmount *FromJetDropAmountParam `json:"from_jet_drop_amount,omitempty"`
-
-	// From which jet_drop_amount.
-	ToJetDropAmount *ToJetDropAmountParam `json:"to_jet_drop_amount,omitempty"`
+	// Greater than or equals to timestamp.
+	TimestampGte *TimestampGte `json:"timestamp_gte,omitempty"`
 }
 
 // JetDropsByPulseNumberParams defines parameters for JetDropsByPulseNumber.
@@ -648,13 +636,6 @@ func (w *ServerInterfaceWrapper) Pulses(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
 	}
 
-	// ------------- Optional query parameter "from_item" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "from_item", ctx.QueryParams(), &params.FromItem)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_item: %s", err))
-	}
-
 	// ------------- Optional query parameter "from_pulse_number" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "from_pulse_number", ctx.QueryParams(), &params.FromPulseNumber)
@@ -662,25 +643,18 @@ func (w *ServerInterfaceWrapper) Pulses(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_pulse_number: %s", err))
 	}
 
-	// ------------- Optional query parameter "to_pulse_number" -------------
+	// ------------- Optional query parameter "timestamp_lte" -------------
 
-	err = runtime.BindQueryParameter("form", true, false, "to_pulse_number", ctx.QueryParams(), &params.ToPulseNumber)
+	err = runtime.BindQueryParameter("form", true, false, "timestamp_lte", ctx.QueryParams(), &params.TimestampLte)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter to_pulse_number: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter timestamp_lte: %s", err))
 	}
 
-	// ------------- Optional query parameter "from_jet_drop_amount" -------------
+	// ------------- Optional query parameter "timestamp_gte" -------------
 
-	err = runtime.BindQueryParameter("form", true, false, "from_jet_drop_amount", ctx.QueryParams(), &params.FromJetDropAmount)
+	err = runtime.BindQueryParameter("form", true, false, "timestamp_gte", ctx.QueryParams(), &params.TimestampGte)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_jet_drop_amount: %s", err))
-	}
-
-	// ------------- Optional query parameter "to_jet_drop_amount" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "to_jet_drop_amount", ctx.QueryParams(), &params.ToJetDropAmount)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter to_jet_drop_amount: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter timestamp_gte: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshalled arguments
