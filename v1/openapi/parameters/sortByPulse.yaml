@@ -3,8 +3,7 @@ in: query
 name: sort_by
 required: false
 schema:
-  type: integer
-  format: int64
+  type: string
   default: "+pulse_number"
   enum:
     - -pulse_number

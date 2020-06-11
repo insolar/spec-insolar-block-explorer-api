@@ -262,7 +262,7 @@ type RecordTypeParam string
 type SortByIndex string
 
 // SortByPulse defines model for sort_by_pulse.
-type SortByPulse int64
+type SortByPulse string
 
 // TimestampGte defines model for timestamp_gte.
 type TimestampGte int64
