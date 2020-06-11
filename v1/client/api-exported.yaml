@@ -120,17 +120,11 @@ paths:
       tags:
         - record
       parameters:
+        - $ref: '#/components/parameters/jetDropIdPathParam'
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
-        - name: from_item
-          in: query
-          required: false
-          schema:
-            type: string
-          description: 'The pagination starting point. Accepting pulse_number:order.'
-          example: '43612021:3'
+        - $ref: '#/components/parameters/from_index'
         - $ref: '#/components/parameters/recordTypeParam'
-        - $ref: '#/components/parameters/jetDropIdPathParam'
       responses:
         '200':
           $ref: '#/components/responses/recordsResponse'
@@ -148,13 +142,7 @@ paths:
         - $ref: '#/components/parameters/objectReferencePathParam'
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
-        - name: from_index
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Index is concatenation of pulse_number and order.
-          example: '43612021:3'
+        - $ref: '#/components/parameters/from_index'
         - $ref: '#/components/parameters/sort_by_index'
         - $ref: '#/components/parameters/pulse_number_lt'
         - $ref: '#/components/parameters/pulse_number_gt'
@@ -279,6 +267,14 @@ components:
         format: int64
         minimum: 0
       description: To which Pulse number.
+    from_index:
+      name: from_index
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Index is concatenation of pulse_number and order.
+      example: '43612021:3'
     recordTypeParam:
       name: type
       in: query

@@ -7,13 +7,7 @@ get:
     - $ref: '../parameters/objectReferencePathParam.yaml'
     - $ref: '../parameters/limitParam.yaml'
     - $ref: '../parameters/offsetParam.yaml'
-    - name: from_index
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Index is concatenation of pulse_number and order.
-      example: "43612021:3"
+    - $ref: '../parameters/from_index.yaml'
     - $ref: '../parameters/sortByIndex.yaml'
     - $ref: '../parameters/pulse_number_lt.yaml'
     - $ref: '../parameters/pulse_number_gt.yaml'

@@ -587,16 +587,16 @@ paths:
       tags:
         - record
       parameters:
-        - $ref: '#/components/parameters/JetDropRecordsQueryParameterLimit'
-        - $ref: '#/components/parameters/JetDropRecordsQueryParameterOffset'
-        - $ref: '#/components/parameters/JetDropRecordsQueryParameterFrom_item'
-        - $ref: '#/components/parameters/JetDropRecordsQueryParameterType'
         - name: jet_drop_id
           in: path
           required: true
           schema:
             type: string
           description: The ID of JetDrop.
+        - $ref: '#/components/parameters/JetDropRecordsQueryParameterLimit'
+        - $ref: '#/components/parameters/JetDropRecordsQueryParameterOffset'
+        - $ref: '#/components/parameters/JetDropRecordsQueryParameterFrom_index'
+        - $ref: '#/components/parameters/JetDropRecordsQueryParameterType'
       responses:
         '200':
           description: Internal server error. Unable to process request due to an error.
@@ -1004,6 +1004,14 @@ components:
         format: int64
         minimum: 0
       description: To which Pulse number.
+    from_index:
+      name: from_index
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Index is concatenation of pulse_number and order.
+      example: '43612021:3'
     recordTypeParam:
       name: type
       in: query
@@ -1192,13 +1200,13 @@ components:
         minimum: 0
         default: 0
       description: The number of items to skip before starting to collect the result set.
-    JetDropRecordsQueryParameterFrom_item:
-      name: from_item
+    JetDropRecordsQueryParameterFrom_index:
+      name: from_index
       in: query
       required: false
       schema:
         type: string
-      description: 'The pagination starting point. Accepting pulse_number:order.'
+      description: Index is concatenation of pulse_number and order.
       example: '43612021:3'
     JetDropRecordsQueryParameterType:
       name: type

@@ -31,7 +31,7 @@ type RecordApiService service
 type JetDropRecordsOpts struct {
     Limit optional.Int32
     Offset optional.Int32
-    FromItem optional.String
+    FromIndex optional.String
     Type_ optional.String
 }
 
@@ -42,7 +42,7 @@ JetDropRecords Jet drop records
  * @param optional nil or *JetDropRecordsOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.String) -  The pagination starting point. Accepting pulse_number:order.
+ * @param "FromIndex" (optional.String) -  Index is concatenation of pulse_number and order.
  * @param "Type_" (optional.String) -  The record type.
 @return ObjectLifelineResponse200
 */
@@ -70,8 +70,8 @@ func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string
 	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
 		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.FromItem.IsSet() {
-		localVarQueryParams.Add("from_item", parameterToString(localVarOptionals.FromItem.Value(), ""))
+	if localVarOptionals != nil && localVarOptionals.FromIndex.IsSet() {
+		localVarQueryParams.Add("from_index", parameterToString(localVarOptionals.FromIndex.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.Type_.IsSet() {
 		localVarQueryParams.Add("type", parameterToString(localVarOptionals.Type_.Value(), ""))

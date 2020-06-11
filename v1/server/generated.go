@@ -219,6 +219,9 @@ type SearchRecord struct {
 // FromPulseNumberParam defines model for fromPulseNumberParam.
 type FromPulseNumberParam int64
 
+// FromIndex defines model for from_index.
+type FromIndex string
+
 // FromJetDropId defines model for from_jet_drop_id.
 type FromJetDropId string
 
@@ -294,8 +297,8 @@ type JetDropRecordsParams struct {
 	// The number of items to skip before starting to collect the result set.
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// The pagination starting point. Accepting pulse_number:order.
-	FromItem *string `json:"from_item,omitempty"`
+	// Index is concatenation of pulse_number and order.
+	FromIndex *FromIndex `json:"from_index,omitempty"`
 
 	// The record type.
 	Type *RecordTypeParam `json:"type,omitempty"`
@@ -330,7 +333,7 @@ type ObjectLifelineParams struct {
 	Offset *OffsetParam `json:"offset,omitempty"`
 
 	// Index is concatenation of pulse_number and order.
-	FromIndex *string `json:"from_index,omitempty"`
+	FromIndex *FromIndex `json:"from_index,omitempty"`
 
 	// The keyword used to sort result sets in either ascending or descending order for Index.
 	SortBy *SortByIndex `json:"sort_by,omitempty"`
@@ -463,11 +466,11 @@ func (w *ServerInterfaceWrapper) JetDropRecords(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
 	}
 
-	// ------------- Optional query parameter "from_item" -------------
+	// ------------- Optional query parameter "from_index" -------------
 
-	err = runtime.BindQueryParameter("form", true, false, "from_item", ctx.QueryParams(), &params.FromItem)
+	err = runtime.BindQueryParameter("form", true, false, "from_index", ctx.QueryParams(), &params.FromIndex)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_item: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_index: %s", err))
 	}
 
 	// ------------- Optional query parameter "type" -------------
