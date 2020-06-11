@@ -455,6 +455,8 @@ paths:
           example: '0010'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterLimit'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterOffset'
+        - $ref: >-
+            #/components/parameters/JetDropsByJetIDQueryParameterFrom_jet_drop_id
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterSort_by'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterJet_drop_id_lt'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterJet_drop_id_gt'
@@ -1160,6 +1162,13 @@ components:
         minimum: 0
         default: 0
       description: The number of items to skip before starting to collect the result set.
+    JetDropsByJetIDQueryParameterFrom_jet_drop_id:
+      name: from_jet_drop_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: From wich jet_drop_id.
     JetDropsByJetIDQueryParameterSort_by:
       in: query
       name: sort_by

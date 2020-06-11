@@ -97,6 +97,7 @@ paths:
         - $ref: '#/components/parameters/jetIdPathParam'
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/from_jet_drop_id'
         - $ref: '#/components/parameters/sort_by_index'
         - $ref: '#/components/parameters/jet_drop_id_lt'
         - $ref: '#/components/parameters/jet_drop_id_gt'

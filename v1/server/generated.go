@@ -316,6 +316,9 @@ type JetDropsByJetIDParams struct {
 	// The number of items to skip before starting to collect the result set.
 	Offset *OffsetParam `json:"offset,omitempty"`
 
+	// From wich jet_drop_id.
+	FromJetDropId *FromJetDropId `json:"from_jet_drop_id,omitempty"`
+
 	// The keyword used to sort result sets in either ascending or descending order for Index.
 	SortBy *SortByIndex `json:"sort_by,omitempty"`
 
@@ -513,6 +516,13 @@ func (w *ServerInterfaceWrapper) JetDropsByJetID(ctx echo.Context) error {
 	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "from_jet_drop_id" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "from_jet_drop_id", ctx.QueryParams(), &params.FromJetDropId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_jet_drop_id: %s", err))
 	}
 
 	// ------------- Optional query parameter "sort_by" -------------
