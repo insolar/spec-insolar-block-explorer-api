@@ -455,10 +455,11 @@ paths:
           example: '0010'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterLimit'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterOffset'
-        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterFrom_item'
         - $ref: >-
-            #/components/parameters/JetDropsByJetIDQueryParameterFrom_pulse_number
-        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterTo_pulse_number'
+            #/components/parameters/JetDropsByJetIDQueryParameterFrom_jet_drop_id
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterSort_by'
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterJet_drop_id_lt'
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterJet_drop_id_gt'
       responses:
         '200':
           description: Internal server error. Unable to process request due to an error.
@@ -995,15 +996,36 @@ components:
         type: string
       description: The JetID.
       example: '0010'
-    toPulseNumberParam:
+    sort_by_index:
       in: query
-      name: to_pulse_number
+      name: sort_by
+      required: false
+      schema:
+        type: string
+        default: +index
+        enum:
+          - '-index'
+          - +index
+      description: >-
+        The keyword used to sort result sets in either ascending or descending
+        order for Index.
+      example: +index
+    jet_drop_id_lt:
+      in: query
+      name: jet_drop_id_lt
       required: false
       schema:
         type: integer
-        format: int64
         minimum: 0
-      description: To which Pulse number.
+      description: Less than jet_drop_id.
+    jet_drop_id_gt:
+      in: query
+      name: jet_drop_id_gt
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: Greater than jet_drop_id.
     from_index:
       name: from_index
       in: query
@@ -1031,20 +1053,6 @@ components:
         type: string
       description: The reference of object.
       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-    sort_by_index:
-      in: query
-      name: sort_by
-      required: false
-      schema:
-        type: string
-        default: +index
-        enum:
-          - '-index'
-          - +index
-      description: >-
-        The keyword used to sort result sets in either ascending or descending
-        order for Index.
-      example: +index
     pulse_number_lt:
       in: query
       name: pulse_number_lt
@@ -1155,32 +1163,43 @@ components:
         minimum: 0
         default: 0
       description: The number of items to skip before starting to collect the result set.
-    JetDropsByJetIDQueryParameterFrom_item:
-      name: from_item
+    JetDropsByJetIDQueryParameterFrom_jet_drop_id:
+      name: from_jet_drop_id
       in: query
       required: false
       schema:
         type: string
-      description: The pagination starting point. Accepting jet_id.
-      example: '0010'
-    JetDropsByJetIDQueryParameterFrom_pulse_number:
+      description: From wich jet_drop_id.
+    JetDropsByJetIDQueryParameterSort_by:
       in: query
-      name: from_pulse_number
+      name: sort_by
+      required: false
+      schema:
+        type: string
+        default: +index
+        enum:
+          - '-index'
+          - +index
+      description: >-
+        The keyword used to sort result sets in either ascending or descending
+        order for Index.
+      example: +index
+    JetDropsByJetIDQueryParameterJet_drop_id_lt:
+      in: query
+      name: jet_drop_id_lt
       required: false
       schema:
         type: integer
-        format: int64
         minimum: 0
-      description: From which Pulse number.
-    JetDropsByJetIDQueryParameterTo_pulse_number:
+      description: Less than jet_drop_id.
+    JetDropsByJetIDQueryParameterJet_drop_id_gt:
       in: query
-      name: to_pulse_number
+      name: jet_drop_id_gt
       required: false
       schema:
         type: integer
-        format: int64
         minimum: 0
-      description: To which Pulse number.
+      description: Greater than jet_drop_id.
     JetDropRecordsQueryParameterLimit:
       in: query
       name: limit

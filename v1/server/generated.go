@@ -231,6 +231,12 @@ type JetDropIdPathParam string
 // JetIdPathParam defines model for jetIdPathParam.
 type JetIdPathParam string
 
+// JetDropIdGt defines model for jet_drop_id_gt.
+type JetDropIdGt int
+
+// JetDropIdLt defines model for jet_drop_id_lt.
+type JetDropIdLt int
+
 // LimitParam defines model for limitParam.
 type LimitParam int
 
@@ -260,9 +266,6 @@ type TimestampGte int64
 
 // TimestampLte defines model for timestamp_lte.
 type TimestampLte int64
-
-// ToPulseNumberParam defines model for toPulseNumberParam.
-type ToPulseNumberParam int64
 
 // N400Response defines model for 400Response.
 type N400Response CodeValidationError
@@ -313,14 +316,17 @@ type JetDropsByJetIDParams struct {
 	// The number of items to skip before starting to collect the result set.
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// The pagination starting point. Accepting jet_id.
-	FromItem *string `json:"from_item,omitempty"`
+	// From wich jet_drop_id.
+	FromJetDropId *FromJetDropId `json:"from_jet_drop_id,omitempty"`
 
-	// From which Pulse number.
-	FromPulseNumber *FromPulseNumberParam `json:"from_pulse_number,omitempty"`
+	// The keyword used to sort result sets in either ascending or descending order for Index.
+	SortBy *SortByIndex `json:"sort_by,omitempty"`
 
-	// To which Pulse number.
-	ToPulseNumber *ToPulseNumberParam `json:"to_pulse_number,omitempty"`
+	// Less than jet_drop_id.
+	JetDropIdLt *JetDropIdLt `json:"jet_drop_id_lt,omitempty"`
+
+	// Greater than jet_drop_id.
+	JetDropIdGt *JetDropIdGt `json:"jet_drop_id_gt,omitempty"`
 }
 
 // ObjectLifelineParams defines parameters for ObjectLifeline.
@@ -512,25 +518,32 @@ func (w *ServerInterfaceWrapper) JetDropsByJetID(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
 	}
 
-	// ------------- Optional query parameter "from_item" -------------
+	// ------------- Optional query parameter "from_jet_drop_id" -------------
 
-	err = runtime.BindQueryParameter("form", true, false, "from_item", ctx.QueryParams(), &params.FromItem)
+	err = runtime.BindQueryParameter("form", true, false, "from_jet_drop_id", ctx.QueryParams(), &params.FromJetDropId)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_item: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_jet_drop_id: %s", err))
 	}
 
-	// ------------- Optional query parameter "from_pulse_number" -------------
+	// ------------- Optional query parameter "sort_by" -------------
 
-	err = runtime.BindQueryParameter("form", true, false, "from_pulse_number", ctx.QueryParams(), &params.FromPulseNumber)
+	err = runtime.BindQueryParameter("form", true, false, "sort_by", ctx.QueryParams(), &params.SortBy)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_pulse_number: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter sort_by: %s", err))
 	}
 
-	// ------------- Optional query parameter "to_pulse_number" -------------
+	// ------------- Optional query parameter "jet_drop_id_lt" -------------
 
-	err = runtime.BindQueryParameter("form", true, false, "to_pulse_number", ctx.QueryParams(), &params.ToPulseNumber)
+	err = runtime.BindQueryParameter("form", true, false, "jet_drop_id_lt", ctx.QueryParams(), &params.JetDropIdLt)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter to_pulse_number: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter jet_drop_id_lt: %s", err))
+	}
+
+	// ------------- Optional query parameter "jet_drop_id_gt" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "jet_drop_id_gt", ctx.QueryParams(), &params.JetDropIdGt)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter jet_drop_id_gt: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshalled arguments

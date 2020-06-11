@@ -97,15 +97,10 @@ paths:
         - $ref: '#/components/parameters/jetIdPathParam'
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
-        - name: from_item
-          in: query
-          required: false
-          schema:
-            type: string
-          description: The pagination starting point. Accepting jet_id.
-          example: '0010'
-        - $ref: '#/components/parameters/fromPulseNumberParam'
-        - $ref: '#/components/parameters/toPulseNumberParam'
+        - $ref: '#/components/parameters/from_jet_drop_id'
+        - $ref: '#/components/parameters/sort_by_index'
+        - $ref: '#/components/parameters/jet_drop_id_lt'
+        - $ref: '#/components/parameters/jet_drop_id_gt'
       responses:
         '200':
           $ref: '#/components/responses/jetDropsResponse'
@@ -258,15 +253,36 @@ components:
         type: string
       description: The JetID.
       example: '0010'
-    toPulseNumberParam:
+    sort_by_index:
       in: query
-      name: to_pulse_number
+      name: sort_by
+      required: false
+      schema:
+        type: string
+        default: +index
+        enum:
+          - '-index'
+          - +index
+      description: >-
+        The keyword used to sort result sets in either ascending or descending
+        order for Index.
+      example: +index
+    jet_drop_id_lt:
+      in: query
+      name: jet_drop_id_lt
       required: false
       schema:
         type: integer
-        format: int64
         minimum: 0
-      description: To which Pulse number.
+      description: Less than jet_drop_id.
+    jet_drop_id_gt:
+      in: query
+      name: jet_drop_id_gt
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: Greater than jet_drop_id.
     from_index:
       name: from_index
       in: query
@@ -294,20 +310,6 @@ components:
         type: string
       description: The reference of object.
       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-    sort_by_index:
-      in: query
-      name: sort_by
-      required: false
-      schema:
-        type: string
-        default: +index
-        enum:
-          - '-index'
-          - +index
-      description: >-
-        The keyword used to sort result sets in either ascending or descending
-        order for Index.
-      example: +index
     pulse_number_lt:
       in: query
       name: pulse_number_lt
