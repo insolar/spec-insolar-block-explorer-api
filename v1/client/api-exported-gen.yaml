@@ -727,9 +727,13 @@ paths:
           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterLimit'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterOffset'
-        - $ref: '#/components/parameters/ObjectLifelineQueryParameterFrom_item'
-        - $ref: '#/components/parameters/ObjectLifelineQueryParameterRecord_reference'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterFrom_index'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterType'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterPulse_number_lt'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterPulse_number_gt'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterTimestamp_lte'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterTimestamp_gte'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterSort_by'
       responses:
         '200':
           description: Internal server error. Unable to process request due to an error.
@@ -1010,6 +1014,57 @@ components:
         type: string
       description: The reference of object.
       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+    pulse_number_lt:
+      in: query
+      name: pulse_number_lt
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: Less than pulse_number.
+    pulse_number_gt:
+      in: query
+      name: pulse_number_gt
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: Greater than pulse_number.
+      style: matrix
+    timestamp_lte:
+      in: query
+      name: timestamp_lte
+      required: false
+      schema:
+        type: integer
+        format: int64
+        description: Unix timestamp.
+        example: 1451743413
+      description: Less than or equals to timestamp.
+    timestamp_gte:
+      in: query
+      name: timestamp_gte
+      required: false
+      schema:
+        type: integer
+        format: int64
+        description: Unix timestamp.
+        example: 1451743413
+      description: Greater than or equals to timestamp.
+    sort_by_index:
+      in: query
+      name: sort_by
+      required: false
+      schema:
+        type: string
+        default: +index
+        enum:
+          - '-index'
+          - +index
+      description: >-
+        The keyword used to sort result sets in either ascending or descending
+        order for Index.
+      example: +index
     PulsesQueryParameterLimit:
       in: query
       name: limit
@@ -1199,22 +1254,14 @@ components:
         minimum: 0
         default: 0
       description: The number of items to skip before starting to collect the result set.
-    ObjectLifelineQueryParameterFrom_item:
-      name: from_item
+    ObjectLifelineQueryParameterFrom_index:
+      name: from_index
       in: query
       required: false
       schema:
         type: string
-      description: 'The pagination starting point. Accepting pulse_number:order.'
+      description: Index is concatenation of pulse_number and order.
       example: '43612021:3'
-    ObjectLifelineQueryParameterRecord_reference:
-      name: record_reference
-      in: query
-      required: false
-      schema:
-        type: string
-      description: The pagination starting point. Accepting record_reference.
-      example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
     ObjectLifelineQueryParameterType:
       name: type
       in: query
@@ -1226,6 +1273,57 @@ components:
           - state
           - request
           - result
+    ObjectLifelineQueryParameterPulse_number_lt:
+      in: query
+      name: pulse_number_lt
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: Less than pulse_number.
+    ObjectLifelineQueryParameterPulse_number_gt:
+      in: query
+      name: pulse_number_gt
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: Greater than pulse_number.
+      style: matrix
+    ObjectLifelineQueryParameterTimestamp_lte:
+      in: query
+      name: timestamp_lte
+      required: false
+      schema:
+        type: integer
+        format: int64
+        description: Unix timestamp.
+        example: 1451743413
+      description: Less than or equals to timestamp.
+    ObjectLifelineQueryParameterTimestamp_gte:
+      in: query
+      name: timestamp_gte
+      required: false
+      schema:
+        type: integer
+        format: int64
+        description: Unix timestamp.
+        example: 1451743413
+      description: Greater than or equals to timestamp.
+    ObjectLifelineQueryParameterSort_by:
+      in: query
+      name: sort_by
+      required: false
+      schema:
+        type: string
+        default: +index
+        enum:
+          - '-index'
+          - +index
+      description: >-
+        The keyword used to sort result sets in either ascending or descending
+        order for Index.
+      example: +index
     SearchDataQueryParameterValue:
       name: value
       in: query

@@ -1,0 +1,9 @@
+x-component: 'parameters/pulse_number_gt'
+in: query
+name: pulse_number_gt
+required: false
+schema:
+  type: integer
+  minimum: 0
+description: Greater than pulse_number.
+style: matrix

@@ -1,0 +1,10 @@
+x-component: 'parameters/timestamp_gte'
+in: query
+name: timestamp_gte
+required: false
+schema:
+  type: integer
+  format: int64
+  description: Unix timestamp.
+  example: 1451743413
+description: Greater than or equals to timestamp.
