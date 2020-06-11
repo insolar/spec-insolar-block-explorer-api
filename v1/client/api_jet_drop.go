@@ -233,7 +233,7 @@ func (a *JetDropApiService) JetDropsByJetID(ctx _context.Context, jetId string, 
 type JetDropsByPulseNumberOpts struct {
     Limit optional.Int32
     Offset optional.Int32
-    FromItem optional.String
+    FromJetDropId optional.String
 }
 
 /*
@@ -243,7 +243,7 @@ JetDropsByPulseNumber Jet drops by pulse number
  * @param optional nil or *JetDropsByPulseNumberOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.String) -  The pagination starting point. Accepting jet_drop_id.
+ * @param "FromJetDropId" (optional.String) -  From wich jet_drop_id.
 @return JetDropsByJetIdResponse200
 */
 func (a *JetDropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNumber int64, localVarOptionals *JetDropsByPulseNumberOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {
@@ -273,8 +273,8 @@ func (a *JetDropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNum
 	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
 		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.FromItem.IsSet() {
-		localVarQueryParams.Add("from_item", parameterToString(localVarOptionals.FromItem.Value(), ""))
+	if localVarOptionals != nil && localVarOptionals.FromJetDropId.IsSet() {
+		localVarQueryParams.Add("from_jet_drop_id", parameterToString(localVarOptionals.FromJetDropId.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

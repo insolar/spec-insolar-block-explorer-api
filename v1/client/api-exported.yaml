@@ -79,12 +79,7 @@ paths:
         - $ref: '#/components/parameters/pulseNumberPathParam'
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
-        - name: from_item
-          in: query
-          required: false
-          schema:
-            type: string
-          description: The pagination starting point. Accepting jet_drop_id.
+        - $ref: '#/components/parameters/from_jet_drop_id'
       responses:
         '200':
           $ref: '#/components/responses/jetDropsResponse'
@@ -260,6 +255,13 @@ components:
       schema:
         type: string
       description: The ID of JetDrop.
+    from_jet_drop_id:
+      name: from_jet_drop_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: From wich jet_drop_id.
     jetIdPathParam:
       in: path
       name: jet_id

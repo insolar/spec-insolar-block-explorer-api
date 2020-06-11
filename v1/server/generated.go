@@ -219,6 +219,9 @@ type SearchRecord struct {
 // FromPulseNumberParam defines model for fromPulseNumberParam.
 type FromPulseNumberParam int64
 
+// FromJetDropId defines model for from_jet_drop_id.
+type FromJetDropId string
+
 // JetDropIdPathParam defines model for jetDropIdPathParam.
 type JetDropIdPathParam string
 
@@ -373,8 +376,8 @@ type JetDropsByPulseNumberParams struct {
 	// The number of items to skip before starting to collect the result set.
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// The pagination starting point. Accepting jet_drop_id.
-	FromItem *string `json:"from_item,omitempty"`
+	// From wich jet_drop_id.
+	FromJetDropId *FromJetDropId `json:"from_jet_drop_id,omitempty"`
 }
 
 // SearchParams defines parameters for Search.
@@ -695,11 +698,11 @@ func (w *ServerInterfaceWrapper) JetDropsByPulseNumber(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
 	}
 
-	// ------------- Optional query parameter "from_item" -------------
+	// ------------- Optional query parameter "from_jet_drop_id" -------------
 
-	err = runtime.BindQueryParameter("form", true, false, "from_item", ctx.QueryParams(), &params.FromItem)
+	err = runtime.BindQueryParameter("form", true, false, "from_jet_drop_id", ctx.QueryParams(), &params.FromJetDropId)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_item: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_jet_drop_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshalled arguments
