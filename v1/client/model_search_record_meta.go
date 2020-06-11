@@ -11,6 +11,8 @@
 package client
 // SearchRecordMeta Meta data.
 type SearchRecordMeta struct {
-	// Record reference.
-	RecordRef string `json:"record_ref,omitempty"`
+	// Object reference.
+	ObjectReference string `json:"object_reference,omitempty"`
+	// Index is concatenation of pulse_number and order.
+	Index string `json:"index,omitempty"`
 }

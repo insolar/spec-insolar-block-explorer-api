@@ -7,12 +7,7 @@ get:
     - $ref: '../parameters/pulseNumberPathParam.yaml'
     - $ref: '../parameters/limitParam.yaml'
     - $ref: '../parameters/offsetParam.yaml'
-    - name: from_item
-      in: query
-      required: false
-      schema:
-        type: string
-      description: The pagination starting point. Accepting jet_drop_id.
+    - $ref: '../parameters/from-jet-drop-id.yaml'
   responses:
     '200':
       $ref: '../responses/jet-drops.yaml'

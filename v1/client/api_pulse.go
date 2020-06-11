@@ -120,11 +120,9 @@ func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int64) (PulseR
 type PulsesOpts struct {
     Limit optional.Int32
     Offset optional.Int32
-    FromItem optional.Int64
     FromPulseNumber optional.Int64
-    ToPulseNumber optional.Int64
-    FromJetDropAmount optional.Int32
-    ToJetDropAmount optional.Int32
+    TimestampLte optional.Int64
+    TimestampGte optional.Int64
 }
 
 /*
@@ -133,11 +131,9 @@ Pulses Pulses
  * @param optional nil or *PulsesOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.Int64) -  The pagination starting point. Accepting pulse_number.
  * @param "FromPulseNumber" (optional.Int64) -  From which Pulse number.
- * @param "ToPulseNumber" (optional.Int64) -  To which Pulse number.
- * @param "FromJetDropAmount" (optional.Int32) -  To which jet_drop_amount.
- * @param "ToJetDropAmount" (optional.Int32) -  From which jet_drop_amount.
+ * @param "TimestampLte" (optional.Int64) -  Less than or equals to timestamp.
+ * @param "TimestampGte" (optional.Int64) -  Greater than or equals to timestamp.
 @return PulsesResponse200
 */
 func (a *PulseApiService) Pulses(ctx _context.Context, localVarOptionals *PulsesOpts) (PulsesResponse200, *_nethttp.Response, error) {
@@ -162,20 +158,14 @@ func (a *PulseApiService) Pulses(ctx _context.Context, localVarOptionals *Pulses
 	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
 		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.FromItem.IsSet() {
-		localVarQueryParams.Add("from_item", parameterToString(localVarOptionals.FromItem.Value(), ""))
-	}
 	if localVarOptionals != nil && localVarOptionals.FromPulseNumber.IsSet() {
 		localVarQueryParams.Add("from_pulse_number", parameterToString(localVarOptionals.FromPulseNumber.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.ToPulseNumber.IsSet() {
-		localVarQueryParams.Add("to_pulse_number", parameterToString(localVarOptionals.ToPulseNumber.Value(), ""))
+	if localVarOptionals != nil && localVarOptionals.TimestampLte.IsSet() {
+		localVarQueryParams.Add("timestamp_lte", parameterToString(localVarOptionals.TimestampLte.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.FromJetDropAmount.IsSet() {
-		localVarQueryParams.Add("from_jet_drop_amount", parameterToString(localVarOptionals.FromJetDropAmount.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ToJetDropAmount.IsSet() {
-		localVarQueryParams.Add("to_jet_drop_amount", parameterToString(localVarOptionals.ToJetDropAmount.Value(), ""))
+	if localVarOptionals != nil && localVarOptionals.TimestampGte.IsSet() {
+		localVarQueryParams.Add("timestamp_gte", parameterToString(localVarOptionals.TimestampGte.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

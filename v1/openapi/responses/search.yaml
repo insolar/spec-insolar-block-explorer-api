@@ -8,4 +8,3 @@ content:
         - $ref: '../schemas/search-record.yaml'
         - $ref: '../schemas/search-jet-drop.yaml'
         - $ref: '../schemas/search-lifeline.yaml'
-        - $ref: '../schemas/search-jetid.yaml'

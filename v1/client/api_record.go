@@ -31,7 +31,7 @@ type RecordApiService service
 type JetDropRecordsOpts struct {
     Limit optional.Int32
     Offset optional.Int32
-    FromItem optional.String
+    FromIndex optional.String
     Type_ optional.String
 }
 
@@ -42,7 +42,7 @@ JetDropRecords Jet drop records
  * @param optional nil or *JetDropRecordsOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.String) -  The pagination starting point. Accepting pulse_number:order.
+ * @param "FromIndex" (optional.String) -  Index is concatenation of pulse_number and order.
  * @param "Type_" (optional.String) -  The record type.
 @return ObjectLifelineResponse200
 */
@@ -70,8 +70,8 @@ func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string
 	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
 		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.FromItem.IsSet() {
-		localVarQueryParams.Add("from_item", parameterToString(localVarOptionals.FromItem.Value(), ""))
+	if localVarOptionals != nil && localVarOptionals.FromIndex.IsSet() {
+		localVarQueryParams.Add("from_index", parameterToString(localVarOptionals.FromIndex.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.Type_.IsSet() {
 		localVarQueryParams.Add("type", parameterToString(localVarOptionals.Type_.Value(), ""))
@@ -142,9 +142,12 @@ func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string
 type ObjectLifelineOpts struct {
     Limit optional.Int32
     Offset optional.Int32
-    FromItem optional.String
-    RecordReference optional.String
-    Type_ optional.String
+    FromIndex optional.String
+    SortBy optional.String
+    PulseNumberLt optional.Int32
+    PulseNumberGt optional.Int32
+    TimestampLte optional.Int64
+    TimestampGte optional.Int64
 }
 
 /*
@@ -154,9 +157,12 @@ ObjectLifeline Object Lifeline
  * @param optional nil or *ObjectLifelineOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromItem" (optional.String) -  The pagination starting point. Accepting pulse_number:order.
- * @param "RecordReference" (optional.String) -  The pagination starting point. Accepting record_reference.
- * @param "Type_" (optional.String) -  The record type.
+ * @param "FromIndex" (optional.String) -  Index is concatenation of pulse_number and order.
+ * @param "SortBy" (optional.String) -  The keyword used to sort result sets in either ascending or descending order for Index.
+ * @param "PulseNumberLt" (optional.Int32) -  Less than pulse_number.
+ * @param "PulseNumberGt" (optional.Int32) -  Greater than pulse_number.
+ * @param "TimestampLte" (optional.Int64) -  Less than or equals to timestamp.
+ * @param "TimestampGte" (optional.Int64) -  Greater than or equals to timestamp.
 @return ObjectLifelineResponse200
 */
 func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference string, localVarOptionals *ObjectLifelineOpts) (ObjectLifelineResponse200, *_nethttp.Response, error) {
@@ -183,14 +189,23 @@ func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference 
 	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
 		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.FromItem.IsSet() {
-		localVarQueryParams.Add("from_item", parameterToString(localVarOptionals.FromItem.Value(), ""))
+	if localVarOptionals != nil && localVarOptionals.FromIndex.IsSet() {
+		localVarQueryParams.Add("from_index", parameterToString(localVarOptionals.FromIndex.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.RecordReference.IsSet() {
-		localVarQueryParams.Add("record_reference", parameterToString(localVarOptionals.RecordReference.Value(), ""))
+	if localVarOptionals != nil && localVarOptionals.SortBy.IsSet() {
+		localVarQueryParams.Add("sort_by", parameterToString(localVarOptionals.SortBy.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Type_.IsSet() {
-		localVarQueryParams.Add("type", parameterToString(localVarOptionals.Type_.Value(), ""))
+	if localVarOptionals != nil && localVarOptionals.PulseNumberLt.IsSet() {
+		localVarQueryParams.Add("pulse_number_lt", parameterToString(localVarOptionals.PulseNumberLt.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.PulseNumberGt.IsSet() {
+		localVarQueryParams.Add("pulse_number_gt", parameterToString(localVarOptionals.PulseNumberGt.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.TimestampLte.IsSet() {
+		localVarQueryParams.Add("timestamp_lte", parameterToString(localVarOptionals.TimestampLte.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.TimestampGte.IsSet() {
+		localVarQueryParams.Add("timestamp_gte", parameterToString(localVarOptionals.TimestampGte.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

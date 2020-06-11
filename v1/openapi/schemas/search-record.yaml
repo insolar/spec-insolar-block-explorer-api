@@ -13,7 +13,13 @@ properties:
     type: object
     description: Meta data.
     properties:
-      record_ref:
+      object_reference:
         type: string
-        description: Record reference.
-        example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
+        description: Object reference.
+        example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+        pattern: >-
+          ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
+      index:
+        type: string
+        description: Index is concatenation of pulse_number and order.
+        example: "43648102:7"

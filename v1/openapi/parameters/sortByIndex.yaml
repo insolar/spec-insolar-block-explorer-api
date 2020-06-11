@@ -1,0 +1,12 @@
+x-component: 'parameters/sort_by_index'
+in: query
+name: sort_by
+required: false
+schema:
+  type: string
+  default: "+index"
+  enum:
+    - -index
+    - +index
+description: The keyword used to sort result sets in either ascending or descending order for Index.
+example: "+index"

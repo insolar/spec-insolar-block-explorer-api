@@ -13,12 +13,10 @@ package client
 type SearchDataResponse200Meta struct {
 	// Pulse Number.
 	PulseNumber int64 `json:"pulse_number,omitempty"`
-	// Record reference.
-	RecordRef string `json:"record_ref,omitempty"`
-	// JetDrop ID.
-	JetDropId string `json:"jet_drop_id,omitempty"`
 	// Object reference.
 	ObjectReference string `json:"object_reference,omitempty"`
-	// Jet ID.
-	JetId string `json:"jet-id,omitempty"`
+	// Index is concatenation of pulse_number and order.
+	Index string `json:"index,omitempty"`
+	// JetDrop ID.
+	JetDropId string `json:"jet_drop_id,omitempty"`
 }

@@ -1,0 +1,8 @@
+x-component: 'parameters/pulse_number_lt'
+in: query
+name: pulse_number_lt
+required: false
+schema:
+  type: integer
+  minimum: 0
+description: Less than pulse_number.

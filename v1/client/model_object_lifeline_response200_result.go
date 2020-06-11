@@ -31,8 +31,10 @@ type ObjectLifelineResponse200Result struct {
 	PulseNumber int64 `json:"pulse_number,omitempty"`
 	// Jet ID.
 	JetId string `json:"jet_id,omitempty"`
-	// JetDrop ID is concantination of jet_id and pulse_number.
+	// JetDrop ID is concatenation of jet_id and pulse_number.
 	JetDropId string `json:"jet_drop_id,omitempty"`
 	// Order is the record order number in the Jet Drop.
 	Order int64 `json:"order,omitempty"`
+	// Index is concatenation of pulse_number and order.
+	Index string `json:"index,omitempty"`
 }

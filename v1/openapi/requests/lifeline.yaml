@@ -7,21 +7,12 @@ get:
     - $ref: '../parameters/objectReferencePathParam.yaml'
     - $ref: '../parameters/limitParam.yaml'
     - $ref: '../parameters/offsetParam.yaml'
-    - name: from_item
-      in: query
-      required: false
-      schema:
-        type: string
-      description: The pagination starting point. Accepting pulse_number:order.
-      example: "43612021:3"
-    - name: record_reference
-      in: query
-      required: false
-      schema:
-        type: string
-      description: The pagination starting point. Accepting record_reference.
-      example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
-    - $ref: '../parameters/recordTypeParam.yaml'
+    - $ref: '../parameters/from_index.yaml'
+    - $ref: '../parameters/sortByIndex.yaml'
+    - $ref: '../parameters/pulse_number_lt.yaml'
+    - $ref: '../parameters/pulse_number_gt.yaml'
+    - $ref: '../parameters/timestamp_lte.yaml'
+    - $ref: '../parameters/timestamp_gte.yaml'
   responses:
     '200':
       $ref: "../responses/lifeline.yaml"
