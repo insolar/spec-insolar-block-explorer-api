@@ -8,7 +8,7 @@ get:
     - $ref: '../parameters/limitParam.yaml'
     - $ref: '../parameters/offsetParam.yaml'
     - $ref: '../parameters/from-jet-drop-id.yaml'
-    - $ref: '../parameters/sortByIndex.yaml'
+    - $ref: '../parameters/sortByPulse.yaml'
     - $ref: '../parameters/jet_drop_id_lt.yaml'
     - $ref: '../parameters/jet_drop_id_gt.yaml'
   responses:

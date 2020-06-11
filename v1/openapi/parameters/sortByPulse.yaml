@@ -1,0 +1,13 @@
+x-component: 'parameters/sort_by_pulse'
+in: query
+name: sort_by
+required: false
+schema:
+  type: integer
+  format: int64
+  default: "+pulse_number"
+  enum:
+    - -pulse_number
+    - +pulse_number
+description: The keyword used to sort result sets in either ascending or descending order for pulse_number.
+example: "+pulse_number"

@@ -118,7 +118,7 @@ type JetDropsByJetIDOpts struct {
     Limit optional.Int32
     Offset optional.Int32
     FromJetDropId optional.String
-    SortBy optional.String
+    SortBy optional.Int64
     JetDropIdLt optional.Int32
     JetDropIdGt optional.Int32
 }
@@ -131,7 +131,7 @@ JetDropsByJetID Jet drops by jet ID
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
  * @param "FromJetDropId" (optional.String) -  From wich jet_drop_id.
- * @param "SortBy" (optional.String) -  The keyword used to sort result sets in either ascending or descending order for Index.
+ * @param "SortBy" (optional.Int64) -  The keyword used to sort result sets in either ascending or descending order for pulse_number.
  * @param "JetDropIdLt" (optional.Int32) -  Less than jet_drop_id.
  * @param "JetDropIdGt" (optional.Int32) -  Greater than jet_drop_id.
 @return JetDropsByJetIdResponse200

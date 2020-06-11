@@ -98,7 +98,7 @@ paths:
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/offsetParam'
         - $ref: '#/components/parameters/from_jet_drop_id'
-        - $ref: '#/components/parameters/sort_by_index'
+        - $ref: '#/components/parameters/sort_by_pulse'
         - $ref: '#/components/parameters/jet_drop_id_lt'
         - $ref: '#/components/parameters/jet_drop_id_gt'
       responses:
@@ -253,20 +253,21 @@ components:
         type: string
       description: The JetID.
       example: '0010'
-    sort_by_index:
+    sort_by_pulse:
       in: query
       name: sort_by
       required: false
       schema:
-        type: string
-        default: +index
+        type: integer
+        format: int64
+        default: +pulse_number
         enum:
-          - '-index'
-          - +index
+          - '-pulse_number'
+          - +pulse_number
       description: >-
         The keyword used to sort result sets in either ascending or descending
-        order for Index.
-      example: +index
+        order for pulse_number.
+      example: +pulse_number
     jet_drop_id_lt:
       in: query
       name: jet_drop_id_lt
@@ -310,6 +311,20 @@ components:
         type: string
       description: The reference of object.
       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+    sort_by_index:
+      in: query
+      name: sort_by
+      required: false
+      schema:
+        type: string
+        default: +index
+        enum:
+          - '-index'
+          - +index
+      description: >-
+        The keyword used to sort result sets in either ascending or descending
+        order for Index.
+      example: +index
     pulse_number_lt:
       in: query
       name: pulse_number_lt

@@ -261,6 +261,9 @@ type RecordTypeParam string
 // SortByIndex defines model for sort_by_index.
 type SortByIndex string
 
+// SortByPulse defines model for sort_by_pulse.
+type SortByPulse int64
+
 // TimestampGte defines model for timestamp_gte.
 type TimestampGte int64
 
@@ -319,8 +322,8 @@ type JetDropsByJetIDParams struct {
 	// From wich jet_drop_id.
 	FromJetDropId *FromJetDropId `json:"from_jet_drop_id,omitempty"`
 
-	// The keyword used to sort result sets in either ascending or descending order for Index.
-	SortBy *SortByIndex `json:"sort_by,omitempty"`
+	// The keyword used to sort result sets in either ascending or descending order for pulse_number.
+	SortBy *SortByPulse `json:"sort_by,omitempty"`
 
 	// Less than jet_drop_id.
 	JetDropIdLt *JetDropIdLt `json:"jet_drop_id_lt,omitempty"`
