@@ -6,4 +6,3 @@ schema:
   type: integer
   minimum: 0
 description: Greater than pulse_number.
-style: matrix

@@ -1067,7 +1067,6 @@ components:
         type: integer
         minimum: 0
       description: Greater than pulse_number.
-      style: matrix
     PulsesQueryParameterLimit:
       in: query
       name: limit
@@ -1286,7 +1285,6 @@ components:
         type: integer
         minimum: 0
       description: Greater than pulse_number.
-      style: matrix
     ObjectLifelineQueryParameterTimestamp_lte:
       in: query
       name: timestamp_lte
