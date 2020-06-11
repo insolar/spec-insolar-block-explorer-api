@@ -143,12 +143,11 @@ type ObjectLifelineOpts struct {
     Limit optional.Int32
     Offset optional.Int32
     FromIndex optional.String
-    Type_ optional.String
+    SortBy optional.String
     PulseNumberLt optional.Int32
     PulseNumberGt optional.Int32
     TimestampLte optional.Int64
     TimestampGte optional.Int64
-    SortBy optional.String
 }
 
 /*
@@ -159,12 +158,11 @@ ObjectLifeline Object Lifeline
  * @param "Limit" (optional.Int32) -  The numbers of items to return.
  * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
  * @param "FromIndex" (optional.String) -  Index is concatenation of pulse_number and order.
- * @param "Type_" (optional.String) -  The record type.
+ * @param "SortBy" (optional.String) -  The keyword used to sort result sets in either ascending or descending order for Index.
  * @param "PulseNumberLt" (optional.Int32) -  Less than pulse_number.
  * @param "PulseNumberGt" (optional.Int32) -  Greater than pulse_number.
  * @param "TimestampLte" (optional.Int64) -  Less than or equals to timestamp.
  * @param "TimestampGte" (optional.Int64) -  Greater than or equals to timestamp.
- * @param "SortBy" (optional.String) -  The keyword used to sort result sets in either ascending or descending order for Index.
 @return ObjectLifelineResponse200
 */
 func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference string, localVarOptionals *ObjectLifelineOpts) (ObjectLifelineResponse200, *_nethttp.Response, error) {
@@ -194,8 +192,8 @@ func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference 
 	if localVarOptionals != nil && localVarOptionals.FromIndex.IsSet() {
 		localVarQueryParams.Add("from_index", parameterToString(localVarOptionals.FromIndex.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Type_.IsSet() {
-		localVarQueryParams.Add("type", parameterToString(localVarOptionals.Type_.Value(), ""))
+	if localVarOptionals != nil && localVarOptionals.SortBy.IsSet() {
+		localVarQueryParams.Add("sort_by", parameterToString(localVarOptionals.SortBy.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.PulseNumberLt.IsSet() {
 		localVarQueryParams.Add("pulse_number_lt", parameterToString(localVarOptionals.PulseNumberLt.Value(), ""))
@@ -208,9 +206,6 @@ func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference 
 	}
 	if localVarOptionals != nil && localVarOptionals.TimestampGte.IsSet() {
 		localVarQueryParams.Add("timestamp_gte", parameterToString(localVarOptionals.TimestampGte.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.SortBy.IsSet() {
-		localVarQueryParams.Add("sort_by", parameterToString(localVarOptionals.SortBy.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

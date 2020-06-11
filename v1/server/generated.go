@@ -329,8 +329,8 @@ type ObjectLifelineParams struct {
 	// Index is concatenation of pulse_number and order.
 	FromIndex *string `json:"from_index,omitempty"`
 
-	// The record type.
-	Type *RecordTypeParam `json:"type,omitempty"`
+	// The keyword used to sort result sets in either ascending or descending order for Index.
+	SortBy *SortByIndex `json:"sort_by,omitempty"`
 
 	// Less than pulse_number.
 	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
@@ -343,9 +343,6 @@ type ObjectLifelineParams struct {
 
 	// Greater than or equals to timestamp.
 	TimestampGte *TimestampGte `json:"timestamp_gte,omitempty"`
-
-	// The keyword used to sort result sets in either ascending or descending order for Index.
-	SortBy *SortByIndex `json:"sort_by,omitempty"`
 }
 
 // PulsesParams defines parameters for Pulses.
@@ -569,11 +566,11 @@ func (w *ServerInterfaceWrapper) ObjectLifeline(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_index: %s", err))
 	}
 
-	// ------------- Optional query parameter "type" -------------
+	// ------------- Optional query parameter "sort_by" -------------
 
-	err = runtime.BindQueryParameter("form", true, false, "type", ctx.QueryParams(), &params.Type)
+	err = runtime.BindQueryParameter("form", true, false, "sort_by", ctx.QueryParams(), &params.SortBy)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter type: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter sort_by: %s", err))
 	}
 
 	// ------------- Optional query parameter "pulse_number_lt" -------------
@@ -602,13 +599,6 @@ func (w *ServerInterfaceWrapper) ObjectLifeline(ctx echo.Context) error {
 	err = runtime.BindQueryParameter("form", true, false, "timestamp_gte", ctx.QueryParams(), &params.TimestampGte)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter timestamp_gte: %s", err))
-	}
-
-	// ------------- Optional query parameter "sort_by" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "sort_by", ctx.QueryParams(), &params.SortBy)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter sort_by: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshalled arguments

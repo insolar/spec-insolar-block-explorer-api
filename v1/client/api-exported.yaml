@@ -160,12 +160,11 @@ paths:
             type: string
           description: Index is concatenation of pulse_number and order.
           example: '43612021:3'
-        - $ref: '#/components/parameters/recordTypeParam'
+        - $ref: '#/components/parameters/sort_by_index'
         - $ref: '#/components/parameters/pulse_number_lt'
         - $ref: '#/components/parameters/pulse_number_gt'
         - $ref: '#/components/parameters/timestamp_lte'
         - $ref: '#/components/parameters/timestamp_gte'
-        - $ref: '#/components/parameters/sort_by_index'
       responses:
         '200':
           $ref: '#/components/responses/recordsResponse'
@@ -297,6 +296,20 @@ components:
         type: string
       description: The reference of object.
       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+    sort_by_index:
+      in: query
+      name: sort_by
+      required: false
+      schema:
+        type: string
+        default: +index
+        enum:
+          - '-index'
+          - +index
+      description: >-
+        The keyword used to sort result sets in either ascending or descending
+        order for Index.
+      example: +index
     pulse_number_lt:
       in: query
       name: pulse_number_lt
@@ -314,20 +327,6 @@ components:
         minimum: 0
       description: Greater than pulse_number.
       style: matrix
-    sort_by_index:
-      in: query
-      name: sort_by
-      required: false
-      schema:
-        type: string
-        default: +index
-        enum:
-          - '-index'
-          - +index
-      description: >-
-        The keyword used to sort result sets in either ascending or descending
-        order for Index.
-      example: +index
   responses:
     pulsesResponse:
       description: A paged array of Pulses.

@@ -726,12 +726,11 @@ paths:
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterLimit'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterOffset'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterFrom_index'
-        - $ref: '#/components/parameters/ObjectLifelineQueryParameterType'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterSort_by'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterPulse_number_lt'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterPulse_number_gt'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterTimestamp_lte'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterTimestamp_gte'
-        - $ref: '#/components/parameters/ObjectLifelineQueryParameterSort_by'
       responses:
         '200':
           description: Internal server error. Unable to process request due to an error.
@@ -1016,6 +1015,20 @@ components:
         type: string
       description: The reference of object.
       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+    sort_by_index:
+      in: query
+      name: sort_by
+      required: false
+      schema:
+        type: string
+        default: +index
+        enum:
+          - '-index'
+          - +index
+      description: >-
+        The keyword used to sort result sets in either ascending or descending
+        order for Index.
+      example: +index
     pulse_number_lt:
       in: query
       name: pulse_number_lt
@@ -1033,20 +1046,6 @@ components:
         minimum: 0
       description: Greater than pulse_number.
       style: matrix
-    sort_by_index:
-      in: query
-      name: sort_by
-      required: false
-      schema:
-        type: string
-        default: +index
-        enum:
-          - '-index'
-          - +index
-      description: >-
-        The keyword used to sort result sets in either ascending or descending
-        order for Index.
-      example: +index
     PulsesQueryParameterLimit:
       in: query
       name: limit
@@ -1231,17 +1230,20 @@ components:
         type: string
       description: Index is concatenation of pulse_number and order.
       example: '43612021:3'
-    ObjectLifelineQueryParameterType:
-      name: type
+    ObjectLifelineQueryParameterSort_by:
       in: query
-      description: The record type.
+      name: sort_by
       required: false
       schema:
         type: string
+        default: +index
         enum:
-          - state
-          - request
-          - result
+          - '-index'
+          - +index
+      description: >-
+        The keyword used to sort result sets in either ascending or descending
+        order for Index.
+      example: +index
     ObjectLifelineQueryParameterPulse_number_lt:
       in: query
       name: pulse_number_lt
@@ -1279,20 +1281,6 @@ components:
         description: Unix timestamp.
         example: 1451743413
       description: Greater than or equals to timestamp.
-    ObjectLifelineQueryParameterSort_by:
-      in: query
-      name: sort_by
-      required: false
-      schema:
-        type: string
-        default: +index
-        enum:
-          - '-index'
-          - +index
-      description: >-
-        The keyword used to sort result sets in either ascending or descending
-        order for Index.
-      example: +index
     SearchDataQueryParameterValue:
       name: value
       in: query
