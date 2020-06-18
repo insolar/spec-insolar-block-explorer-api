@@ -1085,8 +1085,7 @@ components:
       description: Upper limit (<) for Jet Drops in a query.
       required: false
       schema:
-        type: integer
-        minimum: 0
+        type: string
       example: 'jet_drop_id_lt=43648104:00102'
     jet_drop_id_gt:
       in: query
@@ -1094,8 +1093,7 @@ components:
       description: Lower limit (>) for Jet Drops in a query.
       required: false
       schema:
-        type: integer
-        minimum: 0
+        type: string
       example: 'jet_drop_id_gt=43648102:0010'
     from_index:
       name: from_index
@@ -1288,8 +1286,7 @@ components:
       description: Upper limit (<) for Jet Drops in a query.
       required: false
       schema:
-        type: integer
-        minimum: 0
+        type: string
       example: 'jet_drop_id_lt=43648104:00102'
     JetDropsByJetIDQueryParameterJet_drop_id_gt:
       in: query
@@ -1297,8 +1294,7 @@ components:
       description: Lower limit (>) for Jet Drops in a query.
       required: false
       schema:
-        type: integer
-        minimum: 0
+        type: string
       example: 'jet_drop_id_gt=43648102:0010'
     JetDropRecodsQueryParameterLimit:
       in: query

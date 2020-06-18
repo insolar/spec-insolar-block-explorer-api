@@ -225,10 +225,10 @@ type FromIndex string
 type FromJetDropId string
 
 // JetDropIdGt defines model for jet_drop_id_gt.
-type JetDropIdGt int
+type JetDropIdGt string
 
 // JetDropIdLt defines model for jet_drop_id_lt.
-type JetDropIdLt int
+type JetDropIdLt string
 
 // JetDropIdPath defines model for jet_drop_id_path.
 type JetDropIdPath string

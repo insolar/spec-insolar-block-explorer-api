@@ -120,8 +120,8 @@ type JetDropsByJetIDOpts struct {
     Offset optional.Int32
     FromJetDropId optional.String
     SortBy optional.String
-    JetDropIdLt optional.Int32
-    JetDropIdGt optional.Int32
+    JetDropIdLt optional.String
+    JetDropIdGt optional.String
 }
 
 /*
@@ -134,8 +134,8 @@ Get Jet Drops by Jet ID
  * @param "Offset" (optional.Int32) -  Number of entries to skip before collecting the result set.
  * @param "FromJetDropId" (optional.String) -  Jet Drop ID to paginate from. Jet Drop ID is a comnibation of jet_id with pulse_number.
  * @param "SortBy" (optional.String) -  Pulse number-based sorting direction for a query result set.
- * @param "JetDropIdLt" (optional.Int32) -  Upper limit (<) for Jet Drops in a query.
- * @param "JetDropIdGt" (optional.Int32) -  Lower limit (>) for Jet Drops in a query.
+ * @param "JetDropIdLt" (optional.String) -  Upper limit (<) for Jet Drops in a query.
+ * @param "JetDropIdGt" (optional.String) -  Lower limit (>) for Jet Drops in a query.
 @return JetDropsByJetIdResponse200
 */
 func (a *JetDropApiService) JetDropsByJetID(ctx _context.Context, jetId string, localVarOptionals *JetDropsByJetIDOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {
