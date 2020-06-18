@@ -1,5 +1,5 @@
 x-component: 'responses/recordsResponse'
-description: A paged array of records.
+description: Paginated array of Records.
 content:
   application/json:
     schema:

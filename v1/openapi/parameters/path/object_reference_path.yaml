@@ -1,0 +1,8 @@
+x-component: 'parameters/object_reference_path'
+name: object_reference
+in: path
+required: true
+schema:
+  type: string
+description: Object reference.
+example: object_reference=insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE

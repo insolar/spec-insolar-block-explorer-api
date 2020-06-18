@@ -1,7 +1,7 @@
 /*
- * Insolar Block Explorer API
+ * Insolar Explorer API
  *
- * BE description 
+ * [Insolar Explorer](https://github.com/insolar/block-explorer)'s REST API documentation.  Insolar Explorer is a service that allows users to search for and view the contents of individual transactions, Records, Lifelines, Jet Drops and Jets.  * Record—minimum unit of storage that contains an associated request, response, and maintenance details * Lifeline—sequence of Records for object state where an object is a smart contract instance * Jet Drop—unit of storage for Jets * Jet—groups of Lifelines 
  *
  * API version: 1.0.0
  * Contact: dev-support@insolar.io
@@ -40,7 +40,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the Insolar Block Explorer API API v1.0.0
+// APIClient manages communication with the Insolar Explorer API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

@@ -1,7 +1,7 @@
 /*
- * Insolar Block Explorer API
+ * Insolar Explorer API
  *
- * BE description 
+ * [Insolar Explorer](https://github.com/insolar/block-explorer)'s REST API documentation.  Insolar Explorer is a service that allows users to search for and view the contents of individual transactions, Records, Lifelines, Jet Drops and Jets.  * Record—minimum unit of storage that contains an associated request, response, and maintenance details * Lifeline—sequence of Records for object state where an object is a smart contract instance * Jet Drop—unit of storage for Jets * Jet—groups of Lifelines 
  *
  * API version: 1.0.0
  * Contact: dev-support@insolar.io
@@ -28,9 +28,10 @@ var (
 type JetDropApiService service
 
 /*
-JetDropByID Jet drop by ID
+JetDropByID Jet Drop by ID
+Get Jet Drop by ID
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param jetDropId The ID of JetDrop.
+ * @param jetDropId Jet Drop ID.
 @return JetDropByIdResponse200
 */
 func (a *JetDropApiService) JetDropByID(ctx _context.Context, jetDropId string) (JetDropByIdResponse200, *_nethttp.Response, error) {
@@ -124,16 +125,17 @@ type JetDropsByJetIDOpts struct {
 }
 
 /*
-JetDropsByJetID Jet drops by jet ID
+JetDropsByJetID Jet Drops by Jet ID
+Get Jet Drops by Jet ID
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param jetId The JetID.
  * @param optional nil or *JetDropsByJetIDOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  The numbers of items to return.
- * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromJetDropId" (optional.String) -  From wich jet_drop_id.
- * @param "SortBy" (optional.String) -  The keyword used to sort result sets in either ascending or descending order for pulse_number.
- * @param "JetDropIdLt" (optional.Int32) -  Less than jet_drop_id.
- * @param "JetDropIdGt" (optional.Int32) -  Greater than jet_drop_id.
+ * @param "Limit" (optional.Int32) -  Number of entries per list.
+ * @param "Offset" (optional.Int32) -  Number of entries to skip before collecting the result set.
+ * @param "FromJetDropId" (optional.String) -  Jet Drop ID to paginate from. Jet Drop ID is a comnibation of jet_id with pulse_number.
+ * @param "SortBy" (optional.String) -  Pulse number-based sorting direction for a query result set.
+ * @param "JetDropIdLt" (optional.Int32) -  Upper limit (<) for Jet Drops in a query.
+ * @param "JetDropIdGt" (optional.Int32) -  Lower limit (>) for Jet Drops in a query.
 @return JetDropsByJetIdResponse200
 */
 func (a *JetDropApiService) JetDropsByJetID(ctx _context.Context, jetId string, localVarOptionals *JetDropsByJetIDOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {
@@ -242,13 +244,14 @@ type JetDropsByPulseNumberOpts struct {
 }
 
 /*
-JetDropsByPulseNumber Jet drops by pulse number
+JetDropsByPulseNumber Jet Drops by Pulse number
+Get Jet Drops by Pulse number
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param pulseNumber The Pulse number.
+ * @param pulseNumber Pulse number.
  * @param optional nil or *JetDropsByPulseNumberOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  The numbers of items to return.
- * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromJetDropId" (optional.String) -  From wich jet_drop_id.
+ * @param "Limit" (optional.Int32) -  Number of entries per list.
+ * @param "Offset" (optional.Int32) -  Number of entries to skip before collecting the result set.
+ * @param "FromJetDropId" (optional.String) -  Jet Drop ID to paginate from. Jet Drop ID is a comnibation of jet_id with pulse_number.
 @return JetDropsByJetIdResponse200
 */
 func (a *JetDropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNumber int64, localVarOptionals *JetDropsByPulseNumberOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {

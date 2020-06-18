@@ -1,7 +1,7 @@
 /*
- * Insolar Block Explorer API
+ * Insolar Explorer API
  *
- * BE description 
+ * [Insolar Explorer](https://github.com/insolar/block-explorer)'s REST API documentation.  Insolar Explorer is a service that allows users to search for and view the contents of individual transactions, Records, Lifelines, Jet Drops and Jets.  * Record—minimum unit of storage that contains an associated request, response, and maintenance details * Lifeline—sequence of Records for object state where an object is a smart contract instance * Jet Drop—unit of storage for Jets * Jet—groups of Lifelines 
  *
  * API version: 1.0.0
  * Contact: dev-support@insolar.io
@@ -9,9 +9,9 @@
  */
 
 package client
-// JetDrop Responce codes.
+// JetDrop Response codes.
 type JetDrop struct {
-	// JetDrop ID is concatenation of jet_id and pulse_number.
+	// Jet Drop ID is a combination of jet_id with pulse_number.
 	JetDropId string `json:"jet_drop_id,omitempty"`
 	// Next jet_drop_id.
 	NextJetDropId []string `json:"next_jet_drop_id,omitempty"`
@@ -21,7 +21,7 @@ type JetDrop struct {
 	JetId string `json:"jet_id,omitempty"`
 	// Pulse number.
 	PulseNumber int64 `json:"pulse_number,omitempty"`
-	// Number of all records in the pulse.
+	// Number of all Records in the Pulse.
 	RecordAmount int64 `json:"record_amount,omitempty"`
 	// Unix timestamp.
 	Timestamp int64 `json:"timestamp,omitempty"`

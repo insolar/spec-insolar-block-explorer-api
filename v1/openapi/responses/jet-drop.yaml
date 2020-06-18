@@ -1,5 +1,5 @@
 x-component: 'responses/jetDropResponse'
-description: A JetDrop.
+description: Jet Drop.
 content:
   application/json:
     schema:

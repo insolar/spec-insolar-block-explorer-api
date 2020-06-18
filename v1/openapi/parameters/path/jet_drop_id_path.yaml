@@ -1,0 +1,8 @@
+x-component: 'parameters/jet_drop_id_path'
+name: jet_drop_id
+in: path
+required: true
+schema:
+  type: string
+description: Jet Drop ID.
+example: jet_drop_id=43648102:0010

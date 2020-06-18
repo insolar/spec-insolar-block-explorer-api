@@ -1,2 +1,2 @@
 x-component: 'responses/404Response'
-description: Not found. The specified Resource does not exist. No body response required.
+description: Not found. Specified resource does not exist. No response body required.

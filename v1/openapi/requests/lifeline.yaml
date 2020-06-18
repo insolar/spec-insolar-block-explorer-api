@@ -1,18 +1,19 @@
 get:
   summary: Object Lifeline
+  description: Get object Lifeline
   operationId: object_lifeline
   tags:
-    - record
+    - Record
   parameters:
-    - $ref: '../parameters/objectReferencePathParam.yaml'
-    - $ref: '../parameters/limitParam.yaml'
-    - $ref: '../parameters/offsetParam.yaml'
-    - $ref: '../parameters/from_index.yaml'
-    - $ref: '../parameters/sortByIndex.yaml'
-    - $ref: '../parameters/pulse_number_lt.yaml'
-    - $ref: '../parameters/pulse_number_gt.yaml'
-    - $ref: '../parameters/timestamp_lte.yaml'
-    - $ref: '../parameters/timestamp_gte.yaml'
+    - $ref: '../parameters/path/object_reference_path.yaml'
+    - $ref: '../parameters/pagination/limit.yaml'
+    - $ref: '../parameters/pagination/offset.yaml'
+    - $ref: '../parameters/pagination/from_index.yaml'
+    - $ref: '../parameters/filtering/sort_by_index.yaml'
+    - $ref: '../parameters/filtering/pulse_number_lt.yaml'
+    - $ref: '../parameters/filtering/pulse_number_gt.yaml'
+    - $ref: '../parameters/filtering/timestamp_lte.yaml'
+    - $ref: '../parameters/filtering/timestamp_gte.yaml'
   responses:
     '200':
       $ref: "../responses/lifeline.yaml"

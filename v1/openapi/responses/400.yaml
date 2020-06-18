@@ -1,8 +1,8 @@
 x-component: 'responses/400Response'
 description: |
-  Bad request. One or more of the query parameters failed validation or was not provided.
-  The request should not be attempted until the parameters are changed.
-  The fields that failed validation will be detailed where possible.
+  Bad request. One or more of the query parameters failed validation or were not provided.
+  Change parameters and repeat your request.
+  Fields that failed validation will be detailed where possible.
 content:
   application/json:
     schema:

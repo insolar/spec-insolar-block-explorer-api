@@ -1,5 +1,5 @@
 x-component: "schemas/records"
-description: A paged array of records.
+description: A paginated array of Records.
 type: object
 properties:
   total:

@@ -1,10 +1,11 @@
 get:
-  summary: Jet drop by ID
+  summary: Jet Drop by ID
+  description: Get Jet Drop by ID
   operationId: jetDropByID
   tags:
-    - jet-drop
+    - Jet Drop
   parameters:
-    - $ref: '../parameters/jetDropIdPathParam.yaml'
+    - $ref: '../parameters/path/jet_drop_id_path.yaml'
   responses:
     '200':
       $ref: '../responses/jet-drop.yaml'

@@ -1,8 +1,8 @@
-x-component: 'parameters/jetIdPathParam'
+x-component: 'parameters/jet_id_path'
 in: path
 name: jet_id
 required: true
 schema:
   type: string
 description: The JetID.
-example: "0010"
+example: jet_id=0010

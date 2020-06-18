@@ -1,14 +1,15 @@
 get:
-  summary: Jet drop records
+  summary: Jet Drop Recods
+  description: Get all Records from a Jet Drop
   operationId: jet_drop_records
   tags:
-    - record
+    - Record
   parameters:
-    - $ref: '../parameters/jetDropIdPathParam.yaml'
-    - $ref: '../parameters/limitParam.yaml'
-    - $ref: '../parameters/offsetParam.yaml'
-    - $ref: '../parameters/from_index.yaml'
-    - $ref: '../parameters/recordTypeParam.yaml'
+    - $ref: '../parameters/path/jet_drop_id_path.yaml'
+    - $ref: '../parameters/pagination/limit.yaml'
+    - $ref: '../parameters/pagination/offset.yaml'
+    - $ref: '../parameters/pagination/from_index.yaml'
+    - $ref: '../parameters/filtering/record_type.yaml'
   responses:
     '200':
       $ref: '../responses/records.yaml'

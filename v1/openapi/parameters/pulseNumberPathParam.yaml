@@ -1,9 +1,0 @@
-x-component: 'parameters/pulseNumberPathParam'
-in: path
-name: pulse_number
-required: true
-schema:
-  type: integer
-  format: int64
-  minimum: 0
-description: The Pulse number.

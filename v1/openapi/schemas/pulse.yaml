@@ -20,12 +20,12 @@ properties:
   jet_drop_amount:
     type: integer
     format: int64
-    description: Amount of all Jet Drop in the Pulse.
+    description: Number of all Jet Drops in the Pulse.
     example: 16
   record_amount:
     type: integer
     format: int64
-    description: Number of all records in the Pulse.
+    description: Number of all Records in the Pulse.
     example: 245
   timestamp:
     type: integer
@@ -34,5 +34,5 @@ properties:
     example: 1451743413
   is_complete:
     type: boolean
-    description: Pulse fullness status.
+    description: Pulse completeness status.
     example: true

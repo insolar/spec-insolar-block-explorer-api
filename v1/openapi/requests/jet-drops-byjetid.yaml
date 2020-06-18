@@ -1,16 +1,17 @@
 get:
-  summary: Jet drops by jet ID
+  summary: Jet Drops by Jet ID
+  description: Get Jet Drops by Jet ID
   operationId: JetDropsByJetID
   tags:
-    - jet-drop
+    - Jet Drop
   parameters:
-    - $ref: '../parameters/jetIdPathParam.yaml'
-    - $ref: '../parameters/limitParam.yaml'
-    - $ref: '../parameters/offsetParam.yaml'
-    - $ref: '../parameters/from-jet-drop-id.yaml'
-    - $ref: '../parameters/sortByPulse.yaml'
-    - $ref: '../parameters/jet_drop_id_lt.yaml'
-    - $ref: '../parameters/jet_drop_id_gt.yaml'
+    - $ref: '../parameters/path/jet_id_path.yaml'
+    - $ref: '../parameters/pagination/limit.yaml'
+    - $ref: '../parameters/pagination/offset.yaml'
+    - $ref: '../parameters/pagination/from_jet_drop_id.yaml'
+    - $ref: '../parameters/filtering/sort_by_pulse.yaml'
+    - $ref: '../parameters/filtering/jet_drop_id_lt.yaml'
+    - $ref: '../parameters/filtering/jet_drop_id_gt.yaml'
   responses:
     '200':
       $ref: '../responses/jet-drops.yaml'

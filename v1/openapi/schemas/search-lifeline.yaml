@@ -1,5 +1,5 @@
 x-component: 'schemas/search-lifeline'
-description: Lifeline response for Search.
+description: Lifeline response for a search query.
 title: Lifeline response
 type: object
 properties:

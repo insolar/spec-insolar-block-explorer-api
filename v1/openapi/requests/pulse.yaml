@@ -1,10 +1,11 @@
 get:
   summary: Pulse
+  description: Get Pulse
   operationId: pulse
   tags:
-    - pulse
+    - Pulse
   parameters:
-    - $ref: '../parameters/pulseNumberPathParam.yaml'
+    - $ref: '../parameters/path/pulse_number_path.yaml'
   responses:
     '200':
       $ref: '../responses/pulse.yaml'

@@ -1,0 +1,8 @@
+x-component: 'parameters/jet_drop_id_gt'
+in: query
+name: jet_drop_id_gt
+description: Lower limit (>) for Jet Drops in a query.
+required: false
+schema:
+  type: string
+example: jet_drop_id_gt=43648102:0010

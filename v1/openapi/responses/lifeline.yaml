@@ -1,5 +1,5 @@
 x-component: 'responses/recordsResponse'
-description: A paged array of records by lifeline.
+description: Paginated array of Records grouped by Lifeline.
 content:
   application/json:
     schema:

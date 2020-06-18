@@ -1,7 +1,7 @@
 /*
- * Insolar Block Explorer API
+ * Insolar Explorer API
  *
- * BE description 
+ * [Insolar Explorer](https://github.com/insolar/block-explorer)'s REST API documentation.  Insolar Explorer is a service that allows users to search for and view the contents of individual transactions, Records, Lifelines, Jet Drops and Jets.  * Record—minimum unit of storage that contains an associated request, response, and maintenance details * Lifeline—sequence of Records for object state where an object is a smart contract instance * Jet Drop—unit of storage for Jets * Jet—groups of Lifelines 
  *
  * API version: 1.0.0
  * Contact: dev-support@insolar.io
@@ -29,8 +29,9 @@ type PulseApiService service
 
 /*
 Pulse Pulse
+Get Pulse
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param pulseNumber The Pulse number.
+ * @param pulseNumber Pulse number.
 @return PulseResponse200
 */
 func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int64) (PulseResponse200, *_nethttp.Response, error) {
@@ -127,13 +128,14 @@ type PulsesOpts struct {
 
 /*
 Pulses Pulses
+Get Pulses
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *PulsesOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  The numbers of items to return.
- * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromPulseNumber" (optional.Int64) -  From which Pulse number.
- * @param "TimestampLte" (optional.Int64) -  Less than or equals to timestamp.
- * @param "TimestampGte" (optional.Int64) -  Greater than or equals to timestamp.
+ * @param "Limit" (optional.Int32) -  Number of entries per list.
+ * @param "Offset" (optional.Int32) -  Number of entries to skip before collecting the result set.
+ * @param "FromPulseNumber" (optional.Int64) -  Pulse number to paginate from.
+ * @param "TimestampLte" (optional.Int64) -  Upper limit (≤) for timestamp in a query.
+ * @param "TimestampGte" (optional.Int64) -  Lower limit (≥) for timestamp in a query.
 @return PulsesResponse200
 */
 func (a *PulseApiService) Pulses(ctx _context.Context, localVarOptionals *PulsesOpts) (PulsesResponse200, *_nethttp.Response, error) {

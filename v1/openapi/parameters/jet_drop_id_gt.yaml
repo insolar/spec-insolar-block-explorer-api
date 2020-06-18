@@ -1,8 +1,0 @@
-x-component: 'parameters/jet_drop_id_gt'
-in: query
-name: jet_drop_id_gt
-required: false
-schema:
-  type: integer
-  minimum: 0
-description: Greater than jet_drop_id.

@@ -1,9 +1,10 @@
 x-component: 'parameters/fromPulseNumberParam'
 in: query
 name: from_pulse_number
+description: Pulse number to paginate from.
 required: false
 schema:
   type: integer
   format: int64
   minimum: 0
-description: From which Pulse number.
+example: from_pulse_number=43612021

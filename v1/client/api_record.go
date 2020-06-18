@@ -1,7 +1,7 @@
 /*
- * Insolar Block Explorer API
+ * Insolar Explorer API
  *
- * BE description 
+ * [Insolar Explorer](https://github.com/insolar/block-explorer)'s REST API documentation.  Insolar Explorer is a service that allows users to search for and view the contents of individual transactions, Records, Lifelines, Jet Drops and Jets.  * Record—minimum unit of storage that contains an associated request, response, and maintenance details * Lifeline—sequence of Records for object state where an object is a smart contract instance * Jet Drop—unit of storage for Jets * Jet—groups of Lifelines 
  *
  * API version: 1.0.0
  * Contact: dev-support@insolar.io
@@ -36,14 +36,15 @@ type JetDropRecordsOpts struct {
 }
 
 /*
-JetDropRecords Jet drop records
+JetDropRecords Jet Drop Recods
+Get all Records from a Jet Drop
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param jetDropId The ID of JetDrop.
+ * @param jetDropId Jet Drop ID.
  * @param optional nil or *JetDropRecordsOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  The numbers of items to return.
- * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromIndex" (optional.String) -  Index is concatenation of pulse_number and order.
- * @param "Type_" (optional.String) -  The record type.
+ * @param "Limit" (optional.Int32) -  Number of entries per list.
+ * @param "Offset" (optional.Int32) -  Number of entries to skip before collecting the result set.
+ * @param "FromIndex" (optional.String) -  Index to paginate from. Index is a combination of pulse_number with order (Record number in a Jet Drop).
+ * @param "Type_" (optional.String) -  Record type in a query.
 @return ObjectLifelineResponse200
 */
 func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string, localVarOptionals *JetDropRecordsOpts) (ObjectLifelineResponse200, *_nethttp.Response, error) {
@@ -152,17 +153,18 @@ type ObjectLifelineOpts struct {
 
 /*
 ObjectLifeline Object Lifeline
+Get object Lifeline
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param objectReference The reference of object.
+ * @param objectReference Object reference.
  * @param optional nil or *ObjectLifelineOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  The numbers of items to return.
- * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromIndex" (optional.String) -  Index is concatenation of pulse_number and order.
- * @param "SortBy" (optional.String) -  The keyword used to sort result sets in either ascending or descending order for Index.
- * @param "PulseNumberLt" (optional.Int32) -  Less than pulse_number.
- * @param "PulseNumberGt" (optional.Int32) -  Greater than pulse_number.
- * @param "TimestampLte" (optional.Int64) -  Less than or equals to timestamp.
- * @param "TimestampGte" (optional.Int64) -  Greater than or equals to timestamp.
+ * @param "Limit" (optional.Int32) -  Number of entries per list.
+ * @param "Offset" (optional.Int32) -  Number of entries to skip before collecting the result set.
+ * @param "FromIndex" (optional.String) -  Index to paginate from. Index is a combination of pulse_number with order (Record number in a Jet Drop).
+ * @param "SortBy" (optional.String) -  Index-based sorting direction for a query result set.
+ * @param "PulseNumberLt" (optional.Int32) -  Upper limit (<) for Pulse number in a query.
+ * @param "PulseNumberGt" (optional.Int32) -  Lower limit (>) for Pulse number in a query.
+ * @param "TimestampLte" (optional.Int64) -  Upper limit (≤) for timestamp in a query.
+ * @param "TimestampGte" (optional.Int64) -  Lower limit (≥) for timestamp in a query.
 @return ObjectLifelineResponse200
 */
 func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference string, localVarOptionals *ObjectLifelineOpts) (ObjectLifelineResponse200, *_nethttp.Response, error) {

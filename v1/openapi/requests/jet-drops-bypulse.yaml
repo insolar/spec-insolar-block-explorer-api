@@ -1,13 +1,14 @@
 get:
-  summary: Jet drops by pulse number
+  summary: Jet Drops by Pulse number
+  description: Get Jet Drops by Pulse number
   operationId: JetDropsByPulseNumber
   tags:
-    - jet-drop
+    - Jet Drop
   parameters:
-    - $ref: '../parameters/pulseNumberPathParam.yaml'
-    - $ref: '../parameters/limitParam.yaml'
-    - $ref: '../parameters/offsetParam.yaml'
-    - $ref: '../parameters/from-jet-drop-id.yaml'
+    - $ref: '../parameters/path/pulse_number_path.yaml'
+    - $ref: '../parameters/pagination/limit.yaml'
+    - $ref: '../parameters/pagination/offset.yaml'
+    - $ref: '../parameters/pagination/from_jet_drop_id.yaml'
   responses:
     '200':
       $ref: '../responses/jet-drops.yaml'

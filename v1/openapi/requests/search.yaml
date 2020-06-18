@@ -2,14 +2,14 @@ get:
   summary: Search Data
   operationId: search
   tags:
-    - search
+    - Search
   parameters:
     - name: value
       in: query
       required: true
       schema:
         type: string
-      description: The searching value.
+      description: Searching value
   responses:
     '200':
       $ref: '../responses/search.yaml'

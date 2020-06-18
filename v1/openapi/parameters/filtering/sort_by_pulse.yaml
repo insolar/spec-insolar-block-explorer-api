@@ -1,6 +1,7 @@
 x-component: 'parameters/sort_by_pulse'
 in: query
 name: sort_by
+description: Pulse number-based sorting direction for a query result set.
 required: false
 schema:
   type: string
@@ -8,5 +9,4 @@ schema:
   enum:
     - -pulse_number
     - +pulse_number
-description: The keyword used to sort result sets in either ascending or descending order for pulse_number.
-example: "+pulse_number"
+example: sort_by=+pulse_number
