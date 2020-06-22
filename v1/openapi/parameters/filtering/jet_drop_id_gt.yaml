@@ -1,8 +1,8 @@
 x-component: 'parameters/jet_drop_id_gt'
 in: query
 name: jet_drop_id_gt
-description: Lower limit (>) for Jet Drops in a query.
+description: Starting point (>) for a range of jet drops.
 required: false
 schema:
   type: string
-example: jet_drop_id_gt=43648102:0010
+example: 43648102:0010

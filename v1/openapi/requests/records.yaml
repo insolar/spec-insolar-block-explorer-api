@@ -1,6 +1,6 @@
 get:
-  summary: Jet Drop Recods
-  description: Get all Records from a Jet Drop
+  summary: records
+  description: Gets all records in a jet drop by `jet_drop_id`.
   operationId: jet_drop_records
   tags:
     - Record
@@ -14,6 +14,6 @@ get:
     '200':
       $ref: '../responses/records.yaml'
     '400':
-      $ref: "../responses/400.yaml"
+       $ref: "../responses/400.yaml"
     '500':
       $ref: "../responses/500.yaml"

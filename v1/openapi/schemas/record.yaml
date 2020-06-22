@@ -55,14 +55,14 @@ properties:
     pattern: '^([0-1]{2,64})$'
   jet_drop_id:
     type: string
-    description: Jet Drop ID is a combination of jet_id with pulse_number.
+    description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
     example: "43648102:0010"
   order:
     type: integer
     format: int64
-    description: Order is the Record order number in the Jet Drop.
+    description: Order is the record order number in the jet drop.
     example: "3"
   index:
     type: string
-    description: Index is combination of pulse_number with order (Record number in a Jet Drop).
+    description: Index is combination of pulse_number with order (record number in a jet drop).
     example: "43648102:7"

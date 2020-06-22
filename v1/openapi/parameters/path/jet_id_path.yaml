@@ -4,5 +4,5 @@ name: jet_id
 required: true
 schema:
   type: string
-description: The JetID.
-example: jet_id=0010
+description: Jet ID.
+example: 0010

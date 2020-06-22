@@ -1,11 +1,11 @@
 x-component: 'schemas/jet-drops'
-description: A paginated array of Pulses.
+description: A paginated array of jet drops.
 type: object
 properties:
   total:
     type: integer
     format: int64
-    description: Total results.
+    description: Number of entries in the array.
     example: 100
   result:
     type: array

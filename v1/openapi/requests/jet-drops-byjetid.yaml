@@ -1,17 +1,17 @@
 get:
-  summary: Jet Drops by Jet ID
-  description: Get Jet Drops by Jet ID
+  summary: jet drops by jet ID
+  description: Gets jet drops in a jet by `jet_id`.
   operationId: JetDropsByJetID
   tags:
-    - Jet Drop
+    - Jet drop
   parameters:
     - $ref: '../parameters/path/jet_id_path.yaml'
     - $ref: '../parameters/pagination/limit.yaml'
     - $ref: '../parameters/pagination/offset.yaml'
     - $ref: '../parameters/pagination/from_jet_drop_id.yaml'
     - $ref: '../parameters/filtering/sort_by_pulse.yaml'
-    - $ref: '../parameters/filtering/jet_drop_id_lt.yaml'
     - $ref: '../parameters/filtering/jet_drop_id_gt.yaml'
+    - $ref: '../parameters/filtering/jet_drop_id_lt.yaml'
   responses:
     '200':
       $ref: '../responses/jet-drops.yaml'

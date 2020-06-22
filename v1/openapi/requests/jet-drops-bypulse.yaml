@@ -1,9 +1,9 @@
 get:
-  summary: Jet Drops by Pulse number
-  description: Get Jet Drops by Pulse number
+  summary: jet drops by pulse number
+  description: Gets jet drops in a pulse by `pulse_number`.
   operationId: JetDropsByPulseNumber
   tags:
-    - Jet Drop
+    - Jet drop
   parameters:
     - $ref: '../parameters/path/pulse_number_path.yaml'
     - $ref: '../parameters/pagination/limit.yaml'

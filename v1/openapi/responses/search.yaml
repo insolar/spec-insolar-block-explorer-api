@@ -1,5 +1,5 @@
 x-component: 'responses/searchResponse'
-description: Search result set.
+description: Type of the searched entity
 content:
   application/json:
     schema:

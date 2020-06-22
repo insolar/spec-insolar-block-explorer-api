@@ -9,10 +9,14 @@
  */
 
 package client
-// SearchRecordMeta Meta data.
-type SearchRecordMeta struct {
+// SearchResponse200Meta Meta data.
+type SearchResponse200Meta struct {
+	// Pulse number.
+	PulseNumber int64 `json:"pulse_number,omitempty"`
 	// Object reference.
 	ObjectReference string `json:"object_reference,omitempty"`
 	// Index is combination of pulse_number with order (record number in a jet drop).
 	Index string `json:"index,omitempty"`
+	// Jet drop ID.
+	JetDropId string `json:"jet_drop_id,omitempty"`
 }

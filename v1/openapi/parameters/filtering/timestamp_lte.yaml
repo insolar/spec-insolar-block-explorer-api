@@ -1,10 +1,10 @@
 x-component: 'parameters/timestamp_lte'
 in: query
 name: timestamp_lte
-description: Upper limit (≤) for timestamp in a query.
+description: Ending point (≥) for a timespan. Unix time format.
 required: false
 schema:
   type: integer
   format: int64
   description: Unix timestamp.
-example: timestamp_lte=1451743413
+example: 1451743413

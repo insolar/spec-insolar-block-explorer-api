@@ -4,5 +4,5 @@ in: query
 required: false
 schema:
   type: string
-description: Jet Drop ID to paginate from. Jet Drop ID is a comnibation of jet_id with pulse_number.
-example: from_jet_drop_id=43612021:3
+description: Specific jet drop ID to paginate from—a combination of jet_id` with `pulse_number`.
+example: 43612021:3

@@ -1,5 +1,5 @@
 x-component: 'responses/pulseResponse'
-description: Pulse.
+description: Pulse
 content:
   application/json:
     schema:

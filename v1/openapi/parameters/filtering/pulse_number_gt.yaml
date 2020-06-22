@@ -1,9 +1,9 @@
 x-component: 'parameters/pulse_number_gt'
 in: query
 name: pulse_number_gt
-description: Lower limit (>) for Pulse number in a query.
+description: Starting point (>) for a range of pulses.
 required: false
 schema:
   type: integer
   minimum: 0
-example: pulse_number_gt=43648104
+example: 43648104

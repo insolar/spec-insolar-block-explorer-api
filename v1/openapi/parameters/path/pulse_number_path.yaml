@@ -7,4 +7,4 @@ schema:
   format: int64
   minimum: 0
 description: Pulse number.
-example: pulse_number=43648102
+example: 43648102

@@ -1,6 +1,6 @@
 x-component: 'schemas/search-jet-drop'
-description: Jet Drop response for a search query.
-title: Jet Drop response
+description: Jet drop response.
+title: Jet drop response
 type: object
 properties:
   type:
@@ -15,5 +15,5 @@ properties:
     properties:
       jet_drop_id:
         type: string
-        description: Jet Drop ID.
+        description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
         example: "43612021:001"

@@ -1,7 +1,7 @@
 x-component: 'parameters/sort_by_index'
 in: query
 name: sort_by
-description: Index-based sorting direction for a query result set.
+description: Index-based sorting direction for the result set.
 required: false
 schema:
   type: string
@@ -9,4 +9,4 @@ schema:
   enum:
     - -index
     - +index
-example: sort_by=+index
+example: +index

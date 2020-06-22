@@ -1,6 +1,6 @@
 get:
-  summary: Object Lifeline
-  description: Get object Lifeline
+  summary: object lifeline
+  description: Gets a lifeline with all its records by `object_reference`.
   operationId: object_lifeline
   tags:
     - Record
@@ -10,10 +10,10 @@ get:
     - $ref: '../parameters/pagination/offset.yaml'
     - $ref: '../parameters/pagination/from_index.yaml'
     - $ref: '../parameters/filtering/sort_by_index.yaml'
-    - $ref: '../parameters/filtering/pulse_number_lt.yaml'
     - $ref: '../parameters/filtering/pulse_number_gt.yaml'
-    - $ref: '../parameters/filtering/timestamp_lte.yaml'
+    - $ref: '../parameters/filtering/pulse_number_lt.yaml'
     - $ref: '../parameters/filtering/timestamp_gte.yaml'
+    - $ref: '../parameters/filtering/timestamp_lte.yaml'
   responses:
     '200':
       $ref: "../responses/lifeline.yaml"

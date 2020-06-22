@@ -20,12 +20,12 @@ properties:
   jet_drop_amount:
     type: integer
     format: int64
-    description: Number of all Jet Drops in the Pulse.
+    description: Number of all jet drops in the pulse.
     example: 16
   record_amount:
     type: integer
     format: int64
-    description: Number of all Records in the Pulse.
+    description: Number of all records in the pulse.
     example: 245
   timestamp:
     type: integer

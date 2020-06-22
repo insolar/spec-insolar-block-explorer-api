@@ -1,7 +1,7 @@
 x-component: 'parameters/recordTypeParam'
 name: type
 in: query
-description: Record type in a query.
+description: record type in a query.
 required: false
 schema:
   type: string
@@ -9,4 +9,4 @@ schema:
     - state
     - request
     - result
-example: type=state
+example: state

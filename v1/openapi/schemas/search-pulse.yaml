@@ -1,5 +1,5 @@
 x-component: 'schemas/search-pulse'
-description: Pulse response for a search query.
+description: Pulse response.
 title: Pulse response
 type: object
 properties:
@@ -16,5 +16,5 @@ properties:
       pulse_number:
         type: integer
         format: int64
-        description: Pulse Number.
+        description: Pulse number.
         example: 1

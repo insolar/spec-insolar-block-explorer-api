@@ -4,27 +4,27 @@ type: object
 properties:
   jet_drop_id:
     type: string
-    description: Jet Drop ID is a combination of jet_id with pulse_number.
+    description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
     example: "43648102:0010"
     pattern: '^(\d+:[0-1]{2,64})$'
   next_jet_drop_id:
     type: array
     format: string
-    description: Next jet_drop_id.
+    description: Next `jet_drop_id`.
     example: ["43648104:00100", "43648104:00101"]
     items:
       type: string
-      description: Jet Drop ID is a combination of jet_id with pulse_number.
+      description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
       example: "43648102:0010"
       pattern: '^(\d+:[0-1]{2,64})$'
   prev_jet_drop_id:
     type: array
     format: string
-    description: Previous jet_drop_id.
+    description: Previous `jet_drop_id`.
     example: ["43648101:0010"]
     items:
       type: string
-      description: Jet Drop ID is a combination of jet_id with pulse_number.
+      description: Jet drop ID is a combination of jet_id` with `pulse_number`.
       example: "43648102:0010"
       pattern: '^(\d+:[0-1]{2,64})$'
   jet_id:
@@ -40,7 +40,7 @@ properties:
   record_amount:
     type: integer
     format: int64
-    description: Number of all Records in the Pulse.
+    description: Number of all records in the pulse.
     example: 245
   timestamp:
     type: integer
