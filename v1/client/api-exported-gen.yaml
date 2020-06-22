@@ -12,106 +12,41 @@ info:
 
 
     Insolar Explorer is a service that allows users to search for and view the
-    contents of individual transactions, records, lifelines, jet drops and jets.
+    contents of individual transactions, Records, Lifelines, Jet Drops and Jets.
 
 
     * Record—minimum unit of storage that contains an associated request,
     response, and maintenance details
 
-    * Lifeline—sequence of records for object state where an object is a smart
+    * Lifeline—sequence of Records for object state where an object is a smart
     contract instance
 
-    * Jet drop—unit of storage for jets
+    * Jet Drop—unit of storage for Jets
 
-    * Jet—groups of lifelines
-
-
-    Main API endpoints include:
-
-    * Search endpoint: `/api/v1/search`
-
-    * Endpoints for each entity type:
-      * Records: `/api/v1/jet-drops/{jet_drop_id}/records`
-      * Lifeline: `/api/v1/lifeline/{object_reference}/records`
-      * Pulse: `/api/v1/pulses/{pulse_number}`
-      * Pulses: `/api/v1/pulses`
-      * Jet drop by jet ID: `/api/v1/jets/{jet_id}/jet-drops`
-      * Jet drop by its ID: `/api/v1/jet-drops/{jet_drop_id}`
-      * Jet drop by pulse number: `/api/v1/pulses/{pulse_number}/jet-drops`
-
-    A search request first gets to the search endpoint where its the entity type
-    `value` is identified.
-
-
-    It then is redirected to the appropriate endpoint for detailed metadata to
-    show the user on the Insolar Explorer Web UI.
-
-
-    Search results can be paginated. Pagination parameters are optional and
-    include:
-
-    * Starting point that depends on the searched entity type: `from_index`,
-    `from_pulse_number`, or `from_jet_drop_id`
-
-    * Number of entries per page: `limit`
-
-    * Number of entries to skip from the starting point to show on a new page:
-    `offset`
-
-
-    For example, for 10 entries per page starting from the pulse number 431920
-    for a set of 200 entries:
-    `<example.com>/<api_endpoint>?<params>&from_pulse_number=431920&limit=10&offset=0`.
-
-
-    Search results can additionally be sorted by `index` or `pulse` in the
-    descending or ascending order.
-
-
-    For example, `<example.com>/<api_endpoint>?<params>&sort_by=-index`.
-
-
-    Search results shown to the user on the Insolar Explorer Web UI may miss
-    some data. The `Reload` button gets the missed data via requests to the API
-    with additional filtering parameters:
-
-    * `jet_drop_id_gt` and `jet_drop_id_lt` to obtain missing data within a
-    range of jet drops (greater than, less then)
-
-    * `pulse_number_gt` and `pulse_number_lt` to obtain missing data within a
-    range of pulses (greater than, less then)
-
-    * `timestamp_gte` and `timestamp_lte` to obtain missing data within a
-    timespan (greater than or equal, less then or equal)
-
-
-    For example,
-    `<example.com>/<api_endpoint>?<params>&pulse_number_gt=431902&pulse_number_lt=431904`.
+    * Jet—groups of Lifelines
 servers:
   - url: example.com
     description: Test server.
 tags:
   - name: Pulse
     description: >-
-      Pulse is the trigger for the production of a new jet drop. Also serves as
-      the default time unit on Insolar Network.
-  - name: Jet drop
+      Trigger for the production of a new Jet Drop. Also serves as the default
+      time unit on Insolar Network.
+  - name: Jet Drop
     description: >-
-      Jet drop is the unit of storage for jets. It contains all records that are
-      registered within a pulse and associated with a particular jet.
+      Unit of storage for Jets. Contains all Records that are registered within
+      a Pulse and associated with a particular Jet.
   - name: Record
     description: >-
-      Record is the minimum unit of storage that contains an associated request,
-      response, and maintenance details.
+      Minimum unit of storage that contains an associated request, response, and
+      maintenance details.
   - name: Search
-    description: >-
-      Search identifies the entity type in the request and redirects the request
-      to the appropriate endpoints for additional entity metadata.
+    description: Searching filters.
 paths:
   /api/v1/pulses:
     get:
-      summary: pulses
-      description: Get a range of pulses from `timestamp_gte` to `timestamp_lte`.
+      summary: Pulses
+      description: Get Pulses
       operationId: pulses
       tags:
         - Pulse
@@ -119,11 +54,13 @@ paths:
         - $ref: '#/components/parameters/PulsesQueryParameterLimit'
         - $ref: '#/components/parameters/PulsesQueryParameterOffset'
         - $ref: '#/components/parameters/PulsesQueryParameterFrom_pulse_number'
-        - $ref: '#/components/parameters/PulsesQueryParameterTimestamp_gte'
         - $ref: '#/components/parameters/PulsesQueryParameterTimestamp_lte'
+        - $ref: '#/components/parameters/PulsesQueryParameterTimestamp_gte'
       responses:
         '200':
-          description: Internal server error
+          description: >-
+            Internal server error. Unable to process the request due to an
+            error.
           content:
             application/json:
               schema:
@@ -219,8 +156,8 @@ paths:
                 title: PulsesResponse200
   '/api/v1/pulses/{pulse_number}':
     get:
-      summary: pulse
-      description: Gets pulse by `pulse_number`.
+      summary: Pulse
+      description: Get Pulse
       operationId: pulse
       tags:
         - Pulse
@@ -233,10 +170,12 @@ paths:
             format: int64
             minimum: 0
           description: Pulse number.
-          example: 43648102
+          example: pulse_number=43648102
       responses:
         '200':
-          description: Internal server error
+          description: >-
+            Internal server error. Unable to process the request due to an
+            error.
           content:
             application/json:
               schema:
@@ -300,22 +239,24 @@ paths:
                 title: PulseResponse200
   '/api/v1/jet-drops/{jet_drop_id}':
     get:
-      summary: jet drop by ID
-      description: Gets a jet drop by `jet_drop_id`.
+      summary: Jet Drop by ID
+      description: Get Jet Drop by ID
       operationId: jetDropByID
       tags:
-        - Jet drop
+        - Jet Drop
       parameters:
         - name: jet_drop_id
           in: path
           required: true
           schema:
             type: string
-          description: Jet drop ID—a combination of `jet_id` with `pulse_number`.
-          example: '43648102:0010'
+          description: Jet Drop ID.
+          example: 'jet_drop_id=43648102:0010'
       responses:
         '200':
-          description: Internal server error
+          description: >-
+            Internal server error. Unable to process the request due to an
+            error.
           content:
             application/json:
               schema:
@@ -324,9 +265,7 @@ paths:
                 properties:
                   jet_drop_id:
                     type: string
-                    description: >-
-                      Jet drop ID is a combination of jet_id` with
-                      `pulse_number`.
+                    description: Jet Drop ID is a combination of jet_id with pulse_number.
                     example: '43648102:0010'
                     pattern: '^(\d+:[0-1]{2,64})$'
                   next_jet_drop_id:
@@ -339,8 +278,8 @@ paths:
                     items:
                       type: string
                       description: >-
-                        Jet drop ID is a combination of jet_id` with
-                        `pulse_number`.
+                        Jet Drop ID is a combination of jet_id with
+                        pulse_number.
                       example: '43648102:0010'
                       pattern: '^(\d+:[0-1]{2,64})$'
                   prev_jet_drop_id:
@@ -352,8 +291,8 @@ paths:
                     items:
                       type: string
                       description: >-
-                        Jet drop ID is a combination of jet_id` with
-                        `pulse_number`.
+                        Jet Drop ID is a combination of jet_id with
+                        pulse_number.
                       example: '43648102:0010'
                       pattern: '^(\d+:[0-1]{2,64})$'
                   jet_id:
@@ -369,7 +308,7 @@ paths:
                   record_amount:
                     type: integer
                     format: int64
-                    description: Number of all records in the pulse.
+                    description: Number of all Records in the Pulse.
                     example: 245
                   timestamp:
                     type: integer
@@ -401,14 +340,14 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason.
-                title: Jet drop by IDResponse200
+                title: Jet Drop by IDResponse200
   '/api/v1/pulses/{pulse_number}/jet-drops':
     get:
-      summary: jet drops by pulse number
-      description: Gets jet drops in a pulse by `pulse_number`.
+      summary: Jet Drops by Pulse number
+      description: Get Jet Drops by Pulse number
       operationId: JetDropsByPulseNumber
       tags:
-        - Jet drop
+        - Jet Drop
       parameters:
         - in: path
           name: pulse_number
@@ -418,14 +357,16 @@ paths:
             format: int64
             minimum: 0
           description: Pulse number.
-          example: 43648102
+          example: pulse_number=43648102
         - $ref: '#/components/parameters/JetDropsByPulseNumberQueryParameterLimit'
         - $ref: '#/components/parameters/JetDropsByPulseNumberQueryParameterOffset'
         - $ref: >-
             #/components/parameters/JetDropsByPulseNumberQueryParameterFrom_jet_drop_id
       responses:
         '200':
-          description: Internal server error
+          description: >-
+            Internal server error. Unable to process the request due to an
+            error.
           content:
             application/json:
               schema:
@@ -446,8 +387,8 @@ paths:
                         jet_drop_id:
                           type: string
                           description: >-
-                            Jet drop ID is a combination of jet_id` with
-                            `pulse_number`.
+                            Jet Drop ID is a combination of jet_id with
+                            pulse_number.
                           example: '43648102:0010'
                           pattern: '^(\d+:[0-1]{2,64})$'
                         next_jet_drop_id:
@@ -460,8 +401,8 @@ paths:
                           items:
                             type: string
                             description: >-
-                              Jet drop ID is a combination of jet_id` with
-                              `pulse_number`.
+                              Jet Drop ID is a combination of jet_id with
+                              pulse_number.
                             example: '43648102:0010'
                             pattern: '^(\d+:[0-1]{2,64})$'
                         prev_jet_drop_id:
@@ -473,8 +414,8 @@ paths:
                           items:
                             type: string
                             description: >-
-                              Jet drop ID is a combination of jet_id` with
-                              `pulse_number`.
+                              Jet Drop ID is a combination of jet_id with
+                              pulse_number.
                             example: '43648102:0010'
                             pattern: '^(\d+:[0-1]{2,64})$'
                         jet_id:
@@ -490,7 +431,7 @@ paths:
                         record_amount:
                           type: integer
                           format: int64
-                          description: Number of all records in the pulse.
+                          description: Number of all Records in the Pulse.
                           example: 245
                         timestamp:
                           type: integer
@@ -522,7 +463,7 @@ paths:
                               failure_reason:
                                 type: string
                                 description: Failure reason.
-                      title: Jet drop by IDResponse200
+                      title: Jet Drop by IDResponse200
                   code:
                     type: string
                   message:
@@ -543,32 +484,34 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason.
-                title: Jet drops by jet IDResponse200
+                title: Jet Drops by Jet IDResponse200
   '/api/v1/jets/{jet_id}/jet-drops':
     get:
-      summary: jet drops by jet ID
-      description: Gets jet drops in a jet by `jet_id`.
+      summary: Jet Drops by Jet ID
+      description: Get Jet Drops by Jet ID
       operationId: JetDropsByJetID
       tags:
-        - Jet drop
+        - Jet Drop
       parameters:
         - in: path
           name: jet_id
           required: true
           schema:
             type: string
-          description: Jet ID.
-          example: 10
+          description: The JetID.
+          example: jet_id=0010
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterLimit'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterOffset'
         - $ref: >-
             #/components/parameters/JetDropsByJetIDQueryParameterFrom_jet_drop_id
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterSort_by'
-        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterJet_drop_id_gt'
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterJet_drop_id_lt'
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterJet_drop_id_gt'
       responses:
         '200':
-          description: Internal server error
+          description: >-
+            Internal server error. Unable to process the request due to an
+            error.
           content:
             application/json:
               schema:
@@ -589,8 +532,8 @@ paths:
                         jet_drop_id:
                           type: string
                           description: >-
-                            Jet drop ID is a combination of jet_id` with
-                            `pulse_number`.
+                            Jet Drop ID is a combination of jet_id with
+                            pulse_number.
                           example: '43648102:0010'
                           pattern: '^(\d+:[0-1]{2,64})$'
                         next_jet_drop_id:
@@ -603,8 +546,8 @@ paths:
                           items:
                             type: string
                             description: >-
-                              Jet drop ID is a combination of jet_id` with
-                              `pulse_number`.
+                              Jet Drop ID is a combination of jet_id with
+                              pulse_number.
                             example: '43648102:0010'
                             pattern: '^(\d+:[0-1]{2,64})$'
                         prev_jet_drop_id:
@@ -616,8 +559,8 @@ paths:
                           items:
                             type: string
                             description: >-
-                              Jet drop ID is a combination of jet_id` with
-                              `pulse_number`.
+                              Jet Drop ID is a combination of jet_id with
+                              pulse_number.
                             example: '43648102:0010'
                             pattern: '^(\d+:[0-1]{2,64})$'
                         jet_id:
@@ -633,7 +576,7 @@ paths:
                         record_amount:
                           type: integer
                           format: int64
-                          description: Number of all records in the pulse.
+                          description: Number of all Records in the Pulse.
                           example: 245
                         timestamp:
                           type: integer
@@ -665,7 +608,7 @@ paths:
                               failure_reason:
                                 type: string
                                 description: Failure reason.
-                      title: Jet drop by IDResponse200
+                      title: Jet Drop by IDResponse200
                   code:
                     type: string
                   message:
@@ -686,11 +629,11 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason.
-                title: Jet drops by jet IDResponse200
+                title: Jet Drops by Jet IDResponse200
   '/api/v1/jet-drops/{jet_drop_id}/records':
     get:
-      summary: records
-      description: Gets all records in a jet drop by `jet_drop_id`.
+      summary: Jet Drop Recods
+      description: Get all Records from a Jet Drop
       operationId: jet_drop_records
       tags:
         - Record
@@ -700,15 +643,17 @@ paths:
           required: true
           schema:
             type: string
-          description: Jet drop ID—a combination of `jet_id` with `pulse_number`.
-          example: '43648102:0010'
-        - $ref: '#/components/parameters/RecordsQueryParameterLimit'
-        - $ref: '#/components/parameters/RecordsQueryParameterOffset'
-        - $ref: '#/components/parameters/RecordsQueryParameterFrom_index'
-        - $ref: '#/components/parameters/RecordsQueryParameterType'
+          description: Jet Drop ID.
+          example: 'jet_drop_id=43648102:0010'
+        - $ref: '#/components/parameters/JetDropRecodsQueryParameterLimit'
+        - $ref: '#/components/parameters/JetDropRecodsQueryParameterOffset'
+        - $ref: '#/components/parameters/JetDropRecodsQueryParameterFrom_index'
+        - $ref: '#/components/parameters/JetDropRecodsQueryParameterType'
       responses:
         '200':
-          description: Internal server error
+          description: >-
+            Internal server error. Unable to process the request due to an
+            error.
           content:
             application/json:
               schema:
@@ -786,19 +731,19 @@ paths:
                         jet_drop_id:
                           type: string
                           description: >-
-                            Jet drop ID is a combination of jet_id` with
-                            `pulse_number`.
+                            Jet Drop ID is a combination of jet_id with
+                            pulse_number.
                           example: '43648102:0010'
                         order:
                           type: integer
                           format: int64
-                          description: Order is the record order number in the jet drop.
+                          description: Order is the Record order number in the Jet Drop.
                           example: '3'
                         index:
                           type: string
                           description: >-
                             Index is combination of pulse_number with order
-                            (record number in a jet drop).
+                            (Record number in a Jet Drop).
                           example: '43648102:7'
                   code:
                     type: string
@@ -820,11 +765,11 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason.
-                title: Object lifelineResponse200
+                title: Object LifelineResponse200
   '/api/v1/lifeline/{object_reference}/records':
     get:
-      summary: object lifeline
-      description: Gets a lifeline by `object_reference`.
+      summary: Object Lifeline
+      description: Get object Lifeline
       operationId: object_lifeline
       tags:
         - Record
@@ -835,18 +780,21 @@ paths:
           schema:
             type: string
           description: Object reference.
-          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+          example: >-
+            object_reference=insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterLimit'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterOffset'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterFrom_index'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterSort_by'
-        - $ref: '#/components/parameters/ObjectLifelineQueryParameterPulse_number_gt'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterPulse_number_lt'
-        - $ref: '#/components/parameters/ObjectLifelineQueryParameterTimestamp_gte'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterPulse_number_gt'
         - $ref: '#/components/parameters/ObjectLifelineQueryParameterTimestamp_lte'
+        - $ref: '#/components/parameters/ObjectLifelineQueryParameterTimestamp_gte'
       responses:
         '200':
-          description: Internal server error
+          description: >-
+            Internal server error. Unable to process the request due to an
+            error.
           content:
             application/json:
               schema:
@@ -924,19 +872,19 @@ paths:
                         jet_drop_id:
                           type: string
                           description: >-
-                            Jet drop ID is a combination of jet_id` with
-                            `pulse_number`.
+                            Jet Drop ID is a combination of jet_id with
+                            pulse_number.
                           example: '43648102:0010'
                         order:
                           type: integer
                           format: int64
-                          description: Order is the record order number in the jet drop.
+                          description: Order is the Record order number in the Jet Drop.
                           example: '3'
                         index:
                           type: string
                           description: >-
                             Index is combination of pulse_number with order
-                            (record number in a jet drop).
+                            (Record number in a Jet Drop).
                           example: '43648102:7'
                   code:
                     type: string
@@ -958,24 +906,25 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason.
-                title: Object lifelineResponse200
+                title: Object LifelineResponse200
   /api/v1/search:
     get:
-      summary: search
-      description: Gets the entity type for the searching `value`.
+      summary: Search Data
       operationId: search
       tags:
         - Search
       parameters:
-        - $ref: '#/components/parameters/SearchQueryParameterValue'
+        - $ref: '#/components/parameters/SearchDataQueryParameterValue'
       responses:
         '200':
-          description: Internal server error
+          description: >-
+            Internal server error. Unable to process the request due to an
+            error.
           content:
             application/json:
               schema:
                 description: Response codes.
-                title: SearchResponse200
+                title: Search DataResponse200
                 type: object
                 properties:
                   type:
@@ -994,7 +943,7 @@ paths:
                       pulse_number:
                         type: integer
                         format: int64
-                        description: Pulse number.
+                        description: Pulse Number.
                         example: 1
                       object_reference:
                         type: string
@@ -1003,13 +952,11 @@ paths:
                         pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
                       index:
                         type: string
-                        description: >-
-                          Index is combination of pulse_number with order
-                          (record number in a jet drop).
+                        description: Index is concatenation of pulse_number and order.
                         example: '43648102:7'
                       jet_drop_id:
                         type: string
-                        description: Jet drop ID.
+                        description: Jet Drop ID.
                         example: '43612021:001'
                   code:
                     type: string
@@ -1036,54 +983,54 @@ components:
     limit:
       in: query
       name: limit
-      description: Number of entries per page.
+      description: Number of entries per list.
       required: false
       schema:
         type: integer
         minimum: 1
         maximum: 100
         default: 20
-      example: 100
+      example: limit=100
     offsetParam:
       in: query
       name: offset
-      description: Number of entries to skip from the starting point.
+      description: Number of entries to skip before collecting the result set.
       required: false
       schema:
         type: integer
         minimum: 0
         default: 0
-      example: 10
+      example: offset=10
     fromPulseNumberParam:
       in: query
       name: from_pulse_number
-      description: Specific pulse number to paginate from.
+      description: Pulse number to paginate from.
       required: false
       schema:
         type: integer
         format: int64
         minimum: 0
-      example: 43612021
-    timestamp_gte:
-      in: query
-      name: timestamp_gte
-      description: Starting point (≥) for a timespan. Unix time format.
-      required: false
-      schema:
-        type: integer
-        format: int64
-        description: Unix timestamp.
-      example: 1451743413
+      example: from_pulse_number=43612021
     timestamp_lte:
       in: query
       name: timestamp_lte
-      description: Ending point (≥) for a timespan. Unix time format.
+      description: Upper limit (≤) for timestamp in a query.
       required: false
       schema:
         type: integer
         format: int64
         description: Unix timestamp.
-      example: 1451743413
+      example: timestamp_lte=1451743413
+    timestamp_gte:
+      in: query
+      name: timestamp_gte
+      description: Lower limit (≥) for timestamp in a query.
+      required: false
+      schema:
+        type: integer
+        format: int64
+        description: Unix timestamp.
+      example: timestamp_gte=1451743413
     pulse_number_path:
       in: path
       name: pulse_number
@@ -1093,15 +1040,15 @@ components:
         format: int64
         minimum: 0
       description: Pulse number.
-      example: 43648102
+      example: pulse_number=43648102
     jet_drop_id_path:
       name: jet_drop_id
       in: path
       required: true
       schema:
         type: string
-      description: Jet drop ID—a combination of `jet_id` with `pulse_number`.
-      example: '43648102:0010'
+      description: Jet Drop ID.
+      example: 'jet_drop_id=43648102:0010'
     from_jet_drop_id:
       name: from_jet_drop_id
       in: query
@@ -1109,21 +1056,21 @@ components:
       schema:
         type: string
       description: >-
-        Specific jet drop ID to paginate from—a combination of jet_id` with
-        `pulse_number`.
-      example: '43612021:3'
+        Jet Drop ID to paginate from. Jet Drop ID is a comnibation of jet_id
+        with pulse_number.
+      example: 'from_jet_drop_id=43612021:3'
     jet_id_path:
       in: path
       name: jet_id
       required: true
       schema:
         type: string
-      description: Jet ID.
-      example: 10
+      description: The JetID.
+      example: jet_id=0010
     sort_by_pulse:
       in: query
       name: sort_by
-      description: Pulse number-based sorting direction for the result set.
+      description: Pulse number-based sorting direction for a query result set.
       required: false
       schema:
         type: string
@@ -1131,37 +1078,37 @@ components:
         enum:
           - '-pulse_number'
           - +pulse_number
-      example: +pulse_number
-    jet_drop_id_gt:
-      in: query
-      name: jet_drop_id_gt
-      description: Starting point (>) for a range of jet drops.
-      required: false
-      schema:
-        type: string
-      example: '43648102:0010'
+      example: sort_by=+pulse_number
     jet_drop_id_lt:
       in: query
       name: jet_drop_id_lt
-      description: Ending point (<) for a range of jet drops.
+      description: Upper limit (<) for Jet Drops in a query.
       required: false
       schema:
         type: string
-      example: '43648104:00102'
+      example: 'jet_drop_id_lt=43648104:00102'
+    jet_drop_id_gt:
+      in: query
+      name: jet_drop_id_gt
+      description: Lower limit (>) for Jet Drops in a query.
+      required: false
+      schema:
+        type: string
+      example: 'jet_drop_id_gt=43648102:0010'
     from_index:
       name: from_index
       description: >-
-        Specific index to paginate from—a combination of pulse_number with order
-        (record number in a jet drop).
+        Index to paginate from. Index is a combination of pulse_number with
+        order (Record number in a Jet Drop).
       in: query
       required: false
       schema:
         type: string
-      example: '43612021:3'
+      example: 'from_index=43612021:3'
     recordTypeParam:
       name: type
       in: query
-      description: record type in a query.
+      description: Record type in a query.
       required: false
       schema:
         type: string
@@ -1169,7 +1116,7 @@ components:
           - state
           - request
           - result
-      example: state
+      example: type=state
     object_reference_path:
       name: object_reference
       in: path
@@ -1177,11 +1124,11 @@ components:
       schema:
         type: string
       description: Object reference.
-      example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+      example: 'object_reference=insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
     sort_by_index:
       in: query
       name: sort_by
-      description: Index-based sorting direction for the result set.
+      description: Index-based sorting direction for a query result set.
       required: false
       schema:
         type: string
@@ -1189,97 +1136,97 @@ components:
         enum:
           - '-index'
           - +index
-      example: +index
-    pulse_number_gt:
-      in: query
-      name: pulse_number_gt
-      description: Starting point (>) for a range of pulses.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      example: 43648104
+      example: sort_by=+index
     pulse_number_lt:
       in: query
       name: pulse_number_lt
-      description: Ending point (<) for a range of pulses.
+      description: Upper limit (<) for Pulse number in a query.
       required: false
       schema:
         type: integer
         minimum: 0
-      example: 43648106
+      example: pulse_number_gt=43648106
+    pulse_number_gt:
+      in: query
+      name: pulse_number_gt
+      description: Lower limit (>) for Pulse number in a query.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      example: pulse_number_gt=43648104
     PulsesQueryParameterLimit:
       in: query
       name: limit
-      description: Number of entries per page.
+      description: Number of entries per list.
       required: false
       schema:
         type: integer
         minimum: 1
         maximum: 100
         default: 20
-      example: 100
+      example: limit=100
     PulsesQueryParameterOffset:
       in: query
       name: offset
-      description: Number of entries to skip from the starting point.
+      description: Number of entries to skip before collecting the result set.
       required: false
       schema:
         type: integer
         minimum: 0
         default: 0
-      example: 10
+      example: offset=10
     PulsesQueryParameterFrom_pulse_number:
       in: query
       name: from_pulse_number
-      description: Specific pulse number to paginate from.
+      description: Pulse number to paginate from.
       required: false
       schema:
         type: integer
         format: int64
         minimum: 0
-      example: 43612021
-    PulsesQueryParameterTimestamp_gte:
-      in: query
-      name: timestamp_gte
-      description: Starting point (≥) for a timespan. Unix time format.
-      required: false
-      schema:
-        type: integer
-        format: int64
-        description: Unix timestamp.
-      example: 1451743413
+      example: from_pulse_number=43612021
     PulsesQueryParameterTimestamp_lte:
       in: query
       name: timestamp_lte
-      description: Ending point (≥) for a timespan. Unix time format.
+      description: Upper limit (≤) for timestamp in a query.
       required: false
       schema:
         type: integer
         format: int64
         description: Unix timestamp.
-      example: 1451743413
+      example: timestamp_lte=1451743413
+    PulsesQueryParameterTimestamp_gte:
+      in: query
+      name: timestamp_gte
+      description: Lower limit (≥) for timestamp in a query.
+      required: false
+      schema:
+        type: integer
+        format: int64
+        description: Unix timestamp.
+      example: timestamp_gte=1451743413
     JetDropsByPulseNumberQueryParameterLimit:
       in: query
       name: limit
-      description: Number of entries per page.
+      description: Number of entries per list.
       required: false
       schema:
         type: integer
         minimum: 1
         maximum: 100
         default: 20
-      example: 100
+      example: limit=100
     JetDropsByPulseNumberQueryParameterOffset:
       in: query
       name: offset
-      description: Number of entries to skip from the starting point.
+      description: Number of entries to skip before collecting the result set.
       required: false
       schema:
         type: integer
         minimum: 0
         default: 0
-      example: 10
+      example: offset=10
     JetDropsByPulseNumberQueryParameterFrom_jet_drop_id:
       name: from_jet_drop_id
       in: query
@@ -1287,30 +1234,30 @@ components:
       schema:
         type: string
       description: >-
-        Specific jet drop ID to paginate from—a combination of jet_id` with
-        `pulse_number`.
-      example: '43612021:3'
+        Jet Drop ID to paginate from. Jet Drop ID is a comnibation of jet_id
+        with pulse_number.
+      example: 'from_jet_drop_id=43612021:3'
     JetDropsByJetIDQueryParameterLimit:
       in: query
       name: limit
-      description: Number of entries per page.
+      description: Number of entries per list.
       required: false
       schema:
         type: integer
         minimum: 1
         maximum: 100
         default: 20
-      example: 100
+      example: limit=100
     JetDropsByJetIDQueryParameterOffset:
       in: query
       name: offset
-      description: Number of entries to skip from the starting point.
+      description: Number of entries to skip before collecting the result set.
       required: false
       schema:
         type: integer
         minimum: 0
         default: 0
-      example: 10
+      example: offset=10
     JetDropsByJetIDQueryParameterFrom_jet_drop_id:
       name: from_jet_drop_id
       in: query
@@ -1318,13 +1265,13 @@ components:
       schema:
         type: string
       description: >-
-        Specific jet drop ID to paginate from—a combination of jet_id` with
-        `pulse_number`.
-      example: '43612021:3'
+        Jet Drop ID to paginate from. Jet Drop ID is a comnibation of jet_id
+        with pulse_number.
+      example: 'from_jet_drop_id=43612021:3'
     JetDropsByJetIDQueryParameterSort_by:
       in: query
       name: sort_by
-      description: Pulse number-based sorting direction for the result set.
+      description: Pulse number-based sorting direction for a query result set.
       required: false
       schema:
         type: string
@@ -1332,58 +1279,58 @@ components:
         enum:
           - '-pulse_number'
           - +pulse_number
-      example: +pulse_number
-    JetDropsByJetIDQueryParameterJet_drop_id_gt:
-      in: query
-      name: jet_drop_id_gt
-      description: Starting point (>) for a range of jet drops.
-      required: false
-      schema:
-        type: string
-      example: '43648102:0010'
+      example: sort_by=+pulse_number
     JetDropsByJetIDQueryParameterJet_drop_id_lt:
       in: query
       name: jet_drop_id_lt
-      description: Ending point (<) for a range of jet drops.
+      description: Upper limit (<) for Jet Drops in a query.
       required: false
       schema:
         type: string
-      example: '43648104:00102'
-    RecordsQueryParameterLimit:
+      example: 'jet_drop_id_lt=43648104:00102'
+    JetDropsByJetIDQueryParameterJet_drop_id_gt:
+      in: query
+      name: jet_drop_id_gt
+      description: Lower limit (>) for Jet Drops in a query.
+      required: false
+      schema:
+        type: string
+      example: 'jet_drop_id_gt=43648102:0010'
+    JetDropRecodsQueryParameterLimit:
       in: query
       name: limit
-      description: Number of entries per page.
+      description: Number of entries per list.
       required: false
       schema:
         type: integer
         minimum: 1
         maximum: 100
         default: 20
-      example: 100
-    RecordsQueryParameterOffset:
+      example: limit=100
+    JetDropRecodsQueryParameterOffset:
       in: query
       name: offset
-      description: Number of entries to skip from the starting point.
+      description: Number of entries to skip before collecting the result set.
       required: false
       schema:
         type: integer
         minimum: 0
         default: 0
-      example: 10
-    RecordsQueryParameterFrom_index:
+      example: offset=10
+    JetDropRecodsQueryParameterFrom_index:
       name: from_index
       description: >-
-        Specific index to paginate from—a combination of pulse_number with order
-        (record number in a jet drop).
+        Index to paginate from. Index is a combination of pulse_number with
+        order (Record number in a Jet Drop).
       in: query
       required: false
       schema:
         type: string
-      example: '43612021:3'
-    RecordsQueryParameterType:
+      example: 'from_index=43612021:3'
+    JetDropRecodsQueryParameterType:
       name: type
       in: query
-      description: record type in a query.
+      description: Record type in a query.
       required: false
       schema:
         type: string
@@ -1391,42 +1338,42 @@ components:
           - state
           - request
           - result
-      example: state
+      example: type=state
     ObjectLifelineQueryParameterLimit:
       in: query
       name: limit
-      description: Number of entries per page.
+      description: Number of entries per list.
       required: false
       schema:
         type: integer
         minimum: 1
         maximum: 100
         default: 20
-      example: 100
+      example: limit=100
     ObjectLifelineQueryParameterOffset:
       in: query
       name: offset
-      description: Number of entries to skip from the starting point.
+      description: Number of entries to skip before collecting the result set.
       required: false
       schema:
         type: integer
         minimum: 0
         default: 0
-      example: 10
+      example: offset=10
     ObjectLifelineQueryParameterFrom_index:
       name: from_index
       description: >-
-        Specific index to paginate from—a combination of pulse_number with order
-        (record number in a jet drop).
+        Index to paginate from. Index is a combination of pulse_number with
+        order (Record number in a Jet Drop).
       in: query
       required: false
       schema:
         type: string
-      example: '43612021:3'
+      example: 'from_index=43612021:3'
     ObjectLifelineQueryParameterSort_by:
       in: query
       name: sort_by
-      description: Index-based sorting direction for the result set.
+      description: Index-based sorting direction for a query result set.
       required: false
       schema:
         type: string
@@ -1434,55 +1381,55 @@ components:
         enum:
           - '-index'
           - +index
-      example: +index
-    ObjectLifelineQueryParameterPulse_number_gt:
-      in: query
-      name: pulse_number_gt
-      description: Starting point (>) for a range of pulses.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      example: 43648104
+      example: sort_by=+index
     ObjectLifelineQueryParameterPulse_number_lt:
       in: query
       name: pulse_number_lt
-      description: Ending point (<) for a range of pulses.
+      description: Upper limit (<) for Pulse number in a query.
       required: false
       schema:
         type: integer
         minimum: 0
-      example: 43648106
-    ObjectLifelineQueryParameterTimestamp_gte:
+      example: pulse_number_gt=43648106
+    ObjectLifelineQueryParameterPulse_number_gt:
       in: query
-      name: timestamp_gte
-      description: Starting point (≥) for a timespan. Unix time format.
+      name: pulse_number_gt
+      description: Lower limit (>) for Pulse number in a query.
       required: false
       schema:
         type: integer
-        format: int64
-        description: Unix timestamp.
-      example: 1451743413
+        minimum: 0
+      example: pulse_number_gt=43648104
     ObjectLifelineQueryParameterTimestamp_lte:
       in: query
       name: timestamp_lte
-      description: Ending point (≥) for a timespan. Unix time format.
+      description: Upper limit (≤) for timestamp in a query.
       required: false
       schema:
         type: integer
         format: int64
         description: Unix timestamp.
-      example: 1451743413
-    SearchQueryParameterValue:
+      example: timestamp_lte=1451743413
+    ObjectLifelineQueryParameterTimestamp_gte:
+      in: query
+      name: timestamp_gte
+      description: Lower limit (≥) for timestamp in a query.
+      required: false
+      schema:
+        type: integer
+        format: int64
+        description: Unix timestamp.
+      example: timestamp_gte=1451743413
+    SearchDataQueryParameterValue:
       name: value
       in: query
       required: true
       schema:
         type: string
-      description: Searching value.
+      description: Searching value
   responses:
     pulsesResponse:
-      description: Internal server error
+      description: Internal server error. Unable to process the request due to an error.
       content:
         application/json:
           schema:
@@ -1577,8 +1524,13 @@ components:
                       description: Failure reason.
             title: PulsesResponse200
     400Response:
-      description: |
-        Bad request
+      description: >
+        Bad request. One or more of the query parameters failed validation or
+        were not provided.
+
+        Change parameters and repeat your request.
+
+        Fields that failed validation will be detailed where possible.
       content:
         application/json:
           schema:
@@ -1606,7 +1558,7 @@ components:
                       type: string
                       description: Failure reason.
     500Response:
-      description: Internal server error
+      description: Internal server error. Unable to process the request due to an error.
       content:
         application/json:
           schema:
@@ -1620,7 +1572,7 @@ components:
               description:
                 type: string
     pulseResponse:
-      description: Internal server error
+      description: Internal server error. Unable to process the request due to an error.
       content:
         application/json:
           schema:
@@ -1683,9 +1635,9 @@ components:
                       description: Failure reason.
             title: PulseResponse200
     404Response:
-      description: Not found
+      description: Not found. Specified resource does not exist. No response body required.
     jetDropResponse:
-      description: Internal server error
+      description: Internal server error. Unable to process the request due to an error.
       content:
         application/json:
           schema:
@@ -1694,7 +1646,7 @@ components:
             properties:
               jet_drop_id:
                 type: string
-                description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+                description: Jet Drop ID is a combination of jet_id with pulse_number.
                 example: '43648102:0010'
                 pattern: '^(\d+:[0-1]{2,64})$'
               next_jet_drop_id:
@@ -1706,7 +1658,7 @@ components:
                   - '43648104:00101'
                 items:
                   type: string
-                  description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+                  description: Jet Drop ID is a combination of jet_id with pulse_number.
                   example: '43648102:0010'
                   pattern: '^(\d+:[0-1]{2,64})$'
               prev_jet_drop_id:
@@ -1717,7 +1669,7 @@ components:
                   - '43648101:0010'
                 items:
                   type: string
-                  description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+                  description: Jet Drop ID is a combination of jet_id with pulse_number.
                   example: '43648102:0010'
                   pattern: '^(\d+:[0-1]{2,64})$'
               jet_id:
@@ -1733,7 +1685,7 @@ components:
               record_amount:
                 type: integer
                 format: int64
-                description: Number of all records in the pulse.
+                description: Number of all Records in the Pulse.
                 example: 245
               timestamp:
                 type: integer
@@ -1765,9 +1717,9 @@ components:
                     failure_reason:
                       type: string
                       description: Failure reason.
-            title: Jet drop by IDResponse200
+            title: Jet Drop by IDResponse200
     jetDropsResponse:
-      description: Internal server error
+      description: Internal server error. Unable to process the request due to an error.
       content:
         application/json:
           schema:
@@ -1788,8 +1740,8 @@ components:
                     jet_drop_id:
                       type: string
                       description: >-
-                        Jet drop ID is a combination of jet_id` with
-                        `pulse_number`.
+                        Jet Drop ID is a combination of jet_id with
+                        pulse_number.
                       example: '43648102:0010'
                       pattern: '^(\d+:[0-1]{2,64})$'
                     next_jet_drop_id:
@@ -1802,8 +1754,8 @@ components:
                       items:
                         type: string
                         description: >-
-                          Jet drop ID is a combination of jet_id` with
-                          `pulse_number`.
+                          Jet Drop ID is a combination of jet_id with
+                          pulse_number.
                         example: '43648102:0010'
                         pattern: '^(\d+:[0-1]{2,64})$'
                     prev_jet_drop_id:
@@ -1815,8 +1767,8 @@ components:
                       items:
                         type: string
                         description: >-
-                          Jet drop ID is a combination of jet_id` with
-                          `pulse_number`.
+                          Jet Drop ID is a combination of jet_id with
+                          pulse_number.
                         example: '43648102:0010'
                         pattern: '^(\d+:[0-1]{2,64})$'
                     jet_id:
@@ -1832,7 +1784,7 @@ components:
                     record_amount:
                       type: integer
                       format: int64
-                      description: Number of all records in the pulse.
+                      description: Number of all Records in the Pulse.
                       example: 245
                     timestamp:
                       type: integer
@@ -1864,7 +1816,7 @@ components:
                           failure_reason:
                             type: string
                             description: Failure reason.
-                  title: Jet drop by IDResponse200
+                  title: Jet Drop by IDResponse200
               code:
                 type: string
               message:
@@ -1885,9 +1837,9 @@ components:
                     failure_reason:
                       type: string
                       description: Failure reason.
-            title: Jet drops by jet IDResponse200
+            title: Jet Drops by Jet IDResponse200
     recordsResponse:
-      description: Internal server error
+      description: Internal server error. Unable to process the request due to an error.
       content:
         application/json:
           schema:
@@ -1963,19 +1915,19 @@ components:
                     jet_drop_id:
                       type: string
                       description: >-
-                        Jet drop ID is a combination of jet_id` with
-                        `pulse_number`.
+                        Jet Drop ID is a combination of jet_id with
+                        pulse_number.
                       example: '43648102:0010'
                     order:
                       type: integer
                       format: int64
-                      description: Order is the record order number in the jet drop.
+                      description: Order is the Record order number in the Jet Drop.
                       example: '3'
                     index:
                       type: string
                       description: >-
-                        Index is combination of pulse_number with order (record
-                        number in a jet drop).
+                        Index is combination of pulse_number with order (Record
+                        number in a Jet Drop).
                       example: '43648102:7'
               code:
                 type: string
@@ -1997,14 +1949,14 @@ components:
                     failure_reason:
                       type: string
                       description: Failure reason.
-            title: Object lifelineResponse200
+            title: Object LifelineResponse200
     searchResponse:
-      description: Internal server error
+      description: Internal server error. Unable to process the request due to an error.
       content:
         application/json:
           schema:
             description: Response codes.
-            title: SearchResponse200
+            title: Search DataResponse200
             type: object
             properties:
               type:
@@ -2023,7 +1975,7 @@ components:
                   pulse_number:
                     type: integer
                     format: int64
-                    description: Pulse number.
+                    description: Pulse Number.
                     example: 1
                   object_reference:
                     type: string
@@ -2032,13 +1984,11 @@ components:
                     pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
                   index:
                     type: string
-                    description: >-
-                      Index is combination of pulse_number with order (record
-                      number in a jet drop).
+                    description: Index is concatenation of pulse_number and order.
                     example: '43648102:7'
                   jet_drop_id:
                     type: string
-                    description: Jet drop ID.
+                    description: Jet Drop ID.
                     example: '43612021:001'
               code:
                 type: string
@@ -2251,7 +2201,7 @@ components:
       properties:
         jet_drop_id:
           type: string
-          description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+          description: Jet Drop ID is a combination of jet_id with pulse_number.
           example: '43648102:0010'
           pattern: '^(\d+:[0-1]{2,64})$'
         next_jet_drop_id:
@@ -2263,7 +2213,7 @@ components:
             - '43648104:00101'
           items:
             type: string
-            description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+            description: Jet Drop ID is a combination of jet_id with pulse_number.
             example: '43648102:0010'
             pattern: '^(\d+:[0-1]{2,64})$'
         prev_jet_drop_id:
@@ -2274,7 +2224,7 @@ components:
             - '43648101:0010'
           items:
             type: string
-            description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+            description: Jet Drop ID is a combination of jet_id with pulse_number.
             example: '43648102:0010'
             pattern: '^(\d+:[0-1]{2,64})$'
         jet_id:
@@ -2290,7 +2240,7 @@ components:
         record_amount:
           type: integer
           format: int64
-          description: Number of all records in the pulse.
+          description: Number of all Records in the Pulse.
           example: 245
         timestamp:
           type: integer
@@ -2322,7 +2272,7 @@ components:
               failure_reason:
                 type: string
                 description: Failure reason.
-      title: Jet drop by IDResponse200
+      title: Jet Drop by IDResponse200
     jet-drops:
       description: Response codes.
       type: object
@@ -2340,7 +2290,7 @@ components:
             properties:
               jet_drop_id:
                 type: string
-                description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+                description: Jet Drop ID is a combination of jet_id with pulse_number.
                 example: '43648102:0010'
                 pattern: '^(\d+:[0-1]{2,64})$'
               next_jet_drop_id:
@@ -2352,7 +2302,7 @@ components:
                   - '43648104:00101'
                 items:
                   type: string
-                  description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+                  description: Jet Drop ID is a combination of jet_id with pulse_number.
                   example: '43648102:0010'
                   pattern: '^(\d+:[0-1]{2,64})$'
               prev_jet_drop_id:
@@ -2363,7 +2313,7 @@ components:
                   - '43648101:0010'
                 items:
                   type: string
-                  description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+                  description: Jet Drop ID is a combination of jet_id with pulse_number.
                   example: '43648102:0010'
                   pattern: '^(\d+:[0-1]{2,64})$'
               jet_id:
@@ -2379,7 +2329,7 @@ components:
               record_amount:
                 type: integer
                 format: int64
-                description: Number of all records in the pulse.
+                description: Number of all Records in the Pulse.
                 example: 245
               timestamp:
                 type: integer
@@ -2411,7 +2361,7 @@ components:
                     failure_reason:
                       type: string
                       description: Failure reason.
-            title: Jet drop by IDResponse200
+            title: Jet Drop by IDResponse200
         code:
           type: string
         message:
@@ -2432,7 +2382,7 @@ components:
               failure_reason:
                 type: string
                 description: Failure reason.
-      title: Jet drops by jet IDResponse200
+      title: Jet Drops by Jet IDResponse200
     records:
       description: Response codes.
       type: object
@@ -2503,18 +2453,18 @@ components:
                 pattern: '^([0-1]{2,64})$'
               jet_drop_id:
                 type: string
-                description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+                description: Jet Drop ID is a combination of jet_id with pulse_number.
                 example: '43648102:0010'
               order:
                 type: integer
                 format: int64
-                description: Order is the record order number in the jet drop.
+                description: Order is the Record order number in the Jet Drop.
                 example: '3'
               index:
                 type: string
                 description: >-
-                  Index is combination of pulse_number with order (record number
-                  in a jet drop).
+                  Index is combination of pulse_number with order (Record number
+                  in a Jet Drop).
                 example: '43648102:7'
         code:
           type: string
@@ -2536,9 +2486,9 @@ components:
               failure_reason:
                 type: string
                 description: Failure reason.
-      title: Object lifelineResponse200
+      title: Object LifelineResponse200
     search-pulse:
-      description: Pulse response.
+      description: Pulse response for a search query.
       title: Pulse response
       type: object
       properties:
@@ -2555,10 +2505,10 @@ components:
             pulse_number:
               type: integer
               format: int64
-              description: Pulse number.
+              description: Pulse Number.
               example: 1
     search-record:
-      description: Record response.
+      description: Record response for Search.
       title: Record response
       type: object
       properties:
@@ -2579,13 +2529,11 @@ components:
               pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
             index:
               type: string
-              description: >-
-                Index is combination of pulse_number with order (record number
-                in a jet drop).
+              description: Index is concatenation of pulse_number and order.
               example: '43648102:7'
     search-jet-drop:
-      description: Jet drop response.
-      title: Jet drop response
+      description: Jet Drop response for a search query.
+      title: Jet Drop response
       type: object
       properties:
         type:
@@ -2600,10 +2548,10 @@ components:
           properties:
             jet_drop_id:
               type: string
-              description: Jet drop ID.
+              description: Jet Drop ID.
               example: '43612021:001'
     search-lifeline:
-      description: Lifeline response.
+      description: Lifeline response for a search query.
       title: Lifeline response
       type: object
       properties:
@@ -2690,16 +2638,16 @@ components:
           pattern: '^([0-1]{2,64})$'
         jet_drop_id:
           type: string
-          description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+          description: Jet Drop ID is a combination of jet_id with pulse_number.
           example: '43648102:0010'
         order:
           type: integer
           format: int64
-          description: Order is the record order number in the jet drop.
+          description: Order is the Record order number in the Jet Drop.
           example: '3'
         index:
           type: string
           description: >-
-            Index is combination of pulse_number with order (record number in a
-            jet drop).
+            Index is combination of pulse_number with order (Record number in a
+            Jet Drop).
           example: '43648102:7'
