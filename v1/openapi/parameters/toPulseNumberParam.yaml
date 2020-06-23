@@ -1,9 +1,0 @@
-x-component: 'parameters/toPulseNumberParam'
-in: query
-name: to_pulse_number
-required: false
-schema:
-  type: integer
-  format: int64
-  minimum: 0
-description: To which Pulse number.

@@ -9,8 +9,14 @@
  */
 
 package client
-// SearchJetDropMeta Meta data.
-type SearchJetDropMeta struct {
-	// Jet drop ID is a combination of `jet_id` with `pulse_number`.
-	JetDropId string `json:"jet_drop_id,omitempty"`
+// SearchResponse200 Response codes.
+type SearchResponse200 struct {
+	// Result type.
+	Type string `json:"type,omitempty"`
+	Meta SearchResponse200Meta `json:"meta,omitempty"`
+	Code string `json:"code,omitempty"`
+	Message string `json:"message,omitempty"`
+	Description string `json:"description,omitempty"`
+	Link string `json:"link,omitempty"`
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

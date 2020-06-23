@@ -1,8 +1,8 @@
 x-component: 'parameters/jet_drop_id_lt'
 in: query
 name: jet_drop_id_lt
+description: Ending point (<) for a range of jet drops.
 required: false
 schema:
-  type: integer
-  minimum: 0
-description: Less than jet_drop_id.
+  type: string
+example: 43648104:00102

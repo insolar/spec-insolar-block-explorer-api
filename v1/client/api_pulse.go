@@ -1,7 +1,7 @@
 /*
- * Insolar Block Explorer API
+ * Insolar Explorer API
  *
- * BE description 
+ * [Insolar Explorer](https://github.com/insolar/block-explorer)'s REST API documentation.  Insolar Explorer is a service that allows users to search for and view the contents of individual transactions, records, lifelines, jet drops and jets.  * Record—minimum unit of storage that contains an associated request, response, and maintenance details * Lifeline—sequence of records for object state where an object is a smart contract instance * Jet drop—unit of storage for jets * Jet—groups of lifelines  Main API endpoints include: * Search endpoint: `/api/v1/search` * Endpoints for each entity type:   * Records: `/api/v1/jet-drops/{jet_drop_id}/records`   * Lifeline: `/api/v1/lifeline/{object_reference}/records`   * Pulse: `/api/v1/pulses/{pulse_number}`   * Pulses: `/api/v1/pulses`   * Jet drop by jet ID: `/api/v1/jets/{jet_id}/jet-drops`   * Jet drop by its ID: `/api/v1/jet-drops/{jet_drop_id}`   * Jet drop by pulse number: `/api/v1/pulses/{pulse_number}/jet-drops`  A search request first gets to the search endpoint where its the entity type `value` is identified.  It then is redirected to the appropriate endpoint for detailed metadata to show the user on the Insolar Explorer Web UI.  Search results can be paginated. Pagination parameters are optional and include: * Starting point that depends on the searched entity type: `from_index`, `from_pulse_number`, or `from_jet_drop_id` * Number of entries per page: `limit` * Number of entries to skip from the starting point to show on a new page: `offset`  For example, for 10 entries per page starting from the pulse number 431920 for a set of 200 entries: `<example.com>/<api_endpoint>?<params>&from_pulse_number=431920&limit=10&offset=0`.  Search results can additionally be sorted by `index` or `pulse` in the descending or ascending order.  For example, `<example.com>/<api_endpoint>?<params>&sort_by=-index`.  Search results shown to the user on the Insolar Explorer Web UI may miss some data. The `Reload` button gets the missed data via requests to the API with additional filtering parameters: * `jet_drop_id_gt` and `jet_drop_id_lt` to obtain missing data within a range of jet drops (greater than, less then) * `pulse_number_gt` and `pulse_number_lt` to obtain missing data within a range of pulses (greater than, less then) * `timestamp_gte` and `timestamp_lte` to obtain missing data within a timespan (greater than or equal, less then or equal)  For example, `<example.com>/<api_endpoint>?<params>&pulse_number_gt=431902&pulse_number_lt=431904`. 
  *
  * API version: 1.0.0
  * Contact: dev-support@insolar.io
@@ -28,9 +28,10 @@ var (
 type PulseApiService service
 
 /*
-Pulse Pulse
+Pulse pulse
+Gets pulse by &#x60;pulse_number&#x60;.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param pulseNumber The Pulse number.
+ * @param pulseNumber Pulse number.
 @return PulseResponse200
 */
 func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int64) (PulseResponse200, *_nethttp.Response, error) {
@@ -121,19 +122,20 @@ type PulsesOpts struct {
     Limit optional.Int32
     Offset optional.Int32
     FromPulseNumber optional.Int64
-    TimestampLte optional.Int64
     TimestampGte optional.Int64
+    TimestampLte optional.Int64
 }
 
 /*
-Pulses Pulses
+Pulses pulses
+Get a range of pulses from &#x60;timestamp_gte&#x60; to &#x60;timestamp_lte&#x60;.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *PulsesOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  The numbers of items to return.
- * @param "Offset" (optional.Int32) -  The number of items to skip before starting to collect the result set.
- * @param "FromPulseNumber" (optional.Int64) -  From which Pulse number.
- * @param "TimestampLte" (optional.Int64) -  Less than or equals to timestamp.
- * @param "TimestampGte" (optional.Int64) -  Greater than or equals to timestamp.
+ * @param "Limit" (optional.Int32) -  Number of entries per page.
+ * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point.
+ * @param "FromPulseNumber" (optional.Int64) -  Specific pulse number to paginate from.
+ * @param "TimestampGte" (optional.Int64) -  Starting point (≥) for a timespan. Unix time format.
+ * @param "TimestampLte" (optional.Int64) -  Ending point (≥) for a timespan. Unix time format.
 @return PulsesResponse200
 */
 func (a *PulseApiService) Pulses(ctx _context.Context, localVarOptionals *PulsesOpts) (PulsesResponse200, *_nethttp.Response, error) {
@@ -161,11 +163,11 @@ func (a *PulseApiService) Pulses(ctx _context.Context, localVarOptionals *Pulses
 	if localVarOptionals != nil && localVarOptionals.FromPulseNumber.IsSet() {
 		localVarQueryParams.Add("from_pulse_number", parameterToString(localVarOptionals.FromPulseNumber.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.TimestampLte.IsSet() {
-		localVarQueryParams.Add("timestamp_lte", parameterToString(localVarOptionals.TimestampLte.Value(), ""))
-	}
 	if localVarOptionals != nil && localVarOptionals.TimestampGte.IsSet() {
 		localVarQueryParams.Add("timestamp_gte", parameterToString(localVarOptionals.TimestampGte.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.TimestampLte.IsSet() {
+		localVarQueryParams.Add("timestamp_lte", parameterToString(localVarOptionals.TimestampLte.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

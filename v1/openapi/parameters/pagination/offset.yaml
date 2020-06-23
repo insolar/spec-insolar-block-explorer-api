@@ -1,10 +1,12 @@
 x-component: 'parameters/offsetParam'
 in: query
 name: offset
+description: Number of entries to skip from the starting point.
 required: false
 schema:
   type: integer
   minimum: 0
   default: 0
-description: The number of items to skip before starting to collect the result set.
+example: 10
+
 

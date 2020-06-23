@@ -1,15 +1,16 @@
 get:
-  summary: Search Data
+  summary: search
+  description: Gets the entity type for the searching `value`.
   operationId: search
   tags:
-    - search
+    - Search
   parameters:
     - name: value
       in: query
       required: true
       schema:
         type: string
-      description: The searching value.
+      description: Searching value.
   responses:
     '200':
       $ref: '../responses/search.yaml'

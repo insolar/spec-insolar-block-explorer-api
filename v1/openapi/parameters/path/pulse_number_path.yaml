@@ -1,4 +1,4 @@
-x-component: 'parameters/pulseNumberPathParam'
+x-component: 'parameters/pulse_number_path'
 in: path
 name: pulse_number
 required: true
@@ -6,4 +6,5 @@ schema:
   type: integer
   format: int64
   minimum: 0
-description: The Pulse number.
+description: Pulse number.
+example: 43648102

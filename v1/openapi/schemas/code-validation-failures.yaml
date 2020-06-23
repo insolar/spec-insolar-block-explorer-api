@@ -1,5 +1,5 @@
 x-component: 'schemas/code-validation-failures'
-description: Validation Failure.
+description: Validation failure.
 type: object
 properties:
   property:

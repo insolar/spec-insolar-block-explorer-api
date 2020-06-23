@@ -1,10 +1,10 @@
 x-component: 'parameters/timestamp_lte'
 in: query
 name: timestamp_lte
+description: Ending point (≥) for a timespan. Unix time format.
 required: false
 schema:
   type: integer
   format: int64
   description: Unix timestamp.
-  example: 1451743413
-description: Less than or equals to timestamp.
+example: 1451743413

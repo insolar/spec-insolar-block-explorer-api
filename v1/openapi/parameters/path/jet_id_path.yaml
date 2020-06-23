@@ -1,0 +1,8 @@
+x-component: 'parameters/jet_id_path'
+in: path
+name: jet_id
+required: true
+schema:
+  type: string
+description: Jet ID.
+example: 0010

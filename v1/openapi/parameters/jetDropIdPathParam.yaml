@@ -1,7 +1,0 @@
-x-component: 'parameters/jetDropIdPathParam'
-name: jet_drop_id
-in: path
-required: true
-schema:
-  type: string
-description: The ID of JetDrop.

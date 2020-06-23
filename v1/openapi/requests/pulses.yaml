@@ -1,14 +1,15 @@
 get:
-  summary: Pulses
+  summary: pulses
+  description: Get a range of pulses from `timestamp_gte` to `timestamp_lte`.
   operationId: pulses
   tags:
-    - pulse
+    - Pulse
   parameters:
-    - $ref: '../parameters/limitParam.yaml'
-    - $ref: '../parameters/offsetParam.yaml'
-    - $ref: '../parameters/fromPulseNumberParam.yaml'
-    - $ref: '../parameters/timestamp_lte.yaml'
-    - $ref: '../parameters/timestamp_gte.yaml'
+    - $ref: '../parameters/pagination/limit.yaml'
+    - $ref: '../parameters/pagination/offset.yaml'
+    - $ref: '../parameters/pagination/from_pulse_number.yaml'
+    - $ref: '../parameters/filtering/timestamp_gte.yaml'
+    - $ref: '../parameters/filtering/timestamp_lte.yaml'
   responses:
     '200':
       $ref: '../responses/pulses.yaml'

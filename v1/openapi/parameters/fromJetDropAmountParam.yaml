@@ -1,8 +1,0 @@
-x-component: 'parameters/fromJetDropAmountParam'
-in: query
-name: from_jet_drop_amount
-required: false
-schema:
-  type: integer
-  minimum: 0
-description: To which jet_drop_amount.

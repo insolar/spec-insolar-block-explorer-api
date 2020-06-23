@@ -1,8 +1,0 @@
-x-component: 'parameters/jetIdPathParam'
-in: path
-name: jet_id
-required: true
-schema:
-  type: string
-description: The JetID.
-example: "0010"
