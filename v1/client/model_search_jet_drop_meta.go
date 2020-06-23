@@ -11,6 +11,6 @@
 package client
 // SearchJetDropMeta Meta data.
 type SearchJetDropMeta struct {
-	// Jet drop ID.
+	// Jet drop ID is a combination of `jet_id` with `pulse_number`.
 	JetDropId string `json:"jet_drop_id,omitempty"`
 }

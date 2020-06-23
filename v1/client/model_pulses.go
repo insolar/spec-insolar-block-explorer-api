@@ -11,7 +11,7 @@
 package client
 // Pulses Response codes.
 type Pulses struct {
-	// Total results.
+	// Number of entries in the array.
 	Total int64 `json:"total,omitempty"`
 	Result []PulseResponse200 `json:"result,omitempty"`
 	Code string `json:"code,omitempty"`

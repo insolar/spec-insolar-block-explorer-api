@@ -153,7 +153,7 @@ type ObjectLifelineOpts struct {
 
 /*
 ObjectLifeline object lifeline
-Gets a lifeline by &#x60;object_reference&#x60;.
+Gets a lifeline with all its records by &#x60;object_reference&#x60;.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param objectReference Object reference.
  * @param optional nil or *ObjectLifelineOpts - Optional Parameters:

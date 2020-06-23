@@ -31,7 +31,7 @@ type Record struct {
 	PulseNumber int64 `json:"pulse_number,omitempty"`
 	// Jet ID.
 	JetId string `json:"jet_id,omitempty"`
-	// Jet drop ID is a combination of jet_id` with `pulse_number`.
+	// Jet drop ID is a combination of `jet_id` with `pulse_number`.
 	JetDropId string `json:"jet_drop_id,omitempty"`
 	// Order is the record order number in the jet drop.
 	Order int64 `json:"order,omitempty"`

@@ -11,7 +11,7 @@
 package client
 // JetDropsByJetIdResponse200 Response codes.
 type JetDropsByJetIdResponse200 struct {
-	// Total results.
+	// Number of entries in the array.
 	Total int64 `json:"total,omitempty"`
 	Result []JetDropByIdResponse200 `json:"result,omitempty"`
 	Code string `json:"code,omitempty"`

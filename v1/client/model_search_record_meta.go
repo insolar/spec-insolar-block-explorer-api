@@ -13,6 +13,6 @@ package client
 type SearchRecordMeta struct {
 	// Object reference.
 	ObjectReference string `json:"object_reference,omitempty"`
-	// Index is combination of pulse_number with order (record number in a jet drop).
+	// Index is combination of `pulse_number` with `order` (record number in a jet drop).
 	Index string `json:"index,omitempty"`
 }

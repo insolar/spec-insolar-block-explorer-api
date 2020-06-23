@@ -11,11 +11,11 @@
 package client
 // JetDropByIdResponse200 Response codes.
 type JetDropByIdResponse200 struct {
-	// Jet drop ID is a combination of jet_id` with `pulse_number`.
+	// Jet drop ID is a combination of `jet_id` with `pulse_number`.
 	JetDropId string `json:"jet_drop_id,omitempty"`
-	// Next jet_drop_id.
+	// Next `jet_drop_id`.
 	NextJetDropId []string `json:"next_jet_drop_id,omitempty"`
-	// Previous jet_drop_id.
+	// Previous `jet_drop_id`.
 	PrevJetDropId []string `json:"prev_jet_drop_id,omitempty"`
 	// Jet ID.
 	JetId string `json:"jet_id,omitempty"`
