@@ -341,8 +341,14 @@ type JetDropsByJetIDParams struct {
 	// Filtering where pulse number is greater than or equal to
 	PulseNumberGte *PulseNumberGte `json:"pulse_number_gte,omitempty"`
 
+	// Filtering where pulse number is greater than
+	PulseNumberGt *PulseNumberGt `json:"pulse_number_gt,omitempty"`
+
 	// Filtering where pulse number is less than or equal to.
 	PulseNumberLte *PulseNumberLte `json:"pulse_number_lte,omitempty"`
+
+	// Filtering where pulse number is less than.
+	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
 }
 
 // ObjectLifelineParams defines parameters for ObjectLifeline.
@@ -541,11 +547,25 @@ func (w *ServerInterfaceWrapper) JetDropsByJetID(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_gte: %s", err))
 	}
 
+	// ------------- Optional query parameter "pulse_number_gt" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pulse_number_gt", ctx.QueryParams(), &params.PulseNumberGt)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_gt: %s", err))
+	}
+
 	// ------------- Optional query parameter "pulse_number_lte" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "pulse_number_lte", ctx.QueryParams(), &params.PulseNumberLte)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_lte: %s", err))
+	}
+
+	// ------------- Optional query parameter "pulse_number_lt" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pulse_number_lt", ctx.QueryParams(), &params.PulseNumberLt)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_lt: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshalled arguments

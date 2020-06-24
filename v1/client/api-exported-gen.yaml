@@ -563,8 +563,10 @@ paths:
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterSort_by'
         - $ref: >-
             #/components/parameters/JetDropsByJetIDQueryParameterPulse_number_gte
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterPulse_number_gt'
         - $ref: >-
             #/components/parameters/JetDropsByJetIDQueryParameterPulse_number_lte
+        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterPulse_number_lt'
       responses:
         '200':
           description: Internal server error
@@ -1144,10 +1146,28 @@ components:
         type: integer
         minimum: 0
       example: 43648104
+    pulse_number_gt:
+      in: query
+      name: pulse_number_gt
+      description: Filtering where pulse number is greater than
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      example: 43648104
     pulse_number_lte:
       in: query
       name: pulse_number_lte
       description: Filtering where pulse number is less than or equal to.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      example: 43648106
+    pulse_number_lt:
+      in: query
+      name: pulse_number_lt
+      description: Filtering where pulse number is less than.
       required: false
       schema:
         type: integer
@@ -1195,24 +1215,6 @@ components:
           - index_desc
           - index_asc
       example: index_asc
-    pulse_number_gt:
-      in: query
-      name: pulse_number_gt
-      description: Filtering where pulse number is greater than
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      example: 43648104
-    pulse_number_lt:
-      in: query
-      name: pulse_number_lt
-      description: Filtering where pulse number is less than.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      example: 43648106
     PulsesQueryParameterLimit:
       in: query
       name: limit
@@ -1329,10 +1331,28 @@ components:
         type: integer
         minimum: 0
       example: 43648104
+    JetDropsByJetIDQueryParameterPulse_number_gt:
+      in: query
+      name: pulse_number_gt
+      description: Filtering where pulse number is greater than
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      example: 43648104
     JetDropsByJetIDQueryParameterPulse_number_lte:
       in: query
       name: pulse_number_lte
       description: Filtering where pulse number is less than or equal to.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      example: 43648106
+    JetDropsByJetIDQueryParameterPulse_number_lt:
+      in: query
+      name: pulse_number_lt
+      description: Filtering where pulse number is less than.
       required: false
       schema:
         type: integer

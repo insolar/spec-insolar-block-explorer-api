@@ -9,7 +9,9 @@ get:
     - $ref: '../parameters/pagination/limit.yaml'
     - $ref: '../parameters/filtering/sort_by_pulse.yaml'
     - $ref: '../parameters/filtering/pulse_number_gte.yaml'
+    - $ref: '../parameters/filtering/pulse_number_gt.yaml'
     - $ref: '../parameters/filtering/pulse_number_lte.yaml'
+    - $ref: '../parameters/filtering/pulse_number_lt.yaml'
   responses:
     '200':
       $ref: '../responses/jet-drops.yaml'

@@ -119,7 +119,9 @@ type JetDropsByJetIDOpts struct {
     Limit optional.Int32
     SortBy optional.String
     PulseNumberGte optional.Int32
+    PulseNumberGt optional.Int32
     PulseNumberLte optional.Int32
+    PulseNumberLt optional.Int32
 }
 
 /*
@@ -131,7 +133,9 @@ Gets jet drops in a jet by &#x60;jet_id&#x60;.
  * @param "Limit" (optional.Int32) -  Number of entries per page.
  * @param "SortBy" (optional.String) -  Sorting direction for the result set based on the `pulse_number` and `jet_id`.
  * @param "PulseNumberGte" (optional.Int32) -  Filtering where pulse number is greater than or equal to
+ * @param "PulseNumberGt" (optional.Int32) -  Filtering where pulse number is greater than
  * @param "PulseNumberLte" (optional.Int32) -  Filtering where pulse number is less than or equal to.
+ * @param "PulseNumberLt" (optional.Int32) -  Filtering where pulse number is less than.
 @return JetDropsByJetIdResponse200
 */
 func (a *JetDropApiService) JetDropsByJetID(ctx _context.Context, jetId string, localVarOptionals *JetDropsByJetIDOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {
@@ -161,8 +165,14 @@ func (a *JetDropApiService) JetDropsByJetID(ctx _context.Context, jetId string, 
 	if localVarOptionals != nil && localVarOptionals.PulseNumberGte.IsSet() {
 		localVarQueryParams.Add("pulse_number_gte", parameterToString(localVarOptionals.PulseNumberGte.Value(), ""))
 	}
+	if localVarOptionals != nil && localVarOptionals.PulseNumberGt.IsSet() {
+		localVarQueryParams.Add("pulse_number_gt", parameterToString(localVarOptionals.PulseNumberGt.Value(), ""))
+	}
 	if localVarOptionals != nil && localVarOptionals.PulseNumberLte.IsSet() {
 		localVarQueryParams.Add("pulse_number_lte", parameterToString(localVarOptionals.PulseNumberLte.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.PulseNumberLt.IsSet() {
+		localVarQueryParams.Add("pulse_number_lt", parameterToString(localVarOptionals.PulseNumberLt.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
