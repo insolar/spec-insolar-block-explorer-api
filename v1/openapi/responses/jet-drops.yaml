@@ -1,5 +1,5 @@
 x-component: 'responses/jetDropsResponse'
-description: Paginated array of jet drops
+description: OK
 content:
   application/json:
     schema:

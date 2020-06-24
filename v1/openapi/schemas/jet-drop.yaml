@@ -4,7 +4,7 @@ type: object
 properties:
   jet_drop_id:
     type: string
-    description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+    description: Combination of `jet_id` with `pulse_number`.
     example: "43648102:0010"
     pattern: '^(\d+:[0-1]{2,64})$'
   next_jet_drop_id:
@@ -14,7 +14,7 @@ properties:
     example: ["43648104:00100", "43648104:00101"]
     items:
       type: string
-      description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+      description: Combination of `jet_id` with `pulse_number`.
       example: "43648102:0010"
       pattern: '^(\d+:[0-1]{2,64})$'
   prev_jet_drop_id:
@@ -24,7 +24,7 @@ properties:
     example: ["43648101:0010"]
     items:
       type: string
-      description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+      description: Combination of jet_id` with `pulse_number`.
       example: "43648102:0010"
       pattern: '^(\d+:[0-1]{2,64})$'
   jet_id:

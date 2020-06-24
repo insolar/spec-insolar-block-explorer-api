@@ -55,7 +55,7 @@ properties:
     pattern: '^([0-1]{2,64})$'
   jet_drop_id:
     type: string
-    description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+    description: Combination of `jet_id` with `pulse_number`.
     example: "43648102:0010"
   order:
     type: integer

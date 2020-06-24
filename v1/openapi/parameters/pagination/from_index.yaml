@@ -1,8 +1,8 @@
 x-component: 'parameters/from_index'
 name: from_index
-description: Specific index to paginate from—a combination of pulse_number with order (record number in a jet drop).
+description: Specific index to paginate from.
 in: query
 required: false
 schema:
   type: string
-example: 43612021:3
+example: 43612021:323

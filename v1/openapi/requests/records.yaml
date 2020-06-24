@@ -1,6 +1,6 @@
 get:
-  summary: records
-  description: Gets all records in a jet drop by `jet_drop_id`.
+  summary: Records
+  description: Gets records by `jet_drop_id` and based on filtering and pagination parameters.
   operationId: jet_drop_records
   tags:
     - Record

@@ -1,7 +1,7 @@
 x-component: 'parameters/jet_drop_id_gt'
 in: query
 name: jet_drop_id_gt
-description: Starting point (>) for a range of jet drops.
+description: Starting point in a range. Greater than this `jet_drop_id`.
 required: false
 schema:
   type: string

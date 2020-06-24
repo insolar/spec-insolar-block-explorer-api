@@ -1,6 +1,6 @@
 get:
-  summary: pulses
-  description: Get a range of pulses from `timestamp_gte` to `timestamp_lte`.
+  summary: Get pulses
+  description: Gets a range of pulses based on the filtering and pagination parameters.
   operationId: pulses
   tags:
     - Pulse

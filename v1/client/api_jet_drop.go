@@ -1,7 +1,7 @@
 /*
  * Insolar Explorer API
  *
- * [Insolar Explorer](https://github.com/insolar/block-explorer)'s REST API documentation.  Insolar Explorer is a service that allows users to search for and view the contents of individual transactions, Records, Lifelines, Jet Drops and Jets.  * Record—minimum unit of storage that contains an associated request, response, and maintenance details * Lifeline—sequence of Records for object state where an object is a smart contract instance * Jet Drop—unit of storage for Jets * Jet—groups of Lifelines 
+ * # Insolar Explorer API documentation  [Insolar Explorer](https://github.com/insolar/block-explorer) is a service that allows users to search for and view the contents of individual transactions, records, lifelines, jet drops and jets.  Insolar Explorer provides a REST-like API interface.  ## Basic entities  * Record—minimum unit of storage that contains an associated request, response, and maintenance details * Lifeline—sequence of records for object state where an object is a smart contract instance * Jet drop—unit of storage for jets * Jet—groups of lifelines  ## Filtering, pagination, sorting  API provides filtering based on a range of values: < > or ≤ ≥.  API provides a combination of offset and seek pagination.  Pagination can be applied using: * Combination of a starting point (`from_*`), number of entries per page (`limit`) and number of entries to skip from the starting point (`offset`). * Just `limit` to get a limited array of the latest data. * Combination of the filtering parameters `*_gt`/`*_gte` and `*_lt`/`*_lte`, and `limit`.  Some requests can be sorted in the descending (`*_desc`)  or ascending (`*_asc`) order. 
  *
  * API version: 1.0.0
  * Contact: dev-support@insolar.io
@@ -28,10 +28,10 @@ var (
 type JetDropApiService service
 
 /*
-JetDropByID Jet Drop by ID
-Get Jet Drop by ID
+JetDropByID Jet drop by ID
+Gets a jet drop by &#x60;jet_drop_id&#x60;.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param jetDropId Jet Drop ID.
+ * @param jetDropId Jet drop ID—a combination of `jet_id` with `pulse_number`.
 @return JetDropByIdResponse200
 */
 func (a *JetDropApiService) JetDropByID(ctx _context.Context, jetDropId string) (JetDropByIdResponse200, *_nethttp.Response, error) {
@@ -120,22 +120,22 @@ type JetDropsByJetIDOpts struct {
     Offset optional.Int32
     FromJetDropId optional.String
     SortBy optional.String
-    JetDropIdLt optional.String
     JetDropIdGt optional.String
+    JetDropIdLt optional.String
 }
 
 /*
-JetDropsByJetID Jet Drops by Jet ID
-Get Jet Drops by Jet ID
+JetDropsByJetID Jet drops by jet ID
+Gets jet drops by &#x60;jet_id&#x60; and based on filtering and pagination parameters.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param jetId The JetID.
+ * @param jetId Jet ID.
  * @param optional nil or *JetDropsByJetIDOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  Number of entries per list.
- * @param "Offset" (optional.Int32) -  Number of entries to skip before collecting the result set.
- * @param "FromJetDropId" (optional.String) -  Jet Drop ID to paginate from. Jet Drop ID is a comnibation of jet_id with pulse_number.
- * @param "SortBy" (optional.String) -  Pulse number-based sorting direction for a query result set.
- * @param "JetDropIdLt" (optional.String) -  Upper limit (<) for Jet Drops in a query.
- * @param "JetDropIdGt" (optional.String) -  Lower limit (>) for Jet Drops in a query.
+ * @param "Limit" (optional.Int32) -  Number of entries to show per page.
+ * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
+ * @param "FromJetDropId" (optional.String) -  Specific jet drop ID to paginate from. Jet drop ID is a combination of `jet_id` with `pulse_number`.
+ * @param "SortBy" (optional.String) -  Sorting direction based on `pulse_number`.
+ * @param "JetDropIdGt" (optional.String) -  Starting point in a range. Greater than this `jet_drop_id`.
+ * @param "JetDropIdLt" (optional.String) -  Starting point in a range. Less than this `jet_drop_id`.
 @return JetDropsByJetIdResponse200
 */
 func (a *JetDropApiService) JetDropsByJetID(ctx _context.Context, jetId string, localVarOptionals *JetDropsByJetIDOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {
@@ -168,11 +168,11 @@ func (a *JetDropApiService) JetDropsByJetID(ctx _context.Context, jetId string, 
 	if localVarOptionals != nil && localVarOptionals.SortBy.IsSet() {
 		localVarQueryParams.Add("sort_by", parameterToString(localVarOptionals.SortBy.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.JetDropIdLt.IsSet() {
-		localVarQueryParams.Add("jet_drop_id_lt", parameterToString(localVarOptionals.JetDropIdLt.Value(), ""))
-	}
 	if localVarOptionals != nil && localVarOptionals.JetDropIdGt.IsSet() {
 		localVarQueryParams.Add("jet_drop_id_gt", parameterToString(localVarOptionals.JetDropIdGt.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.JetDropIdLt.IsSet() {
+		localVarQueryParams.Add("jet_drop_id_lt", parameterToString(localVarOptionals.JetDropIdLt.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -244,14 +244,14 @@ type JetDropsByPulseNumberOpts struct {
 }
 
 /*
-JetDropsByPulseNumber Jet Drops by Pulse number
-Get Jet Drops by Pulse number
+JetDropsByPulseNumber Jet drops by pulse number
+Gets jet drops by &#x60;pulse_number&#x60; and based on filtering and pagination parameters.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param pulseNumber Pulse number.
  * @param optional nil or *JetDropsByPulseNumberOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  Number of entries per list.
- * @param "Offset" (optional.Int32) -  Number of entries to skip before collecting the result set.
- * @param "FromJetDropId" (optional.String) -  Jet Drop ID to paginate from. Jet Drop ID is a comnibation of jet_id with pulse_number.
+ * @param "Limit" (optional.Int32) -  Number of entries to show per page.
+ * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
+ * @param "FromJetDropId" (optional.String) -  Specific jet drop ID to paginate from. Jet drop ID is a combination of `jet_id` with `pulse_number`.
 @return JetDropsByJetIdResponse200
 */
 func (a *JetDropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNumber int64, localVarOptionals *JetDropsByPulseNumberOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {
