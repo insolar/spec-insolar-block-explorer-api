@@ -193,11 +193,11 @@ paths:
       parameters:
         - $ref: '#/components/parameters/jet_id_path'
         - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offsetParam'
-        - $ref: '#/components/parameters/from_jet_drop_id'
         - $ref: '#/components/parameters/sort_by_pulse'
-        - $ref: '#/components/parameters/jet_drop_id_gt'
-        - $ref: '#/components/parameters/jet_drop_id_lt'
+        - $ref: '#/components/parameters/pulse_number_gte'
+        - $ref: '#/components/parameters/pulse_number_gt'
+        - $ref: '#/components/parameters/pulse_number_lte'
+        - $ref: '#/components/parameters/pulse_number_lt'
       responses:
         '200':
           $ref: '#/components/responses/jetDropsResponse'
@@ -364,31 +364,53 @@ components:
     sort_by_pulse:
       in: query
       name: sort_by
-      description: Pulse number-based sorting direction for the result set.
+      description: >-
+        Sorting direction for the result set based on the `pulse_number` and
+        `jet_id`.
       required: false
       schema:
         type: string
-        default: +pulse_number
+        default: 'pulse_number_desc,jet_id_asc'
         enum:
-          - '-pulse_number'
-          - +pulse_number
-      example: +pulse_number
-    jet_drop_id_gt:
+          - 'pulse_number_asc,jet_id_desc'
+          - 'pulse_number_desc,jet_id_asc'
+      example: 'pulse_number_asc,jet_id_desc'
+    pulse_number_gte:
       in: query
-      name: jet_drop_id_gt
-      description: Starting point (>) for a range of jet drops.
+      name: pulse_number_gte
+      description: Filtering where pulse number is greater than or equal to
       required: false
       schema:
-        type: string
-      example: '43648102:0010'
-    jet_drop_id_lt:
+        type: integer
+        minimum: 0
+      example: 43648104
+    pulse_number_gt:
       in: query
-      name: jet_drop_id_lt
-      description: Ending point (<) for a range of jet drops.
+      name: pulse_number_gt
+      description: Filtering where pulse number is greater than
       required: false
       schema:
-        type: string
-      example: '43648104:00102'
+        type: integer
+        minimum: 0
+      example: 43648104
+    pulse_number_lte:
+      in: query
+      name: pulse_number_lte
+      description: Filtering where pulse number is less than or equal to.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      example: 43648106
+    pulse_number_lt:
+      in: query
+      name: pulse_number_lt
+      description: Filtering where pulse number is less than.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      example: 43648106
     from_index:
       name: from_index
       description: >-
@@ -402,7 +424,7 @@ components:
     recordTypeParam:
       name: type
       in: query
-      description: record type in a query.
+      description: Record type in a query.
       required: false
       schema:
         type: string
@@ -426,29 +448,11 @@ components:
       required: false
       schema:
         type: string
-        default: +index
+        default: index_asc
         enum:
-          - '-index'
-          - +index
-      example: +index
-    pulse_number_gt:
-      in: query
-      name: pulse_number_gt
-      description: Starting point (>) for a range of pulses.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      example: 43648104
-    pulse_number_lt:
-      in: query
-      name: pulse_number_lt
-      description: Ending point (<) for a range of pulses.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      example: 43648106
+          - index_desc
+          - index_asc
+      example: index_asc
   responses:
     pulsesResponse:
       description: Paginated array of pulses

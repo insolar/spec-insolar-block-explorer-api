@@ -5,9 +5,10 @@ package server
 
 import (
 	"fmt"
+	"net/http"
+
 	"github.com/deepmap/oapi-codegen/pkg/runtime"
 	"github.com/labstack/echo/v4"
-	"net/http"
 )
 
 // CodeError defines model for code-error.
@@ -224,12 +225,6 @@ type FromIndex string
 // FromJetDropId defines model for from_jet_drop_id.
 type FromJetDropId string
 
-// JetDropIdGt defines model for jet_drop_id_gt.
-type JetDropIdGt string
-
-// JetDropIdLt defines model for jet_drop_id_lt.
-type JetDropIdLt string
-
 // JetDropIdPath defines model for jet_drop_id_path.
 type JetDropIdPath string
 
@@ -248,8 +243,14 @@ type OffsetParam int
 // PulseNumberGt defines model for pulse_number_gt.
 type PulseNumberGt int
 
+// PulseNumberGte defines model for pulse_number_gte.
+type PulseNumberGte int
+
 // PulseNumberLt defines model for pulse_number_lt.
 type PulseNumberLt int
+
+// PulseNumberLte defines model for pulse_number_lte.
+type PulseNumberLte int
 
 // PulseNumberPath defines model for pulse_number_path.
 type PulseNumberPath int64
@@ -257,11 +258,30 @@ type PulseNumberPath int64
 // RecordTypeParam defines model for recordTypeParam.
 type RecordTypeParam string
 
+// List of RecordTypeParam
+const (
+	RecordTypeParam_state   RecordTypeParam = "state"
+	RecordTypeParam_request RecordTypeParam = "request"
+	RecordTypeParam_result  RecordTypeParam = "result"
+)
+
 // SortByIndex defines model for sort_by_index.
 type SortByIndex string
 
+// List of SortByIndex
+const (
+	SortByIndex_index_desc SortByIndex = "index_desc"
+	SortByIndex_index_asc  SortByIndex = "index_asc"
+)
+
 // SortByPulse defines model for sort_by_pulse.
 type SortByPulse string
+
+// List of SortByPulse
+const (
+	SortByPulse_pulse_number_asc_jet_id_desc SortByPulse = "pulse_number_asc,jet_id_desc"
+	SortByPulse_pulse_number_desc_jet_id_asc SortByPulse = "pulse_number_desc,jet_id_asc"
+)
 
 // TimestampGte defines model for timestamp_gte.
 type TimestampGte int64
@@ -305,7 +325,7 @@ type JetDropRecordsParams struct {
 	// Specific index to paginate from—a combination of pulse_number with order (record number in a jet drop).
 	FromIndex *FromIndex `json:"from_index,omitempty"`
 
-	// record type in a query.
+	// Record type in a query.
 	Type *RecordTypeParam `json:"type,omitempty"`
 }
 
@@ -315,20 +335,20 @@ type JetDropsByJetIDParams struct {
 	// Number of entries per page.
 	Limit *Limit `json:"limit,omitempty"`
 
-	// Number of entries to skip from the starting point.
-	Offset *OffsetParam `json:"offset,omitempty"`
-
-	// Specific jet drop ID to paginate from—a combination of jet_id` with `pulse_number`.
-	FromJetDropId *FromJetDropId `json:"from_jet_drop_id,omitempty"`
-
-	// Pulse number-based sorting direction for the result set.
+	// Sorting direction for the result set based on the `pulse_number` and `jet_id`.
 	SortBy *SortByPulse `json:"sort_by,omitempty"`
 
-	// Starting point (>) for a range of jet drops.
-	JetDropIdGt *JetDropIdGt `json:"jet_drop_id_gt,omitempty"`
+	// Filtering where pulse number is greater than or equal to
+	PulseNumberGte *PulseNumberGte `json:"pulse_number_gte,omitempty"`
 
-	// Ending point (<) for a range of jet drops.
-	JetDropIdLt *JetDropIdLt `json:"jet_drop_id_lt,omitempty"`
+	// Filtering where pulse number is greater than
+	PulseNumberGt *PulseNumberGt `json:"pulse_number_gt,omitempty"`
+
+	// Filtering where pulse number is less than or equal to.
+	PulseNumberLte *PulseNumberLte `json:"pulse_number_lte,omitempty"`
+
+	// Filtering where pulse number is less than.
+	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
 }
 
 // ObjectLifelineParams defines parameters for ObjectLifeline.
@@ -346,10 +366,10 @@ type ObjectLifelineParams struct {
 	// Index-based sorting direction for the result set.
 	SortBy *SortByIndex `json:"sort_by,omitempty"`
 
-	// Starting point (>) for a range of pulses.
+	// Filtering where pulse number is greater than
 	PulseNumberGt *PulseNumberGt `json:"pulse_number_gt,omitempty"`
 
-	// Ending point (<) for a range of pulses.
+	// Filtering where pulse number is less than.
 	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
 
 	// Starting point (≥) for a timespan. Unix time format.
@@ -400,21 +420,29 @@ type SearchParams struct {
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
-	// jet drop by ID// (GET /api/v1/jet-drops/{jet_drop_id})
+	// jet drop by ID
+	// (GET /api/v1/jet-drops/{jet_drop_id})
 	JetDropByID(ctx echo.Context, jetDropId JetDropIdPath) error
-	// records// (GET /api/v1/jet-drops/{jet_drop_id}/records)
+	// records
+	// (GET /api/v1/jet-drops/{jet_drop_id}/records)
 	JetDropRecords(ctx echo.Context, jetDropId JetDropIdPath, params JetDropRecordsParams) error
-	// jet drops by jet ID// (GET /api/v1/jets/{jet_id}/jet-drops)
+	// jet drops by jet ID
+	// (GET /api/v1/jets/{jet_id}/jet-drops)
 	JetDropsByJetID(ctx echo.Context, jetId JetIdPath, params JetDropsByJetIDParams) error
-	// object lifeline// (GET /api/v1/lifeline/{object_reference}/records)
+	// object lifeline
+	// (GET /api/v1/lifeline/{object_reference}/records)
 	ObjectLifeline(ctx echo.Context, objectReference ObjectReferencePath, params ObjectLifelineParams) error
-	// pulses// (GET /api/v1/pulses)
+	// pulses
+	// (GET /api/v1/pulses)
 	Pulses(ctx echo.Context, params PulsesParams) error
-	// pulse// (GET /api/v1/pulses/{pulse_number})
+	// pulse
+	// (GET /api/v1/pulses/{pulse_number})
 	Pulse(ctx echo.Context, pulseNumber PulseNumberPath) error
-	// jet drops by pulse number// (GET /api/v1/pulses/{pulse_number}/jet-drops)
+	// jet drops by pulse number
+	// (GET /api/v1/pulses/{pulse_number}/jet-drops)
 	JetDropsByPulseNumber(ctx echo.Context, pulseNumber PulseNumberPath, params JetDropsByPulseNumberParams) error
-	// search// (GET /api/v1/search)
+	// search
+	// (GET /api/v1/search)
 	Search(ctx echo.Context, params SearchParams) error
 }
 
@@ -453,9 +481,6 @@ func (w *ServerInterfaceWrapper) JetDropRecords(ctx echo.Context) error {
 	// Parameter object where we will unmarshal all parameters from the context
 	var params JetDropRecordsParams
 	// ------------- Optional query parameter "limit" -------------
-	if paramValue := ctx.QueryParam("limit"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "limit", ctx.QueryParams(), &params.Limit)
 	if err != nil {
@@ -463,9 +488,6 @@ func (w *ServerInterfaceWrapper) JetDropRecords(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "offset" -------------
-	if paramValue := ctx.QueryParam("offset"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
 	if err != nil {
@@ -473,9 +495,6 @@ func (w *ServerInterfaceWrapper) JetDropRecords(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "from_index" -------------
-	if paramValue := ctx.QueryParam("from_index"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "from_index", ctx.QueryParams(), &params.FromIndex)
 	if err != nil {
@@ -483,9 +502,6 @@ func (w *ServerInterfaceWrapper) JetDropRecords(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "type" -------------
-	if paramValue := ctx.QueryParam("type"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "type", ctx.QueryParams(), &params.Type)
 	if err != nil {
@@ -511,63 +527,45 @@ func (w *ServerInterfaceWrapper) JetDropsByJetID(ctx echo.Context) error {
 	// Parameter object where we will unmarshal all parameters from the context
 	var params JetDropsByJetIDParams
 	// ------------- Optional query parameter "limit" -------------
-	if paramValue := ctx.QueryParam("limit"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "limit", ctx.QueryParams(), &params.Limit)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter limit: %s", err))
 	}
 
-	// ------------- Optional query parameter "offset" -------------
-	if paramValue := ctx.QueryParam("offset"); paramValue != "" {
-
-	}
-
-	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
-	}
-
-	// ------------- Optional query parameter "from_jet_drop_id" -------------
-	if paramValue := ctx.QueryParam("from_jet_drop_id"); paramValue != "" {
-
-	}
-
-	err = runtime.BindQueryParameter("form", true, false, "from_jet_drop_id", ctx.QueryParams(), &params.FromJetDropId)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_jet_drop_id: %s", err))
-	}
-
 	// ------------- Optional query parameter "sort_by" -------------
-	if paramValue := ctx.QueryParam("sort_by"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "sort_by", ctx.QueryParams(), &params.SortBy)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter sort_by: %s", err))
 	}
 
-	// ------------- Optional query parameter "jet_drop_id_gt" -------------
-	if paramValue := ctx.QueryParam("jet_drop_id_gt"); paramValue != "" {
+	// ------------- Optional query parameter "pulse_number_gte" -------------
 
-	}
-
-	err = runtime.BindQueryParameter("form", true, false, "jet_drop_id_gt", ctx.QueryParams(), &params.JetDropIdGt)
+	err = runtime.BindQueryParameter("form", true, false, "pulse_number_gte", ctx.QueryParams(), &params.PulseNumberGte)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter jet_drop_id_gt: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_gte: %s", err))
 	}
 
-	// ------------- Optional query parameter "jet_drop_id_lt" -------------
-	if paramValue := ctx.QueryParam("jet_drop_id_lt"); paramValue != "" {
+	// ------------- Optional query parameter "pulse_number_gt" -------------
 
-	}
-
-	err = runtime.BindQueryParameter("form", true, false, "jet_drop_id_lt", ctx.QueryParams(), &params.JetDropIdLt)
+	err = runtime.BindQueryParameter("form", true, false, "pulse_number_gt", ctx.QueryParams(), &params.PulseNumberGt)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter jet_drop_id_lt: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_gt: %s", err))
+	}
+
+	// ------------- Optional query parameter "pulse_number_lte" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pulse_number_lte", ctx.QueryParams(), &params.PulseNumberLte)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_lte: %s", err))
+	}
+
+	// ------------- Optional query parameter "pulse_number_lt" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pulse_number_lt", ctx.QueryParams(), &params.PulseNumberLt)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_lt: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -589,9 +587,6 @@ func (w *ServerInterfaceWrapper) ObjectLifeline(ctx echo.Context) error {
 	// Parameter object where we will unmarshal all parameters from the context
 	var params ObjectLifelineParams
 	// ------------- Optional query parameter "limit" -------------
-	if paramValue := ctx.QueryParam("limit"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "limit", ctx.QueryParams(), &params.Limit)
 	if err != nil {
@@ -599,9 +594,6 @@ func (w *ServerInterfaceWrapper) ObjectLifeline(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "offset" -------------
-	if paramValue := ctx.QueryParam("offset"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
 	if err != nil {
@@ -609,9 +601,6 @@ func (w *ServerInterfaceWrapper) ObjectLifeline(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "from_index" -------------
-	if paramValue := ctx.QueryParam("from_index"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "from_index", ctx.QueryParams(), &params.FromIndex)
 	if err != nil {
@@ -619,9 +608,6 @@ func (w *ServerInterfaceWrapper) ObjectLifeline(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "sort_by" -------------
-	if paramValue := ctx.QueryParam("sort_by"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "sort_by", ctx.QueryParams(), &params.SortBy)
 	if err != nil {
@@ -629,9 +615,6 @@ func (w *ServerInterfaceWrapper) ObjectLifeline(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "pulse_number_gt" -------------
-	if paramValue := ctx.QueryParam("pulse_number_gt"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "pulse_number_gt", ctx.QueryParams(), &params.PulseNumberGt)
 	if err != nil {
@@ -639,9 +622,6 @@ func (w *ServerInterfaceWrapper) ObjectLifeline(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "pulse_number_lt" -------------
-	if paramValue := ctx.QueryParam("pulse_number_lt"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "pulse_number_lt", ctx.QueryParams(), &params.PulseNumberLt)
 	if err != nil {
@@ -649,9 +629,6 @@ func (w *ServerInterfaceWrapper) ObjectLifeline(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "timestamp_gte" -------------
-	if paramValue := ctx.QueryParam("timestamp_gte"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "timestamp_gte", ctx.QueryParams(), &params.TimestampGte)
 	if err != nil {
@@ -659,9 +636,6 @@ func (w *ServerInterfaceWrapper) ObjectLifeline(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "timestamp_lte" -------------
-	if paramValue := ctx.QueryParam("timestamp_lte"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "timestamp_lte", ctx.QueryParams(), &params.TimestampLte)
 	if err != nil {
@@ -680,9 +654,6 @@ func (w *ServerInterfaceWrapper) Pulses(ctx echo.Context) error {
 	// Parameter object where we will unmarshal all parameters from the context
 	var params PulsesParams
 	// ------------- Optional query parameter "limit" -------------
-	if paramValue := ctx.QueryParam("limit"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "limit", ctx.QueryParams(), &params.Limit)
 	if err != nil {
@@ -690,9 +661,6 @@ func (w *ServerInterfaceWrapper) Pulses(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "offset" -------------
-	if paramValue := ctx.QueryParam("offset"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
 	if err != nil {
@@ -700,9 +668,6 @@ func (w *ServerInterfaceWrapper) Pulses(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "from_pulse_number" -------------
-	if paramValue := ctx.QueryParam("from_pulse_number"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "from_pulse_number", ctx.QueryParams(), &params.FromPulseNumber)
 	if err != nil {
@@ -710,9 +675,6 @@ func (w *ServerInterfaceWrapper) Pulses(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "timestamp_gte" -------------
-	if paramValue := ctx.QueryParam("timestamp_gte"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "timestamp_gte", ctx.QueryParams(), &params.TimestampGte)
 	if err != nil {
@@ -720,9 +682,6 @@ func (w *ServerInterfaceWrapper) Pulses(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "timestamp_lte" -------------
-	if paramValue := ctx.QueryParam("timestamp_lte"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "timestamp_lte", ctx.QueryParams(), &params.TimestampLte)
 	if err != nil {
@@ -764,9 +723,6 @@ func (w *ServerInterfaceWrapper) JetDropsByPulseNumber(ctx echo.Context) error {
 	// Parameter object where we will unmarshal all parameters from the context
 	var params JetDropsByPulseNumberParams
 	// ------------- Optional query parameter "limit" -------------
-	if paramValue := ctx.QueryParam("limit"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "limit", ctx.QueryParams(), &params.Limit)
 	if err != nil {
@@ -774,9 +730,6 @@ func (w *ServerInterfaceWrapper) JetDropsByPulseNumber(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "offset" -------------
-	if paramValue := ctx.QueryParam("offset"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
 	if err != nil {
@@ -784,9 +737,6 @@ func (w *ServerInterfaceWrapper) JetDropsByPulseNumber(ctx echo.Context) error {
 	}
 
 	// ------------- Optional query parameter "from_jet_drop_id" -------------
-	if paramValue := ctx.QueryParam("from_jet_drop_id"); paramValue != "" {
-
-	}
 
 	err = runtime.BindQueryParameter("form", true, false, "from_jet_drop_id", ctx.QueryParams(), &params.FromJetDropId)
 	if err != nil {
@@ -805,11 +755,6 @@ func (w *ServerInterfaceWrapper) Search(ctx echo.Context) error {
 	// Parameter object where we will unmarshal all parameters from the context
 	var params SearchParams
 	// ------------- Required query parameter "value" -------------
-	if paramValue := ctx.QueryParam("value"); paramValue != "" {
-
-	} else {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Query argument value is required, but not found"))
-	}
 
 	err = runtime.BindQueryParameter("form", true, true, "value", ctx.QueryParams(), &params.Value)
 	if err != nil {
@@ -821,8 +766,10 @@ func (w *ServerInterfaceWrapper) Search(ctx echo.Context) error {
 	return err
 }
 
-// RegisterHandlers adds each server route to the EchoRouter.
-func RegisterHandlers(router interface {
+// This is a simple interface which specifies echo.Route addition functions which
+// are present on both echo.Echo and echo.Group, since we want to allow using
+// either of them for path registration
+type EchoRouter interface {
 	CONNECT(path string, h echo.HandlerFunc, m ...echo.MiddlewareFunc) *echo.Route
 	DELETE(path string, h echo.HandlerFunc, m ...echo.MiddlewareFunc) *echo.Route
 	GET(path string, h echo.HandlerFunc, m ...echo.MiddlewareFunc) *echo.Route
@@ -832,7 +779,10 @@ func RegisterHandlers(router interface {
 	POST(path string, h echo.HandlerFunc, m ...echo.MiddlewareFunc) *echo.Route
 	PUT(path string, h echo.HandlerFunc, m ...echo.MiddlewareFunc) *echo.Route
 	TRACE(path string, h echo.HandlerFunc, m ...echo.MiddlewareFunc) *echo.Route
-}, si ServerInterface) {
+}
+
+// RegisterHandlers adds each server route to the EchoRouter.
+func RegisterHandlers(router EchoRouter, si ServerInterface) {
 
 	wrapper := ServerInterfaceWrapper{
 		Handler: si,
@@ -848,4 +798,3 @@ func RegisterHandlers(router interface {
 	router.GET("/api/v1/search", wrapper.Search)
 
 }
-

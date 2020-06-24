@@ -44,7 +44,7 @@ Gets all records in a jet drop by &#x60;jet_drop_id&#x60;.
  * @param "Limit" (optional.Int32) -  Number of entries per page.
  * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point.
  * @param "FromIndex" (optional.String) -  Specific index to paginate from—a combination of pulse_number with order (record number in a jet drop).
- * @param "Type_" (optional.String) -  record type in a query.
+ * @param "Type_" (optional.String) -  Record type in a query.
 @return ObjectLifelineResponse200
 */
 func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string, localVarOptionals *JetDropRecordsOpts) (ObjectLifelineResponse200, *_nethttp.Response, error) {
@@ -161,8 +161,8 @@ Gets a lifeline with all its records by &#x60;object_reference&#x60;.
  * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point.
  * @param "FromIndex" (optional.String) -  Specific index to paginate from—a combination of pulse_number with order (record number in a jet drop).
  * @param "SortBy" (optional.String) -  Index-based sorting direction for the result set.
- * @param "PulseNumberGt" (optional.Int32) -  Starting point (>) for a range of pulses.
- * @param "PulseNumberLt" (optional.Int32) -  Ending point (<) for a range of pulses.
+ * @param "PulseNumberGt" (optional.Int32) -  Filtering where pulse number is greater than
+ * @param "PulseNumberLt" (optional.Int32) -  Filtering where pulse number is less than.
  * @param "TimestampGte" (optional.Int64) -  Starting point (≥) for a timespan. Unix time format.
  * @param "TimestampLte" (optional.Int64) -  Ending point (≥) for a timespan. Unix time format.
 @return ObjectLifelineResponse200

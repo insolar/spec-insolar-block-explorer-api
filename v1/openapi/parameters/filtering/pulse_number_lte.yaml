@@ -1,0 +1,9 @@
+x-component: 'parameters/pulse_number_lte'
+in: query
+name: pulse_number_lte
+description: Filtering where pulse number is less than or equal to.
+required: false
+schema:
+  type: integer
+  minimum: 0
+example: 43648106
