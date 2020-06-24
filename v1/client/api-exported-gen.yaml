@@ -560,12 +560,11 @@ paths:
           description: Jet ID.
           example: 10
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterLimit'
-        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterOffset'
-        - $ref: >-
-            #/components/parameters/JetDropsByJetIDQueryParameterFrom_jet_drop_id
         - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterSort_by'
-        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterJet_drop_id_gt'
-        - $ref: '#/components/parameters/JetDropsByJetIDQueryParameterJet_drop_id_lt'
+        - $ref: >-
+            #/components/parameters/JetDropsByJetIDQueryParameterPulse_number_gte
+        - $ref: >-
+            #/components/parameters/JetDropsByJetIDQueryParameterPulse_number_lte
       responses:
         '200':
           description: Internal server error
@@ -1125,31 +1124,35 @@ components:
     sort_by_pulse:
       in: query
       name: sort_by
-      description: Pulse number-based sorting direction for the result set.
+      description: >-
+        Sorting direction for the result set based on the `pulse_number` and
+        `jet_id`.
       required: false
       schema:
         type: string
-        default: +pulse_number
+        default: 'pulse_number_desc,jet_id_asc'
         enum:
-          - '-pulse_number'
-          - +pulse_number
-      example: +pulse_number
-    jet_drop_id_gt:
+          - 'pulse_number_asc,jet_id_desc'
+          - 'pulse_number_desc,jet_id_asc'
+      example: 'pulse_number_asc,jet_id_desc'
+    pulse_number_gte:
       in: query
-      name: jet_drop_id_gt
-      description: Starting point (>) for a range of jet drops.
+      name: pulse_number_gte
+      description: Filtering where pulse number is greater than or equal to
       required: false
       schema:
-        type: string
-      example: '43648102:0010'
-    jet_drop_id_lt:
+        type: integer
+        minimum: 0
+      example: 43648104
+    pulse_number_lte:
       in: query
-      name: jet_drop_id_lt
-      description: Ending point (<) for a range of jet drops.
+      name: pulse_number_lte
+      description: Filtering where pulse number is less than or equal to.
       required: false
       schema:
-        type: string
-      example: '43648104:00102'
+        type: integer
+        minimum: 0
+      example: 43648106
     from_index:
       name: from_index
       description: >-
@@ -1163,7 +1166,7 @@ components:
     recordTypeParam:
       name: type
       in: query
-      description: record type in a query.
+      description: Record type in a query.
       required: false
       schema:
         type: string
@@ -1187,15 +1190,15 @@ components:
       required: false
       schema:
         type: string
-        default: +index
+        default: index_asc
         enum:
-          - '-index'
-          - +index
-      example: +index
+          - index_desc
+          - index_asc
+      example: index_asc
     pulse_number_gt:
       in: query
       name: pulse_number_gt
-      description: Starting point (>) for a range of pulses.
+      description: Filtering where pulse number is greater than
       required: false
       schema:
         type: integer
@@ -1204,7 +1207,7 @@ components:
     pulse_number_lt:
       in: query
       name: pulse_number_lt
-      description: Ending point (<) for a range of pulses.
+      description: Filtering where pulse number is less than.
       required: false
       schema:
         type: integer
@@ -1303,54 +1306,38 @@ components:
         maximum: 100
         default: 20
       example: 100
-    JetDropsByJetIDQueryParameterOffset:
+    JetDropsByJetIDQueryParameterSort_by:
       in: query
-      name: offset
-      description: Number of entries to skip from the starting point.
+      name: sort_by
+      description: >-
+        Sorting direction for the result set based on the `pulse_number` and
+        `jet_id`.
+      required: false
+      schema:
+        type: string
+        default: 'pulse_number_desc,jet_id_asc'
+        enum:
+          - 'pulse_number_asc,jet_id_desc'
+          - 'pulse_number_desc,jet_id_asc'
+      example: 'pulse_number_asc,jet_id_desc'
+    JetDropsByJetIDQueryParameterPulse_number_gte:
+      in: query
+      name: pulse_number_gte
+      description: Filtering where pulse number is greater than or equal to
       required: false
       schema:
         type: integer
         minimum: 0
-        default: 0
-      example: 10
-    JetDropsByJetIDQueryParameterFrom_jet_drop_id:
-      name: from_jet_drop_id
+      example: 43648104
+    JetDropsByJetIDQueryParameterPulse_number_lte:
       in: query
+      name: pulse_number_lte
+      description: Filtering where pulse number is less than or equal to.
       required: false
       schema:
-        type: string
-      description: >-
-        Specific jet drop ID to paginate from—a combination of jet_id` with
-        `pulse_number`.
-      example: '43612021:3'
-    JetDropsByJetIDQueryParameterSort_by:
-      in: query
-      name: sort_by
-      description: Pulse number-based sorting direction for the result set.
-      required: false
-      schema:
-        type: string
-        default: +pulse_number
-        enum:
-          - '-pulse_number'
-          - +pulse_number
-      example: +pulse_number
-    JetDropsByJetIDQueryParameterJet_drop_id_gt:
-      in: query
-      name: jet_drop_id_gt
-      description: Starting point (>) for a range of jet drops.
-      required: false
-      schema:
-        type: string
-      example: '43648102:0010'
-    JetDropsByJetIDQueryParameterJet_drop_id_lt:
-      in: query
-      name: jet_drop_id_lt
-      description: Ending point (<) for a range of jet drops.
-      required: false
-      schema:
-        type: string
-      example: '43648104:00102'
+        type: integer
+        minimum: 0
+      example: 43648106
     RecordsQueryParameterLimit:
       in: query
       name: limit
@@ -1385,7 +1372,7 @@ components:
     RecordsQueryParameterType:
       name: type
       in: query
-      description: record type in a query.
+      description: Record type in a query.
       required: false
       schema:
         type: string
@@ -1432,15 +1419,15 @@ components:
       required: false
       schema:
         type: string
-        default: +index
+        default: index_asc
         enum:
-          - '-index'
-          - +index
-      example: +index
+          - index_desc
+          - index_asc
+      example: index_asc
     ObjectLifelineQueryParameterPulse_number_gt:
       in: query
       name: pulse_number_gt
-      description: Starting point (>) for a range of pulses.
+      description: Filtering where pulse number is greater than
       required: false
       schema:
         type: integer
@@ -1449,7 +1436,7 @@ components:
     ObjectLifelineQueryParameterPulse_number_lt:
       in: query
       name: pulse_number_lt
-      description: Ending point (<) for a range of pulses.
+      description: Filtering where pulse number is less than.
       required: false
       schema:
         type: integer
