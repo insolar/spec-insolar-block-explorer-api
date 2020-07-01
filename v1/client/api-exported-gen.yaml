@@ -1003,7 +1003,7 @@ components:
       schema:
         type: integer
         minimum: 1
-        maximum: 100
+        maximum: 1000
         default: 20
       example: 25
     offsetParam:
@@ -1180,7 +1180,7 @@ components:
       schema:
         type: integer
         minimum: 1
-        maximum: 100
+        maximum: 1000
         default: 20
       example: 25
     GetPulsesQueryParameterOffset:
@@ -1235,7 +1235,7 @@ components:
       schema:
         type: integer
         minimum: 1
-        maximum: 100
+        maximum: 1000
         default: 20
       example: 25
     JetDropsByPulseNumberQueryParameterOffset:
@@ -1264,7 +1264,7 @@ components:
       schema:
         type: integer
         minimum: 1
-        maximum: 100
+        maximum: 1000
         default: 20
       example: 25
     JetDropsByJetIDQueryParameterSort_by:
@@ -1323,7 +1323,7 @@ components:
       schema:
         type: integer
         minimum: 1
-        maximum: 100
+        maximum: 1000
         default: 20
       example: 25
     RecordsQueryParameterOffset:
@@ -1364,7 +1364,7 @@ components:
       schema:
         type: integer
         minimum: 1
-        maximum: 100
+        maximum: 1000
         default: 20
       example: 25
     ObjectLifelineQueryParameterOffset:
