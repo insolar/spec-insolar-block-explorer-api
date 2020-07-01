@@ -9,14 +9,10 @@
  */
 
 package client
-// JetDrops Response codes.
-type JetDrops struct {
-	// Number of entries in the array.
-	Total int64 `json:"total,omitempty"`
-	Result []JetDropByIdResponse200 `json:"result,omitempty"`
-	Code string `json:"code,omitempty"`
-	Message string `json:"message,omitempty"`
-	Description string `json:"description,omitempty"`
-	Link string `json:"link,omitempty"`
-	ValidationFailures []GetPulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
+// GetPulsesResponse200ValidationFailures Validation failure.
+type GetPulsesResponse200ValidationFailures struct {
+	// Property name.
+	Property string `json:"property,omitempty"`
+	// Failure reason.
+	FailureReason string `json:"failure_reason,omitempty"`
 }

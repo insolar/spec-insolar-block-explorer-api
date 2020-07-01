@@ -43,7 +43,7 @@ type JetDrop struct {
 	// Record hash.
 	Hash *string `json:"hash,omitempty"`
 
-	// Jet drop ID is a combination of `jet_id` with `pulse_number`.
+	// Combination of `jet_id` with `pulse_number`.
 	JetDropId *string `json:"jet_drop_id,omitempty"`
 
 	// Jet ID.
@@ -115,7 +115,7 @@ type Record struct {
 	// Index is combination of pulse_number with order (record number in a jet drop).
 	Index *string `json:"index,omitempty"`
 
-	// Jet drop ID is a combination of `jet_id` with `pulse_number`.
+	// Combination of `jet_id` with `pulse_number`.
 	JetDropId *string `json:"jet_drop_id,omitempty"`
 
 	// Jet ID.
@@ -163,7 +163,7 @@ type SearchJetDrop struct {
 	// Meta data.
 	Meta *struct {
 
-		// Jet drop ID is a combination of `jet_id` with `pulse_number`.
+		// Combination of `jet_id` with `pulse_number`.
 		JetDropId *string `json:"jet_drop_id,omitempty"`
 	} `json:"meta,omitempty"`
 
@@ -316,98 +316,98 @@ type SearchResponse interface{}
 // JetDropRecordsParams defines parameters for JetDropRecords.
 type JetDropRecordsParams struct {
 
-	// Number of entries per page.
+	// Number of entries to show per page.
 	Limit *Limit `json:"limit,omitempty"`
 
-	// Number of entries to skip from the starting point.
+	// Number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Specific index to paginate from—a combination of pulse_number with order (record number in a jet drop).
+	// Specific index to paginate from.
 	FromIndex *FromIndex `json:"from_index,omitempty"`
 
-	// Record type in a query.
+	// Record type for filtering records.
 	Type *RecordTypeParam `json:"type,omitempty"`
 }
 
 // JetDropsByJetIDParams defines parameters for JetDropsByJetID.
 type JetDropsByJetIDParams struct {
 
-	// Number of entries per page.
+	// Number of entries to show per page.
 	Limit *Limit `json:"limit,omitempty"`
 
-	// Sorting direction for the result set based on the `pulse_number` and `jet_id`.
+	// Sorting direction based on `pulse_number`.
 	SortBy *SortByPulse `json:"sort_by,omitempty"`
 
 	// Filtering where pulse number is greater than or equal to
 	PulseNumberGte *PulseNumberGte `json:"pulse_number_gte,omitempty"`
 
-	// Filtering where pulse number is greater than
+	// Starting point in a range. Greater than this `pulse_number`.
 	PulseNumberGt *PulseNumberGt `json:"pulse_number_gt,omitempty"`
 
 	// Filtering where pulse number is less than or equal to.
 	PulseNumberLte *PulseNumberLte `json:"pulse_number_lte,omitempty"`
 
-	// Filtering where pulse number is less than.
+	// Ending point in a range. Less than this `pulse_number`.
 	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
 }
 
 // ObjectLifelineParams defines parameters for ObjectLifeline.
 type ObjectLifelineParams struct {
 
-	// Number of entries per page.
+	// Number of entries to show per page.
 	Limit *Limit `json:"limit,omitempty"`
 
-	// Number of entries to skip from the starting point.
+	// Number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Specific index to paginate from—a combination of pulse_number with order (record number in a jet drop).
+	// Specific index to paginate from.
 	FromIndex *FromIndex `json:"from_index,omitempty"`
 
-	// Index-based sorting direction for the result set.
+	// Sorting direction based on index.
 	SortBy *SortByIndex `json:"sort_by,omitempty"`
 
-	// Filtering where pulse number is greater than
+	// Starting point in a range. Greater than this `pulse_number`.
 	PulseNumberGt *PulseNumberGt `json:"pulse_number_gt,omitempty"`
 
-	// Filtering where pulse number is less than.
+	// Ending point in a range. Less than this `pulse_number`.
 	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
 
-	// Starting point (≥) for a timespan. Unix time format.
+	// Starting point in a range. Greater than or equal to this timestamp in Unix format.
 	TimestampGte *TimestampGte `json:"timestamp_gte,omitempty"`
 
-	// Ending point (≥) for a timespan. Unix time format.
+	// Ending point in a range. Greater than or equal to this timestamp in Unix format.
 	TimestampLte *TimestampLte `json:"timestamp_lte,omitempty"`
 }
 
 // PulsesParams defines parameters for Pulses.
 type PulsesParams struct {
 
-	// Number of entries per page.
+	// Number of entries to show per page.
 	Limit *Limit `json:"limit,omitempty"`
 
-	// Number of entries to skip from the starting point.
+	// Number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
 	// Specific pulse number to paginate from.
 	FromPulseNumber *FromPulseNumberParam `json:"from_pulse_number,omitempty"`
 
-	// Starting point (≥) for a timespan. Unix time format.
+	// Starting point in a range. Greater than or equal to this timestamp in Unix format.
 	TimestampGte *TimestampGte `json:"timestamp_gte,omitempty"`
 
-	// Ending point (≥) for a timespan. Unix time format.
+	// Ending point in a range. Greater than or equal to this timestamp in Unix format.
 	TimestampLte *TimestampLte `json:"timestamp_lte,omitempty"`
 }
 
 // JetDropsByPulseNumberParams defines parameters for JetDropsByPulseNumber.
 type JetDropsByPulseNumberParams struct {
 
-	// Number of entries per page.
+	// Number of entries to show per page.
 	Limit *Limit `json:"limit,omitempty"`
 
-	// Number of entries to skip from the starting point.
+	// Number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Specific jet drop ID to paginate from—a combination of jet_id` with `pulse_number`.
+	// Specific jet drop ID to paginate from.
 	FromJetDropId *FromJetDropId `json:"from_jet_drop_id,omitempty"`
 }
 
@@ -420,28 +420,28 @@ type SearchParams struct {
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
-	// jet drop by ID
+	// Jet drop by ID
 	// (GET /api/v1/jet-drops/{jet_drop_id})
 	JetDropByID(ctx echo.Context, jetDropId JetDropIdPath) error
-	// records
+	// Records
 	// (GET /api/v1/jet-drops/{jet_drop_id}/records)
 	JetDropRecords(ctx echo.Context, jetDropId JetDropIdPath, params JetDropRecordsParams) error
-	// jet drops by jet ID
+	// Jet drops by jet ID
 	// (GET /api/v1/jets/{jet_id}/jet-drops)
 	JetDropsByJetID(ctx echo.Context, jetId JetIdPath, params JetDropsByJetIDParams) error
-	// object lifeline
+	// Object lifeline
 	// (GET /api/v1/lifeline/{object_reference}/records)
 	ObjectLifeline(ctx echo.Context, objectReference ObjectReferencePath, params ObjectLifelineParams) error
-	// pulses
+	// Get pulses
 	// (GET /api/v1/pulses)
 	Pulses(ctx echo.Context, params PulsesParams) error
-	// pulse
+	// Pulse
 	// (GET /api/v1/pulses/{pulse_number})
 	Pulse(ctx echo.Context, pulseNumber PulseNumberPath) error
-	// jet drops by pulse number
+	// Jet drops by pulse number
 	// (GET /api/v1/pulses/{pulse_number}/jet-drops)
 	JetDropsByPulseNumber(ctx echo.Context, pulseNumber PulseNumberPath, params JetDropsByPulseNumberParams) error
-	// search
+	// Search
 	// (GET /api/v1/search)
 	Search(ctx echo.Context, params SearchParams) error
 }

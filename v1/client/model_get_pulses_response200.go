@@ -9,11 +9,11 @@
  */
 
 package client
-// JetDrops Response codes.
-type JetDrops struct {
+// GetPulsesResponse200 Response codes.
+type GetPulsesResponse200 struct {
 	// Number of entries in the array.
 	Total int64 `json:"total,omitempty"`
-	Result []JetDropByIdResponse200 `json:"result,omitempty"`
+	Result []PulseResponse200 `json:"result,omitempty"`
 	Code string `json:"code,omitempty"`
 	Message string `json:"message,omitempty"`
 	Description string `json:"description,omitempty"`

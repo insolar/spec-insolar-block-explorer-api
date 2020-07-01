@@ -1,7 +1,7 @@
 x-component: 'parameters/sort_by_pulse'
 in: query
 name: sort_by
-description: Sorting direction for the result set based on the `pulse_number` and `jet_id`.
+description: Sorting direction based on `pulse_number`.
 required: false
 schema:
   type: string

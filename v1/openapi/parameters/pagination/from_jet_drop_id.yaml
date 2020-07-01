@@ -1,8 +1,8 @@
 x-component: 'parameters/from_jet_drop_id'
 name: from_jet_drop_id
+description: Specific jet drop ID to paginate from.
 in: query
 required: false
 schema:
   type: string
-description: Specific jet drop ID to paginate from—a combination of jet_id` with `pulse_number`.
 example: 43612021:3

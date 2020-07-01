@@ -1,5 +1,5 @@
 get:
-  summary: jet drop by ID
+  summary: Jet drop by ID
   description: Gets a jet drop by `jet_drop_id`.
   operationId: jetDropByID
   tags:

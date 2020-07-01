@@ -4,5 +4,5 @@ in: path
 required: true
 schema:
   type: string
-description: Jet drop ID—a combination of `jet_id` with `pulse_number`.
+description: Combination of `jet_id` with `pulse_number`.
 example: 43648102:0010

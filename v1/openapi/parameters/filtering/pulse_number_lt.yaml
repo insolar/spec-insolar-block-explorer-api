@@ -1,7 +1,7 @@
 x-component: 'parameters/pulse_number_lt'
 in: query
 name: pulse_number_lt
-description: Filtering where pulse number is less than.
+description: Ending point in a range. Less than this `pulse_number`.
 required: false
 schema:
   type: integer

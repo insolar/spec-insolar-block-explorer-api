@@ -1,5 +1,5 @@
 get:
-  summary: pulse
+  summary: Pulse
   description: Gets pulse by `pulse_number`.
   operationId: pulse
   tags:

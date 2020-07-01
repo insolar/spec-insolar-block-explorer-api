@@ -1,6 +1,6 @@
 get:
-  summary: search
-  description: Gets the entity type for the searching `value`.
+  summary: Search
+  description: Gets the entity type for the searching `value` and metadata for the searched entity.
   operationId: search
   tags:
     - Search
