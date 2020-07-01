@@ -5,8 +5,8 @@ description: Sorting direction based on index.
 required: false
 schema:
   type: string
-  default: "+index"
+  default: "index_asc"
   enum:
-    - -index
-    - +index
-example: +index
+    - index_desc
+    - index_asc
+example: index_asc

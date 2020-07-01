@@ -32,10 +32,18 @@ info:
     * Jet—groups of lifelines
 
 
+    * Jet drop ID—combination of jet id with pulse number.
+
+    * Index—combination of pulse number with order (record number in a jet
+    drop).
+
+
+
     ## Filtering, pagination, sorting
 
 
-    API provides filtering based on a range of values: < > or ≤ ≥.
+    API provides filtering based on a range of values: greater than and less
+    than, or greater than or equal to and less than or equal to.
 
 
     API provides a combination of offset and seek pagination.
@@ -162,11 +170,11 @@ paths:
       parameters:
         - $ref: '#/components/parameters/jet_id_path'
         - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offsetParam'
-        - $ref: '#/components/parameters/from_jet_drop_id'
         - $ref: '#/components/parameters/sort_by_pulse'
-        - $ref: '#/components/parameters/jet_drop_id_gt'
-        - $ref: '#/components/parameters/jet_drop_id_lt'
+        - $ref: '#/components/parameters/pulse_number_gte'
+        - $ref: '#/components/parameters/pulse_number_gt'
+        - $ref: '#/components/parameters/pulse_number_lte'
+        - $ref: '#/components/parameters/pulse_number_lt'
       responses:
         '200':
           $ref: '#/components/responses/jetDropsResponse'
@@ -320,13 +328,11 @@ components:
       required: true
       schema:
         type: string
-      description: Jet drop ID—a combination of `jet_id` with `pulse_number`.
+      description: Combination of `jet_id` with `pulse_number`.
       example: '43648102:0010'
     from_jet_drop_id:
       name: from_jet_drop_id
-      description: >-
-        Specific jet drop ID to paginate from. Jet drop ID is a combination of
-        `jet_id` with `pulse_number`.
+      description: Specific jet drop ID to paginate from.
       in: query
       required: false
       schema:
@@ -347,32 +353,50 @@ components:
       required: false
       schema:
         type: string
-        default: +pulse_number
+        default: 'pulse_number_desc,jet_id_asc'
         enum:
-          - '-pulse_number'
-          - +pulse_number
-      example: +pulse_number
-    jet_drop_id_gt:
+          - 'pulse_number_asc,jet_id_desc'
+          - 'pulse_number_desc,jet_id_asc'
+      example: 'pulse_number_asc,jet_id_desc'
+    pulse_number_gte:
       in: query
-      name: jet_drop_id_gt
-      description: Starting point in a range. Greater than this `jet_drop_id`.
+      name: pulse_number_gte
+      description: Filtering where pulse number is greater than or equal to
       required: false
       schema:
-        type: string
-      example: '43648102:0010'
-    jet_drop_id_lt:
+        type: integer
+        minimum: 0
+      example: 43648104
+    pulse_number_gt:
       in: query
-      name: jet_drop_id_lt
-      description: Starting point in a range. Less than this `jet_drop_id`.
+      name: pulse_number_gt
+      description: Starting point in a range. Greater than this `pulse_number`.
       required: false
       schema:
-        type: string
-      example: '43648104:00102'
+        type: integer
+        minimum: 0
+      example: 43648104
+    pulse_number_lte:
+      in: query
+      name: pulse_number_lte
+      description: Filtering where pulse number is less than or equal to.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      example: 43648106
+    pulse_number_lt:
+      in: query
+      name: pulse_number_lt
+      description: Ending point in a range. Less than this `pulse_number`.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      example: 43648106
     from_index:
       name: from_index
-      description: >-
-        Specific index to paginate from. Index is a combination of
-        `pulse_number` with order (record number in a jet drop).
+      description: Specific index to paginate from.
       in: query
       required: false
       schema:
@@ -401,35 +425,15 @@ components:
     sort_by_index:
       in: query
       name: sort_by
-      description: >-
-        Sorting direction based on index. Index is a combination of
-        `pulse_number` with order (record number in a jet drop).
+      description: Sorting direction based on index.
       required: false
       schema:
         type: string
-        default: +index
+        default: index_asc
         enum:
-          - '-index'
-          - +index
-      example: +index
-    pulse_number_gt:
-      in: query
-      name: pulse_number_gt
-      description: Starting point in a range. Greater than this `pulse_number`.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      example: 43648104
-    pulse_number_lt:
-      in: query
-      name: pulse_number_lt
-      description: Ending point in a range. Less than this `pulse_number`.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      example: 43648106
+          - index_desc
+          - index_asc
+      example: index_asc
   responses:
     pulsesResponse:
       description: OK
@@ -570,7 +574,7 @@ components:
       properties:
         jet_drop_id:
           type: string
-          description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+          description: Combination of `jet_id` with `pulse_number`.
           example: '43648102:0010'
           pattern: '^(\d+:[0-1]{2,64})$'
         next_jet_drop_id:
@@ -582,7 +586,7 @@ components:
             - '43648104:00101'
           items:
             type: string
-            description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+            description: Combination of `jet_id` with `pulse_number`.
             example: '43648102:0010'
             pattern: '^(\d+:[0-1]{2,64})$'
         prev_jet_drop_id:
@@ -593,7 +597,7 @@ components:
             - '43648101:0010'
           items:
             type: string
-            description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+            description: Combination of jet_id` with `pulse_number`.
             example: '43648102:0010'
             pattern: '^(\d+:[0-1]{2,64})$'
         jet_id:
@@ -710,7 +714,7 @@ components:
           properties:
             jet_drop_id:
               type: string
-              description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+              description: Combination of `jet_id` with `pulse_number`.
               example: '43612021:001'
     search-lifeline:
       description: Lifeline response.
@@ -800,7 +804,7 @@ components:
           pattern: '^([0-1]{2,64})$'
         jet_drop_id:
           type: string
-          description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+          description: Combination of `jet_id` with `pulse_number`.
           example: '43648102:0010'
         order:
           type: integer

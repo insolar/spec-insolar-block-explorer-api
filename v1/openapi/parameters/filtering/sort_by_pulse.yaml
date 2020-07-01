@@ -5,8 +5,8 @@ description: Sorting direction based on `pulse_number`.
 required: false
 schema:
   type: string
-  default: "+pulse_number"
+  default: "pulse_number_desc,jet_id_asc"
   enum:
-    - -pulse_number
-    - +pulse_number
-example: +pulse_number
+    - "pulse_number_asc,jet_id_desc"
+    - "pulse_number_desc,jet_id_asc"
+example: "pulse_number_asc,jet_id_desc"
