@@ -6,7 +6,7 @@ properties:
     type: string
     description: Combination of `jet_id` with `pulse_number`.
     example: "0010:43648102"
-    pattern: '^((\*|([0-1]{1,216}):\d+)$'
+    pattern: '^((\*|([0-1]{1,216})):\d+)$'
   jet_id:
     type: string
     description: Jet ID.

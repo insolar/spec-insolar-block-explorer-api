@@ -16,4 +16,4 @@ properties:
       jet_drop_id:
         type: string
         description: Combination of `jet_id` with `pulse_number`.
-        example: "43612021:001"
+        example: "001:43612021"

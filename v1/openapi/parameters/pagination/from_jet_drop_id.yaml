@@ -5,4 +5,4 @@ in: query
 required: false
 schema:
   type: string
-example: 43612021:3
+example: 3:43612021
