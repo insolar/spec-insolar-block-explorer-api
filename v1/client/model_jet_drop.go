@@ -14,9 +14,9 @@ type JetDrop struct {
 	// Combination of `jet_id` with `pulse_number`.
 	JetDropId string `json:"jet_drop_id,omitempty"`
 	// Next `jet_drop_id`.
-	NextJetDropId []string `json:"next_jet_drop_id,omitempty"`
+	NextJetDropId []JetDropByIdResponse200NextJetDropId `json:"next_jet_drop_id,omitempty"`
 	// Previous `jet_drop_id`.
-	PrevJetDropId []string `json:"prev_jet_drop_id,omitempty"`
+	PrevJetDropId []JetDropByIdResponse200NextJetDropId `json:"prev_jet_drop_id,omitempty"`
 	// Jet ID.
 	JetId string `json:"jet_id,omitempty"`
 	// Pulse number.

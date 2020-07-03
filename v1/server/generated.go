@@ -50,10 +50,10 @@ type JetDrop struct {
 	JetId *string `json:"jet_id,omitempty"`
 
 	// Next `jet_drop_id`.
-	NextJetDropId *[]string `json:"next_jet_drop_id,omitempty"`
+	NextJetDropId *[]NextPrevJetDrop `json:"next_jet_drop_id,omitempty"`
 
 	// Previous `jet_drop_id`.
-	PrevJetDropId *[]string `json:"prev_jet_drop_id,omitempty"`
+	PrevJetDropId *[]NextPrevJetDrop `json:"prev_jet_drop_id,omitempty"`
 
 	// Pulse number.
 	PulseNumber *int64 `json:"pulse_number,omitempty"`
@@ -71,6 +71,19 @@ type JetDrops struct {
 
 	// Number of entries in the array.
 	Total *int64 `json:"total,omitempty"`
+}
+
+// NextPrevJetDrop defines model for next-prev-jet-drop.
+type NextPrevJetDrop struct {
+
+	// Combination of `jet_id` with `pulse_number`.
+	JetDropId *string `json:"jet_drop_id,omitempty"`
+
+	// Jet ID.
+	JetId *string `json:"jet_id,omitempty"`
+
+	// Pulse number.
+	PulseNumber *int64 `json:"pulse_number,omitempty"`
 }
 
 // Pulse defines model for pulse.

@@ -285,7 +285,7 @@ paths:
           schema:
             type: string
           description: Combination of `jet_id` with `pulse_number`.
-          example: '43648102:0010'
+          example: '0010:43648102'
       responses:
         '200':
           description: Internal server error
@@ -298,36 +298,57 @@ paths:
                   jet_drop_id:
                     type: string
                     description: Combination of `jet_id` with `pulse_number`.
-                    example: '43648102:0010'
-                    pattern: '^(\d+:[0-1]{2,64})$'
+                    example: '0010:43648102'
+                    pattern: '^((\*|([0-1]{1,216})):\d+)$'
                   next_jet_drop_id:
                     type: array
-                    format: string
                     description: Next `jet_drop_id`.
-                    example:
-                      - '43648104:00100'
-                      - '43648104:00101'
                     items:
-                      type: string
-                      description: Combination of `jet_id` with `pulse_number`.
-                      example: '43648102:0010'
-                      pattern: '^(\d+:[0-1]{2,64})$'
+                      description: Jet Drop representation.
+                      type: object
+                      properties:
+                        jet_drop_id:
+                          type: string
+                          description: Combination of `jet_id` with `pulse_number`.
+                          example: '0010:43648102'
+                          pattern: '^((\*|([0-1]{1,216})):\d+)$'
+                        jet_id:
+                          type: string
+                          description: Jet ID.
+                          example: '0010'
+                          pattern: '^(\*|([0-1]{1,216}))$'
+                        pulse_number:
+                          type: integer
+                          format: int64
+                          description: Pulse number.
+                          example: 43612021
                   prev_jet_drop_id:
                     type: array
-                    format: string
                     description: Previous `jet_drop_id`.
-                    example:
-                      - '43648101:0010'
                     items:
-                      type: string
-                      description: Combination of jet_id` with `pulse_number`.
-                      example: '43648102:0010'
-                      pattern: '^(\d+:[0-1]{2,64})$'
+                      description: Jet Drop representation.
+                      type: object
+                      properties:
+                        jet_drop_id:
+                          type: string
+                          description: Combination of `jet_id` with `pulse_number`.
+                          example: '0010:43648102'
+                          pattern: '^((\*|([0-1]{1,216})):\d+)$'
+                        jet_id:
+                          type: string
+                          description: Jet ID.
+                          example: '0010'
+                          pattern: '^(\*|([0-1]{1,216}))$'
+                        pulse_number:
+                          type: integer
+                          format: int64
+                          description: Pulse number.
+                          example: 43612021
                   jet_id:
                     type: string
                     description: Jet ID.
                     example: '0010'
-                    pattern: '^([0-1]{2,64})$'
+                    pattern: '^(\*|([0-1]{1,216}))$'
                   pulse_number:
                     type: integer
                     format: int64
@@ -415,36 +436,57 @@ paths:
                         jet_drop_id:
                           type: string
                           description: Combination of `jet_id` with `pulse_number`.
-                          example: '43648102:0010'
-                          pattern: '^(\d+:[0-1]{2,64})$'
+                          example: '0010:43648102'
+                          pattern: '^((\*|([0-1]{1,216})):\d+)$'
                         next_jet_drop_id:
                           type: array
-                          format: string
                           description: Next `jet_drop_id`.
-                          example:
-                            - '43648104:00100'
-                            - '43648104:00101'
                           items:
-                            type: string
-                            description: Combination of `jet_id` with `pulse_number`.
-                            example: '43648102:0010'
-                            pattern: '^(\d+:[0-1]{2,64})$'
+                            description: Jet Drop representation.
+                            type: object
+                            properties:
+                              jet_drop_id:
+                                type: string
+                                description: Combination of `jet_id` with `pulse_number`.
+                                example: '0010:43648102'
+                                pattern: '^((\*|([0-1]{1,216})):\d+)$'
+                              jet_id:
+                                type: string
+                                description: Jet ID.
+                                example: '0010'
+                                pattern: '^(\*|([0-1]{1,216}))$'
+                              pulse_number:
+                                type: integer
+                                format: int64
+                                description: Pulse number.
+                                example: 43612021
                         prev_jet_drop_id:
                           type: array
-                          format: string
                           description: Previous `jet_drop_id`.
-                          example:
-                            - '43648101:0010'
                           items:
-                            type: string
-                            description: Combination of jet_id` with `pulse_number`.
-                            example: '43648102:0010'
-                            pattern: '^(\d+:[0-1]{2,64})$'
+                            description: Jet Drop representation.
+                            type: object
+                            properties:
+                              jet_drop_id:
+                                type: string
+                                description: Combination of `jet_id` with `pulse_number`.
+                                example: '0010:43648102'
+                                pattern: '^((\*|([0-1]{1,216})):\d+)$'
+                              jet_id:
+                                type: string
+                                description: Jet ID.
+                                example: '0010'
+                                pattern: '^(\*|([0-1]{1,216}))$'
+                              pulse_number:
+                                type: integer
+                                format: int64
+                                description: Pulse number.
+                                example: 43612021
                         jet_id:
                           type: string
                           description: Jet ID.
                           example: '0010'
-                          pattern: '^([0-1]{2,64})$'
+                          pattern: '^(\*|([0-1]{1,216}))$'
                         pulse_number:
                           type: integer
                           format: int64
@@ -555,36 +597,57 @@ paths:
                         jet_drop_id:
                           type: string
                           description: Combination of `jet_id` with `pulse_number`.
-                          example: '43648102:0010'
-                          pattern: '^(\d+:[0-1]{2,64})$'
+                          example: '0010:43648102'
+                          pattern: '^((\*|([0-1]{1,216})):\d+)$'
                         next_jet_drop_id:
                           type: array
-                          format: string
                           description: Next `jet_drop_id`.
-                          example:
-                            - '43648104:00100'
-                            - '43648104:00101'
                           items:
-                            type: string
-                            description: Combination of `jet_id` with `pulse_number`.
-                            example: '43648102:0010'
-                            pattern: '^(\d+:[0-1]{2,64})$'
+                            description: Jet Drop representation.
+                            type: object
+                            properties:
+                              jet_drop_id:
+                                type: string
+                                description: Combination of `jet_id` with `pulse_number`.
+                                example: '0010:43648102'
+                                pattern: '^((\*|([0-1]{1,216})):\d+)$'
+                              jet_id:
+                                type: string
+                                description: Jet ID.
+                                example: '0010'
+                                pattern: '^(\*|([0-1]{1,216}))$'
+                              pulse_number:
+                                type: integer
+                                format: int64
+                                description: Pulse number.
+                                example: 43612021
                         prev_jet_drop_id:
                           type: array
-                          format: string
                           description: Previous `jet_drop_id`.
-                          example:
-                            - '43648101:0010'
                           items:
-                            type: string
-                            description: Combination of jet_id` with `pulse_number`.
-                            example: '43648102:0010'
-                            pattern: '^(\d+:[0-1]{2,64})$'
+                            description: Jet Drop representation.
+                            type: object
+                            properties:
+                              jet_drop_id:
+                                type: string
+                                description: Combination of `jet_id` with `pulse_number`.
+                                example: '0010:43648102'
+                                pattern: '^((\*|([0-1]{1,216})):\d+)$'
+                              jet_id:
+                                type: string
+                                description: Jet ID.
+                                example: '0010'
+                                pattern: '^(\*|([0-1]{1,216}))$'
+                              pulse_number:
+                                type: integer
+                                format: int64
+                                description: Pulse number.
+                                example: 43612021
                         jet_id:
                           type: string
                           description: Jet ID.
                           example: '0010'
-                          pattern: '^([0-1]{2,64})$'
+                          pattern: '^(\*|([0-1]{1,216}))$'
                         pulse_number:
                           type: integer
                           format: int64
@@ -663,7 +726,7 @@ paths:
           schema:
             type: string
           description: Combination of `jet_id` with `pulse_number`.
-          example: '43648102:0010'
+          example: '0010:43648102'
         - $ref: '#/components/parameters/RecordsQueryParameterLimit'
         - $ref: '#/components/parameters/RecordsQueryParameterOffset'
         - $ref: '#/components/parameters/RecordsQueryParameterFrom_index'
@@ -748,7 +811,7 @@ paths:
                         jet_drop_id:
                           type: string
                           description: Combination of `jet_id` with `pulse_number`.
-                          example: '43648102:0010'
+                          example: '0010:43648102'
                         order:
                           type: integer
                           format: int64
@@ -886,7 +949,7 @@ paths:
                         jet_drop_id:
                           type: string
                           description: Combination of `jet_id` with `pulse_number`.
-                          example: '43648102:0010'
+                          example: '0010:43648102'
                         order:
                           type: integer
                           format: int64
@@ -972,7 +1035,7 @@ paths:
                       jet_drop_id:
                         type: string
                         description: Combination of `jet_id` with `pulse_number`.
-                        example: '43612021:001'
+                        example: '001:43612021'
                   code:
                     type: string
                   message:
@@ -1067,7 +1130,7 @@ components:
       schema:
         type: string
       description: Combination of `jet_id` with `pulse_number`.
-      example: '43648102:0010'
+      example: '0010:43648102'
     from_jet_drop_id:
       name: from_jet_drop_id
       description: Specific jet drop ID to paginate from.
@@ -1075,7 +1138,7 @@ components:
       required: false
       schema:
         type: string
-      example: '43612021:3'
+      example: '3:43612021'
     jet_id_path:
       in: path
       name: jet_id
@@ -1255,7 +1318,7 @@ components:
       required: false
       schema:
         type: string
-      example: '43612021:3'
+      example: '3:43612021'
     JetDropsByJetIDQueryParameterLimit:
       in: query
       name: limit
@@ -1661,36 +1724,57 @@ components:
               jet_drop_id:
                 type: string
                 description: Combination of `jet_id` with `pulse_number`.
-                example: '43648102:0010'
-                pattern: '^(\d+:[0-1]{2,64})$'
+                example: '0010:43648102'
+                pattern: '^((\*|([0-1]{1,216})):\d+)$'
               next_jet_drop_id:
                 type: array
-                format: string
                 description: Next `jet_drop_id`.
-                example:
-                  - '43648104:00100'
-                  - '43648104:00101'
                 items:
-                  type: string
-                  description: Combination of `jet_id` with `pulse_number`.
-                  example: '43648102:0010'
-                  pattern: '^(\d+:[0-1]{2,64})$'
+                  description: Jet Drop representation.
+                  type: object
+                  properties:
+                    jet_drop_id:
+                      type: string
+                      description: Combination of `jet_id` with `pulse_number`.
+                      example: '0010:43648102'
+                      pattern: '^((\*|([0-1]{1,216})):\d+)$'
+                    jet_id:
+                      type: string
+                      description: Jet ID.
+                      example: '0010'
+                      pattern: '^(\*|([0-1]{1,216}))$'
+                    pulse_number:
+                      type: integer
+                      format: int64
+                      description: Pulse number.
+                      example: 43612021
               prev_jet_drop_id:
                 type: array
-                format: string
                 description: Previous `jet_drop_id`.
-                example:
-                  - '43648101:0010'
                 items:
-                  type: string
-                  description: Combination of jet_id` with `pulse_number`.
-                  example: '43648102:0010'
-                  pattern: '^(\d+:[0-1]{2,64})$'
+                  description: Jet Drop representation.
+                  type: object
+                  properties:
+                    jet_drop_id:
+                      type: string
+                      description: Combination of `jet_id` with `pulse_number`.
+                      example: '0010:43648102'
+                      pattern: '^((\*|([0-1]{1,216})):\d+)$'
+                    jet_id:
+                      type: string
+                      description: Jet ID.
+                      example: '0010'
+                      pattern: '^(\*|([0-1]{1,216}))$'
+                    pulse_number:
+                      type: integer
+                      format: int64
+                      description: Pulse number.
+                      example: 43612021
               jet_id:
                 type: string
                 description: Jet ID.
                 example: '0010'
-                pattern: '^([0-1]{2,64})$'
+                pattern: '^(\*|([0-1]{1,216}))$'
               pulse_number:
                 type: integer
                 format: int64
@@ -1754,36 +1838,57 @@ components:
                     jet_drop_id:
                       type: string
                       description: Combination of `jet_id` with `pulse_number`.
-                      example: '43648102:0010'
-                      pattern: '^(\d+:[0-1]{2,64})$'
+                      example: '0010:43648102'
+                      pattern: '^((\*|([0-1]{1,216})):\d+)$'
                     next_jet_drop_id:
                       type: array
-                      format: string
                       description: Next `jet_drop_id`.
-                      example:
-                        - '43648104:00100'
-                        - '43648104:00101'
                       items:
-                        type: string
-                        description: Combination of `jet_id` with `pulse_number`.
-                        example: '43648102:0010'
-                        pattern: '^(\d+:[0-1]{2,64})$'
+                        description: Jet Drop representation.
+                        type: object
+                        properties:
+                          jet_drop_id:
+                            type: string
+                            description: Combination of `jet_id` with `pulse_number`.
+                            example: '0010:43648102'
+                            pattern: '^((\*|([0-1]{1,216})):\d+)$'
+                          jet_id:
+                            type: string
+                            description: Jet ID.
+                            example: '0010'
+                            pattern: '^(\*|([0-1]{1,216}))$'
+                          pulse_number:
+                            type: integer
+                            format: int64
+                            description: Pulse number.
+                            example: 43612021
                     prev_jet_drop_id:
                       type: array
-                      format: string
                       description: Previous `jet_drop_id`.
-                      example:
-                        - '43648101:0010'
                       items:
-                        type: string
-                        description: Combination of jet_id` with `pulse_number`.
-                        example: '43648102:0010'
-                        pattern: '^(\d+:[0-1]{2,64})$'
+                        description: Jet Drop representation.
+                        type: object
+                        properties:
+                          jet_drop_id:
+                            type: string
+                            description: Combination of `jet_id` with `pulse_number`.
+                            example: '0010:43648102'
+                            pattern: '^((\*|([0-1]{1,216})):\d+)$'
+                          jet_id:
+                            type: string
+                            description: Jet ID.
+                            example: '0010'
+                            pattern: '^(\*|([0-1]{1,216}))$'
+                          pulse_number:
+                            type: integer
+                            format: int64
+                            description: Pulse number.
+                            example: 43612021
                     jet_id:
                       type: string
                       description: Jet ID.
                       example: '0010'
-                      pattern: '^([0-1]{2,64})$'
+                      pattern: '^(\*|([0-1]{1,216}))$'
                     pulse_number:
                       type: integer
                       format: int64
@@ -1923,7 +2028,7 @@ components:
                     jet_drop_id:
                       type: string
                       description: Combination of `jet_id` with `pulse_number`.
-                      example: '43648102:0010'
+                      example: '0010:43648102'
                     order:
                       type: integer
                       format: int64
@@ -1997,7 +2102,7 @@ components:
                   jet_drop_id:
                     type: string
                     description: Combination of `jet_id` with `pulse_number`.
-                    example: '43612021:001'
+                    example: '001:43612021'
               code:
                 type: string
               message:
@@ -2210,36 +2315,57 @@ components:
         jet_drop_id:
           type: string
           description: Combination of `jet_id` with `pulse_number`.
-          example: '43648102:0010'
-          pattern: '^(\d+:[0-1]{2,64})$'
+          example: '0010:43648102'
+          pattern: '^((\*|([0-1]{1,216})):\d+)$'
         next_jet_drop_id:
           type: array
-          format: string
           description: Next `jet_drop_id`.
-          example:
-            - '43648104:00100'
-            - '43648104:00101'
           items:
-            type: string
-            description: Combination of `jet_id` with `pulse_number`.
-            example: '43648102:0010'
-            pattern: '^(\d+:[0-1]{2,64})$'
+            description: Jet Drop representation.
+            type: object
+            properties:
+              jet_drop_id:
+                type: string
+                description: Combination of `jet_id` with `pulse_number`.
+                example: '0010:43648102'
+                pattern: '^((\*|([0-1]{1,216})):\d+)$'
+              jet_id:
+                type: string
+                description: Jet ID.
+                example: '0010'
+                pattern: '^(\*|([0-1]{1,216}))$'
+              pulse_number:
+                type: integer
+                format: int64
+                description: Pulse number.
+                example: 43612021
         prev_jet_drop_id:
           type: array
-          format: string
           description: Previous `jet_drop_id`.
-          example:
-            - '43648101:0010'
           items:
-            type: string
-            description: Combination of jet_id` with `pulse_number`.
-            example: '43648102:0010'
-            pattern: '^(\d+:[0-1]{2,64})$'
+            description: Jet Drop representation.
+            type: object
+            properties:
+              jet_drop_id:
+                type: string
+                description: Combination of `jet_id` with `pulse_number`.
+                example: '0010:43648102'
+                pattern: '^((\*|([0-1]{1,216})):\d+)$'
+              jet_id:
+                type: string
+                description: Jet ID.
+                example: '0010'
+                pattern: '^(\*|([0-1]{1,216}))$'
+              pulse_number:
+                type: integer
+                format: int64
+                description: Pulse number.
+                example: 43612021
         jet_id:
           type: string
           description: Jet ID.
           example: '0010'
-          pattern: '^([0-1]{2,64})$'
+          pattern: '^(\*|([0-1]{1,216}))$'
         pulse_number:
           type: integer
           format: int64
@@ -2299,36 +2425,57 @@ components:
               jet_drop_id:
                 type: string
                 description: Combination of `jet_id` with `pulse_number`.
-                example: '43648102:0010'
-                pattern: '^(\d+:[0-1]{2,64})$'
+                example: '0010:43648102'
+                pattern: '^((\*|([0-1]{1,216})):\d+)$'
               next_jet_drop_id:
                 type: array
-                format: string
                 description: Next `jet_drop_id`.
-                example:
-                  - '43648104:00100'
-                  - '43648104:00101'
                 items:
-                  type: string
-                  description: Combination of `jet_id` with `pulse_number`.
-                  example: '43648102:0010'
-                  pattern: '^(\d+:[0-1]{2,64})$'
+                  description: Jet Drop representation.
+                  type: object
+                  properties:
+                    jet_drop_id:
+                      type: string
+                      description: Combination of `jet_id` with `pulse_number`.
+                      example: '0010:43648102'
+                      pattern: '^((\*|([0-1]{1,216})):\d+)$'
+                    jet_id:
+                      type: string
+                      description: Jet ID.
+                      example: '0010'
+                      pattern: '^(\*|([0-1]{1,216}))$'
+                    pulse_number:
+                      type: integer
+                      format: int64
+                      description: Pulse number.
+                      example: 43612021
               prev_jet_drop_id:
                 type: array
-                format: string
                 description: Previous `jet_drop_id`.
-                example:
-                  - '43648101:0010'
                 items:
-                  type: string
-                  description: Combination of jet_id` with `pulse_number`.
-                  example: '43648102:0010'
-                  pattern: '^(\d+:[0-1]{2,64})$'
+                  description: Jet Drop representation.
+                  type: object
+                  properties:
+                    jet_drop_id:
+                      type: string
+                      description: Combination of `jet_id` with `pulse_number`.
+                      example: '0010:43648102'
+                      pattern: '^((\*|([0-1]{1,216})):\d+)$'
+                    jet_id:
+                      type: string
+                      description: Jet ID.
+                      example: '0010'
+                      pattern: '^(\*|([0-1]{1,216}))$'
+                    pulse_number:
+                      type: integer
+                      format: int64
+                      description: Pulse number.
+                      example: 43612021
               jet_id:
                 type: string
                 description: Jet ID.
                 example: '0010'
-                pattern: '^([0-1]{2,64})$'
+                pattern: '^(\*|([0-1]{1,216}))$'
               pulse_number:
                 type: integer
                 format: int64
@@ -2462,7 +2609,7 @@ components:
               jet_drop_id:
                 type: string
                 description: Combination of `jet_id` with `pulse_number`.
-                example: '43648102:0010'
+                example: '0010:43648102'
               order:
                 type: integer
                 format: int64
@@ -2559,7 +2706,7 @@ components:
             jet_drop_id:
               type: string
               description: Combination of `jet_id` with `pulse_number`.
-              example: '43612021:001'
+              example: '001:43612021'
     search-lifeline:
       description: Lifeline response.
       title: Lifeline response
@@ -2589,6 +2736,25 @@ components:
         failure_reason:
           type: string
           description: Failure reason.
+    next-prev-jet-drop:
+      description: Jet Drop representation.
+      type: object
+      properties:
+        jet_drop_id:
+          type: string
+          description: Combination of `jet_id` with `pulse_number`.
+          example: '0010:43648102'
+          pattern: '^((\*|([0-1]{1,216})):\d+)$'
+        jet_id:
+          type: string
+          description: Jet ID.
+          example: '0010'
+          pattern: '^(\*|([0-1]{1,216}))$'
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 43612021
     record:
       description: Record representation.
       type: object
@@ -2649,7 +2815,7 @@ components:
         jet_drop_id:
           type: string
           description: Combination of `jet_id` with `pulse_number`.
-          example: '43648102:0010'
+          example: '0010:43648102'
         order:
           type: integer
           format: int64
