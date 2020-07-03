@@ -5,33 +5,25 @@ properties:
   jet_drop_id:
     type: string
     description: Combination of `jet_id` with `pulse_number`.
-    example: "43648102:0010"
-    pattern: '^(\d+:[0-1]{2,64})$'
+    example: "0010:43648102"
+    pattern: '^((\*|([0-1]{1,216}):\d+)$'
   next_jet_drop_id:
     type: array
-    format: string
     description: Next `jet_drop_id`.
-    example: ["43648104:00100", "43648104:00101"]
     items:
-      type: string
-      description: Combination of `jet_id` with `pulse_number`.
-      example: "43648102:0010"
-      pattern: '^(\d+:[0-1]{2,64})$'
+      allOf:
+        - $ref: './next-prev-jet-drop.yaml'
   prev_jet_drop_id:
     type: array
-    format: string
     description: Previous `jet_drop_id`.
-    example: ["43648101:0010"]
     items:
-      type: string
-      description: Combination of jet_id` with `pulse_number`.
-      example: "43648102:0010"
-      pattern: '^(\d+:[0-1]{2,64})$'
+      allOf:
+        - $ref: './next-prev-jet-drop.yaml'
   jet_id:
     type: string
     description: Jet ID.
     example: "0010"
-    pattern: '^([0-1]{2,64})$'
+    pattern: '^(\*|([0-1]{1,216}))$'
   pulse_number:
     type: integer
     format: int64

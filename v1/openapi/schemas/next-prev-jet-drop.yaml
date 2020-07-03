@@ -1,0 +1,20 @@
+x-component: 'schemas/next-prev-jet-drop'
+description: Jet Drop representation.
+type: object
+properties:
+  jet_drop_id:
+    type: string
+    description: Combination of `jet_id` with `pulse_number`.
+    example: "0010:43648102"
+    pattern: '^((\*|([0-1]{1,216}):\d+)$'
+  jet_id:
+    type: string
+    description: Jet ID.
+    example: "0010"
+    pattern: '^(\*|([0-1]{1,216}))$'
+  pulse_number:
+    type: integer
+    format: int64
+    description: Pulse number.
+    example: 43612021
+
