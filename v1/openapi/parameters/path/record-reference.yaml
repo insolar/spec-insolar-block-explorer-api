@@ -1,0 +1,7 @@
+x-component: 'parameters/path/record-reference'
+name: record-reference
+in: path
+required: true
+description:
+schema:
+  $ref: "../../schemas/simple/record-reference.yaml"

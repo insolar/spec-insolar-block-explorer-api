@@ -54,6 +54,8 @@ tags:
     description: Record is the minimum unit of storage that contains an associated request, response, and maintenance details. Records are grouped by lifeline.
   - name: Search
     description: Search provides detailed entity metadata.
+  - name: Calls
+    description: Retrieveng combined request-result information
 
 paths:
   /api/v1/pulses:
@@ -72,4 +74,7 @@ paths:
     $ref: 'requests/lifeline.yaml'
   /api/v1/search:
     $ref: 'requests/search.yaml'
+  /api/v1/calltree/{record-reference}:
+    $ref: 'requests/calltree.yaml'
+
 

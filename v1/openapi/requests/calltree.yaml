@@ -1,0 +1,15 @@
+get:
+  summary: Call tree for known record
+  description: Gets
+  operationId: calltree
+  tags:
+    - Calls
+  parameters:
+    - $ref: '../parameters/path/record-reference.yaml'
+  responses:
+    '200':
+      $ref: "../responses/calltree.yaml"
+    '400':
+      $ref: "../responses/400.yaml"
+    '500':
+      $ref: "../responses/500.yaml"

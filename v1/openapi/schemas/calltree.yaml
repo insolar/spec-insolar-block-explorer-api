@@ -1,0 +1,19 @@
+x-component: "schemas/calltree"
+description: Call tree representation.
+type: object
+properties:
+  reason:
+    description: Parent Call
+    $ref: "../schemas/simple/record-reference.yaml"
+  pulsenumber:
+    $ref: "../schemas/simple/record-reference.yaml"
+  prototype:
+    $ref: "../schemas/simple/object-reference.yaml"
+  method:
+    type: string
+  isimmutable:
+    type: bool
+  children:
+    type: array
+    items:
+      $ref: '#/'

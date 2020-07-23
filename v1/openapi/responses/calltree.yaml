@@ -1,0 +1,6 @@
+x-component: 'responses/calltree'
+description: OK
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/calltree.yaml'

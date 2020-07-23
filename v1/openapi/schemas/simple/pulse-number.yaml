@@ -1,0 +1,4 @@
+x-component: 'schemas/simple/pulse-number'
+type: integer
+minimum: 0
+example: 43648106

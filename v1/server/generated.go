@@ -273,9 +273,9 @@ type RecordTypeParam string
 
 // List of RecordTypeParam
 const (
-	RecordTypeParam_state   RecordTypeParam = "state"
 	RecordTypeParam_request RecordTypeParam = "request"
 	RecordTypeParam_result  RecordTypeParam = "result"
+	RecordTypeParam_state   RecordTypeParam = "state"
 )
 
 // SortByIndex defines model for sort_by_index.
@@ -283,8 +283,8 @@ type SortByIndex string
 
 // List of SortByIndex
 const (
-	SortByIndex_index_desc SortByIndex = "index_desc"
 	SortByIndex_index_asc  SortByIndex = "index_asc"
+	SortByIndex_index_desc SortByIndex = "index_desc"
 )
 
 // SortByPulse defines model for sort_by_pulse.

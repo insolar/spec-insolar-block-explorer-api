@@ -3,25 +3,17 @@ description: Record representation.
 type: object
 properties:
   reference:
-    type: string
     description: Record reference.
-    example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
-    pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+    $ref: "simple/record-reference.yaml"
   prev_record_reference:
-    type: string
     description: Previous record reference.
-    example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record"
-    pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+    $ref: "simple/record-reference.yaml"
   object_reference:
-    type: string
     description: Object reference.
-    example: "insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE"
-    pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+    $ref: "simple/object-reference.yaml"
   prototype_reference:
-    type: string
     description: Prototype reference.
-    example: "insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g"
-    pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+    $ref: "simple/object-reference.yaml"
   type:
     type: string
     description: Record type.
