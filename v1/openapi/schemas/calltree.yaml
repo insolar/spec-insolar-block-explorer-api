@@ -12,7 +12,7 @@ properties:
   method:
     type: string
   isimmutable:
-    type: bool
+    type: boolean
   children:
     type: array
     items:
