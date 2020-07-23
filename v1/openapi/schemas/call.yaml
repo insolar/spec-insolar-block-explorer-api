@@ -1,0 +1,152 @@
+x-component: "schemas/call"
+description: Call representation.
+type: object
+oneOf:
+  - '#/definitions/IncomingRequest'
+  - '#/definitions/OutgoingRequest'
+  - '#/definitions/Result'
+  - '#/definitions/Activate'
+  - '#/definitions/Amend'
+  - '#/definitions/Deactivate'
+
+
+definitions:
+  IncomingRequest:
+    type: object
+    properties:
+      ID:
+      ObjectID:
+      JetID:
+      Signature:
+      CallType:
+      Caller:
+        $ref: "simple/object-reference"
+      CallerPrototype:
+        $ref: "simple/object-reference"
+      Nonce:
+        type: integer
+      ReturnMode:
+        type: integer
+      Immutable:
+        type: boolean
+      Base:
+        $ref: "simple/object-reference"
+      Object:
+        $ref: "simple/object-reference"
+      Prototype:
+        $ref: "simple/object-reference"
+      Method:
+        type: string
+      Arguments:
+        type: string
+      APIRequestID:
+        type: string
+      Reason:
+        $ref: "simple/object-reference"
+      APINode:
+        $ref: "simple/object-reference"
+
+
+
+  OutgoingRequest:
+    type: object
+    properties:
+      ID:
+      ObjectID:
+      JetID:
+      Signature:
+      CallType:
+      Caller:
+        $ref: "simple/object-reference"
+      CallerPrototype:
+        $ref: "simple/object-reference"
+      Nonce:
+        type: integer
+      ReturnMode:
+        type: integer
+      Immutable:
+        type: boolean
+      Base:
+        $ref: "simple/object-reference"
+      Object:
+        $ref: "simple/object-reference"
+      Prototype:
+        $ref: "simple/object-reference"
+      Method:
+        type: string
+      Arguments:
+        type: string
+      APIRequestID:
+        type: string
+      Reason:
+        $ref: "simple/object-reference"
+      APINode:
+        $ref: "simple/object-reference"
+
+
+
+  Result:
+    type: object
+    properties:
+      ID:
+      ObjectID:
+      JetID:
+      Signature:
+      Object:
+        $ref: "simple/object-reference"
+      Request:
+        $ref: "simple/object-reference"
+      Payload:
+
+
+
+  Activate:
+    type: object
+    properties:
+      ID:
+      ObjectID:
+      JetID:
+      Signature:
+      Request:
+        $ref: "simple/object-reference"
+      Memory:
+      Image:
+        $ref: "simple/object-reference"
+      IsPrototype:
+        type: boolean
+      Parent:
+        $ref: "simple/object-reference"
+
+
+
+  Amend:
+    type: object
+    properties:
+      ID:
+      ObjectID:
+      JetID:
+      Signature:
+      Request:
+        $ref: "simple/object-reference"
+      Memory:
+      Image:
+        $ref: "simple/object-reference"
+      IsPrototype:
+        type: boolean
+      PrevState:
+        $ref: "simple/object-reference"
+
+
+
+  Deactivate:
+    type: object
+    properties:
+      ID:
+      ObjectID:
+      JetID:
+      Signature:
+      Request:
+        $ref: "simple/object-reference"
+      PrevState:
+        $ref: "simple/object-reference"
+

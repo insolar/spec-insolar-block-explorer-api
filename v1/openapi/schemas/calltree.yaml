@@ -2,12 +2,17 @@ x-component: "schemas/calltree"
 description: Call tree representation.
 type: object
 properties:
-  reason:
-    description: Parent Call
+  incoming-request:
+    description: call reference
     $ref: "../schemas/simple/record-reference.yaml"
   pulsenumber:
+    description: Pulse number when call starts
     $ref: "../schemas/simple/record-reference.yaml"
   prototype:
+    description: Reference of prototype object
+    $ref: "../schemas/simple/object-reference.yaml"
+  reference:
+    description: Reference of object
     $ref: "../schemas/simple/object-reference.yaml"
   method:
     type: string

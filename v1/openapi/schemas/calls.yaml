@@ -1,0 +1,13 @@
+x-component: "schemas/calls"
+description: Full one call information
+type: object
+properties:
+  total:
+    type: integer
+    format: int64
+    description: Number of entries in the array.
+    example: 100
+  result:
+    type: array
+    items:
+      $ref: './call.yaml'

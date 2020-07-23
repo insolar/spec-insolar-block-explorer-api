@@ -1,14 +1,14 @@
 get:
-  summary: Call tree for known record
-  description: Gets tree of calls by one call reference
-  operationId: calltree
+  summary: Full call representation
+  description: Gets array of calls per one incoming request
+  operationId: call
   tags:
     - Calls
   parameters:
     - $ref: '../parameters/path/record-reference.yaml'
   responses:
     '200':
-      $ref: "../responses/calltree.yaml"
+      $ref: "../responses/calls.yaml"
     '400':
       $ref: "../responses/400.yaml"
     '500':

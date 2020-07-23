@@ -76,5 +76,6 @@ paths:
     $ref: 'requests/search.yaml'
   /api/v1/calltree/{record-reference}:
     $ref: 'requests/calltree.yaml'
-
+  /api/v1/call/{record-reference}:
+    $ref: 'requests/call.yaml'
 
