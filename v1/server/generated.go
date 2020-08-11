@@ -338,7 +338,7 @@ type JetDropsByJetIDParams struct {
 	// Number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Specific `jet_drop_id` to paginate from .
+	// Specific `jet_drop_id` to paginate from.
 	FromJetDropId *FromJetDropId `json:"from_jet_drop_id,omitempty"`
 
 	// Sorting direction based on `pulse_number`.
@@ -407,7 +407,7 @@ type JetDropsByPulseNumberParams struct {
 	// Number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Specific `jet_drop_id` to paginate from .
+	// Specific `jet_drop_id` to paginate from.
 	FromJetDropId *FromJetDropId `json:"from_jet_drop_id,omitempty"`
 }
 
