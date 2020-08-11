@@ -1,6 +1,6 @@
 get:
   summary: Jet drops by pulse number
-  description: Gets jet drops by `pulse_number` and based on specified filtering and pagination parameters.
+  description: Gets jet drops by `pulse_number`. Results can be filtered and paginated based on the specified filtering and pagination parameters.
   operationId: JetDropsByPulseNumber
   tags:
     - Jet drop

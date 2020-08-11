@@ -1,6 +1,6 @@
 get:
   summary: Records
-  description: Gets records by `jet_drop_id` and based on specified filtering and pagination parameters.
+  description: Gets records by `jet_drop_id`. Results can be filtered and paginated based on the specified filtering and pagination parameters.
   operationId: jet_drop_records
   tags:
     - Record
