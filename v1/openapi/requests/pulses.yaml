@@ -1,6 +1,6 @@
 get:
   summary: Get pulses
-  description: Gets a range of pulses based on the filtering and pagination parameters.
+  description: Gets a range of pulses based on specified filtering and pagination parameters.
   operationId: pulses
   tags:
     - Pulse

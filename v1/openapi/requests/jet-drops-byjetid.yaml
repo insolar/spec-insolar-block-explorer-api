@@ -1,6 +1,6 @@
 get:
   summary: Jet drops by jet ID
-  description: Gets jet drops by `jet_id` and based on filtering and pagination parameters.
+  description: Gets jet drops by `jet_id` and based on specified filtering and pagination parameters.
   operationId: JetDropsByJetID
   tags:
     - Jet drop

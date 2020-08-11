@@ -10,32 +10,44 @@ info:
     # Insolar Explorer API documentation
 
 
+    Welcome to Insolar documentation for a REST-like API provided by Insolar
+    Explorer.
+
+
     [Insolar Explorer](https://github.com/insolar/block-explorer) is a service
-    that allows users to search for and view the contents of individual
-    transactions, records, lifelines, jet drops and jets.
+    for searching for and viewing the contents of individual transactions,
+    records, lifelines, jet drops and jets.
 
 
-    Insolar Explorer provides a REST-like API interface.
+    The API allows to search for, filter and view the contents of said entities.
 
 
-    ## Basic entities
+    ## Entities description
 
 
     * Record—minimum unit of storage that contains an associated request,
-    response, and maintenance details
+    response, and maintenance details.
 
     * Lifeline—sequence of records for object state where an object is a smart
-    contract instance
+    contract instance.
 
-    * Jet drop—unit of storage for jets
+    * Jet drop—unit of storage for jets.
 
-    * Jet—groups of lifelines
+    * Jet—groups of lifelines.
+
+
+    * Jet drop ID—combination of jet id with pulse number.
+
+    * Index—combination of pulse number with order (record number in a jet
+    drop).
+
 
 
     ## Filtering, pagination, sorting
 
 
-    API provides filtering based on a range of values: < > or ≤ ≥.
+    API provides filtering based on a range of values: greater than and less
+    than, or greater than or equal to and less than or equal to.
 
 
     API provides a combination of offset and seek pagination.
@@ -71,12 +83,16 @@ tags:
       Record is the minimum unit of storage that contains an associated request,
       response, and maintenance details. Records are grouped by lifeline.
   - name: Search
-    description: Search provides detailed entity metadata.
+    description: >-
+      Search allows to determine the entity type for the searching `value` and
+      obtain metadata for the searched entity.
 paths:
   /api/v1/pulses:
     get:
       summary: Get pulses
-      description: Gets a range of pulses based on the filtering and pagination parameters.
+      description: >-
+        Gets a range of pulses based on specified filtering and pagination
+        parameters.
       operationId: pulses
       tags:
         - Pulse
@@ -266,7 +282,7 @@ paths:
   '/api/v1/jet-drops/{jet_drop_id}':
     get:
       summary: Jet drop by ID
-      description: Gets a jet drop by `jet_drop_id`.
+      description: Gets a `jet_drop` by `jet_drop_id`.
       operationId: jetDropByID
       tags:
         - Jet drop
@@ -276,7 +292,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Jet drop ID—a combination of `jet_id` with `pulse_number`.
+          description: Combination of `jet_id` with `pulse_number`.
           example: '43648102:0010'
       responses:
         '200':
@@ -289,9 +305,7 @@ paths:
                 properties:
                   jet_drop_id:
                     type: string
-                    description: >-
-                      Jet drop ID is a combination of `jet_id` with
-                      `pulse_number`.
+                    description: Combination of `jet_id` with `pulse_number`.
                     example: '43648102:0010'
                     pattern: '^(\d+:[0-1]{2,64})$'
                   next_jet_drop_id:
@@ -303,9 +317,7 @@ paths:
                       - '43648104:00101'
                     items:
                       type: string
-                      description: >-
-                        Jet drop ID is a combination of `jet_id` with
-                        `pulse_number`.
+                      description: Combination of `jet_id` with `pulse_number`.
                       example: '43648102:0010'
                       pattern: '^(\d+:[0-1]{2,64})$'
                   prev_jet_drop_id:
@@ -316,9 +328,7 @@ paths:
                       - '43648101:0010'
                     items:
                       type: string
-                      description: >-
-                        Jet drop ID is a combination of jet_id` with
-                        `pulse_number`.
+                      description: Combination of jet_id` with `pulse_number`.
                       example: '43648102:0010'
                       pattern: '^(\d+:[0-1]{2,64})$'
                   jet_id:
@@ -371,8 +381,8 @@ paths:
     get:
       summary: Jet drops by pulse number
       description: >-
-        Gets jet drops by `pulse_number` and based on filtering and pagination
-        parameters.
+        Gets jet drops by `pulse_number` and based on specified filtering and
+        pagination parameters.
       operationId: JetDropsByPulseNumber
       tags:
         - Jet drop
@@ -412,9 +422,7 @@ paths:
                       properties:
                         jet_drop_id:
                           type: string
-                          description: >-
-                            Jet drop ID is a combination of `jet_id` with
-                            `pulse_number`.
+                          description: Combination of `jet_id` with `pulse_number`.
                           example: '43648102:0010'
                           pattern: '^(\d+:[0-1]{2,64})$'
                         next_jet_drop_id:
@@ -426,9 +434,7 @@ paths:
                             - '43648104:00101'
                           items:
                             type: string
-                            description: >-
-                              Jet drop ID is a combination of `jet_id` with
-                              `pulse_number`.
+                            description: Combination of `jet_id` with `pulse_number`.
                             example: '43648102:0010'
                             pattern: '^(\d+:[0-1]{2,64})$'
                         prev_jet_drop_id:
@@ -439,9 +445,7 @@ paths:
                             - '43648101:0010'
                           items:
                             type: string
-                            description: >-
-                              Jet drop ID is a combination of jet_id` with
-                              `pulse_number`.
+                            description: Combination of jet_id` with `pulse_number`.
                             example: '43648102:0010'
                             pattern: '^(\d+:[0-1]{2,64})$'
                         jet_id:
@@ -515,8 +519,8 @@ paths:
     get:
       summary: Jet drops by jet ID
       description: >-
-        Gets jet drops by `jet_id` and based on filtering and pagination
-        parameters.
+        Gets jet drops by `jet_id` and based on specified filtering and
+        pagination parameters.
       operationId: JetDropsByJetID
       tags:
         - Jet drop
@@ -557,9 +561,7 @@ paths:
                       properties:
                         jet_drop_id:
                           type: string
-                          description: >-
-                            Jet drop ID is a combination of `jet_id` with
-                            `pulse_number`.
+                          description: Combination of `jet_id` with `pulse_number`.
                           example: '43648102:0010'
                           pattern: '^(\d+:[0-1]{2,64})$'
                         next_jet_drop_id:
@@ -571,9 +573,7 @@ paths:
                             - '43648104:00101'
                           items:
                             type: string
-                            description: >-
-                              Jet drop ID is a combination of `jet_id` with
-                              `pulse_number`.
+                            description: Combination of `jet_id` with `pulse_number`.
                             example: '43648102:0010'
                             pattern: '^(\d+:[0-1]{2,64})$'
                         prev_jet_drop_id:
@@ -584,9 +584,7 @@ paths:
                             - '43648101:0010'
                           items:
                             type: string
-                            description: >-
-                              Jet drop ID is a combination of jet_id` with
-                              `pulse_number`.
+                            description: Combination of jet_id` with `pulse_number`.
                             example: '43648102:0010'
                             pattern: '^(\d+:[0-1]{2,64})$'
                         jet_id:
@@ -660,8 +658,8 @@ paths:
     get:
       summary: Records
       description: >-
-        Gets records by `jet_drop_id` and based on filtering and pagination
-        parameters.
+        Gets records by `jet_drop_id` and based on specified filtering and
+        pagination parameters.
       operationId: jet_drop_records
       tags:
         - Record
@@ -671,7 +669,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Jet drop ID—a combination of `jet_id` with `pulse_number`.
+          description: Combination of `jet_id` with `pulse_number`.
           example: '43648102:0010'
         - $ref: '#/components/parameters/RecordsQueryParameterLimit'
         - $ref: '#/components/parameters/RecordsQueryParameterOffset'
@@ -705,7 +703,7 @@ paths:
                           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
                         prev_record_reference:
                           type: string
-                          description: Previous record reference.
+                          description: Reference of previous record.
                           example: >-
                             insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record
                           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
@@ -756,19 +754,17 @@ paths:
                           pattern: '^([0-1]{2,64})$'
                         jet_drop_id:
                           type: string
-                          description: >-
-                            Jet drop ID is a combination of `jet_id` with
-                            `pulse_number`.
+                          description: Combination of `jet_id` with `pulse_number`.
                           example: '43648102:0010'
                         order:
                           type: integer
                           format: int64
-                          description: Order is the record order number in the jet drop.
+                          description: Order—record number in a jet drop.
                           example: '3'
                         index:
                           type: string
                           description: >-
-                            Index is combination of pulse_number with order
+                            Index—combination of `pulse_number` with `order`
                             (record number in a jet drop).
                           example: '43648102:7'
                   code:
@@ -797,7 +793,7 @@ paths:
       summary: Object lifeline
       description: >-
         Gets a lifeline with all its records by `object_reference` and based on
-        filtering, pagination and sorting parameters.
+        specified filtering, pagination and sorting parameters.
       operationId: object_lifeline
       tags:
         - Record
@@ -845,7 +841,7 @@ paths:
                           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
                         prev_record_reference:
                           type: string
-                          description: Previous record reference.
+                          description: Reference of previous record.
                           example: >-
                             insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record
                           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
@@ -896,19 +892,17 @@ paths:
                           pattern: '^([0-1]{2,64})$'
                         jet_drop_id:
                           type: string
-                          description: >-
-                            Jet drop ID is a combination of `jet_id` with
-                            `pulse_number`.
+                          description: Combination of `jet_id` with `pulse_number`.
                           example: '43648102:0010'
                         order:
                           type: integer
                           format: int64
-                          description: Order is the record order number in the jet drop.
+                          description: Order—record number in a jet drop.
                           example: '3'
                         index:
                           type: string
                           description: >-
-                            Index is combination of pulse_number with order
+                            Index—combination of `pulse_number` with `order`
                             (record number in a jet drop).
                           example: '43648102:7'
                   code:
@@ -979,14 +973,12 @@ paths:
                       index:
                         type: string
                         description: >-
-                          Index is combination of `pulse_number` with `order`
+                          Index—combination of `pulse_number` with `order`
                           (record number in a jet drop).
                         example: '43648102:7'
                       jet_drop_id:
                         type: string
-                        description: >-
-                          Jet drop ID is a combination of `jet_id` with
-                          `pulse_number`.
+                        description: Combination of `jet_id` with `pulse_number`.
                         example: '43612021:001'
                   code:
                     type: string
@@ -1034,7 +1026,7 @@ components:
     fromPulseNumberParam:
       in: query
       name: from_pulse_number
-      description: Specific pulse number to paginate from.
+      description: Specific `pulse_number` to paginate from.
       required: false
       schema:
         type: integer
@@ -1045,7 +1037,7 @@ components:
       in: query
       name: timestamp_gte
       description: >-
-        Starting point in a range. Greater than or equal to this timestamp in
+        Starting point in a range. Greater than or equal to this `timestamp` in
         Unix format.
       required: false
       schema:
@@ -1057,8 +1049,8 @@ components:
       in: query
       name: timestamp_lte
       description: >-
-        Ending point in a range. Greater than or equal to this timestamp in Unix
-        format.
+        Ending point in a range. Greater than or equal to this `timestamp` in
+        Unix format.
       required: false
       schema:
         type: integer
@@ -1081,14 +1073,12 @@ components:
       required: true
       schema:
         type: string
-      description: Jet drop ID—a combination of `jet_id` with `pulse_number`.
+      description: Combination of `jet_id` with `pulse_number`.
       example: '43648102:0010'
     from_jet_drop_id:
-      name: from_jet_drop_id
-      description: >-
-        Specific jet drop ID to paginate from. Jet drop ID is a combination of
-        `jet_id` with `pulse_number`.
       in: query
+      name: from_jet_drop_id
+      description: Specific `jet_drop_id` to paginate from .
       required: false
       schema:
         type: string
@@ -1124,16 +1114,14 @@ components:
     jet_drop_id_lt:
       in: query
       name: jet_drop_id_lt
-      description: Starting point in a range. Less than this `jet_drop_id`.
+      description: Ending point in a range. Less than this `jet_drop_id`.
       required: false
       schema:
         type: string
       example: '43648104:00102'
     from_index:
       name: from_index
-      description: >-
-        Specific index to paginate from. Index is a combination of
-        `pulse_number` with order (record number in a jet drop).
+      description: Specific `index` to paginate from.
       in: query
       required: false
       schema:
@@ -1162,9 +1150,7 @@ components:
     sort_by_index:
       in: query
       name: sort_by
-      description: >-
-        Sorting direction based on index. Index is a combination of
-        `pulse_number` with order (record number in a jet drop).
+      description: Sorting direction based on `index`.
       required: false
       schema:
         type: string
@@ -1215,7 +1201,7 @@ components:
     GetPulsesQueryParameterFrom_pulse_number:
       in: query
       name: from_pulse_number
-      description: Specific pulse number to paginate from.
+      description: Specific `pulse_number` to paginate from.
       required: false
       schema:
         type: integer
@@ -1226,7 +1212,7 @@ components:
       in: query
       name: timestamp_gte
       description: >-
-        Starting point in a range. Greater than or equal to this timestamp in
+        Starting point in a range. Greater than or equal to this `timestamp` in
         Unix format.
       required: false
       schema:
@@ -1238,8 +1224,8 @@ components:
       in: query
       name: timestamp_lte
       description: >-
-        Ending point in a range. Greater than or equal to this timestamp in Unix
-        format.
+        Ending point in a range. Greater than or equal to this `timestamp` in
+        Unix format.
       required: false
       schema:
         type: integer
@@ -1268,11 +1254,9 @@ components:
         default: 0
       example: 10
     JetDropsByPulseNumberQueryParameterFrom_jet_drop_id:
-      name: from_jet_drop_id
-      description: >-
-        Specific jet drop ID to paginate from. Jet drop ID is a combination of
-        `jet_id` with `pulse_number`.
       in: query
+      name: from_jet_drop_id
+      description: Specific `jet_drop_id` to paginate from .
       required: false
       schema:
         type: string
@@ -1299,11 +1283,9 @@ components:
         default: 0
       example: 10
     JetDropsByJetIDQueryParameterFrom_jet_drop_id:
-      name: from_jet_drop_id
-      description: >-
-        Specific jet drop ID to paginate from. Jet drop ID is a combination of
-        `jet_id` with `pulse_number`.
       in: query
+      name: from_jet_drop_id
+      description: Specific `jet_drop_id` to paginate from .
       required: false
       schema:
         type: string
@@ -1331,7 +1313,7 @@ components:
     JetDropsByJetIDQueryParameterJet_drop_id_lt:
       in: query
       name: jet_drop_id_lt
-      description: Starting point in a range. Less than this `jet_drop_id`.
+      description: Ending point in a range. Less than this `jet_drop_id`.
       required: false
       schema:
         type: string
@@ -1359,9 +1341,7 @@ components:
       example: 10
     RecordsQueryParameterFrom_index:
       name: from_index
-      description: >-
-        Specific index to paginate from. Index is a combination of
-        `pulse_number` with order (record number in a jet drop).
+      description: Specific `index` to paginate from.
       in: query
       required: false
       schema:
@@ -1402,9 +1382,7 @@ components:
       example: 10
     ObjectLifelineQueryParameterFrom_index:
       name: from_index
-      description: >-
-        Specific index to paginate from. Index is a combination of
-        `pulse_number` with order (record number in a jet drop).
+      description: Specific `index` to paginate from.
       in: query
       required: false
       schema:
@@ -1413,9 +1391,7 @@ components:
     ObjectLifelineQueryParameterSort_by:
       in: query
       name: sort_by
-      description: >-
-        Sorting direction based on index. Index is a combination of
-        `pulse_number` with order (record number in a jet drop).
+      description: Sorting direction based on `index`.
       required: false
       schema:
         type: string
@@ -1446,7 +1422,7 @@ components:
       in: query
       name: timestamp_gte
       description: >-
-        Starting point in a range. Greater than or equal to this timestamp in
+        Starting point in a range. Greater than or equal to this `timestamp` in
         Unix format.
       required: false
       schema:
@@ -1458,8 +1434,8 @@ components:
       in: query
       name: timestamp_lte
       description: >-
-        Ending point in a range. Greater than or equal to this timestamp in Unix
-        format.
+        Ending point in a range. Greater than or equal to this `timestamp` in
+        Unix format.
       required: false
       schema:
         type: integer
@@ -1687,7 +1663,7 @@ components:
             properties:
               jet_drop_id:
                 type: string
-                description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+                description: Combination of `jet_id` with `pulse_number`.
                 example: '43648102:0010'
                 pattern: '^(\d+:[0-1]{2,64})$'
               next_jet_drop_id:
@@ -1699,9 +1675,7 @@ components:
                   - '43648104:00101'
                 items:
                   type: string
-                  description: >-
-                    Jet drop ID is a combination of `jet_id` with
-                    `pulse_number`.
+                  description: Combination of `jet_id` with `pulse_number`.
                   example: '43648102:0010'
                   pattern: '^(\d+:[0-1]{2,64})$'
               prev_jet_drop_id:
@@ -1712,7 +1686,7 @@ components:
                   - '43648101:0010'
                 items:
                   type: string
-                  description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+                  description: Combination of jet_id` with `pulse_number`.
                   example: '43648102:0010'
                   pattern: '^(\d+:[0-1]{2,64})$'
               jet_id:
@@ -1782,9 +1756,7 @@ components:
                   properties:
                     jet_drop_id:
                       type: string
-                      description: >-
-                        Jet drop ID is a combination of `jet_id` with
-                        `pulse_number`.
+                      description: Combination of `jet_id` with `pulse_number`.
                       example: '43648102:0010'
                       pattern: '^(\d+:[0-1]{2,64})$'
                     next_jet_drop_id:
@@ -1796,9 +1768,7 @@ components:
                         - '43648104:00101'
                       items:
                         type: string
-                        description: >-
-                          Jet drop ID is a combination of `jet_id` with
-                          `pulse_number`.
+                        description: Combination of `jet_id` with `pulse_number`.
                         example: '43648102:0010'
                         pattern: '^(\d+:[0-1]{2,64})$'
                     prev_jet_drop_id:
@@ -1809,9 +1779,7 @@ components:
                         - '43648101:0010'
                       items:
                         type: string
-                        description: >-
-                          Jet drop ID is a combination of jet_id` with
-                          `pulse_number`.
+                        description: Combination of jet_id` with `pulse_number`.
                         example: '43648102:0010'
                         pattern: '^(\d+:[0-1]{2,64})$'
                     jet_id:
@@ -1908,7 +1876,7 @@ components:
                       pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
                     prev_record_reference:
                       type: string
-                      description: Previous record reference.
+                      description: Reference of previous record.
                       example: >-
                         insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record
                       pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
@@ -1957,19 +1925,17 @@ components:
                       pattern: '^([0-1]{2,64})$'
                     jet_drop_id:
                       type: string
-                      description: >-
-                        Jet drop ID is a combination of `jet_id` with
-                        `pulse_number`.
+                      description: Combination of `jet_id` with `pulse_number`.
                       example: '43648102:0010'
                     order:
                       type: integer
                       format: int64
-                      description: Order is the record order number in the jet drop.
+                      description: Order—record number in a jet drop.
                       example: '3'
                     index:
                       type: string
                       description: >-
-                        Index is combination of pulse_number with order (record
+                        Index—combination of `pulse_number` with `order` (record
                         number in a jet drop).
                       example: '43648102:7'
               code:
@@ -2028,14 +1994,12 @@ components:
                   index:
                     type: string
                     description: >-
-                      Index is combination of `pulse_number` with `order`
-                      (record number in a jet drop).
+                      Index—combination of `pulse_number` with `order` (record
+                      number in a jet drop).
                     example: '43648102:7'
                   jet_drop_id:
                     type: string
-                    description: >-
-                      Jet drop ID is a combination of `jet_id` with
-                      `pulse_number`.
+                    description: Combination of `jet_id` with `pulse_number`.
                     example: '43612021:001'
               code:
                 type: string
@@ -2248,7 +2212,7 @@ components:
       properties:
         jet_drop_id:
           type: string
-          description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+          description: Combination of `jet_id` with `pulse_number`.
           example: '43648102:0010'
           pattern: '^(\d+:[0-1]{2,64})$'
         next_jet_drop_id:
@@ -2260,7 +2224,7 @@ components:
             - '43648104:00101'
           items:
             type: string
-            description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+            description: Combination of `jet_id` with `pulse_number`.
             example: '43648102:0010'
             pattern: '^(\d+:[0-1]{2,64})$'
         prev_jet_drop_id:
@@ -2271,7 +2235,7 @@ components:
             - '43648101:0010'
           items:
             type: string
-            description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+            description: Combination of jet_id` with `pulse_number`.
             example: '43648102:0010'
             pattern: '^(\d+:[0-1]{2,64})$'
         jet_id:
@@ -2337,7 +2301,7 @@ components:
             properties:
               jet_drop_id:
                 type: string
-                description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+                description: Combination of `jet_id` with `pulse_number`.
                 example: '43648102:0010'
                 pattern: '^(\d+:[0-1]{2,64})$'
               next_jet_drop_id:
@@ -2349,9 +2313,7 @@ components:
                   - '43648104:00101'
                 items:
                   type: string
-                  description: >-
-                    Jet drop ID is a combination of `jet_id` with
-                    `pulse_number`.
+                  description: Combination of `jet_id` with `pulse_number`.
                   example: '43648102:0010'
                   pattern: '^(\d+:[0-1]{2,64})$'
               prev_jet_drop_id:
@@ -2362,7 +2324,7 @@ components:
                   - '43648101:0010'
                 items:
                   type: string
-                  description: Jet drop ID is a combination of jet_id` with `pulse_number`.
+                  description: Combination of jet_id` with `pulse_number`.
                   example: '43648102:0010'
                   pattern: '^(\d+:[0-1]{2,64})$'
               jet_id:
@@ -2454,7 +2416,7 @@ components:
                 pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
               prev_record_reference:
                 type: string
-                description: Previous record reference.
+                description: Reference of previous record.
                 example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
                 pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
               object_reference:
@@ -2502,18 +2464,18 @@ components:
                 pattern: '^([0-1]{2,64})$'
               jet_drop_id:
                 type: string
-                description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+                description: Combination of `jet_id` with `pulse_number`.
                 example: '43648102:0010'
               order:
                 type: integer
                 format: int64
-                description: Order is the record order number in the jet drop.
+                description: Order—record number in a jet drop.
                 example: '3'
               index:
                 type: string
                 description: >-
-                  Index is combination of pulse_number with order (record number
-                  in a jet drop).
+                  Index—combination of `pulse_number` with `order` (record
+                  number in a jet drop).
                 example: '43648102:7'
         code:
           type: string
@@ -2579,8 +2541,8 @@ components:
             index:
               type: string
               description: >-
-                Index is combination of `pulse_number` with `order` (record
-                number in a jet drop).
+                Index—combination of `pulse_number` with `order` (record number
+                in a jet drop).
               example: '43648102:7'
     search-jet-drop:
       description: Jet drop response.
@@ -2599,7 +2561,7 @@ components:
           properties:
             jet_drop_id:
               type: string
-              description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+              description: Combination of `jet_id` with `pulse_number`.
               example: '43612021:001'
     search-lifeline:
       description: Lifeline response.
@@ -2641,7 +2603,7 @@ components:
           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
         prev_record_reference:
           type: string
-          description: Previous record reference.
+          description: Reference of previous record.
           example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
         object_reference:
@@ -2689,16 +2651,16 @@ components:
           pattern: '^([0-1]{2,64})$'
         jet_drop_id:
           type: string
-          description: Jet drop ID is a combination of `jet_id` with `pulse_number`.
+          description: Combination of `jet_id` with `pulse_number`.
           example: '43648102:0010'
         order:
           type: integer
           format: int64
-          description: Order is the record order number in the jet drop.
+          description: Order—record number in a jet drop.
           example: '3'
         index:
           type: string
           description: >-
-            Index is combination of pulse_number with order (record number in a
+            Index—combination of `pulse_number` with `order` (record number in a
             jet drop).
           example: '43648102:7'
