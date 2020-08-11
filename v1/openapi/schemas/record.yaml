@@ -56,7 +56,7 @@ properties:
   jet_drop_id:
     type: string
     description: Combination of `jet_id` with `pulse_number`.
-    example: "43648102:0010"
+    example: "0010:43648102"
   order:
     type: integer
     format: int64

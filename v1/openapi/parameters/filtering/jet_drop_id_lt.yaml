@@ -1,8 +1,0 @@
-x-component: 'parameters/jet_drop_id_lt'
-in: query
-name: jet_drop_id_lt
-description: Ending point in a range. Less than this `jet_drop_id`.
-required: false
-schema:
-  type: string
-example: 43648104:00102

@@ -160,7 +160,7 @@ Gets a lifeline with all its records by &#x60;object_reference&#x60; and based o
  * @param "Limit" (optional.Int32) -  Number of entries to show per page.
  * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
  * @param "FromIndex" (optional.String) -  Specific `index` to paginate from.
- * @param "SortBy" (optional.String) -  Sorting direction based on `index`.
+ * @param "SortBy" (optional.String) -  Sorts by the `index` attribute of the returned object. Can take two values that specify the sorting direction: descending (`index_desc`) or ascending (`index_asc`). 
  * @param "PulseNumberGt" (optional.Int32) -  Starting point in a range. Greater than this `pulse_number`.
  * @param "PulseNumberLt" (optional.Int32) -  Ending point in a range. Less than this `pulse_number`.
  * @param "TimestampGte" (optional.Int64) -  Starting point in a range. Greater than or equal to this `timestamp` in Unix format.

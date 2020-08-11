@@ -117,11 +117,11 @@ func (a *JetDropApiService) JetDropByID(ctx _context.Context, jetDropId string) 
 // JetDropsByJetIDOpts Optional parameters for the method 'JetDropsByJetID'
 type JetDropsByJetIDOpts struct {
     Limit optional.Int32
-    Offset optional.Int32
-    FromJetDropId optional.String
     SortBy optional.String
-    JetDropIdGt optional.String
-    JetDropIdLt optional.String
+    PulseNumberGte optional.Int32
+    PulseNumberGt optional.Int32
+    PulseNumberLte optional.Int32
+    PulseNumberLt optional.Int32
 }
 
 /*
@@ -131,11 +131,11 @@ Gets jet drops by &#x60;jet_id&#x60; and based on specified filtering and pagina
  * @param jetId Jet ID.
  * @param optional nil or *JetDropsByJetIDOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  Number of entries to show per page.
- * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
- * @param "FromJetDropId" (optional.String) -  Specific `jet_drop_id` to paginate from.
- * @param "SortBy" (optional.String) -  Sorting direction based on `pulse_number`.
- * @param "JetDropIdGt" (optional.String) -  Starting point in a range. Greater than this `jet_drop_id`.
- * @param "JetDropIdLt" (optional.String) -  Ending point in a range. Less than this `jet_drop_id`.
+ * @param "SortBy" (optional.String) -  Sorts by the `pulse_number` attribute of the returned object.   Can take two values that specify the sorting direction: descending (`pulse_number_desc`) or ascending (`pulse_number_asc`). 
+ * @param "PulseNumberGte" (optional.Int32) -  Filtering where pulse number is greater than or equal to
+ * @param "PulseNumberGt" (optional.Int32) -  Starting point in a range. Greater than this `pulse_number`.
+ * @param "PulseNumberLte" (optional.Int32) -  Filtering where pulse number is less than or equal to.
+ * @param "PulseNumberLt" (optional.Int32) -  Ending point in a range. Less than this `pulse_number`.
 @return JetDropsByJetIdResponse200
 */
 func (a *JetDropApiService) JetDropsByJetID(ctx _context.Context, jetId string, localVarOptionals *JetDropsByJetIDOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {
@@ -159,20 +159,20 @@ func (a *JetDropApiService) JetDropsByJetID(ctx _context.Context, jetId string, 
 	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
 		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
-		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.FromJetDropId.IsSet() {
-		localVarQueryParams.Add("from_jet_drop_id", parameterToString(localVarOptionals.FromJetDropId.Value(), ""))
-	}
 	if localVarOptionals != nil && localVarOptionals.SortBy.IsSet() {
 		localVarQueryParams.Add("sort_by", parameterToString(localVarOptionals.SortBy.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.JetDropIdGt.IsSet() {
-		localVarQueryParams.Add("jet_drop_id_gt", parameterToString(localVarOptionals.JetDropIdGt.Value(), ""))
+	if localVarOptionals != nil && localVarOptionals.PulseNumberGte.IsSet() {
+		localVarQueryParams.Add("pulse_number_gte", parameterToString(localVarOptionals.PulseNumberGte.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.JetDropIdLt.IsSet() {
-		localVarQueryParams.Add("jet_drop_id_lt", parameterToString(localVarOptionals.JetDropIdLt.Value(), ""))
+	if localVarOptionals != nil && localVarOptionals.PulseNumberGt.IsSet() {
+		localVarQueryParams.Add("pulse_number_gt", parameterToString(localVarOptionals.PulseNumberGt.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.PulseNumberLte.IsSet() {
+		localVarQueryParams.Add("pulse_number_lte", parameterToString(localVarOptionals.PulseNumberLte.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.PulseNumberLt.IsSet() {
+		localVarQueryParams.Add("pulse_number_lt", parameterToString(localVarOptionals.PulseNumberLt.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -1,12 +1,14 @@
 x-component: 'parameters/sort_by_pulse'
 in: query
 name: sort_by
-description: Sorting direction based on `pulse_number`.
+description: |
+  Sorts by the `pulse_number` attribute of the returned object.
+    Can take two values that specify the sorting direction: descending (`pulse_number_desc`) or ascending (`pulse_number_asc`).
 required: false
 schema:
   type: string
-  default: "+pulse_number"
+  default: "pulse_number_desc,jet_id_asc"
   enum:
-    - -pulse_number
-    - +pulse_number
-example: +pulse_number
+    - "pulse_number_asc,jet_id_desc"
+    - "pulse_number_desc,jet_id_asc"
+example: "pulse_number_asc,jet_id_desc"
