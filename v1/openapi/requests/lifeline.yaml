@@ -1,6 +1,6 @@
 get:
   summary: Object lifeline
-  description: Gets a lifeline with all its records by `object_reference` and based on filtering, pagination and sorting parameters.
+  description: Gets a lifeline with all its records by `object_reference` and based on specified filtering, pagination and sorting parameters.
   operationId: object_lifeline
   tags:
     - Record

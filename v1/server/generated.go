@@ -50,10 +50,10 @@ type JetDrop struct {
 	JetId *string `json:"jet_id,omitempty"`
 
 	// Next `jet_drop_id`.
-	NextJetDropId *[]NextPrevJetDrop `json:"next_jet_drop_id,omitempty"`
+	NextJetDropId *[]string `json:"next_jet_drop_id,omitempty"`
 
 	// Previous `jet_drop_id`.
-	PrevJetDropId *[]NextPrevJetDrop `json:"prev_jet_drop_id,omitempty"`
+	PrevJetDropId *[]string `json:"prev_jet_drop_id,omitempty"`
 
 	// Pulse number.
 	PulseNumber *int64 `json:"pulse_number,omitempty"`
@@ -71,19 +71,6 @@ type JetDrops struct {
 
 	// Number of entries in the array.
 	Total *int64 `json:"total,omitempty"`
-}
-
-// NextPrevJetDrop defines model for next-prev-jet-drop.
-type NextPrevJetDrop struct {
-
-	// Combination of `jet_id` with `pulse_number`.
-	JetDropId *string `json:"jet_drop_id,omitempty"`
-
-	// Jet ID.
-	JetId *string `json:"jet_id,omitempty"`
-
-	// Pulse number.
-	PulseNumber *int64 `json:"pulse_number,omitempty"`
 }
 
 // Pulse defines model for pulse.
@@ -125,7 +112,7 @@ type Record struct {
 	// Record hash.
 	Hash *string `json:"hash,omitempty"`
 
-	// Index is combination of pulse_number with order (record number in a jet drop).
+	// Index—combination of `pulse_number` with `order` (record number in a jet drop).
 	Index *string `json:"index,omitempty"`
 
 	// Combination of `jet_id` with `pulse_number`.
@@ -137,13 +124,13 @@ type Record struct {
 	// Object reference.
 	ObjectReference *string `json:"object_reference,omitempty"`
 
-	// Order is the record order number in the jet drop.
+	// Order—record number in a jet drop.
 	Order *int64 `json:"order,omitempty"`
 
 	// Record payload.
 	Payload *string `json:"payload,omitempty"`
 
-	// Previous record reference.
+	// Reference of previous record.
 	PrevRecordReference *string `json:"prev_record_reference,omitempty"`
 
 	// Prototype reference.
@@ -218,7 +205,7 @@ type SearchRecord struct {
 	// Meta data.
 	Meta *struct {
 
-		// Index is combination of `pulse_number` with `order` (record number in a jet drop).
+		// Index—combination of `pulse_number` with `order` (record number in a jet drop).
 		Index *string `json:"index,omitempty"`
 
 		// Object reference.
@@ -238,6 +225,12 @@ type FromIndex string
 // FromJetDropId defines model for from_jet_drop_id.
 type FromJetDropId string
 
+// JetDropIdGt defines model for jet_drop_id_gt.
+type JetDropIdGt string
+
+// JetDropIdLt defines model for jet_drop_id_lt.
+type JetDropIdLt string
+
 // JetDropIdPath defines model for jet_drop_id_path.
 type JetDropIdPath string
 
@@ -256,14 +249,8 @@ type OffsetParam int
 // PulseNumberGt defines model for pulse_number_gt.
 type PulseNumberGt int
 
-// PulseNumberGte defines model for pulse_number_gte.
-type PulseNumberGte int
-
 // PulseNumberLt defines model for pulse_number_lt.
 type PulseNumberLt int
-
-// PulseNumberLte defines model for pulse_number_lte.
-type PulseNumberLte int
 
 // PulseNumberPath defines model for pulse_number_path.
 type PulseNumberPath int64
@@ -283,8 +270,8 @@ type SortByIndex string
 
 // List of SortByIndex
 const (
-	SortByIndex_index_asc  SortByIndex = "index_asc"
-	SortByIndex_index_desc SortByIndex = "index_desc"
+	SortByIndex__index  SortByIndex = "-index"
+	SortByIndex__index1 SortByIndex = "+index"
 )
 
 // SortByPulse defines model for sort_by_pulse.
@@ -292,17 +279,8 @@ type SortByPulse string
 
 // List of SortByPulse
 const (
-	SortByPulse_pulse_number_asc_jet_id_desc SortByPulse = "pulse_number_asc,jet_id_desc"
-	SortByPulse_pulse_number_desc_jet_id_asc SortByPulse = "pulse_number_desc,jet_id_asc"
-)
-
-// SortByPulseNumber defines model for sort_by_pulse_number.
-type SortByPulseNumber string
-
-// List of SortByPulseNumber
-const (
-	SortByPulseNumber_pulse_number_asc  SortByPulseNumber = "pulse_number_asc"
-	SortByPulseNumber_pulse_number_desc SortByPulseNumber = "pulse_number_desc"
+	SortByPulse__pulse_number  SortByPulse = "-pulse_number"
+	SortByPulse__pulse_number1 SortByPulse = "+pulse_number"
 )
 
 // TimestampGte defines model for timestamp_gte.
@@ -344,7 +322,7 @@ type JetDropRecordsParams struct {
 	// Number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Specific index to paginate from.
+	// Specific `index` to paginate from.
 	FromIndex *FromIndex `json:"from_index,omitempty"`
 
 	// Record type for filtering records.
@@ -357,20 +335,20 @@ type JetDropsByJetIDParams struct {
 	// Number of entries to show per page.
 	Limit *Limit `json:"limit,omitempty"`
 
+	// Number of entries to skip from the starting point (`from_*`).
+	Offset *OffsetParam `json:"offset,omitempty"`
+
+	// Specific `jet_drop_id` to paginate from .
+	FromJetDropId *FromJetDropId `json:"from_jet_drop_id,omitempty"`
+
 	// Sorting direction based on `pulse_number`.
 	SortBy *SortByPulse `json:"sort_by,omitempty"`
 
-	// Filtering where pulse number is greater than or equal to
-	PulseNumberGte *PulseNumberGte `json:"pulse_number_gte,omitempty"`
+	// Starting point in a range. Greater than this `jet_drop_id`.
+	JetDropIdGt *JetDropIdGt `json:"jet_drop_id_gt,omitempty"`
 
-	// Starting point in a range. Greater than this `pulse_number`.
-	PulseNumberGt *PulseNumberGt `json:"pulse_number_gt,omitempty"`
-
-	// Filtering where pulse number is less than or equal to.
-	PulseNumberLte *PulseNumberLte `json:"pulse_number_lte,omitempty"`
-
-	// Ending point in a range. Less than this `pulse_number`.
-	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
+	// Ending point in a range. Less than this `jet_drop_id`.
+	JetDropIdLt *JetDropIdLt `json:"jet_drop_id_lt,omitempty"`
 }
 
 // ObjectLifelineParams defines parameters for ObjectLifeline.
@@ -382,10 +360,10 @@ type ObjectLifelineParams struct {
 	// Number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Specific index to paginate from.
+	// Specific `index` to paginate from.
 	FromIndex *FromIndex `json:"from_index,omitempty"`
 
-	// Sorting direction based on index.
+	// Sorting direction based on `index`.
 	SortBy *SortByIndex `json:"sort_by,omitempty"`
 
 	// Starting point in a range. Greater than this `pulse_number`.
@@ -394,10 +372,10 @@ type ObjectLifelineParams struct {
 	// Ending point in a range. Less than this `pulse_number`.
 	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
 
-	// Starting point in a range. Greater than or equal to this timestamp in Unix format.
+	// Starting point in a range. Greater than or equal to this `timestamp` in Unix format.
 	TimestampGte *TimestampGte `json:"timestamp_gte,omitempty"`
 
-	// Ending point in a range. Greater than or equal to this timestamp in Unix format.
+	// Ending point in a range. Greater than or equal to this `timestamp` in Unix format.
 	TimestampLte *TimestampLte `json:"timestamp_lte,omitempty"`
 }
 
@@ -410,29 +388,14 @@ type PulsesParams struct {
 	// Number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Specific pulse number to paginate from.
+	// Specific `pulse_number` to paginate from.
 	FromPulseNumber *FromPulseNumberParam `json:"from_pulse_number,omitempty"`
 
-	// Starting point in a range. Greater than or equal to this timestamp in Unix format.
+	// Starting point in a range. Greater than or equal to this `timestamp` in Unix format.
 	TimestampGte *TimestampGte `json:"timestamp_gte,omitempty"`
 
-	// Ending point in a range. Greater than or equal to this timestamp in Unix format.
+	// Ending point in a range. Greater than or equal to this `timestamp` in Unix format.
 	TimestampLte *TimestampLte `json:"timestamp_lte,omitempty"`
-
-	// Starting point in a range. Greater than this `pulse_number`.
-	PulseNumberGt *PulseNumberGt `json:"pulse_number_gt,omitempty"`
-
-	// Filtering where pulse number is greater than or equal to
-	PulseNumberGte *PulseNumberGte `json:"pulse_number_gte,omitempty"`
-
-	// Ending point in a range. Less than this `pulse_number`.
-	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
-
-	// Filtering where pulse number is less than or equal to.
-	PulseNumberLte *PulseNumberLte `json:"pulse_number_lte,omitempty"`
-
-	// Sorting direction based on `pulse_number`.
-	SortBy *SortByPulseNumber `json:"sort_by,omitempty"`
 }
 
 // JetDropsByPulseNumberParams defines parameters for JetDropsByPulseNumber.
@@ -444,7 +407,7 @@ type JetDropsByPulseNumberParams struct {
 	// Number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Specific jet drop ID to paginate from.
+	// Specific `jet_drop_id` to paginate from .
 	FromJetDropId *FromJetDropId `json:"from_jet_drop_id,omitempty"`
 }
 
@@ -570,6 +533,20 @@ func (w *ServerInterfaceWrapper) JetDropsByJetID(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter limit: %s", err))
 	}
 
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "from_jet_drop_id" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "from_jet_drop_id", ctx.QueryParams(), &params.FromJetDropId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_jet_drop_id: %s", err))
+	}
+
 	// ------------- Optional query parameter "sort_by" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "sort_by", ctx.QueryParams(), &params.SortBy)
@@ -577,32 +554,18 @@ func (w *ServerInterfaceWrapper) JetDropsByJetID(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter sort_by: %s", err))
 	}
 
-	// ------------- Optional query parameter "pulse_number_gte" -------------
+	// ------------- Optional query parameter "jet_drop_id_gt" -------------
 
-	err = runtime.BindQueryParameter("form", true, false, "pulse_number_gte", ctx.QueryParams(), &params.PulseNumberGte)
+	err = runtime.BindQueryParameter("form", true, false, "jet_drop_id_gt", ctx.QueryParams(), &params.JetDropIdGt)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_gte: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter jet_drop_id_gt: %s", err))
 	}
 
-	// ------------- Optional query parameter "pulse_number_gt" -------------
+	// ------------- Optional query parameter "jet_drop_id_lt" -------------
 
-	err = runtime.BindQueryParameter("form", true, false, "pulse_number_gt", ctx.QueryParams(), &params.PulseNumberGt)
+	err = runtime.BindQueryParameter("form", true, false, "jet_drop_id_lt", ctx.QueryParams(), &params.JetDropIdLt)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_gt: %s", err))
-	}
-
-	// ------------- Optional query parameter "pulse_number_lte" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "pulse_number_lte", ctx.QueryParams(), &params.PulseNumberLte)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_lte: %s", err))
-	}
-
-	// ------------- Optional query parameter "pulse_number_lt" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "pulse_number_lt", ctx.QueryParams(), &params.PulseNumberLt)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_lt: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter jet_drop_id_lt: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -723,41 +686,6 @@ func (w *ServerInterfaceWrapper) Pulses(ctx echo.Context) error {
 	err = runtime.BindQueryParameter("form", true, false, "timestamp_lte", ctx.QueryParams(), &params.TimestampLte)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter timestamp_lte: %s", err))
-	}
-
-	// ------------- Optional query parameter "pulse_number_gt" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "pulse_number_gt", ctx.QueryParams(), &params.PulseNumberGt)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_gt: %s", err))
-	}
-
-	// ------------- Optional query parameter "pulse_number_gte" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "pulse_number_gte", ctx.QueryParams(), &params.PulseNumberGte)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_gte: %s", err))
-	}
-
-	// ------------- Optional query parameter "pulse_number_lt" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "pulse_number_lt", ctx.QueryParams(), &params.PulseNumberLt)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_lt: %s", err))
-	}
-
-	// ------------- Optional query parameter "pulse_number_lte" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "pulse_number_lte", ctx.QueryParams(), &params.PulseNumberLte)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_lte: %s", err))
-	}
-
-	// ------------- Optional query parameter "sort_by" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "sort_by", ctx.QueryParams(), &params.SortBy)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter sort_by: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshalled arguments

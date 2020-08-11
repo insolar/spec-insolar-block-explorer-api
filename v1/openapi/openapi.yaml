@@ -13,16 +13,18 @@ info:
   description: |
     # Insolar Explorer API documentation
 
-    [Insolar Explorer](https://github.com/insolar/block-explorer) is a service that allows users to search for and view the contents of individual transactions, records, lifelines, jet drops and jets.
+    Welcome to Insolar documentation for a REST-like API provided by Insolar Explorer.
 
-    Insolar Explorer provides a REST-like API interface.
+    [Insolar Explorer](https://github.com/insolar/block-explorer) is a service for searching for and viewing the contents of individual transactions, records, lifelines, jet drops and jets.
 
-    ## Basic entities
+    The API allows to search for, filter and view the contents of said entities.
 
-    * Record—minimum unit of storage that contains an associated request, response, and maintenance details
-    * Lifeline—sequence of records for object state where an object is a smart contract instance
-    * Jet drop—unit of storage for jets
-    * Jet—groups of lifelines
+    ## Entities description
+
+    * Record—minimum unit of storage that contains an associated request, response, and maintenance details.
+    * Lifeline—sequence of records for object state where an object is a smart contract instance.
+    * Jet drop—unit of storage for jets.
+    * Jet—groups of lifelines.
 
     * Jet drop ID—combination of jet id with pulse number.
     * Index—combination of pulse number with order (record number in a jet drop).
@@ -53,7 +55,7 @@ tags:
   - name: Record
     description: Record is the minimum unit of storage that contains an associated request, response, and maintenance details. Records are grouped by lifeline.
   - name: Search
-    description: Search provides detailed entity metadata.
+    description: Search allows to determine the entity type for the searching `value` and obtain metadata for the searched entity.
 
 paths:
   /api/v1/pulses:

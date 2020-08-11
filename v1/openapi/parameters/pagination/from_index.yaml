@@ -1,6 +1,6 @@
 x-component: 'parameters/from_index'
 name: from_index
-description: Specific index to paginate from.
+description: Specific `index` to paginate from.
 in: query
 required: false
 schema:

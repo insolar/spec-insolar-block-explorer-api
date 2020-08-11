@@ -1,5 +1,5 @@
 x-component: 'schemas/pulses'
-description: A paged array of pulses.
+description: A paginated array of pulses.
 type: object
 properties:
   total:

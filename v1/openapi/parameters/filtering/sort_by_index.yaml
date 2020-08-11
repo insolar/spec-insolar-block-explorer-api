@@ -1,7 +1,7 @@
 x-component: 'parameters/sort_by_index'
 in: query
 name: sort_by
-description: Sorting direction based on index.
+description: Sorting direction based on `index`.
 required: false
 schema:
   type: string
