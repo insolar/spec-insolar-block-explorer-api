@@ -24,7 +24,7 @@ info:
     * Record—minimum unit of storage that contains an associated request, response, and maintenance details.
     * Lifeline—sequence of records for object state where an object is a smart contract instance.
     * Jet drop—unit of storage for jets.
-    * Jet—groups of lifelines.
+    * Jet—group of lifelines.
 
     * Jet drop ID—combination of jet id with pulse number.
     * Index—combination of pulse number with order (record number in a jet drop).
@@ -32,7 +32,7 @@ info:
 
     ## Filtering, pagination, sorting
 
-    API provides filtering based on a range of values: greater than and less than, or greater than or equal to and less than or equal to.
+    API provides filtering based on a range of values: greater than and less than, greater than or equal to and less than or equal to.
 
     API provides a combination of offset and seek pagination.
 
@@ -49,7 +49,7 @@ servers:
 
 tags:
   - name: Pulse
-    description: Pulse is the trigger for the production of a new jet drop. Pulse also serves as the default time unit on Insolar Network.
+    description: Pulse is the trigger for the production of a new jet drop. Pulse also serves as the default time unit on the Insolar network.
   - name: Jet drop
     description: Jet drop is the unit of storage for jets. Jet drop contains all records that are registered within a pulse and associated with a particular jet.
   - name: Record

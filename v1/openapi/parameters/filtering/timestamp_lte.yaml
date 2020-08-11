@@ -1,7 +1,7 @@
 x-component: 'parameters/timestamp_lte'
 in: query
 name: timestamp_lte
-description: Ending point in a range. Greater than or equal to this `timestamp` in Unix format.
+description: Defines the ending point for a returned range—less than or equal to the specified `timestamp` in the Unix format.
 required: false
 schema:
   type: integer

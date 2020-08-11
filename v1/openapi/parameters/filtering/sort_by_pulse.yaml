@@ -2,7 +2,7 @@ x-component: 'parameters/sort_by_pulse'
 in: query
 name: sort_by
 description: |
-  Sorts by the `pulse_number` attribute of the returned object.
+    Sorts by the `pulse_number` attribute of the returned object.
     Can take two values that specify the sorting direction: descending (`pulse_number_desc`) or ascending (`pulse_number_asc`).
 required: false
 schema:

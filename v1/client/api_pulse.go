@@ -1,7 +1,7 @@
 /*
  * Insolar Explorer API
  *
- * # Insolar Explorer API documentation  Welcome to Insolar documentation for a REST-like API provided by Insolar Explorer.  [Insolar Explorer](https://github.com/insolar/block-explorer) is a service for searching for and viewing the contents of individual transactions, records, lifelines, jet drops and jets.  The API allows to search for, filter and view the contents of said entities.  ## Entities description  * Record—minimum unit of storage that contains an associated request, response, and maintenance details. * Lifeline—sequence of records for object state where an object is a smart contract instance. * Jet drop—unit of storage for jets. * Jet—groups of lifelines.  * Jet drop ID—combination of jet id with pulse number. * Index—combination of pulse number with order (record number in a jet drop).   ## Filtering, pagination, sorting  API provides filtering based on a range of values: greater than and less than, or greater than or equal to and less than or equal to.  API provides a combination of offset and seek pagination.  Pagination can be applied using: * Combination of a starting point (`from_*`), number of entries per page (`limit`) and number of entries to skip from the starting point (`offset`). * Just `limit` to get a limited array of the latest data. * Combination of the filtering parameters `*_gt`/`*_gte` and `*_lt`/`*_lte`, and `limit`.  Some requests can be sorted in the descending (`*_desc`)  or ascending (`*_asc`) order. 
+ * # Insolar Explorer API documentation  Welcome to Insolar documentation for a REST-like API provided by Insolar Explorer.  [Insolar Explorer](https://github.com/insolar/block-explorer) is a service for searching for and viewing the contents of individual transactions, records, lifelines, jet drops and jets.  The API allows to search for, filter and view the contents of said entities.  ## Entities description  * Record—minimum unit of storage that contains an associated request, response, and maintenance details. * Lifeline—sequence of records for object state where an object is a smart contract instance. * Jet drop—unit of storage for jets. * Jet—group of lifelines.  * Jet drop ID—combination of jet id with pulse number. * Index—combination of pulse number with order (record number in a jet drop).   ## Filtering, pagination, sorting  API provides filtering based on a range of values: greater than and less than, greater than or equal to and less than or equal to.  API provides a combination of offset and seek pagination.  Pagination can be applied using: * Combination of a starting point (`from_*`), number of entries per page (`limit`) and number of entries to skip from the starting point (`offset`). * Just `limit` to get a limited array of the latest data. * Combination of the filtering parameters `*_gt`/`*_gte` and `*_lt`/`*_lte`, and `limit`.  Some requests can be sorted in the descending (`*_desc`)  or ascending (`*_asc`) order. 
  *
  * API version: 1.0.0
  * Contact: dev-support@insolar.io
@@ -128,14 +128,14 @@ type PulsesOpts struct {
 
 /*
 Pulses Get pulses
-Gets a range of pulses based on specified filtering and pagination parameters.
+Gets a range of pulses. Results can be filtered and paginated based on the specified filtering and pagination parameters.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *PulsesOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  Number of entries to show per page.
- * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
- * @param "FromPulseNumber" (optional.Int64) -  Specific `pulse_number` to paginate from.
- * @param "TimestampGte" (optional.Int64) -  Starting point in a range. Greater than or equal to this `timestamp` in Unix format.
- * @param "TimestampLte" (optional.Int64) -  Ending point in a range. Greater than or equal to this `timestamp` in Unix format.
+ * @param "Limit" (optional.Int32) -  Defines a number of entries to show per page.
+ * @param "Offset" (optional.Int32) -  Defines a number of entries to skip from the starting point (`from_*`).
+ * @param "FromPulseNumber" (optional.Int64) -  Defines a specific `pulse_number` to paginate from.
+ * @param "TimestampGte" (optional.Int64) -  Defines the starting point for a returned range—greater than or equal to the specified `timestamp` in the Unix format.
+ * @param "TimestampLte" (optional.Int64) -  Defines the ending point for a returned range—less than or equal to the specified `timestamp` in the Unix format.
 @return GetPulsesResponse200
 */
 func (a *PulseApiService) Pulses(ctx _context.Context, localVarOptionals *PulsesOpts) (GetPulsesResponse200, *_nethttp.Response, error) {
