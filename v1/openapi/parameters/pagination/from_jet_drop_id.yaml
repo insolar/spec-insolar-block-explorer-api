@@ -1,7 +1,7 @@
 x-component: 'parameters/from_jet_drop_id'
 in: query
 name: from_jet_drop_id
-description: Specific `jet_drop_id` to paginate from .
+description: Specific `jet_drop_id` to paginate from.
 required: false
 schema:
   type: string

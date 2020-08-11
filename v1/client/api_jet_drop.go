@@ -132,7 +132,7 @@ Gets jet drops by &#x60;jet_id&#x60; and based on specified filtering and pagina
  * @param optional nil or *JetDropsByJetIDOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  Number of entries to show per page.
  * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
- * @param "FromJetDropId" (optional.String) -  Specific `jet_drop_id` to paginate from .
+ * @param "FromJetDropId" (optional.String) -  Specific `jet_drop_id` to paginate from.
  * @param "SortBy" (optional.String) -  Sorting direction based on `pulse_number`.
  * @param "JetDropIdGt" (optional.String) -  Starting point in a range. Greater than this `jet_drop_id`.
  * @param "JetDropIdLt" (optional.String) -  Ending point in a range. Less than this `jet_drop_id`.
@@ -251,7 +251,7 @@ Gets jet drops by &#x60;pulse_number&#x60; and based on specified filtering and 
  * @param optional nil or *JetDropsByPulseNumberOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  Number of entries to show per page.
  * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
- * @param "FromJetDropId" (optional.String) -  Specific `jet_drop_id` to paginate from .
+ * @param "FromJetDropId" (optional.String) -  Specific `jet_drop_id` to paginate from.
 @return JetDropsByJetIdResponse200
 */
 func (a *JetDropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNumber int64, localVarOptionals *JetDropsByPulseNumberOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {
