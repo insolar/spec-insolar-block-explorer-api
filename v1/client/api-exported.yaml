@@ -94,6 +94,11 @@ paths:
         - $ref: '#/components/parameters/fromPulseNumberParam'
         - $ref: '#/components/parameters/timestamp_gte'
         - $ref: '#/components/parameters/timestamp_lte'
+        - $ref: '#/components/parameters/pulse_number_gt'
+        - $ref: '#/components/parameters/pulse_number_gte'
+        - $ref: '#/components/parameters/pulse_number_lt'
+        - $ref: '#/components/parameters/pulse_number_lte'
+        - $ref: '#/components/parameters/sort_by_pulse_number'
       responses:
         '200':
           $ref: '#/components/responses/pulsesResponse'
@@ -312,6 +317,54 @@ components:
         format: int64
         description: Unix timestamp.
       example: 1451743413
+    pulse_number_gt:
+      in: query
+      name: pulse_number_gt
+      description: Starting point in a range. Greater than this `pulse_number`.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      example: 43648104
+    pulse_number_gte:
+      in: query
+      name: pulse_number_gte
+      description: Filtering where pulse number is greater than or equal to
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      example: 43648104
+    pulse_number_lt:
+      in: query
+      name: pulse_number_lt
+      description: Ending point in a range. Less than this `pulse_number`.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      example: 43648106
+    pulse_number_lte:
+      in: query
+      name: pulse_number_lte
+      description: Filtering where pulse number is less than or equal to.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      example: 43648106
+    sort_by_pulse_number:
+      in: query
+      name: sort_by
+      description: Sorting direction based on `pulse_number`.
+      required: false
+      schema:
+        type: string
+        default: pulse_number_desc
+        enum:
+          - pulse_number_asc
+          - pulse_number_desc
+      example: pulse_number_asc
     pulse_number_path:
       in: path
       name: pulse_number
@@ -358,42 +411,6 @@ components:
           - 'pulse_number_asc,jet_id_desc'
           - 'pulse_number_desc,jet_id_asc'
       example: 'pulse_number_asc,jet_id_desc'
-    pulse_number_gte:
-      in: query
-      name: pulse_number_gte
-      description: Filtering where pulse number is greater than or equal to
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      example: 43648104
-    pulse_number_gt:
-      in: query
-      name: pulse_number_gt
-      description: Starting point in a range. Greater than this `pulse_number`.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      example: 43648104
-    pulse_number_lte:
-      in: query
-      name: pulse_number_lte
-      description: Filtering where pulse number is less than or equal to.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      example: 43648106
-    pulse_number_lt:
-      in: query
-      name: pulse_number_lt
-      description: Ending point in a range. Less than this `pulse_number`.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-      example: 43648106
     from_index:
       name: from_index
       description: Specific index to paginate from.
