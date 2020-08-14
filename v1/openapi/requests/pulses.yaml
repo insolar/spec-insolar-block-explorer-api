@@ -10,6 +10,11 @@ get:
     - $ref: '../parameters/pagination/from_pulse_number.yaml'
     - $ref: '../parameters/filtering/timestamp_gte.yaml'
     - $ref: '../parameters/filtering/timestamp_lte.yaml'
+    - $ref: '../parameters/filtering/pulse_number_gt.yaml'
+    - $ref: '../parameters/filtering/pulse_number_gte.yaml'
+    - $ref: '../parameters/filtering/pulse_number_lt.yaml'
+    - $ref: '../parameters/filtering/pulse_number_lte.yaml'
+    - $ref: '../parameters/filtering/sort_by_pulse_number.yaml'
   responses:
     '200':
       $ref: '../responses/pulses.yaml'

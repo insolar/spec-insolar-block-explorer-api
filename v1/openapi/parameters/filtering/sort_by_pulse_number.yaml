@@ -1,0 +1,12 @@
+x-component: 'parameters/sort_by_pulse_number'
+in: query
+name: sort_by
+description: Sorting direction based on `pulse_number`.
+required: false
+schema:
+  type: string
+  default: "pulse_number_desc"
+  enum:
+    - "pulse_number_asc"
+    - "pulse_number_desc"
+example: "pulse_number_asc"

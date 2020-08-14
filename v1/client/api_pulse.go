@@ -124,6 +124,11 @@ type PulsesOpts struct {
     FromPulseNumber optional.Int64
     TimestampGte optional.Int64
     TimestampLte optional.Int64
+    PulseNumberGt optional.Int32
+    PulseNumberGte optional.Int32
+    PulseNumberLt optional.Int32
+    PulseNumberLte optional.Int32
+    SortBy optional.String
 }
 
 /*
@@ -136,6 +141,11 @@ Gets a range of pulses based on the filtering and pagination parameters.
  * @param "FromPulseNumber" (optional.Int64) -  Specific pulse number to paginate from.
  * @param "TimestampGte" (optional.Int64) -  Starting point in a range. Greater than or equal to this timestamp in Unix format.
  * @param "TimestampLte" (optional.Int64) -  Ending point in a range. Greater than or equal to this timestamp in Unix format.
+ * @param "PulseNumberGt" (optional.Int32) -  Starting point in a range. Greater than this `pulse_number`.
+ * @param "PulseNumberGte" (optional.Int32) -  Filtering where pulse number is greater than or equal to
+ * @param "PulseNumberLt" (optional.Int32) -  Ending point in a range. Less than this `pulse_number`.
+ * @param "PulseNumberLte" (optional.Int32) -  Filtering where pulse number is less than or equal to.
+ * @param "SortBy" (optional.String) -  Sorting direction based on `pulse_number`.
 @return GetPulsesResponse200
 */
 func (a *PulseApiService) Pulses(ctx _context.Context, localVarOptionals *PulsesOpts) (GetPulsesResponse200, *_nethttp.Response, error) {
@@ -168,6 +178,21 @@ func (a *PulseApiService) Pulses(ctx _context.Context, localVarOptionals *Pulses
 	}
 	if localVarOptionals != nil && localVarOptionals.TimestampLte.IsSet() {
 		localVarQueryParams.Add("timestamp_lte", parameterToString(localVarOptionals.TimestampLte.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.PulseNumberGt.IsSet() {
+		localVarQueryParams.Add("pulse_number_gt", parameterToString(localVarOptionals.PulseNumberGt.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.PulseNumberGte.IsSet() {
+		localVarQueryParams.Add("pulse_number_gte", parameterToString(localVarOptionals.PulseNumberGte.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.PulseNumberLt.IsSet() {
+		localVarQueryParams.Add("pulse_number_lt", parameterToString(localVarOptionals.PulseNumberLt.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.PulseNumberLte.IsSet() {
+		localVarQueryParams.Add("pulse_number_lte", parameterToString(localVarOptionals.PulseNumberLte.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.SortBy.IsSet() {
+		localVarQueryParams.Add("sort_by", parameterToString(localVarOptionals.SortBy.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
