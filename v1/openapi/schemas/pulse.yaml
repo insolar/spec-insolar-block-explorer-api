@@ -34,5 +34,5 @@ properties:
     example: 1451743413
   is_complete:
     type: boolean
-    description: Pulse completeness status.
+    description: Pulse completion status.
     example: true
