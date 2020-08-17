@@ -421,16 +421,16 @@ type PulsesParams struct {
 	// Defines the ending point for a returned range—less than or equal to the specified `timestamp` in the Unix format.
 	TimestampLte *TimestampLte `json:"timestamp_lte,omitempty"`
 
-	// Starting point in a range. Greater than this `pulse_number`.
+	// Defines the starting point for a returned range of pulses—greater than the specified `pulse_number`.
 	PulseNumberGt *PulseNumberGt `json:"pulse_number_gt,omitempty"`
 
-	// Filtering where pulse number is greater than or equal to
+	// Defines the starting point for a returned range of pulses—greater than or equal to the specified `pulse_number`.
 	PulseNumberGte *PulseNumberGte `json:"pulse_number_gte,omitempty"`
 
-	// Ending point in a range. Less than this `pulse_number`.
+	// Defines the ending point for a returned range of pulses—less than the specified `pulse_number`.
 	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
 
-	// Filtering where pulse number is less than or equal to.
+	// Defines the ending point for a returned range of pulses—less than equal to the specified `pulse_number`.
 	PulseNumberLte *PulseNumberLte `json:"pulse_number_lte,omitempty"`
 
 	// Sorting direction based on `pulse_number`.
