@@ -43,7 +43,7 @@ type JetDrop struct {
 	// Record hash.
 	Hash *string `json:"hash,omitempty"`
 
-	// Combination of `jet_id` with `pulse_number`.
+	// Combination of `jet_id` and `pulse_number`.
 	JetDropId *string `json:"jet_drop_id,omitempty"`
 
 	// Jet ID.
@@ -125,10 +125,10 @@ type Record struct {
 	// Record hash.
 	Hash *string `json:"hash,omitempty"`
 
-	// Index—combination of `pulse_number` with `order` (record number in a jet drop).
+	// Index—combination of `pulse_number` and `order` (record number in a jet drop).
 	Index *string `json:"index,omitempty"`
 
-	// Combination of `jet_id` with `pulse_number`.
+	// Combination of `jet_id` and `pulse_number`.
 	JetDropId *string `json:"jet_drop_id,omitempty"`
 
 	// Jet ID.
@@ -143,7 +143,7 @@ type Record struct {
 	// Record payload.
 	Payload *string `json:"payload,omitempty"`
 
-	// Reference of previous record.
+	// Reference to a previous record.
 	PrevRecordReference *string `json:"prev_record_reference,omitempty"`
 
 	// Prototype reference.
@@ -176,7 +176,7 @@ type SearchJetDrop struct {
 	// Meta data.
 	Meta *struct {
 
-		// Combination of `jet_id` with `pulse_number`.
+		// Combination of `jet_id` and `pulse_number`.
 		JetDropId *string `json:"jet_drop_id,omitempty"`
 	} `json:"meta,omitempty"`
 
@@ -218,7 +218,7 @@ type SearchRecord struct {
 	// Meta data.
 	Meta *struct {
 
-		// Index—combination of `pulse_number` with `order` (record number in a jet drop).
+		// Index—combination of `pulse_number` and `order` (record number in a jet drop).
 		Index *string `json:"index,omitempty"`
 
 		// Object reference.
@@ -422,7 +422,7 @@ type JetDropsByPulseNumberParams struct {
 	// Defines a number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Defins a specific `jet_drop_id` to paginate from.
+	// Defines a specific `jet_drop_id` to paginate from.
 	FromJetDropId *FromJetDropId `json:"from_jet_drop_id,omitempty"`
 }
 
@@ -447,7 +447,7 @@ type ServerInterface interface {
 	// Object lifeline
 	// (GET /api/v1/lifeline/{object_reference}/records)
 	ObjectLifeline(ctx echo.Context, objectReference ObjectReferencePath, params ObjectLifelineParams) error
-	// Get pulses
+	// Pulses
 	// (GET /api/v1/pulses)
 	Pulses(ctx echo.Context, params PulsesParams) error
 	// Pulse
