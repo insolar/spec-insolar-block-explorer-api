@@ -296,6 +296,15 @@ const (
 	SortByPulse_pulse_number_desc_jet_id_asc SortByPulse = "pulse_number_desc,jet_id_asc"
 )
 
+// SortByPulseNumber defines model for sort_by_pulse_number.
+type SortByPulseNumber string
+
+// List of SortByPulseNumber
+const (
+	SortByPulseNumber_pulse_number_asc  SortByPulseNumber = "pulse_number_asc"
+	SortByPulseNumber_pulse_number_desc SortByPulseNumber = "pulse_number_desc"
+)
+
 // TimestampGte defines model for timestamp_gte.
 type TimestampGte int64
 
@@ -411,6 +420,21 @@ type PulsesParams struct {
 
 	// Defines the ending point for a returned range—less than or equal to the specified `timestamp` in the Unix format.
 	TimestampLte *TimestampLte `json:"timestamp_lte,omitempty"`
+
+	// Defines the starting point for a returned range of pulses—greater than the specified `pulse_number`.
+	PulseNumberGt *PulseNumberGt `json:"pulse_number_gt,omitempty"`
+
+	// Defines the starting point for a returned range of pulses—greater than or equal to the specified `pulse_number`.
+	PulseNumberGte *PulseNumberGte `json:"pulse_number_gte,omitempty"`
+
+	// Defines the ending point for a returned range of pulses—less than the specified `pulse_number`.
+	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
+
+	// Defines the ending point for a returned range of pulses—less than equal to the specified `pulse_number`.
+	PulseNumberLte *PulseNumberLte `json:"pulse_number_lte,omitempty"`
+
+	// Sorting direction based on `pulse_number`.
+	SortBy *SortByPulseNumber `json:"sort_by,omitempty"`
 }
 
 // JetDropsByPulseNumberParams defines parameters for JetDropsByPulseNumber.
@@ -701,6 +725,41 @@ func (w *ServerInterfaceWrapper) Pulses(ctx echo.Context) error {
 	err = runtime.BindQueryParameter("form", true, false, "timestamp_lte", ctx.QueryParams(), &params.TimestampLte)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter timestamp_lte: %s", err))
+	}
+
+	// ------------- Optional query parameter "pulse_number_gt" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pulse_number_gt", ctx.QueryParams(), &params.PulseNumberGt)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_gt: %s", err))
+	}
+
+	// ------------- Optional query parameter "pulse_number_gte" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pulse_number_gte", ctx.QueryParams(), &params.PulseNumberGte)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_gte: %s", err))
+	}
+
+	// ------------- Optional query parameter "pulse_number_lt" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pulse_number_lt", ctx.QueryParams(), &params.PulseNumberLt)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_lt: %s", err))
+	}
+
+	// ------------- Optional query parameter "pulse_number_lte" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pulse_number_lte", ctx.QueryParams(), &params.PulseNumberLte)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_lte: %s", err))
+	}
+
+	// ------------- Optional query parameter "sort_by" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "sort_by", ctx.QueryParams(), &params.SortBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter sort_by: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshalled arguments
