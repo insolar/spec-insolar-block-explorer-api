@@ -9,8 +9,10 @@
  */
 
 package client
-// SearchPulseMeta Meta data.
-type SearchPulseMeta struct {
-	// Pulse number.
-	PulseNumber int64 `json:"pulse_number,omitempty"`
+// PulsesResponse200ValidationFailures Validation failure.
+type PulsesResponse200ValidationFailures struct {
+	// Property name.
+	Property string `json:"property,omitempty"`
+	// Failure reason.
+	FailureReason string `json:"failure_reason,omitempty"`
 }

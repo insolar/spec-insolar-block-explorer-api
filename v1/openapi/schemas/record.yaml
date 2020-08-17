@@ -9,7 +9,7 @@ properties:
     pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
   prev_record_reference:
     type: string
-    description: Reference of previous record.
+    description: Reference to a previous record.
     example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record"
     pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
   object_reference:
@@ -55,7 +55,7 @@ properties:
     pattern: '^([0-1]{2,64})$'
   jet_drop_id:
     type: string
-    description: Combination of `jet_id` with `pulse_number`.
+    description: Combination of `jet_id` and `pulse_number`.
     example: "0010:43648102"
   order:
     type: integer
@@ -64,5 +64,5 @@ properties:
     example: "3"
   index:
     type: string
-    description: Index—combination of `pulse_number` with `order` (record number in a jet drop).
+    description: Index—combination of `pulse_number` and `order` (record number in a jet drop).
     example: "43648102:7"

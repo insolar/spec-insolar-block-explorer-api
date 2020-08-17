@@ -1,6 +1,15 @@
 get:
   summary: Search
-  description: Gets the entity type for the searching `value` and metadata for the searched entity.
+  description: |
+    Searches for an entity by its identifier.
+
+    Entities and their identifiers may be one of the following:
+    * Record—record reference
+    * Jet drop—jet drop ID (combination of `jet_id` and `pulse_number`)
+    * Pulse—pulse number
+    * Lifelife—object reference
+
+    Search takes any of the identifiers above as the `value` parameter, determines the identifier type and finds the corresponding entity. If the entity exists, search returns its type and meta-information.
   operationId: search
   tags:
     - Search

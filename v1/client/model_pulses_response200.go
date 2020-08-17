@@ -9,8 +9,14 @@
  */
 
 package client
-// SearchPulseMeta Meta data.
-type SearchPulseMeta struct {
-	// Pulse number.
-	PulseNumber int64 `json:"pulse_number,omitempty"`
+// PulsesResponse200 Response codes.
+type PulsesResponse200 struct {
+	// Number of entries in the array.
+	Total int64 `json:"total,omitempty"`
+	Result []PulseResponse200 `json:"result,omitempty"`
+	Code string `json:"code,omitempty"`
+	Message string `json:"message,omitempty"`
+	Description string `json:"description,omitempty"`
+	Link string `json:"link,omitempty"`
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

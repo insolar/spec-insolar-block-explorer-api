@@ -1,6 +1,6 @@
 get:
   summary: Jet drop by ID
-  description: Gets `jet_drop` by `jet_drop_id`.
+  description: Gets the contents of a `jet_drop` given a `jet_drop_id` as a path parameter.
   operationId: jetDropByID
   tags:
     - Jet drop
