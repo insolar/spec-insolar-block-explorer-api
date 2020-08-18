@@ -1,7 +1,7 @@
 x-component: 'parameters/offsetParam'
 in: query
 name: offset
-description: Number of entries to skip from the starting point (`from_*`).
+description: Defines a number of entries to skip from the starting point (`from_*`).
 required: false
 schema:
   type: integer

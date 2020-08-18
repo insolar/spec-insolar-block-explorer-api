@@ -43,7 +43,7 @@ type JetDrop struct {
 	// Record hash.
 	Hash *string `json:"hash,omitempty"`
 
-	// Combination of `jet_id` with `pulse_number`.
+	// Combination of `jet_id` and `pulse_number`.
 	JetDropId *string `json:"jet_drop_id,omitempty"`
 
 	// Jet ID.
@@ -89,7 +89,7 @@ type NextPrevJetDrop struct {
 // Pulse defines model for pulse.
 type Pulse struct {
 
-	// Pulse completeness status.
+	// Pulse completion status.
 	IsComplete *bool `json:"is_complete,omitempty"`
 
 	// Number of all jet drops in the pulse.
@@ -125,10 +125,10 @@ type Record struct {
 	// Record hash.
 	Hash *string `json:"hash,omitempty"`
 
-	// Index is combination of pulse_number with order (record number in a jet drop).
+	// Index—combination of `pulse_number` and `order` (record number in a jet drop).
 	Index *string `json:"index,omitempty"`
 
-	// Combination of `jet_id` with `pulse_number`.
+	// Combination of `jet_id` and `pulse_number`.
 	JetDropId *string `json:"jet_drop_id,omitempty"`
 
 	// Jet ID.
@@ -137,13 +137,13 @@ type Record struct {
 	// Object reference.
 	ObjectReference *string `json:"object_reference,omitempty"`
 
-	// Order is the record order number in the jet drop.
+	// Order—record number in a `jet drop`.
 	Order *int64 `json:"order,omitempty"`
 
 	// Record payload.
 	Payload *string `json:"payload,omitempty"`
 
-	// Previous record reference.
+	// Reference to a previous record.
 	PrevRecordReference *string `json:"prev_record_reference,omitempty"`
 
 	// Prototype reference.
@@ -176,7 +176,7 @@ type SearchJetDrop struct {
 	// Meta data.
 	Meta *struct {
 
-		// Combination of `jet_id` with `pulse_number`.
+		// Combination of `jet_id` and `pulse_number`.
 		JetDropId *string `json:"jet_drop_id,omitempty"`
 	} `json:"meta,omitempty"`
 
@@ -218,7 +218,7 @@ type SearchRecord struct {
 	// Meta data.
 	Meta *struct {
 
-		// Index is combination of `pulse_number` with `order` (record number in a jet drop).
+		// Index—combination of `pulse_number` and `order` (record number in a jet drop).
 		Index *string `json:"index,omitempty"`
 
 		// Object reference.
@@ -338,97 +338,99 @@ type SearchResponse interface{}
 // JetDropRecordsParams defines parameters for JetDropRecords.
 type JetDropRecordsParams struct {
 
-	// Number of entries to show per page.
+	// Defines a number of entries to show per page.
 	Limit *Limit `json:"limit,omitempty"`
 
-	// Number of entries to skip from the starting point (`from_*`).
+	// Defines a number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Specific index to paginate from.
+	// Defines a specific `index` to paginate from.
 	FromIndex *FromIndex `json:"from_index,omitempty"`
 
-	// Record type for filtering records.
+	// Defines the record type to filter the obtained records by.
 	Type *RecordTypeParam `json:"type,omitempty"`
 }
 
 // JetDropsByJetIDParams defines parameters for JetDropsByJetID.
 type JetDropsByJetIDParams struct {
 
-	// Number of entries to show per page.
+	// Defines a number of entries to show per page.
 	Limit *Limit `json:"limit,omitempty"`
 
-	// Sorting direction based on `pulse_number`.
+	// Sorts by the `pulse_number` attribute of the returned object.
+	// Can take two values that specify the sorting direction: descending (`pulse_number_desc`) or ascending (`pulse_number_asc`).
 	SortBy *SortByPulse `json:"sort_by,omitempty"`
 
-	// Filtering where pulse number is greater than or equal to
+	// Defines the starting point for a returned range of pulses—greater than or equal to the specified `pulse_number`.
 	PulseNumberGte *PulseNumberGte `json:"pulse_number_gte,omitempty"`
 
-	// Starting point in a range. Greater than this `pulse_number`.
+	// Defines the starting point for a returned range of pulses—greater than the specified `pulse_number`.
 	PulseNumberGt *PulseNumberGt `json:"pulse_number_gt,omitempty"`
 
-	// Filtering where pulse number is less than or equal to.
+	// Defines the ending point for a returned range of pulses—less than equal to the specified `pulse_number`.
 	PulseNumberLte *PulseNumberLte `json:"pulse_number_lte,omitempty"`
 
-	// Ending point in a range. Less than this `pulse_number`.
+	// Defines the ending point for a returned range of pulses—less than the specified `pulse_number`.
 	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
 }
 
 // ObjectLifelineParams defines parameters for ObjectLifeline.
 type ObjectLifelineParams struct {
 
-	// Number of entries to show per page.
+	// Defines a number of entries to show per page.
 	Limit *Limit `json:"limit,omitempty"`
 
-	// Number of entries to skip from the starting point (`from_*`).
+	// Defines a number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Specific index to paginate from.
+	// Defines a specific `index` to paginate from.
 	FromIndex *FromIndex `json:"from_index,omitempty"`
 
-	// Sorting direction based on index.
+	// Sorts by the `index` attribute of the returned object.
+	// Can take two values that specify the sorting direction: descending (`index_desc`) or ascending (`index_asc`).
 	SortBy *SortByIndex `json:"sort_by,omitempty"`
 
-	// Starting point in a range. Greater than this `pulse_number`.
+	// Defines the starting point for a returned range of pulses—greater than the specified `pulse_number`.
 	PulseNumberGt *PulseNumberGt `json:"pulse_number_gt,omitempty"`
 
-	// Ending point in a range. Less than this `pulse_number`.
+	// Defines the ending point for a returned range of pulses—less than the specified `pulse_number`.
 	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
 
-	// Starting point in a range. Greater than or equal to this timestamp in Unix format.
+	// Defines the starting point for a returned range—greater than or equal to the specified `timestamp` in the Unix format.
 	TimestampGte *TimestampGte `json:"timestamp_gte,omitempty"`
 
-	// Ending point in a range. Greater than or equal to this timestamp in Unix format.
+	// Defines the ending point for a returned range—less than or equal to the specified `timestamp` in the Unix format.
 	TimestampLte *TimestampLte `json:"timestamp_lte,omitempty"`
 }
 
 // PulsesParams defines parameters for Pulses.
 type PulsesParams struct {
 
-	// Number of entries to show per page.
+	// Defines a number of entries to show per page.
 	Limit *Limit `json:"limit,omitempty"`
 
-	// Number of entries to skip from the starting point (`from_*`).
+	// Defines a number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Specific pulse number to paginate from.
+	// Defines a specific `pulse_number` to paginate from.
 	FromPulseNumber *FromPulseNumberParam `json:"from_pulse_number,omitempty"`
 
-	// Starting point in a range. Greater than or equal to this timestamp in Unix format.
+	// Defines the starting point for a returned range—greater than or equal to the specified `timestamp` in the Unix format.
 	TimestampGte *TimestampGte `json:"timestamp_gte,omitempty"`
 
-	// Ending point in a range. Greater than or equal to this timestamp in Unix format.
+	// Defines the ending point for a returned range—less than or equal to the specified `timestamp` in the Unix format.
 	TimestampLte *TimestampLte `json:"timestamp_lte,omitempty"`
 
-	// Starting point in a range. Greater than this `pulse_number`.
+	// Defines the starting point for a returned range of pulses—greater than the specified `pulse_number`.
 	PulseNumberGt *PulseNumberGt `json:"pulse_number_gt,omitempty"`
 
-	// Filtering where pulse number is greater than or equal to
+	// Defines the starting point for a returned range of pulses—greater than or equal to the specified `pulse_number`.
 	PulseNumberGte *PulseNumberGte `json:"pulse_number_gte,omitempty"`
 
-	// Ending point in a range. Less than this `pulse_number`.
+	// Defines the ending point for a returned range of pulses—less than the specified `pulse_number`.
 	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
 
-	// Filtering where pulse number is less than or equal to.
+	// Defines the ending point for a returned range of pulses—less than equal to the specified `pulse_number`.
 	PulseNumberLte *PulseNumberLte `json:"pulse_number_lte,omitempty"`
 
 	// Sorting direction based on `pulse_number`.
@@ -438,13 +440,13 @@ type PulsesParams struct {
 // JetDropsByPulseNumberParams defines parameters for JetDropsByPulseNumber.
 type JetDropsByPulseNumberParams struct {
 
-	// Number of entries to show per page.
+	// Defines a number of entries to show per page.
 	Limit *Limit `json:"limit,omitempty"`
 
-	// Number of entries to skip from the starting point (`from_*`).
+	// Defines a number of entries to skip from the starting point (`from_*`).
 	Offset *OffsetParam `json:"offset,omitempty"`
 
-	// Specific jet drop ID to paginate from.
+	// Defines a specific `jet_drop_id` to paginate from.
 	FromJetDropId *FromJetDropId `json:"from_jet_drop_id,omitempty"`
 }
 
@@ -469,7 +471,7 @@ type ServerInterface interface {
 	// Object lifeline
 	// (GET /api/v1/lifeline/{object_reference}/records)
 	ObjectLifeline(ctx echo.Context, objectReference ObjectReferencePath, params ObjectLifelineParams) error
-	// Get pulses
+	// Pulses
 	// (GET /api/v1/pulses)
 	Pulses(ctx echo.Context, params PulsesParams) error
 	// Pulse

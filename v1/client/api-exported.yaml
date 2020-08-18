@@ -10,58 +10,93 @@ info:
     # Insolar Explorer API documentation
 
 
+    Welcome to Insolar documentation for a REST-like API provided by Insolar
+    Explorer.
+
+
     [Insolar Explorer](https://github.com/insolar/block-explorer) is a service
-    that allows users to search for and view the contents of individual
-    transactions, records, lifelines, jet drops and jets.
+    for searching for and viewing the contents of individual transactions,
+    records, lifelines, jet drops and jets.
 
 
-    Insolar Explorer provides a REST-like API interface.
+    The API allows to search for, filter and view the contents of said entities.
 
 
-    ## Basic entities
+    ## Entities description
 
 
     * Record—minimum unit of storage that contains an associated request,
-    response, and maintenance details
+    response, and service information.
 
-    * Lifeline—sequence of records for object state where an object is a smart
-    contract instance
+    * Lifeline—sequence of records. A record in a lifeline is an object state
+    and an object is a smart contract instance.
 
-    * Jet drop—unit of storage for jets
+    * Jet drop—unit of storage for jets.
 
-    * Jet—groups of lifelines
+    * Jet—group of lifelines.
 
 
-    * Jet drop ID—combination of jet id with pulse number.
+    * Jet drop ID—combination of jet id and pulse number.
 
-    * Index—combination of pulse number with order (record number in a jet
-    drop).
+    * Index—combination of pulse number and order (record number in a jet drop).
 
 
 
     ## Filtering, pagination, sorting
 
 
-    API provides filtering based on a range of values: greater than and less
-    than, or greater than or equal to and less than or equal to.
+    Some requests have filtering, sorting, and pagination capabilities.
 
 
-    API provides a combination of offset and seek pagination.
+    ### Filtering
 
 
-    Pagination can be applied using:
+    Filtering can be of two types:
 
-    * Combination of a starting point (`from_*`), number of entries per page
-    (`limit`) and number of entries to skip from the starting point (`offset`).
+    * By an attribute value: filters out from the returned array all the
+    entities with attribute values other than specified.
 
-    * Just `limit` to get a limited array of the latest data.
+      For example: if you specify `type=request` in a [request](#operation/jet_drop_records) that returns an array of records of different types, the array doesn't contain the `result` and `state` records.
 
-    * Combination of the filtering parameters `*_gt`/`*_gte` and `*_lt`/`*_lte`,
-    and `limit`.
+    * By a range of attribute values: filters out from the returned array
+    entities with attribute values that are out of the specified range.
+
+      You can specify inclusive, non-inclusive, open-ended, or closed-ended ranges depending on the request.
+
+      All range filter parameters have one the following suffixes:
+      * `*_gt`—greater than
+      * `*_lt`—less than
+      * `*_gte`—greater than or equal to
+      * `*_lte`—less than or equal to
+
+      For example: if you specify `timestamp_gte=1597409219` and `timestamp_lte=1597409241` in a [request](#operation/pulses) that returns an array of pulses, the array doesn't contain pulses older than `51063280` and younger than `51063340`.
+
+    ### Sorting
 
 
-    Some requests can be sorted in the descending (`*_desc`)  or ascending
-    (`*_asc`) order.
+    The returned array is sorted by an attribute with a monotonically increasing
+    value (`pulse_number`, `index`), by default in the descending order. Sorting
+    is applied after filtering, if any.
+
+
+    For example: if you specify `sort_by=index_asc` in a
+    [request](#operation/object_lifeline) that returns an array of records, the
+    array is sorted in the ascending order of `index`.
+
+
+    ### Pagination
+
+
+    Pagination can be applied after filtering and sorting, and uses the
+    following 3 parameters:
+
+
+    * `limit`—number of array items to return.
+
+    * `offset`—number of items to skip.
+
+    * `from_*`—pagination starting point: the value of a monotonically
+    increasing attribute.
 servers:
   - url: example.com
     description: Test server.
@@ -77,14 +112,18 @@ tags:
   - name: Record
     description: >-
       Record is the minimum unit of storage that contains an associated request,
-      response, and maintenance details. Records are grouped by lifeline.
+      response, and service information. Records are grouped by lifeline.
   - name: Search
-    description: Search provides detailed entity metadata.
+    description: Searches for an entity on the blockchain.
 paths:
   /api/v1/pulses:
     get:
-      summary: Get pulses
-      description: Gets a range of pulses based on the filtering and pagination parameters.
+      summary: Pulses
+      description: >-
+        Gets an array of pulses. Optionally, specify filtering and pagination
+        parameters. For more information, refer to the [filtering, pagination,
+        sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
+        section.
       operationId: pulses
       tags:
         - Pulse
@@ -127,7 +166,9 @@ paths:
   '/api/v1/jet-drops/{jet_drop_id}':
     get:
       summary: Jet drop by ID
-      description: Gets a jet drop by `jet_drop_id`.
+      description: >-
+        Gets the contents of a `jet_drop` given a `jet_drop_id` as a path
+        parameter.
       operationId: jetDropByID
       tags:
         - Jet drop
@@ -146,8 +187,11 @@ paths:
     get:
       summary: Jet drops by pulse number
       description: >-
-        Gets jet drops by `pulse_number` and based on filtering and pagination
-        parameters.
+        Gets an array of jet drops given a `pulse_number` as a path parameter.
+        Optionally, specify filtering and pagination parameters. For more
+        information, refer to the [filtering, pagination,
+        sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
+        section.
       operationId: JetDropsByPulseNumber
       tags:
         - Jet drop
@@ -167,8 +211,11 @@ paths:
     get:
       summary: Jet drops by jet ID
       description: >-
-        Gets jet drops by `jet_id` and based on filtering and pagination
-        parameters.
+        Gets an array of jet drops given a `jet_id` as a path parameter.
+        Optionally, specify filtering and pagination parameters. For more
+        information, refer to the [filtering, pagination,
+        sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
+        section.
       operationId: JetDropsByJetID
       tags:
         - Jet drop
@@ -191,8 +238,11 @@ paths:
     get:
       summary: Records
       description: >-
-        Gets records by `jet_drop_id` and based on filtering and pagination
-        parameters.
+        Gets an array of records of a jet drop given a `jet_drop_id` as a path
+        parameter. Optionally, specify filtering and pagination parameters. For
+        more information, refer to the [filtering, pagination,
+        sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
+        section.
       operationId: jet_drop_records
       tags:
         - Record
@@ -213,8 +263,11 @@ paths:
     get:
       summary: Object lifeline
       description: >-
-        Gets a lifeline with all its records by `object_reference` and based on
-        filtering, pagination and sorting parameters.
+        Gets an array of records of a lifeline given an `object_reference` as a
+        path parameter. Optionally, specify filtering and pagination parameters.
+        For more information, refer to the [filtering, pagination,
+        sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
+        section.
       operationId: object_lifeline
       tags:
         - Record
@@ -238,9 +291,24 @@ paths:
   /api/v1/search:
     get:
       summary: Search
-      description: >-
-        Gets the entity type for the searching `value` and metadata for the
-        searched entity.
+      description: >
+        Searches for an entity by its identifier.
+
+
+        Entities and their identifiers may be one of the following:
+
+        * Record—record reference
+
+        * Jet drop—jet drop ID (combination of `jet_id` and `pulse_number`)
+
+        * Pulse—pulse number
+
+        * Lifelife—object reference
+
+
+        Search takes any of the identifiers above as the `value` parameter,
+        determines the identifier type and finds the corresponding entity. If
+        the entity exists, search returns its type and meta-information.
       operationId: search
       tags:
         - Search
@@ -265,7 +333,7 @@ components:
     limit:
       in: query
       name: limit
-      description: Number of entries to show per page.
+      description: Defines a number of entries to show per page.
       required: false
       schema:
         type: integer
@@ -276,7 +344,7 @@ components:
     offsetParam:
       in: query
       name: offset
-      description: Number of entries to skip from the starting point (`from_*`).
+      description: Defines a number of entries to skip from the starting point (`from_*`).
       required: false
       schema:
         type: integer
@@ -286,7 +354,7 @@ components:
     fromPulseNumberParam:
       in: query
       name: from_pulse_number
-      description: Specific pulse number to paginate from.
+      description: Defines a specific `pulse_number` to paginate from.
       required: false
       schema:
         type: integer
@@ -297,8 +365,8 @@ components:
       in: query
       name: timestamp_gte
       description: >-
-        Starting point in a range. Greater than or equal to this timestamp in
-        Unix format.
+        Defines the starting point for a returned range—greater than or equal to
+        the specified `timestamp` in the Unix format.
       required: false
       schema:
         type: integer
@@ -309,8 +377,8 @@ components:
       in: query
       name: timestamp_lte
       description: >-
-        Ending point in a range. Greater than or equal to this timestamp in Unix
-        format.
+        Defines the ending point for a returned range—less than or equal to the
+        specified `timestamp` in the Unix format.
       required: false
       schema:
         type: integer
@@ -320,7 +388,9 @@ components:
     pulse_number_gt:
       in: query
       name: pulse_number_gt
-      description: Starting point in a range. Greater than this `pulse_number`.
+      description: >-
+        Defines the starting point for a returned range of pulses—greater than
+        the specified `pulse_number`.
       required: false
       schema:
         type: integer
@@ -329,7 +399,9 @@ components:
     pulse_number_gte:
       in: query
       name: pulse_number_gte
-      description: Filtering where pulse number is greater than or equal to
+      description: >-
+        Defines the starting point for a returned range of pulses—greater than
+        or equal to the specified `pulse_number`.
       required: false
       schema:
         type: integer
@@ -338,7 +410,9 @@ components:
     pulse_number_lt:
       in: query
       name: pulse_number_lt
-      description: Ending point in a range. Less than this `pulse_number`.
+      description: >-
+        Defines the ending point for a returned range of pulses—less than the
+        specified `pulse_number`.
       required: false
       schema:
         type: integer
@@ -347,7 +421,9 @@ components:
     pulse_number_lte:
       in: query
       name: pulse_number_lte
-      description: Filtering where pulse number is less than or equal to.
+      description: >-
+        Defines the ending point for a returned range of pulses—less than equal
+        to the specified `pulse_number`.
       required: false
       schema:
         type: integer
@@ -381,12 +457,12 @@ components:
       required: true
       schema:
         type: string
-      description: Combination of `jet_id` with `pulse_number`.
+      description: Combination of `jet_id` and `pulse_number`.
       example: '0010:43648102'
     from_jet_drop_id:
-      name: from_jet_drop_id
-      description: Specific jet drop ID to paginate from.
       in: query
+      name: from_jet_drop_id
+      description: Defines a specific `jet_drop_id` to paginate from.
       required: false
       schema:
         type: string
@@ -402,7 +478,11 @@ components:
     sort_by_pulse:
       in: query
       name: sort_by
-      description: Sorting direction based on `pulse_number`.
+      description: >
+        Sorts by the `pulse_number` attribute of the returned object.
+
+        Can take two values that specify the sorting direction: descending
+        (`pulse_number_desc`) or ascending (`pulse_number_asc`).
       required: false
       schema:
         type: string
@@ -413,7 +493,7 @@ components:
       example: 'pulse_number_asc,jet_id_desc'
     from_index:
       name: from_index
-      description: Specific index to paginate from.
+      description: Defines a specific `index` to paginate from.
       in: query
       required: false
       schema:
@@ -422,7 +502,7 @@ components:
     recordTypeParam:
       name: type
       in: query
-      description: Record type for filtering records.
+      description: Defines the record type to filter the obtained records by.
       required: false
       schema:
         type: string
@@ -442,7 +522,11 @@ components:
     sort_by_index:
       in: query
       name: sort_by
-      description: Sorting direction based on index.
+      description: >
+        Sorts by the `index` attribute of the returned object.
+
+        Can take two values that specify the sorting direction: descending
+        (`index_desc`) or ascending (`index_asc`).
       required: false
       schema:
         type: string
@@ -480,7 +564,7 @@ components:
     404Response:
       description: Not found
     jetDropResponse:
-      description: Jet drop
+      description: OK
       content:
         application/json:
           schema:
@@ -509,7 +593,7 @@ components:
               - $ref: '#/components/schemas/search-lifeline'
   schemas:
     pulses:
-      description: A paged array of pulses.
+      description: A paginated array of pulses.
       type: object
       properties:
         total:
@@ -583,15 +667,15 @@ components:
           example: 1451743413
         is_complete:
           type: boolean
-          description: Pulse completeness status.
+          description: Pulse completion status.
           example: true
     jet-drop:
-      description: Jet Drop representation.
+      description: Jet drop representation.
       type: object
       properties:
         jet_drop_id:
           type: string
-          description: Combination of `jet_id` with `pulse_number`.
+          description: Combination of `jet_id` and `pulse_number`.
           example: '0010:43648102'
           pattern: '^((\*|([0-1]{1,216})):\d+)$'
         next_jet_drop_id:
@@ -698,8 +782,8 @@ components:
             index:
               type: string
               description: >-
-                Index is combination of `pulse_number` with `order` (record
-                number in a jet drop).
+                Index—combination of `pulse_number` and `order` (record number
+                in a jet drop).
               example: '43648102:7'
     search-jet-drop:
       description: Jet drop response.
@@ -718,7 +802,7 @@ components:
           properties:
             jet_drop_id:
               type: string
-              description: Combination of `jet_id` with `pulse_number`.
+              description: Combination of `jet_id` and `pulse_number`.
               example: '001:43612021'
     search-lifeline:
       description: Lifeline response.
@@ -779,7 +863,7 @@ components:
           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
         prev_record_reference:
           type: string
-          description: Previous record reference.
+          description: Reference to a previous record.
           example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
         object_reference:
@@ -827,16 +911,16 @@ components:
           pattern: '^([0-1]{2,64})$'
         jet_drop_id:
           type: string
-          description: Combination of `jet_id` with `pulse_number`.
+          description: Combination of `jet_id` and `pulse_number`.
           example: '0010:43648102'
         order:
           type: integer
           format: int64
-          description: Order is the record order number in the jet drop.
+          description: Order—record number in a `jet drop`.
           example: '3'
         index:
           type: string
           description: >-
-            Index is combination of pulse_number with order (record number in a
+            Index—combination of `pulse_number` and `order` (record number in a
             jet drop).
           example: '43648102:7'

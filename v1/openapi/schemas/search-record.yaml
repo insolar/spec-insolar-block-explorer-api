@@ -21,5 +21,5 @@ properties:
           ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
       index:
         type: string
-        description: Index is combination of `pulse_number` with `order` (record number in a jet drop).
+        description: Index—combination of `pulse_number` and `order` (record number in a jet drop).
         example: "43648102:7"
