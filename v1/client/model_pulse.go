@@ -25,9 +25,12 @@ type Pulse struct {
 	Timestamp int64 `json:"timestamp,omitempty"`
 	// Pulse completion status.
 	IsComplete bool `json:"is_complete,omitempty"`
+	// Error code received from the backend services.
 	Code string `json:"code,omitempty"`
+	// Short error description.
 	Message string `json:"message,omitempty"`
+	// Additional information about the error.
 	Description string `json:"description,omitempty"`
-	Link string `json:"link,omitempty"`
+	// Array containing incorrect parameters/fields.
 	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

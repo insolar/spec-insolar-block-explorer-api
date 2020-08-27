@@ -603,6 +603,7 @@ components:
           example: 100
         result:
           type: array
+          description: Array of entries. Size depends on the `limit` filtering parameter.
           items:
             $ref: '#/components/schemas/pulse'
     code-validation-error:
@@ -611,13 +612,15 @@ components:
       properties:
         code:
           type: string
+          description: Error code received from the backend services.
         message:
           type: string
+          description: Short error description.
         description:
           type: string
-        link:
-          type: string
+          description: Additional information about the error.
         validation_failures:
+          description: Array containing incorrect parameters/fields.
           type: array
           items:
             $ref: '#/components/schemas/code-validation-failures'
@@ -627,10 +630,13 @@ components:
       properties:
         code:
           type: string
+          description: Error code received from the backend services.
         message:
           type: string
+          description: Short error description.
         description:
           type: string
+          description: Additional information about the error.
     pulse:
       description: Pulse representation.
       type: object
@@ -724,6 +730,7 @@ components:
           example: 100
         result:
           type: array
+          description: Array of entries. Size depends on the `limit` filtering parameter.
           items:
             $ref: '#/components/schemas/jet-drop'
     records:
@@ -737,6 +744,7 @@ components:
           example: 100
         result:
           type: array
+          description: Array of entries. Size depends on the `limit` filtering parameter.
           items:
             $ref: '#/components/schemas/record'
     search-pulse:

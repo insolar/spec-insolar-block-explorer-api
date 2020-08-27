@@ -13,17 +13,30 @@ import (
 
 // CodeError defines model for code-error.
 type CodeError struct {
-	Code        *string `json:"code,omitempty"`
+
+	// Error code received from the backend services.
+	Code *string `json:"code,omitempty"`
+
+	// Additional information about the error.
 	Description *string `json:"description,omitempty"`
-	Message     *string `json:"message,omitempty"`
+
+	// Short error description.
+	Message *string `json:"message,omitempty"`
 }
 
 // CodeValidationError defines model for code-validation-error.
 type CodeValidationError struct {
-	Code               *string                   `json:"code,omitempty"`
-	Description        *string                   `json:"description,omitempty"`
-	Link               *string                   `json:"link,omitempty"`
-	Message            *string                   `json:"message,omitempty"`
+
+	// Error code received from the backend services.
+	Code *string `json:"code,omitempty"`
+
+	// Additional information about the error.
+	Description *string `json:"description,omitempty"`
+
+	// Short error description.
+	Message *string `json:"message,omitempty"`
+
+	// Array containing incorrect parameters/fields.
 	ValidationFailures *[]CodeValidationFailures `json:"validation_failures,omitempty"`
 }
 
@@ -67,6 +80,8 @@ type JetDrop struct {
 
 // JetDrops defines model for jet-drops.
 type JetDrops struct {
+
+	// Array of entries. Size depends on the `limit` filtering parameter.
 	Result *[]JetDrop `json:"result,omitempty"`
 
 	// Number of entries in the array.
@@ -113,6 +128,8 @@ type Pulse struct {
 
 // Pulses defines model for pulses.
 type Pulses struct {
+
+	// Array of entries. Size depends on the `limit` filtering parameter.
 	Result *[]Pulse `json:"result,omitempty"`
 
 	// Number of entries in the array.
@@ -164,6 +181,8 @@ type Record struct {
 
 // Records defines model for records.
 type Records struct {
+
+	// Array of entries. Size depends on the `limit` filtering parameter.
 	Result *[]Record `json:"result,omitempty"`
 
 	// Number of entries in the array.

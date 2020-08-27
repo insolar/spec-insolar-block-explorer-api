@@ -11,7 +11,10 @@
 package client
 // CodeError Response codes.
 type CodeError struct {
+	// Error code received from the backend services.
 	Code string `json:"code,omitempty"`
+	// Short error description.
 	Message string `json:"message,omitempty"`
+	// Additional information about the error.
 	Description string `json:"description,omitempty"`
 }

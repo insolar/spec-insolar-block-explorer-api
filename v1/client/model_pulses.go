@@ -13,10 +13,14 @@ package client
 type Pulses struct {
 	// Number of entries in the array.
 	Total int64 `json:"total,omitempty"`
+	// Array of entries. Size depends on the `limit` filtering parameter.
 	Result []PulseResponse200 `json:"result,omitempty"`
+	// Error code received from the backend services.
 	Code string `json:"code,omitempty"`
+	// Short error description.
 	Message string `json:"message,omitempty"`
+	// Additional information about the error.
 	Description string `json:"description,omitempty"`
-	Link string `json:"link,omitempty"`
+	// Array containing incorrect parameters/fields.
 	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

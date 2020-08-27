@@ -9,5 +9,6 @@ properties:
     example: 100
   result:
     type: array
+    description: Array of entries. Size depends on the `limit` filtering parameter.
     items:
       $ref: './record.yaml'
