@@ -13,10 +13,14 @@ package client
 type JetDropsByJetIdResponse200 struct {
 	// Number of entries in the array.
 	Total int64 `json:"total,omitempty"`
+	// Array of entries. The `limit` pagination parameter sets the number of entries.
 	Result []JetDropByIdResponse200 `json:"result,omitempty"`
+	// Error code received from the backend services.
 	Code string `json:"code,omitempty"`
+	// Short error description.
 	Message string `json:"message,omitempty"`
+	// Additional information about the error.
 	Description string `json:"description,omitempty"`
-	Link string `json:"link,omitempty"`
+	// Array containing incorrect parameters/properties.
 	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

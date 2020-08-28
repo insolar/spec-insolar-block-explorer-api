@@ -9,5 +9,6 @@ properties:
     example: 100
   result:
     type: array
+    description: Array of entries. The `limit` pagination parameter sets the number of entries.
     items:
       $ref: './record.yaml'

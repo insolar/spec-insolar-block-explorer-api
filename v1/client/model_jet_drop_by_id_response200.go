@@ -27,9 +27,12 @@ type JetDropByIdResponse200 struct {
 	Timestamp int64 `json:"timestamp,omitempty"`
 	// Record hash.
 	Hash string `json:"hash,omitempty"`
+	// Error code received from the backend services.
 	Code string `json:"code,omitempty"`
+	// Short error description.
 	Message string `json:"message,omitempty"`
+	// Additional information about the error.
 	Description string `json:"description,omitempty"`
-	Link string `json:"link,omitempty"`
+	// Array containing incorrect parameters/properties.
 	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

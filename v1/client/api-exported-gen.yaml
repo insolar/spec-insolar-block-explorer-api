@@ -154,6 +154,9 @@ paths:
                     example: 100
                   result:
                     type: array
+                    description: >-
+                      Array of entries. The `limit` pagination parameter sets
+                      the number of entries.
                     items:
                       description: Response codes.
                       type: object
@@ -194,13 +197,15 @@ paths:
                           example: true
                         code:
                           type: string
+                          description: Error code received from the backend services.
                         message:
                           type: string
+                          description: Short error description.
                         description:
                           type: string
-                        link:
-                          type: string
+                          description: Additional information about the error.
                         validation_failures:
+                          description: Array containing incorrect parameters/properties.
                           type: array
                           items:
                             description: Validation failure.
@@ -215,13 +220,15 @@ paths:
                       title: PulseResponse200
                   code:
                     type: string
+                    description: Error code received from the backend services.
                   message:
                     type: string
+                    description: Short error description.
                   description:
                     type: string
-                  link:
-                    type: string
+                    description: Additional information about the error.
                   validation_failures:
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -296,13 +303,15 @@ paths:
                     example: true
                   code:
                     type: string
+                    description: Error code received from the backend services.
                   message:
                     type: string
+                    description: Short error description.
                   description:
                     type: string
-                  link:
-                    type: string
+                    description: Additional information about the error.
                   validation_failures:
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -417,13 +426,15 @@ paths:
                       0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
                   code:
                     type: string
+                    description: Error code received from the backend services.
                   message:
                     type: string
+                    description: Short error description.
                   description:
                     type: string
-                  link:
-                    type: string
+                    description: Additional information about the error.
                   validation_failures:
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -478,6 +489,9 @@ paths:
                     example: 100
                   result:
                     type: array
+                    description: >-
+                      Array of entries. The `limit` pagination parameter sets
+                      the number of entries.
                     items:
                       description: Response codes.
                       type: object
@@ -558,13 +572,15 @@ paths:
                             0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
                         code:
                           type: string
+                          description: Error code received from the backend services.
                         message:
                           type: string
+                          description: Short error description.
                         description:
                           type: string
-                        link:
-                          type: string
+                          description: Additional information about the error.
                         validation_failures:
+                          description: Array containing incorrect parameters/properties.
                           type: array
                           items:
                             description: Validation failure.
@@ -579,13 +595,15 @@ paths:
                       title: Jet drop by IDResponse200
                   code:
                     type: string
+                    description: Error code received from the backend services.
                   message:
                     type: string
+                    description: Short error description.
                   description:
                     type: string
-                  link:
-                    type: string
+                    description: Additional information about the error.
                   validation_failures:
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -642,6 +660,9 @@ paths:
                     example: 100
                   result:
                     type: array
+                    description: >-
+                      Array of entries. The `limit` pagination parameter sets
+                      the number of entries.
                     items:
                       description: Response codes.
                       type: object
@@ -722,13 +743,15 @@ paths:
                             0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
                         code:
                           type: string
+                          description: Error code received from the backend services.
                         message:
                           type: string
+                          description: Short error description.
                         description:
                           type: string
-                        link:
-                          type: string
+                          description: Additional information about the error.
                         validation_failures:
+                          description: Array containing incorrect parameters/properties.
                           type: array
                           items:
                             description: Validation failure.
@@ -743,13 +766,15 @@ paths:
                       title: Jet drop by IDResponse200
                   code:
                     type: string
+                    description: Error code received from the backend services.
                   message:
                     type: string
+                    description: Short error description.
                   description:
                     type: string
-                  link:
-                    type: string
+                    description: Additional information about the error.
                   validation_failures:
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -802,6 +827,9 @@ paths:
                     example: 100
                   result:
                     type: array
+                    description: >-
+                      Array of entries. The `limit` pagination parameter sets
+                      the number of entries.
                     items:
                       description: Record representation.
                       type: object
@@ -880,13 +908,15 @@ paths:
                           example: '43648102:7'
                   code:
                     type: string
+                    description: Error code received from the backend services.
                   message:
                     type: string
+                    description: Short error description.
                   description:
                     type: string
-                  link:
-                    type: string
+                    description: Additional information about the error.
                   validation_failures:
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -943,6 +973,9 @@ paths:
                     example: 100
                   result:
                     type: array
+                    description: >-
+                      Array of entries. The `limit` pagination parameter sets
+                      the number of entries.
                     items:
                       description: Record representation.
                       type: object
@@ -1021,13 +1054,15 @@ paths:
                           example: '43648102:7'
                   code:
                     type: string
+                    description: Error code received from the backend services.
                   message:
                     type: string
+                    description: Short error description.
                   description:
                     type: string
-                  link:
-                    type: string
+                    description: Additional information about the error.
                   validation_failures:
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -1111,13 +1146,15 @@ paths:
                         example: '001:43612021'
                   code:
                     type: string
+                    description: Error code received from the backend services.
                   message:
                     type: string
+                    description: Short error description.
                   description:
                     type: string
-                  link:
-                    type: string
+                    description: Additional information about the error.
                   validation_failures:
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -1702,6 +1739,9 @@ components:
                 example: 100
               result:
                 type: array
+                description: >-
+                  Array of entries. The `limit` pagination parameter sets the
+                  number of entries.
                 items:
                   description: Response codes.
                   type: object
@@ -1742,13 +1782,15 @@ components:
                       example: true
                     code:
                       type: string
+                      description: Error code received from the backend services.
                     message:
                       type: string
+                      description: Short error description.
                     description:
                       type: string
-                    link:
-                      type: string
+                      description: Additional information about the error.
                     validation_failures:
+                      description: Array containing incorrect parameters/properties.
                       type: array
                       items:
                         description: Validation failure.
@@ -1763,13 +1805,15 @@ components:
                   title: PulseResponse200
               code:
                 type: string
+                description: Error code received from the backend services.
               message:
                 type: string
+                description: Short error description.
               description:
                 type: string
-              link:
-                type: string
+                description: Additional information about the error.
               validation_failures:
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -1793,13 +1837,15 @@ components:
             properties:
               code:
                 type: string
+                description: Error code received from the backend services.
               message:
                 type: string
+                description: Short error description.
               description:
                 type: string
-              link:
-                type: string
+                description: Additional information about the error.
               validation_failures:
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -1821,10 +1867,13 @@ components:
             properties:
               code:
                 type: string
+                description: Error code received from the backend services.
               message:
                 type: string
+                description: Short error description.
               description:
                 type: string
+                description: Additional information about the error.
     pulseResponse:
       description: Internal server error
       content:
@@ -1869,13 +1918,15 @@ components:
                 example: true
               code:
                 type: string
+                description: Error code received from the backend services.
               message:
                 type: string
+                description: Short error description.
               description:
                 type: string
-              link:
-                type: string
+                description: Additional information about the error.
               validation_failures:
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -1974,13 +2025,15 @@ components:
                   0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
               code:
                 type: string
+                description: Error code received from the backend services.
               message:
                 type: string
+                description: Short error description.
               description:
                 type: string
-              link:
-                type: string
+                description: Additional information about the error.
               validation_failures:
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -2008,6 +2061,9 @@ components:
                 example: 100
               result:
                 type: array
+                description: >-
+                  Array of entries. The `limit` pagination parameter sets the
+                  number of entries.
                 items:
                   description: Response codes.
                   type: object
@@ -2088,13 +2144,15 @@ components:
                         0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
                     code:
                       type: string
+                      description: Error code received from the backend services.
                     message:
                       type: string
+                      description: Short error description.
                     description:
                       type: string
-                    link:
-                      type: string
+                      description: Additional information about the error.
                     validation_failures:
+                      description: Array containing incorrect parameters/properties.
                       type: array
                       items:
                         description: Validation failure.
@@ -2109,13 +2167,15 @@ components:
                   title: Jet drop by IDResponse200
               code:
                 type: string
+                description: Error code received from the backend services.
               message:
                 type: string
+                description: Short error description.
               description:
                 type: string
-              link:
-                type: string
+                description: Additional information about the error.
               validation_failures:
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -2143,6 +2203,9 @@ components:
                 example: 100
               result:
                 type: array
+                description: >-
+                  Array of entries. The `limit` pagination parameter sets the
+                  number of entries.
                 items:
                   description: Record representation.
                   type: object
@@ -2219,13 +2282,15 @@ components:
                       example: '43648102:7'
               code:
                 type: string
+                description: Error code received from the backend services.
               message:
                 type: string
+                description: Short error description.
               description:
                 type: string
-              link:
-                type: string
+                description: Additional information about the error.
               validation_failures:
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -2282,13 +2347,15 @@ components:
                     example: '001:43612021'
               code:
                 type: string
+                description: Error code received from the backend services.
               message:
                 type: string
+                description: Short error description.
               description:
                 type: string
-              link:
-                type: string
+                description: Additional information about the error.
               validation_failures:
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -2312,6 +2379,9 @@ components:
           example: 100
         result:
           type: array
+          description: >-
+            Array of entries. The `limit` pagination parameter sets the number
+            of entries.
           items:
             description: Response codes.
             type: object
@@ -2352,13 +2422,15 @@ components:
                 example: true
               code:
                 type: string
+                description: Error code received from the backend services.
               message:
                 type: string
+                description: Short error description.
               description:
                 type: string
-              link:
-                type: string
+                description: Additional information about the error.
               validation_failures:
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -2373,13 +2445,15 @@ components:
             title: PulseResponse200
         code:
           type: string
+          description: Error code received from the backend services.
         message:
           type: string
+          description: Short error description.
         description:
           type: string
-        link:
-          type: string
+          description: Additional information about the error.
         validation_failures:
+          description: Array containing incorrect parameters/properties.
           type: array
           items:
             description: Validation failure.
@@ -2398,13 +2472,15 @@ components:
       properties:
         code:
           type: string
+          description: Error code received from the backend services.
         message:
           type: string
+          description: Short error description.
         description:
           type: string
-        link:
-          type: string
+          description: Additional information about the error.
         validation_failures:
+          description: Array containing incorrect parameters/properties.
           type: array
           items:
             description: Validation failure.
@@ -2422,10 +2498,13 @@ components:
       properties:
         code:
           type: string
+          description: Error code received from the backend services.
         message:
           type: string
+          description: Short error description.
         description:
           type: string
+          description: Additional information about the error.
     pulse:
       description: Response codes.
       type: object
@@ -2466,13 +2545,15 @@ components:
           example: true
         code:
           type: string
+          description: Error code received from the backend services.
         message:
           type: string
+          description: Short error description.
         description:
           type: string
-        link:
-          type: string
+          description: Additional information about the error.
         validation_failures:
+          description: Array containing incorrect parameters/properties.
           type: array
           items:
             description: Validation failure.
@@ -2565,13 +2646,15 @@ components:
             0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
         code:
           type: string
+          description: Error code received from the backend services.
         message:
           type: string
+          description: Short error description.
         description:
           type: string
-        link:
-          type: string
+          description: Additional information about the error.
         validation_failures:
+          description: Array containing incorrect parameters/properties.
           type: array
           items:
             description: Validation failure.
@@ -2595,6 +2678,9 @@ components:
           example: 100
         result:
           type: array
+          description: >-
+            Array of entries. The `limit` pagination parameter sets the number
+            of entries.
           items:
             description: Response codes.
             type: object
@@ -2675,13 +2761,15 @@ components:
                   0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
               code:
                 type: string
+                description: Error code received from the backend services.
               message:
                 type: string
+                description: Short error description.
               description:
                 type: string
-              link:
-                type: string
+                description: Additional information about the error.
               validation_failures:
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -2696,13 +2784,15 @@ components:
             title: Jet drop by IDResponse200
         code:
           type: string
+          description: Error code received from the backend services.
         message:
           type: string
+          description: Short error description.
         description:
           type: string
-        link:
-          type: string
+          description: Additional information about the error.
         validation_failures:
+          description: Array containing incorrect parameters/properties.
           type: array
           items:
             description: Validation failure.
@@ -2726,6 +2816,9 @@ components:
           example: 100
         result:
           type: array
+          description: >-
+            Array of entries. The `limit` pagination parameter sets the number
+            of entries.
           items:
             description: Record representation.
             type: object
@@ -2800,13 +2893,15 @@ components:
                 example: '43648102:7'
         code:
           type: string
+          description: Error code received from the backend services.
         message:
           type: string
+          description: Short error description.
         description:
           type: string
-        link:
-          type: string
+          description: Additional information about the error.
         validation_failures:
+          description: Array containing incorrect parameters/properties.
           type: array
           items:
             description: Validation failure.

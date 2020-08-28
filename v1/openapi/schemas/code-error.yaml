@@ -4,7 +4,10 @@ type: object
 properties:
   code:
     type: string
+    description: Error code received from the backend services.
   message:
     type: string
+    description: Short error description.
   description:
     type: string
+    description: Additional information about the error.
