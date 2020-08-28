@@ -155,8 +155,8 @@ paths:
                   result:
                     type: array
                     description: >-
-                      Array of entries. Size depends on the `limit` filtering
-                      parameter.
+                      Array of entries. The `limit` pagination parameter sets
+                      the number of entries.
                     items:
                       description: Response codes.
                       type: object
@@ -205,7 +205,7 @@ paths:
                           type: string
                           description: Additional information about the error.
                         validation_failures:
-                          description: Array containing incorrect parameters/fields.
+                          description: Array containing incorrect parameters/properties.
                           type: array
                           items:
                             description: Validation failure.
@@ -228,7 +228,7 @@ paths:
                     type: string
                     description: Additional information about the error.
                   validation_failures:
-                    description: Array containing incorrect parameters/fields.
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -311,7 +311,7 @@ paths:
                     type: string
                     description: Additional information about the error.
                   validation_failures:
-                    description: Array containing incorrect parameters/fields.
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -434,7 +434,7 @@ paths:
                     type: string
                     description: Additional information about the error.
                   validation_failures:
-                    description: Array containing incorrect parameters/fields.
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -490,8 +490,8 @@ paths:
                   result:
                     type: array
                     description: >-
-                      Array of entries. Size depends on the `limit` filtering
-                      parameter.
+                      Array of entries. The `limit` pagination parameter sets
+                      the number of entries.
                     items:
                       description: Response codes.
                       type: object
@@ -580,7 +580,7 @@ paths:
                           type: string
                           description: Additional information about the error.
                         validation_failures:
-                          description: Array containing incorrect parameters/fields.
+                          description: Array containing incorrect parameters/properties.
                           type: array
                           items:
                             description: Validation failure.
@@ -603,7 +603,7 @@ paths:
                     type: string
                     description: Additional information about the error.
                   validation_failures:
-                    description: Array containing incorrect parameters/fields.
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -661,8 +661,8 @@ paths:
                   result:
                     type: array
                     description: >-
-                      Array of entries. Size depends on the `limit` filtering
-                      parameter.
+                      Array of entries. The `limit` pagination parameter sets
+                      the number of entries.
                     items:
                       description: Response codes.
                       type: object
@@ -751,7 +751,7 @@ paths:
                           type: string
                           description: Additional information about the error.
                         validation_failures:
-                          description: Array containing incorrect parameters/fields.
+                          description: Array containing incorrect parameters/properties.
                           type: array
                           items:
                             description: Validation failure.
@@ -774,7 +774,7 @@ paths:
                     type: string
                     description: Additional information about the error.
                   validation_failures:
-                    description: Array containing incorrect parameters/fields.
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -828,8 +828,8 @@ paths:
                   result:
                     type: array
                     description: >-
-                      Array of entries. Size depends on the `limit` filtering
-                      parameter.
+                      Array of entries. The `limit` pagination parameter sets
+                      the number of entries.
                     items:
                       description: Record representation.
                       type: object
@@ -916,7 +916,7 @@ paths:
                     type: string
                     description: Additional information about the error.
                   validation_failures:
-                    description: Array containing incorrect parameters/fields.
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -974,8 +974,8 @@ paths:
                   result:
                     type: array
                     description: >-
-                      Array of entries. Size depends on the `limit` filtering
-                      parameter.
+                      Array of entries. The `limit` pagination parameter sets
+                      the number of entries.
                     items:
                       description: Record representation.
                       type: object
@@ -1062,7 +1062,7 @@ paths:
                     type: string
                     description: Additional information about the error.
                   validation_failures:
-                    description: Array containing incorrect parameters/fields.
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -1154,7 +1154,7 @@ paths:
                     type: string
                     description: Additional information about the error.
                   validation_failures:
-                    description: Array containing incorrect parameters/fields.
+                    description: Array containing incorrect parameters/properties.
                     type: array
                     items:
                       description: Validation failure.
@@ -1740,8 +1740,8 @@ components:
               result:
                 type: array
                 description: >-
-                  Array of entries. Size depends on the `limit` filtering
-                  parameter.
+                  Array of entries. The `limit` pagination parameter sets the
+                  number of entries.
                 items:
                   description: Response codes.
                   type: object
@@ -1790,7 +1790,7 @@ components:
                       type: string
                       description: Additional information about the error.
                     validation_failures:
-                      description: Array containing incorrect parameters/fields.
+                      description: Array containing incorrect parameters/properties.
                       type: array
                       items:
                         description: Validation failure.
@@ -1813,7 +1813,7 @@ components:
                 type: string
                 description: Additional information about the error.
               validation_failures:
-                description: Array containing incorrect parameters/fields.
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -1845,7 +1845,7 @@ components:
                 type: string
                 description: Additional information about the error.
               validation_failures:
-                description: Array containing incorrect parameters/fields.
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -1926,7 +1926,7 @@ components:
                 type: string
                 description: Additional information about the error.
               validation_failures:
-                description: Array containing incorrect parameters/fields.
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -2033,7 +2033,7 @@ components:
                 type: string
                 description: Additional information about the error.
               validation_failures:
-                description: Array containing incorrect parameters/fields.
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -2062,8 +2062,8 @@ components:
               result:
                 type: array
                 description: >-
-                  Array of entries. Size depends on the `limit` filtering
-                  parameter.
+                  Array of entries. The `limit` pagination parameter sets the
+                  number of entries.
                 items:
                   description: Response codes.
                   type: object
@@ -2152,7 +2152,7 @@ components:
                       type: string
                       description: Additional information about the error.
                     validation_failures:
-                      description: Array containing incorrect parameters/fields.
+                      description: Array containing incorrect parameters/properties.
                       type: array
                       items:
                         description: Validation failure.
@@ -2175,7 +2175,7 @@ components:
                 type: string
                 description: Additional information about the error.
               validation_failures:
-                description: Array containing incorrect parameters/fields.
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -2204,8 +2204,8 @@ components:
               result:
                 type: array
                 description: >-
-                  Array of entries. Size depends on the `limit` filtering
-                  parameter.
+                  Array of entries. The `limit` pagination parameter sets the
+                  number of entries.
                 items:
                   description: Record representation.
                   type: object
@@ -2290,7 +2290,7 @@ components:
                 type: string
                 description: Additional information about the error.
               validation_failures:
-                description: Array containing incorrect parameters/fields.
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -2355,7 +2355,7 @@ components:
                 type: string
                 description: Additional information about the error.
               validation_failures:
-                description: Array containing incorrect parameters/fields.
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -2379,7 +2379,9 @@ components:
           example: 100
         result:
           type: array
-          description: Array of entries. Size depends on the `limit` filtering parameter.
+          description: >-
+            Array of entries. The `limit` pagination parameter sets the number
+            of entries.
           items:
             description: Response codes.
             type: object
@@ -2428,7 +2430,7 @@ components:
                 type: string
                 description: Additional information about the error.
               validation_failures:
-                description: Array containing incorrect parameters/fields.
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -2451,7 +2453,7 @@ components:
           type: string
           description: Additional information about the error.
         validation_failures:
-          description: Array containing incorrect parameters/fields.
+          description: Array containing incorrect parameters/properties.
           type: array
           items:
             description: Validation failure.
@@ -2478,7 +2480,7 @@ components:
           type: string
           description: Additional information about the error.
         validation_failures:
-          description: Array containing incorrect parameters/fields.
+          description: Array containing incorrect parameters/properties.
           type: array
           items:
             description: Validation failure.
@@ -2551,7 +2553,7 @@ components:
           type: string
           description: Additional information about the error.
         validation_failures:
-          description: Array containing incorrect parameters/fields.
+          description: Array containing incorrect parameters/properties.
           type: array
           items:
             description: Validation failure.
@@ -2652,7 +2654,7 @@ components:
           type: string
           description: Additional information about the error.
         validation_failures:
-          description: Array containing incorrect parameters/fields.
+          description: Array containing incorrect parameters/properties.
           type: array
           items:
             description: Validation failure.
@@ -2676,7 +2678,9 @@ components:
           example: 100
         result:
           type: array
-          description: Array of entries. Size depends on the `limit` filtering parameter.
+          description: >-
+            Array of entries. The `limit` pagination parameter sets the number
+            of entries.
           items:
             description: Response codes.
             type: object
@@ -2765,7 +2769,7 @@ components:
                 type: string
                 description: Additional information about the error.
               validation_failures:
-                description: Array containing incorrect parameters/fields.
+                description: Array containing incorrect parameters/properties.
                 type: array
                 items:
                   description: Validation failure.
@@ -2788,7 +2792,7 @@ components:
           type: string
           description: Additional information about the error.
         validation_failures:
-          description: Array containing incorrect parameters/fields.
+          description: Array containing incorrect parameters/properties.
           type: array
           items:
             description: Validation failure.
@@ -2812,7 +2816,9 @@ components:
           example: 100
         result:
           type: array
-          description: Array of entries. Size depends on the `limit` filtering parameter.
+          description: >-
+            Array of entries. The `limit` pagination parameter sets the number
+            of entries.
           items:
             description: Record representation.
             type: object
@@ -2895,7 +2901,7 @@ components:
           type: string
           description: Additional information about the error.
         validation_failures:
-          description: Array containing incorrect parameters/fields.
+          description: Array containing incorrect parameters/properties.
           type: array
           items:
             description: Validation failure.

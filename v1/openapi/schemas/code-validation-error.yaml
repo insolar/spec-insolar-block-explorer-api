@@ -12,7 +12,7 @@ properties:
     type: string
     description: Additional information about the error.
   validation_failures:
-    description: Array containing incorrect parameters/fields.
+    description: Array containing incorrect parameters/properties.
     type: array
     items:
       type: object

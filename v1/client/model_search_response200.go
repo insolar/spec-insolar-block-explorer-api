@@ -20,6 +20,6 @@ type SearchResponse200 struct {
 	Message string `json:"message,omitempty"`
 	// Additional information about the error.
 	Description string `json:"description,omitempty"`
-	// Array containing incorrect parameters/fields.
+	// Array containing incorrect parameters/properties.
 	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

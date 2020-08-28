@@ -36,7 +36,7 @@ type CodeValidationError struct {
 	// Short error description.
 	Message *string `json:"message,omitempty"`
 
-	// Array containing incorrect parameters/fields.
+	// Array containing incorrect parameters/properties.
 	ValidationFailures *[]CodeValidationFailures `json:"validation_failures,omitempty"`
 }
 
@@ -81,7 +81,7 @@ type JetDrop struct {
 // JetDrops defines model for jet-drops.
 type JetDrops struct {
 
-	// Array of entries. Size depends on the `limit` filtering parameter.
+	// Array of entries. The `limit` pagination parameter sets the number of entries.
 	Result *[]JetDrop `json:"result,omitempty"`
 
 	// Number of entries in the array.
@@ -129,7 +129,7 @@ type Pulse struct {
 // Pulses defines model for pulses.
 type Pulses struct {
 
-	// Array of entries. Size depends on the `limit` filtering parameter.
+	// Array of entries. The `limit` pagination parameter sets the number of entries.
 	Result *[]Pulse `json:"result,omitempty"`
 
 	// Number of entries in the array.
@@ -182,7 +182,7 @@ type Record struct {
 // Records defines model for records.
 type Records struct {
 
-	// Array of entries. Size depends on the `limit` filtering parameter.
+	// Array of entries. The `limit` pagination parameter sets the number of entries.
 	Result *[]Record `json:"result,omitempty"`
 
 	// Number of entries in the array.

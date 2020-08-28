@@ -13,7 +13,7 @@ package client
 type JetDrops struct {
 	// Number of entries in the array.
 	Total int64 `json:"total,omitempty"`
-	// Array of entries. Size depends on the `limit` filtering parameter.
+	// Array of entries. The `limit` pagination parameter sets the number of entries.
 	Result []JetDropByIdResponse200 `json:"result,omitempty"`
 	// Error code received from the backend services.
 	Code string `json:"code,omitempty"`
@@ -21,6 +21,6 @@ type JetDrops struct {
 	Message string `json:"message,omitempty"`
 	// Additional information about the error.
 	Description string `json:"description,omitempty"`
-	// Array containing incorrect parameters/fields.
+	// Array containing incorrect parameters/properties.
 	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }
