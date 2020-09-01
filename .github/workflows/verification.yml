@@ -22,8 +22,8 @@ jobs:
           git add .
           git status
           git diff --cached --quiet --exit-code
-  api_tests_compilation:
-    name: Block-explorer API tests Compilation
+  block_explorer_compilation:
+    name: Block-explorer compilation
     runs-on: ubuntu-latest
     defaults:
       run:
