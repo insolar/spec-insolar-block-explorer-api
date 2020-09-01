@@ -22,3 +22,30 @@ jobs:
           git add .
           git status
           git diff --cached --quiet --exit-code
+  api_tests_compilation:
+    name: Block-explorer API tests Compilation
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/block-explorer
+    env:
+      GOPATH: ${{ github.workspace }}
+      GO111MODULE: on
+      GOSUMDB: off
+      PR_SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - name: Setup go environment
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.14'
+      - name: Checkout block-explorer
+        uses: actions/checkout@v2
+        with:
+          path: ./block-explorer
+          repository: insolar/block-explorer
+      - name: Point spec-insolar-block-explorer-api module version to current commit
+        run: go get github.com/insolar/spec-insolar-block-explorer-api@${PR_SHA:-${GITHUB_SHA}}
+      - name: Build block-explorer
+        run: make build
+      - name: Compile block-explorer tests
+        run: make compile-tests
