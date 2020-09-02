@@ -9,8 +9,12 @@
  */
 
 package client
-// SearchPulseMeta Meta data.
-type SearchPulseMeta struct {
+// JetDropByIdResponse200NextJetDropId Jet Drop representation.
+type JetDropByIdResponse200NextJetDropId struct {
+	// Combination of `jet_id` with `pulse_number`.
+	JetDropId string `json:"jet_drop_id,omitempty"`
+	// Jet ID.
+	JetId string `json:"jet_id,omitempty"`
 	// Pulse number.
 	PulseNumber int64 `json:"pulse_number,omitempty"`
 }

@@ -1,7 +1,7 @@
 x-component: 'parameters/limit'
 in: query
 name: limit
-description: Number of entries to show per page.
+description: Defines a number of entries to show per page.
 required: false
 schema:
   type: integer

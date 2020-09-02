@@ -9,8 +9,18 @@
  */
 
 package client
-// SearchPulseMeta Meta data.
-type SearchPulseMeta struct {
-	// Pulse number.
-	PulseNumber int64 `json:"pulse_number,omitempty"`
+// PulsesResponse200 Response codes.
+type PulsesResponse200 struct {
+	// Number of entries in the array.
+	Total int64 `json:"total,omitempty"`
+	// Array of entries. The `limit` pagination parameter sets the number of entries.
+	Result []PulseResponse200 `json:"result,omitempty"`
+	// Error code received from the backend services.
+	Code string `json:"code,omitempty"`
+	// Short error description.
+	Message string `json:"message,omitempty"`
+	// Additional information about the error.
+	Description string `json:"description,omitempty"`
+	// Array containing incorrect parameters/properties.
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

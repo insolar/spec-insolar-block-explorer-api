@@ -1,7 +1,9 @@
 x-component: 'parameters/sort_by_index'
 in: query
 name: sort_by
-description: Sorting direction based on index.
+description: |
+  Sorts by the `index` attribute of the returned object.
+  Can take two values that specify the sorting direction: descending (`index_desc`) or ascending (`index_asc`).
 required: false
 schema:
   type: string
