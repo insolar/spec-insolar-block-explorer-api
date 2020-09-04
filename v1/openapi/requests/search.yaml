@@ -7,7 +7,7 @@ get:
     * Record—record reference
     * Jet drop—jet drop ID (combination of `jet_id` and `pulse_number`)
     * Pulse—pulse number
-    * Lifelife—object reference
+    * Lifeline—object reference
 
     Search takes any of the identifiers above as the `value` parameter, determines the identifier type and finds the corresponding entity. If the entity exists, search returns its type and meta-information.
   operationId: search
