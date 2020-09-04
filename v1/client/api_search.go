@@ -27,7 +27,7 @@ type SearchApiService service
 
 /*
 Search Search
-Searches for an entity by its identifier.  Entities and their identifiers may be one of the following: * Record—record reference * Jet drop—jet drop ID (combination of &#x60;jet_id&#x60; and &#x60;pulse_number&#x60;) * Pulse—pulse number * Lifelife—object reference  Search takes any of the identifiers above as the &#x60;value&#x60; parameter, determines the identifier type and finds the corresponding entity. If the entity exists, search returns its type and meta-information. 
+Searches for an entity by its identifier.  Entities and their identifiers may be one of the following: * Record—record reference * Jet drop—jet drop ID (combination of &#x60;jet_id&#x60; and &#x60;pulse_number&#x60;) * Pulse—pulse number * Lifeline—object reference  Search takes any of the identifiers above as the &#x60;value&#x60; parameter, determines the identifier type and finds the corresponding entity. If the entity exists, search returns its type and meta-information. 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param value Searching value.
 @return SearchResponse200

@@ -1090,7 +1090,7 @@ paths:
 
         * Pulse—pulse number
 
-        * Lifelife—object reference
+        * Lifeline—object reference
 
 
         Search takes any of the identifiers above as the `value` parameter,
