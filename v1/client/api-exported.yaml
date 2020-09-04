@@ -63,7 +63,7 @@ info:
 
       You can specify inclusive, non-inclusive, open-ended, or closed-ended ranges depending on the request.
 
-      All range filter parameters have one the following suffixes:
+      All range filter parameters have one of the following suffixes:
       * `*_gt`—greater than
       * `*_lt`—less than
       * `*_gte`—greater than or equal to
@@ -303,7 +303,7 @@ paths:
 
         * Pulse—pulse number
 
-        * Lifelife—object reference
+        * Lifeline—object reference
 
 
         Search takes any of the identifiers above as the `value` parameter,
