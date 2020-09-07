@@ -1,6 +1,9 @@
 get:
   summary: Jet drops by pulse number
-  description: Gets an array of jet drops given a `pulse_number` as a path parameter. Optionally, specify filtering and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section.
+  description: |
+    Gets an array of jet drops given a `pulse_number` as a path parameter.
+
+    Optionally, specify pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section.
   operationId: JetDropsByPulseNumber
   tags:
     - Jet drop

@@ -1,6 +1,9 @@
 get:
   summary: Records
-  description:  Gets an array of records of a jet drop given a `jet_drop_id` as a path parameter. Optionally, specify filtering and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section.
+  description: |
+    Gets an array of records of a jet drop given a `jet_drop_id` as a path parameter.
+
+    Optionally, specify filtering and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section.
   operationId: jet_drop_records
   tags:
     - Record

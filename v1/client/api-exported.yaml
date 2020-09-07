@@ -15,14 +15,19 @@ info:
 
 
     [Insolar Explorer](https://github.com/insolar/block-explorer) is a service
-    for searching for and viewing the contents of individual transactions,
-    records, lifelines, jet drops and jets.
+    for searching for and viewing the contents of records, lifelines, jet drops,
+    and jets.
 
 
-    The API allows to search for, filter and view the contents of said entities.
+    Insolar Explorer provides an API that allows to search for said entities as
+    well as request, filter, sort, and paginate their arrays.
 
 
     ## Entities description
+
+
+    Basic Insolar entities that you can find in this specification are the
+    following:
 
 
     * Record—minimum unit of storage that contains an associated request,
@@ -36,10 +41,14 @@ info:
     * Jet—group of lifelines.
 
 
-    * Jet drop ID—combination of jet id and pulse number.
+    Some of the entities have complex identifiers. For example:
 
-    * Index—combination of pulse number and order (record number in a jet drop).
 
+    * A jet drop ID is a combination of jet ID and pulse number.
+
+    * A record's index is a combination of pulse number and order.
+
+    * An order is a record number in a jet drop.
 
 
     ## Filtering, pagination, sorting
@@ -96,7 +105,26 @@ info:
     * `offset`—number of items to skip.
 
     * `from_*`—pagination starting point: the value of a monotonically
-    increasing attribute.
+    increasing attribute. The `*` designates the property name to paginate by.
+
+
+    For example: if you specify `?limit=100&offset=5&from_index=47382564:2` in a
+    [request](#operation/jet_drop_records) that returns an array of records, the
+    array:
+
+
+    * Starts with a record with the 5th index relative to the index
+    `47382564:2`.
+
+    * Can consist of 100 entries maximum.
+
+
+    The number of entries may vary depending on the actual number of records
+    requested.
+
+    To show if the value of the `limit` parameter is higher or lower than the
+    actual number of entries, each response to a paginated request contains the
+    actual existing number in the `total` property.
 servers:
   - url: example.com
     description: Test server.
@@ -119,9 +147,12 @@ paths:
   /api/v1/pulses:
     get:
       summary: Pulses
-      description: >-
-        Gets an array of pulses. Optionally, specify filtering and pagination
-        parameters. For more information, refer to the [filtering, pagination,
+      description: >
+        Gets an array of pulses.
+
+
+        Optionally, specify filtering, sorting, and pagination parameters. For
+        more information, refer to the [filtering, pagination,
         sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
         section.
       operationId: pulses
@@ -186,10 +217,12 @@ paths:
   '/api/v1/pulses/{pulse_number}/jet-drops':
     get:
       summary: Jet drops by pulse number
-      description: >-
+      description: >
         Gets an array of jet drops given a `pulse_number` as a path parameter.
-        Optionally, specify filtering and pagination parameters. For more
-        information, refer to the [filtering, pagination,
+
+
+        Optionally, specify pagination parameters. For more information, refer
+        to the [filtering, pagination,
         sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
         section.
       operationId: JetDropsByPulseNumber
@@ -210,10 +243,12 @@ paths:
   '/api/v1/jets/{jet_id}/jet-drops':
     get:
       summary: Jet drops by jet ID
-      description: >-
+      description: >
         Gets an array of jet drops given a `jet_id` as a path parameter.
-        Optionally, specify filtering and pagination parameters. For more
-        information, refer to the [filtering, pagination,
+
+
+        Optionally, specify filtering, sorting, and pagination parameters. For
+        more information, refer to the [filtering, pagination,
         sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
         section.
       operationId: JetDropsByJetID
@@ -237,10 +272,13 @@ paths:
   '/api/v1/jet-drops/{jet_drop_id}/records':
     get:
       summary: Records
-      description: >-
+      description: >
         Gets an array of records of a jet drop given a `jet_drop_id` as a path
-        parameter. Optionally, specify filtering and pagination parameters. For
-        more information, refer to the [filtering, pagination,
+        parameter.
+
+
+        Optionally, specify filtering and pagination parameters. For more
+        information, refer to the [filtering, pagination,
         sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
         section.
       operationId: jet_drop_records
@@ -262,10 +300,13 @@ paths:
   '/api/v1/lifeline/{object_reference}/records':
     get:
       summary: Object lifeline
-      description: >-
+      description: >
         Gets an array of records of a lifeline given an `object_reference` as a
-        path parameter. Optionally, specify filtering and pagination parameters.
-        For more information, refer to the [filtering, pagination,
+        path parameter.
+
+
+        Optionally, specify filtering, sorting, and pagination parameters. For
+        more information, refer to the [filtering, pagination,
         sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
         section.
       operationId: object_lifeline
@@ -599,10 +640,15 @@ components:
         total:
           type: integer
           format: int64
-          description: Number of entries in the array.
+          description: >-
+            Actual number of existing entries. May be higher or lower than the
+            specified `limit`.
           example: 100
         result:
           type: array
+          description: >-
+            Array with a number entries as specified by filtering and pagination
+            parameters.
           items:
             $ref: '#/components/schemas/pulse'
     code-validation-error:
@@ -720,10 +766,15 @@ components:
         total:
           type: integer
           format: int64
-          description: Number of entries in the array.
+          description: >-
+            Actual number of existing entries. May be higher or lower than the
+            specified `limit`.
           example: 100
         result:
           type: array
+          description: >-
+            Array with a number entries as specified by filtering and pagination
+            parameters.
           items:
             $ref: '#/components/schemas/jet-drop'
     records:
@@ -733,10 +784,15 @@ components:
         total:
           type: integer
           format: int64
-          description: Number of entries in the array.
+          description: >-
+            Actual number of existing entries. May be higher or lower than the
+            specified `limit`.
           example: 100
         result:
           type: array
+          description: >-
+            Array with a number entries as specified by filtering and pagination
+            parameters.
           items:
             $ref: '#/components/schemas/record'
     search-pulse:
