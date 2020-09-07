@@ -81,10 +81,10 @@ type JetDrop struct {
 // JetDrops defines model for jet-drops.
 type JetDrops struct {
 
-	// Array of entries. The `limit` pagination parameter sets the number of entries.
+	// Array with a number entries as specified by filtering and pagination parameters.
 	Result *[]JetDrop `json:"result,omitempty"`
 
-	// Number of entries in the array.
+	// Actual number of existing entries. May be higher or lower than the specified `limit`.
 	Total *int64 `json:"total,omitempty"`
 }
 
@@ -129,10 +129,10 @@ type Pulse struct {
 // Pulses defines model for pulses.
 type Pulses struct {
 
-	// Array of entries. The `limit` pagination parameter sets the number of entries.
+	// Array with a number entries as specified by filtering and pagination parameters.
 	Result *[]Pulse `json:"result,omitempty"`
 
-	// Number of entries in the array.
+	// Actual number of existing entries. May be higher or lower than the specified `limit`.
 	Total *int64 `json:"total,omitempty"`
 }
 
@@ -182,10 +182,10 @@ type Record struct {
 // Records defines model for records.
 type Records struct {
 
-	// Array of entries. The `limit` pagination parameter sets the number of entries.
+	// Array with a number entries as specified by filtering and pagination parameters.
 	Result *[]Record `json:"result,omitempty"`
 
-	// Number of entries in the array.
+	// Actual number of existing entries. May be higher or lower than the specified `limit`.
 	Total *int64 `json:"total,omitempty"`
 }
 

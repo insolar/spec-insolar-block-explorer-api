@@ -1,6 +1,9 @@
 get:
   summary: Jet drops by jet ID
-  description: Gets an array of jet drops given a `jet_id` as a path parameter. Optionally, specify filtering and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section.
+  description: |
+    Gets an array of jet drops given a `jet_id` as a path parameter.
+
+    Optionally, specify filtering, sorting, and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section.
   operationId: JetDropsByJetID
   tags:
     - Jet drop
