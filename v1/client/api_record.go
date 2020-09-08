@@ -39,12 +39,12 @@ type JetDropRecordsOpts struct {
 JetDropRecords Records
 Gets an array of records of a jet drop given a &#x60;jet_drop_id&#x60; as a path parameter.  Optionally, specify filtering and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section. 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param jetDropId Combination of `jet_id` and `pulse_number`.
+ * @param jetDropId Combination of `jet_id` and `pulse_number` separated by a `:`.
  * @param optional nil or *JetDropRecordsOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  Defines a number of entries to show per page.
- * @param "Offset" (optional.Int32) -  Defines a number of entries to skip from the starting point (`from_*`).
- * @param "FromIndex" (optional.String) -  Defines a specific `index` to paginate from.
- * @param "Type_" (optional.String) -  Defines the record type to filter the obtained records by.
+ * @param "Limit" (optional.Int32) -  Number of entries to show per page.
+ * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
+ * @param "FromIndex" (optional.String) -  Specific `index` to paginate from.
+ * @param "Type_" (optional.String) -  Record type to filter the obtained records by.
 @return ObjectLifelineResponse200
 */
 func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string, localVarOptionals *JetDropRecordsOpts) (ObjectLifelineResponse200, *_nethttp.Response, error) {
@@ -157,14 +157,14 @@ Gets an array of records of a lifeline given an &#x60;object_reference&#x60; as 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param objectReference Object reference.
  * @param optional nil or *ObjectLifelineOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  Defines a number of entries to show per page.
- * @param "Offset" (optional.Int32) -  Defines a number of entries to skip from the starting point (`from_*`).
- * @param "FromIndex" (optional.String) -  Defines a specific `index` to paginate from.
+ * @param "Limit" (optional.Int32) -  Number of entries to show per page.
+ * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
+ * @param "FromIndex" (optional.String) -  Specific `index` to paginate from.
  * @param "SortBy" (optional.String) -  Sorts by the `index` attribute of the returned object. Can take two values that specify the sorting direction: descending (`index_desc`) or ascending (`index_asc`). 
- * @param "PulseNumberGt" (optional.Int32) -  Defines the starting point for a returned range of pulses—greater than the specified `pulse_number`.
- * @param "PulseNumberLt" (optional.Int32) -  Defines the ending point for a returned range of pulses—less than the specified `pulse_number`.
- * @param "TimestampGte" (optional.Int64) -  Defines the starting point for a returned range—greater than or equal to the specified `timestamp` in the Unix format.
- * @param "TimestampLte" (optional.Int64) -  Defines the ending point for a returned range—less than or equal to the specified `timestamp` in the Unix format.
+ * @param "PulseNumberGt" (optional.Int32) -  Starting point for a range of pulses—greater than the specified `pulse_number`.
+ * @param "PulseNumberLt" (optional.Int32) -  Ending point for a range of pulses—less than the specified `pulse_number`.
+ * @param "TimestampGte" (optional.Int64) -  Starting point for a range—greater than or equal to the specified `timestamp` in the Unix format.
+ * @param "TimestampLte" (optional.Int64) -  Ending point for a range—less than or equal to the specified `timestamp` in the Unix format.
 @return ObjectLifelineResponse200
 */
 func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference string, localVarOptionals *ObjectLifelineOpts) (ObjectLifelineResponse200, *_nethttp.Response, error) {

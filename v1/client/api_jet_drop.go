@@ -31,7 +31,7 @@ type JetDropApiService service
 JetDropByID Jet drop by ID
 Gets the contents of a &#x60;jet_drop&#x60; given a &#x60;jet_drop_id&#x60; as a path parameter.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param jetDropId Combination of `jet_id` and `pulse_number`.
+ * @param jetDropId Combination of `jet_id` and `pulse_number` separated by a `:`.
 @return JetDropByIdResponse200
 */
 func (a *JetDropApiService) JetDropByID(ctx _context.Context, jetDropId string) (JetDropByIdResponse200, *_nethttp.Response, error) {
@@ -130,12 +130,12 @@ Gets an array of jet drops given a &#x60;jet_id&#x60; as a path parameter.  Opti
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param jetId Jet ID.
  * @param optional nil or *JetDropsByJetIDOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  Defines a number of entries to show per page.
+ * @param "Limit" (optional.Int32) -  Number of entries to show per page.
  * @param "SortBy" (optional.String) -  Sorts by the `pulse_number` attribute of the returned object. Can take two values that specify the sorting direction: descending (`pulse_number_desc`) or ascending (`pulse_number_asc`). 
- * @param "PulseNumberGte" (optional.Int32) -  Defines the starting point for a returned range of pulses—greater than or equal to the specified `pulse_number`.
- * @param "PulseNumberGt" (optional.Int32) -  Defines the starting point for a returned range of pulses—greater than the specified `pulse_number`.
- * @param "PulseNumberLte" (optional.Int32) -  Defines the ending point for a returned range of pulses—less than equal to the specified `pulse_number`.
- * @param "PulseNumberLt" (optional.Int32) -  Defines the ending point for a returned range of pulses—less than the specified `pulse_number`.
+ * @param "PulseNumberGte" (optional.Int32) -  Starting point for a range of pulses—greater than or equal to the specified `pulse_number`.
+ * @param "PulseNumberGt" (optional.Int32) -  Starting point for a range of pulses—greater than the specified `pulse_number`.
+ * @param "PulseNumberLte" (optional.Int32) -  Ending point for a range of pulses—less than or equal to the specified `pulse_number`.
+ * @param "PulseNumberLt" (optional.Int32) -  Ending point for a range of pulses—less than the specified `pulse_number`.
 @return JetDropsByJetIdResponse200
 */
 func (a *JetDropApiService) JetDropsByJetID(ctx _context.Context, jetId string, localVarOptionals *JetDropsByJetIDOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {
@@ -249,9 +249,9 @@ Gets an array of jet drops given a &#x60;pulse_number&#x60; as a path parameter.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param pulseNumber Pulse number.
  * @param optional nil or *JetDropsByPulseNumberOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  Defines a number of entries to show per page.
- * @param "Offset" (optional.Int32) -  Defines a number of entries to skip from the starting point (`from_*`).
- * @param "FromJetDropId" (optional.String) -  Defines a specific `jet_drop_id` to paginate from.
+ * @param "Limit" (optional.Int32) -  Number of entries to show per page.
+ * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
+ * @param "FromJetDropId" (optional.String) -  Specific `jet_drop_id` to paginate from.
 @return JetDropsByJetIdResponse200
 */
 func (a *JetDropApiService) JetDropsByPulseNumber(ctx _context.Context, pulseNumber int64, localVarOptionals *JetDropsByPulseNumberOpts) (JetDropsByJetIdResponse200, *_nethttp.Response, error) {

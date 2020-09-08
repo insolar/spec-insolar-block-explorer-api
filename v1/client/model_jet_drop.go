@@ -11,7 +11,7 @@
 package client
 // JetDrop Response codes.
 type JetDrop struct {
-	// Combination of `jet_id` and `pulse_number`.
+	// Combination of `jet_id` and `pulse_number` separated by a `:`.
 	JetDropId string `json:"jet_drop_id,omitempty"`
 	// Next `jet_drop_id`.
 	NextJetDropId []JetDropByIdResponse200NextJetDropId `json:"next_jet_drop_id,omitempty"`

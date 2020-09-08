@@ -4,5 +4,5 @@ in: path
 required: true
 schema:
   type: string
-description: Combination of `jet_id` and `pulse_number`.
+description: Combination of `jet_id` and `pulse_number` separated by a `:`.
 example: 0010:43648102

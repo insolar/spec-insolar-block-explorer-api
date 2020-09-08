@@ -17,7 +17,7 @@ type ObjectLifelineResponse200Result struct {
 	PrevRecordReference string `json:"prev_record_reference,omitempty"`
 	// Object reference.
 	ObjectReference string `json:"object_reference,omitempty"`
-	// Prototype reference.
+	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
 	PrototypeReference string `json:"prototype_reference,omitempty"`
 	// Record type.
 	Type string `json:"type,omitempty"`
@@ -31,10 +31,10 @@ type ObjectLifelineResponse200Result struct {
 	PulseNumber int64 `json:"pulse_number,omitempty"`
 	// Jet ID.
 	JetId string `json:"jet_id,omitempty"`
-	// Combination of `jet_id` and `pulse_number`.
+	// Combination of `jet_id` and `pulse_number` separated by a `:`.
 	JetDropId string `json:"jet_drop_id,omitempty"`
-	// Order—record number in a `jet drop`.
+	// Record number in a `jet drop`.
 	Order int64 `json:"order,omitempty"`
-	// Index—combination of `pulse_number` and `order` (record number in a jet drop).
+	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
 	Index string `json:"index,omitempty"`
 }

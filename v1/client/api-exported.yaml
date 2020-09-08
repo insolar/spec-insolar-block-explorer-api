@@ -374,7 +374,7 @@ components:
     limit:
       in: query
       name: limit
-      description: Defines a number of entries to show per page.
+      description: Number of entries to show per page.
       required: false
       schema:
         type: integer
@@ -385,7 +385,7 @@ components:
     offsetParam:
       in: query
       name: offset
-      description: Defines a number of entries to skip from the starting point (`from_*`).
+      description: Number of entries to skip from the starting point (`from_*`).
       required: false
       schema:
         type: integer
@@ -395,7 +395,7 @@ components:
     fromPulseNumberParam:
       in: query
       name: from_pulse_number
-      description: Defines a specific `pulse_number` to paginate from.
+      description: Specific `pulse_number` to paginate from.
       required: false
       schema:
         type: integer
@@ -406,8 +406,8 @@ components:
       in: query
       name: timestamp_gte
       description: >-
-        Defines the starting point for a returned range—greater than or equal to
-        the specified `timestamp` in the Unix format.
+        Starting point for a range—greater than or equal to the specified
+        `timestamp` in the Unix format.
       required: false
       schema:
         type: integer
@@ -418,8 +418,8 @@ components:
       in: query
       name: timestamp_lte
       description: >-
-        Defines the ending point for a returned range—less than or equal to the
-        specified `timestamp` in the Unix format.
+        Ending point for a range—less than or equal to the specified `timestamp`
+        in the Unix format.
       required: false
       schema:
         type: integer
@@ -430,8 +430,8 @@ components:
       in: query
       name: pulse_number_gt
       description: >-
-        Defines the starting point for a returned range of pulses—greater than
-        the specified `pulse_number`.
+        Starting point for a range of pulses—greater than the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -441,8 +441,8 @@ components:
       in: query
       name: pulse_number_gte
       description: >-
-        Defines the starting point for a returned range of pulses—greater than
-        or equal to the specified `pulse_number`.
+        Starting point for a range of pulses—greater than or equal to the
+        specified `pulse_number`.
       required: false
       schema:
         type: integer
@@ -452,8 +452,8 @@ components:
       in: query
       name: pulse_number_lt
       description: >-
-        Defines the ending point for a returned range of pulses—less than the
-        specified `pulse_number`.
+        Ending point for a range of pulses—less than the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -463,8 +463,8 @@ components:
       in: query
       name: pulse_number_lte
       description: >-
-        Defines the ending point for a returned range of pulses—less than equal
-        to the specified `pulse_number`.
+        Ending point for a range of pulses—less than or equal to the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -473,7 +473,9 @@ components:
     sort_by_pulse_number:
       in: query
       name: sort_by
-      description: Sorting direction based on `pulse_number`.
+      description: >-
+        Sorting direction—ascending or descending relative to the monotonically
+        increasing `pulse_number`.
       required: false
       schema:
         type: string
@@ -498,12 +500,12 @@ components:
       required: true
       schema:
         type: string
-      description: Combination of `jet_id` and `pulse_number`.
+      description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
       example: '0010:43648102'
     from_jet_drop_id:
       in: query
       name: from_jet_drop_id
-      description: Defines a specific `jet_drop_id` to paginate from.
+      description: Specific `jet_drop_id` to paginate from.
       required: false
       schema:
         type: string
@@ -534,7 +536,7 @@ components:
       example: 'pulse_number_asc,jet_id_desc'
     from_index:
       name: from_index
-      description: Defines a specific `index` to paginate from.
+      description: Specific `index` to paginate from.
       in: query
       required: false
       schema:
@@ -543,7 +545,7 @@ components:
     recordTypeParam:
       name: type
       in: query
-      description: Defines the record type to filter the obtained records by.
+      description: Record type to filter the obtained records by.
       required: false
       schema:
         type: string
@@ -726,7 +728,7 @@ components:
       properties:
         jet_drop_id:
           type: string
-          description: Combination of `jet_id` and `pulse_number`.
+          description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
           example: '0010:43648102'
           pattern: '^((\*|([0-1]{1,216})):\d+)$'
         next_jet_drop_id:
@@ -843,8 +845,8 @@ components:
             index:
               type: string
               description: >-
-                Index—combination of `pulse_number` and `order` (record number
-                in a jet drop).
+                Combination of `pulse_number` and `order` separated by a `:`.
+                Order is a record number in a jet drop.
               example: '43648102:7'
     search-jet-drop:
       description: Jet drop response.
@@ -863,7 +865,7 @@ components:
           properties:
             jet_drop_id:
               type: string
-              description: Combination of `jet_id` and `pulse_number`.
+              description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
               example: '001:43612021'
     search-lifeline:
       description: Lifeline response.
@@ -900,7 +902,7 @@ components:
       properties:
         jet_drop_id:
           type: string
-          description: Combination of `jet_id` with `pulse_number`.
+          description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
           example: '0010:43648102'
           pattern: '^((\*|([0-1]{1,216})):\d+)$'
         jet_id:
@@ -934,7 +936,9 @@ components:
           pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
         prototype_reference:
           type: string
-          description: Prototype reference.
+          description: >-
+            Prototype reference. Borrowing the OOP terminology, a prototype is a
+            class of an object.
           example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
           pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
         type:
@@ -972,16 +976,16 @@ components:
           pattern: '^([0-1]{2,64})$'
         jet_drop_id:
           type: string
-          description: Combination of `jet_id` and `pulse_number`.
+          description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
           example: '0010:43648102'
         order:
           type: integer
           format: int64
-          description: Order—record number in a `jet drop`.
+          description: Record number in a `jet drop`.
           example: '3'
         index:
           type: string
           description: >-
-            Index—combination of `pulse_number` and `order` (record number in a
-            jet drop).
+            Combination of `pulse_number` and `order` separated by a `:`. Order
+            is a record number in a jet drop.
           example: '43648102:7'

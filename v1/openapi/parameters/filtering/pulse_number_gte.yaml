@@ -1,7 +1,7 @@
 x-component: 'parameters/pulse_number_gte'
 in: query
 name: pulse_number_gte
-description: Defines the starting point for a returned range of pulses—greater than or equal to the specified `pulse_number`.
+description: Starting point for a range of pulses—greater than or equal to the specified `pulse_number`.
 required: false
 schema:
   type: integer

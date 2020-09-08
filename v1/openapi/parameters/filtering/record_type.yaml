@@ -1,7 +1,7 @@
 x-component: 'parameters/recordTypeParam'
 name: type
 in: query
-description: Defines the record type to filter the obtained records by.
+description: Record type to filter the obtained records by.
 required: false
 schema:
   type: string

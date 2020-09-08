@@ -1,7 +1,7 @@
 x-component: 'parameters/pulse_number_lt'
 in: query
 name: pulse_number_lt
-description: Defines the ending point for a returned range of pulses—less than the specified `pulse_number`.
+description: Ending point for a range of pulses—less than the specified `pulse_number`.
 required: false
 schema:
   type: integer
