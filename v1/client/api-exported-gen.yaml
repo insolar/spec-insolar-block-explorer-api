@@ -15,14 +15,19 @@ info:
 
 
     [Insolar Explorer](https://github.com/insolar/block-explorer) is a service
-    for searching for and viewing the contents of individual transactions,
-    records, lifelines, jet drops and jets.
+    for searching for and viewing the contents of records, lifelines, jet drops,
+    and jets.
 
 
-    The API allows to search for, filter and view the contents of said entities.
+    Insolar Explorer provides an API that allows to search for said entities as
+    well as request, filter, sort, and paginate their arrays.
 
 
     ## Entities description
+
+
+    Basic Insolar entities that you can find in this specification are the
+    following:
 
 
     * Record—minimum unit of storage that contains an associated request,
@@ -36,10 +41,14 @@ info:
     * Jet—group of lifelines.
 
 
-    * Jet drop ID—combination of jet id and pulse number.
+    Some of the entities have complex identifiers. For example:
 
-    * Index—combination of pulse number and order (record number in a jet drop).
 
+    * A jet drop ID is a combination of jet ID and pulse number.
+
+    * A record's index is a combination of pulse number and order.
+
+    * An order is a record number in a jet drop.
 
 
     ## Filtering, pagination, sorting
@@ -96,7 +105,26 @@ info:
     * `offset`—number of items to skip.
 
     * `from_*`—pagination starting point: the value of a monotonically
-    increasing attribute.
+    increasing attribute. The `*` designates the property name to paginate by.
+
+
+    For example: if you specify `?limit=100&offset=5&from_index=47382564:2` in a
+    [request](#operation/jet_drop_records) that returns an array of records, the
+    array:
+
+
+    * Starts with a record with the 5th index relative to the index
+    `47382564:2`.
+
+    * Can consist of 100 entries maximum.
+
+
+    The number of entries may vary depending on the actual number of records
+    requested.
+
+    To show if the value of the `limit` parameter is higher or lower than the
+    actual number of entries, each response to a paginated request contains the
+    actual existing number in the `total` property.
 servers:
   - url: example.com
     description: Test server.
@@ -119,9 +147,12 @@ paths:
   /api/v1/pulses:
     get:
       summary: Pulses
-      description: >-
-        Gets an array of pulses. Optionally, specify filtering and pagination
-        parameters. For more information, refer to the [filtering, pagination,
+      description: >
+        Gets an array of pulses.
+
+
+        Optionally, specify filtering, sorting, and pagination parameters. For
+        more information, refer to the [filtering, pagination,
         sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
         section.
       operationId: pulses
@@ -150,13 +181,15 @@ paths:
                   total:
                     type: integer
                     format: int64
-                    description: Number of entries in the array.
+                    description: >-
+                      Actual number of existing entries. May be higher or lower
+                      than the specified `limit`.
                     example: 100
                   result:
                     type: array
                     description: >-
-                      Array of entries. The `limit` pagination parameter sets
-                      the number of entries.
+                      Array with a number entries as specified by filtering and
+                      pagination parameters.
                     items:
                       description: Response codes.
                       type: object
@@ -339,7 +372,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Combination of `jet_id` and `pulse_number`.
+          description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
           example: '0010:43648102'
       responses:
         '200':
@@ -352,7 +385,9 @@ paths:
                 properties:
                   jet_drop_id:
                     type: string
-                    description: Combination of `jet_id` and `pulse_number`.
+                    description: >-
+                      Combination of `jet_id` and `pulse_number` separated by a
+                      `:`.
                     example: '0010:43648102'
                     pattern: '^((\*|([0-1]{1,216})):\d+)$'
                   next_jet_drop_id:
@@ -364,7 +399,9 @@ paths:
                       properties:
                         jet_drop_id:
                           type: string
-                          description: Combination of `jet_id` with `pulse_number`.
+                          description: >-
+                            Combination of `jet_id` and `pulse_number` separated
+                            by a `:`.
                           example: '0010:43648102'
                           pattern: '^((\*|([0-1]{1,216})):\d+)$'
                         jet_id:
@@ -386,7 +423,9 @@ paths:
                       properties:
                         jet_drop_id:
                           type: string
-                          description: Combination of `jet_id` with `pulse_number`.
+                          description: >-
+                            Combination of `jet_id` and `pulse_number` separated
+                            by a `:`.
                           example: '0010:43648102'
                           pattern: '^((\*|([0-1]{1,216})):\d+)$'
                         jet_id:
@@ -450,10 +489,12 @@ paths:
   '/api/v1/pulses/{pulse_number}/jet-drops':
     get:
       summary: Jet drops by pulse number
-      description: >-
+      description: >
         Gets an array of jet drops given a `pulse_number` as a path parameter.
-        Optionally, specify filtering and pagination parameters. For more
-        information, refer to the [filtering, pagination,
+
+
+        Optionally, specify pagination parameters. For more information, refer
+        to the [filtering, pagination,
         sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
         section.
       operationId: JetDropsByPulseNumber
@@ -485,20 +526,24 @@ paths:
                   total:
                     type: integer
                     format: int64
-                    description: Number of entries in the array.
+                    description: >-
+                      Actual number of existing entries. May be higher or lower
+                      than the specified `limit`.
                     example: 100
                   result:
                     type: array
                     description: >-
-                      Array of entries. The `limit` pagination parameter sets
-                      the number of entries.
+                      Array with a number entries as specified by filtering and
+                      pagination parameters.
                     items:
                       description: Response codes.
                       type: object
                       properties:
                         jet_drop_id:
                           type: string
-                          description: Combination of `jet_id` and `pulse_number`.
+                          description: >-
+                            Combination of `jet_id` and `pulse_number` separated
+                            by a `:`.
                           example: '0010:43648102'
                           pattern: '^((\*|([0-1]{1,216})):\d+)$'
                         next_jet_drop_id:
@@ -510,7 +555,9 @@ paths:
                             properties:
                               jet_drop_id:
                                 type: string
-                                description: Combination of `jet_id` with `pulse_number`.
+                                description: >-
+                                  Combination of `jet_id` and `pulse_number`
+                                  separated by a `:`.
                                 example: '0010:43648102'
                                 pattern: '^((\*|([0-1]{1,216})):\d+)$'
                               jet_id:
@@ -532,7 +579,9 @@ paths:
                             properties:
                               jet_drop_id:
                                 type: string
-                                description: Combination of `jet_id` with `pulse_number`.
+                                description: >-
+                                  Combination of `jet_id` and `pulse_number`
+                                  separated by a `:`.
                                 example: '0010:43648102'
                                 pattern: '^((\*|([0-1]{1,216})):\d+)$'
                               jet_id:
@@ -619,10 +668,12 @@ paths:
   '/api/v1/jets/{jet_id}/jet-drops':
     get:
       summary: Jet drops by jet ID
-      description: >-
+      description: >
         Gets an array of jet drops given a `jet_id` as a path parameter.
-        Optionally, specify filtering and pagination parameters. For more
-        information, refer to the [filtering, pagination,
+
+
+        Optionally, specify filtering, sorting, and pagination parameters. For
+        more information, refer to the [filtering, pagination,
         sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
         section.
       operationId: JetDropsByJetID
@@ -656,20 +707,24 @@ paths:
                   total:
                     type: integer
                     format: int64
-                    description: Number of entries in the array.
+                    description: >-
+                      Actual number of existing entries. May be higher or lower
+                      than the specified `limit`.
                     example: 100
                   result:
                     type: array
                     description: >-
-                      Array of entries. The `limit` pagination parameter sets
-                      the number of entries.
+                      Array with a number entries as specified by filtering and
+                      pagination parameters.
                     items:
                       description: Response codes.
                       type: object
                       properties:
                         jet_drop_id:
                           type: string
-                          description: Combination of `jet_id` and `pulse_number`.
+                          description: >-
+                            Combination of `jet_id` and `pulse_number` separated
+                            by a `:`.
                           example: '0010:43648102'
                           pattern: '^((\*|([0-1]{1,216})):\d+)$'
                         next_jet_drop_id:
@@ -681,7 +736,9 @@ paths:
                             properties:
                               jet_drop_id:
                                 type: string
-                                description: Combination of `jet_id` with `pulse_number`.
+                                description: >-
+                                  Combination of `jet_id` and `pulse_number`
+                                  separated by a `:`.
                                 example: '0010:43648102'
                                 pattern: '^((\*|([0-1]{1,216})):\d+)$'
                               jet_id:
@@ -703,7 +760,9 @@ paths:
                             properties:
                               jet_drop_id:
                                 type: string
-                                description: Combination of `jet_id` with `pulse_number`.
+                                description: >-
+                                  Combination of `jet_id` and `pulse_number`
+                                  separated by a `:`.
                                 example: '0010:43648102'
                                 pattern: '^((\*|([0-1]{1,216})):\d+)$'
                               jet_id:
@@ -790,10 +849,13 @@ paths:
   '/api/v1/jet-drops/{jet_drop_id}/records':
     get:
       summary: Records
-      description: >-
+      description: >
         Gets an array of records of a jet drop given a `jet_drop_id` as a path
-        parameter. Optionally, specify filtering and pagination parameters. For
-        more information, refer to the [filtering, pagination,
+        parameter.
+
+
+        Optionally, specify filtering and pagination parameters. For more
+        information, refer to the [filtering, pagination,
         sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
         section.
       operationId: jet_drop_records
@@ -805,7 +867,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Combination of `jet_id` and `pulse_number`.
+          description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
           example: '0010:43648102'
         - $ref: '#/components/parameters/RecordsQueryParameterLimit'
         - $ref: '#/components/parameters/RecordsQueryParameterOffset'
@@ -823,13 +885,15 @@ paths:
                   total:
                     type: integer
                     format: int64
-                    description: Number of entries in the array.
+                    description: >-
+                      Actual number of existing entries. May be higher or lower
+                      than the specified `limit`.
                     example: 100
                   result:
                     type: array
                     description: >-
-                      Array of entries. The `limit` pagination parameter sets
-                      the number of entries.
+                      Array with a number entries as specified by filtering and
+                      pagination parameters.
                     items:
                       description: Record representation.
                       type: object
@@ -854,7 +918,9 @@ paths:
                             ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
                         prototype_reference:
                           type: string
-                          description: Prototype reference.
+                          description: >-
+                            Prototype reference. Borrowing the OOP terminology,
+                            a prototype is a class of an object.
                           example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
                           pattern: >-
                             ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
@@ -893,18 +959,20 @@ paths:
                           pattern: '^([0-1]{2,64})$'
                         jet_drop_id:
                           type: string
-                          description: Combination of `jet_id` and `pulse_number`.
+                          description: >-
+                            Combination of `jet_id` and `pulse_number` separated
+                            by a `:`.
                           example: '0010:43648102'
                         order:
                           type: integer
                           format: int64
-                          description: Order—record number in a `jet drop`.
+                          description: Record number in a `jet drop`.
                           example: '3'
                         index:
                           type: string
                           description: >-
-                            Index—combination of `pulse_number` and `order`
-                            (record number in a jet drop).
+                            Combination of `pulse_number` and `order` separated
+                            by a `:`. Order is a record number in a jet drop.
                           example: '43648102:7'
                   code:
                     type: string
@@ -932,10 +1000,13 @@ paths:
   '/api/v1/lifeline/{object_reference}/records':
     get:
       summary: Object lifeline
-      description: >-
+      description: >
         Gets an array of records of a lifeline given an `object_reference` as a
-        path parameter. Optionally, specify filtering and pagination parameters.
-        For more information, refer to the [filtering, pagination,
+        path parameter.
+
+
+        Optionally, specify filtering, sorting, and pagination parameters. For
+        more information, refer to the [filtering, pagination,
         sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
         section.
       operationId: object_lifeline
@@ -969,13 +1040,15 @@ paths:
                   total:
                     type: integer
                     format: int64
-                    description: Number of entries in the array.
+                    description: >-
+                      Actual number of existing entries. May be higher or lower
+                      than the specified `limit`.
                     example: 100
                   result:
                     type: array
                     description: >-
-                      Array of entries. The `limit` pagination parameter sets
-                      the number of entries.
+                      Array with a number entries as specified by filtering and
+                      pagination parameters.
                     items:
                       description: Record representation.
                       type: object
@@ -1000,7 +1073,9 @@ paths:
                             ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
                         prototype_reference:
                           type: string
-                          description: Prototype reference.
+                          description: >-
+                            Prototype reference. Borrowing the OOP terminology,
+                            a prototype is a class of an object.
                           example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
                           pattern: >-
                             ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
@@ -1039,18 +1114,20 @@ paths:
                           pattern: '^([0-1]{2,64})$'
                         jet_drop_id:
                           type: string
-                          description: Combination of `jet_id` and `pulse_number`.
+                          description: >-
+                            Combination of `jet_id` and `pulse_number` separated
+                            by a `:`.
                           example: '0010:43648102'
                         order:
                           type: integer
                           format: int64
-                          description: Order—record number in a `jet drop`.
+                          description: Record number in a `jet drop`.
                           example: '3'
                         index:
                           type: string
                           description: >-
-                            Index—combination of `pulse_number` and `order`
-                            (record number in a jet drop).
+                            Combination of `pulse_number` and `order` separated
+                            by a `:`. Order is a record number in a jet drop.
                           example: '43648102:7'
                   code:
                     type: string
@@ -1137,12 +1214,14 @@ paths:
                       index:
                         type: string
                         description: >-
-                          Index—combination of `pulse_number` and `order`
-                          (record number in a jet drop).
+                          Combination of `pulse_number` and `order` separated by
+                          a `:`. Order is a record number in a jet drop.
                         example: '43648102:7'
                       jet_drop_id:
                         type: string
-                        description: Combination of `jet_id` and `pulse_number`.
+                        description: >-
+                          Combination of `jet_id` and `pulse_number` separated
+                          by a `:`.
                         example: '001:43612021'
                   code:
                     type: string
@@ -1171,7 +1250,7 @@ components:
     limit:
       in: query
       name: limit
-      description: Defines a number of entries to show per page.
+      description: Number of entries to show per page.
       required: false
       schema:
         type: integer
@@ -1182,7 +1261,7 @@ components:
     offsetParam:
       in: query
       name: offset
-      description: Defines a number of entries to skip from the starting point (`from_*`).
+      description: Number of entries to skip from the starting point (`from_*`).
       required: false
       schema:
         type: integer
@@ -1192,7 +1271,7 @@ components:
     fromPulseNumberParam:
       in: query
       name: from_pulse_number
-      description: Defines a specific `pulse_number` to paginate from.
+      description: Specific `pulse_number` to paginate from.
       required: false
       schema:
         type: integer
@@ -1203,8 +1282,8 @@ components:
       in: query
       name: timestamp_gte
       description: >-
-        Defines the starting point for a returned range—greater than or equal to
-        the specified `timestamp` in the Unix format.
+        Starting point for a range—greater than or equal to the specified
+        `timestamp` in the Unix format.
       required: false
       schema:
         type: integer
@@ -1215,8 +1294,8 @@ components:
       in: query
       name: timestamp_lte
       description: >-
-        Defines the ending point for a returned range—less than or equal to the
-        specified `timestamp` in the Unix format.
+        Ending point for a range—less than or equal to the specified `timestamp`
+        in the Unix format.
       required: false
       schema:
         type: integer
@@ -1227,8 +1306,8 @@ components:
       in: query
       name: pulse_number_gt
       description: >-
-        Defines the starting point for a returned range of pulses—greater than
-        the specified `pulse_number`.
+        Starting point for a range of pulses—greater than the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1238,8 +1317,8 @@ components:
       in: query
       name: pulse_number_gte
       description: >-
-        Defines the starting point for a returned range of pulses—greater than
-        or equal to the specified `pulse_number`.
+        Starting point for a range of pulses—greater than or equal to the
+        specified `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1249,8 +1328,8 @@ components:
       in: query
       name: pulse_number_lt
       description: >-
-        Defines the ending point for a returned range of pulses—less than the
-        specified `pulse_number`.
+        Ending point for a range of pulses—less than the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1260,8 +1339,8 @@ components:
       in: query
       name: pulse_number_lte
       description: >-
-        Defines the ending point for a returned range of pulses—less than equal
-        to the specified `pulse_number`.
+        Ending point for a range of pulses—less than or equal to the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1270,7 +1349,9 @@ components:
     sort_by_pulse_number:
       in: query
       name: sort_by
-      description: Sorting direction based on `pulse_number`.
+      description: >-
+        Sorting direction—ascending or descending relative to the monotonically
+        increasing `pulse_number`.
       required: false
       schema:
         type: string
@@ -1295,12 +1376,12 @@ components:
       required: true
       schema:
         type: string
-      description: Combination of `jet_id` and `pulse_number`.
+      description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
       example: '0010:43648102'
     from_jet_drop_id:
       in: query
       name: from_jet_drop_id
-      description: Defines a specific `jet_drop_id` to paginate from.
+      description: Specific `jet_drop_id` to paginate from.
       required: false
       schema:
         type: string
@@ -1331,7 +1412,7 @@ components:
       example: 'pulse_number_asc,jet_id_desc'
     from_index:
       name: from_index
-      description: Defines a specific `index` to paginate from.
+      description: Specific `index` to paginate from.
       in: query
       required: false
       schema:
@@ -1340,7 +1421,7 @@ components:
     recordTypeParam:
       name: type
       in: query
-      description: Defines the record type to filter the obtained records by.
+      description: Record type to filter the obtained records by.
       required: false
       schema:
         type: string
@@ -1376,7 +1457,7 @@ components:
     PulsesQueryParameterLimit:
       in: query
       name: limit
-      description: Defines a number of entries to show per page.
+      description: Number of entries to show per page.
       required: false
       schema:
         type: integer
@@ -1387,7 +1468,7 @@ components:
     PulsesQueryParameterOffset:
       in: query
       name: offset
-      description: Defines a number of entries to skip from the starting point (`from_*`).
+      description: Number of entries to skip from the starting point (`from_*`).
       required: false
       schema:
         type: integer
@@ -1397,7 +1478,7 @@ components:
     PulsesQueryParameterFrom_pulse_number:
       in: query
       name: from_pulse_number
-      description: Defines a specific `pulse_number` to paginate from.
+      description: Specific `pulse_number` to paginate from.
       required: false
       schema:
         type: integer
@@ -1408,8 +1489,8 @@ components:
       in: query
       name: timestamp_gte
       description: >-
-        Defines the starting point for a returned range—greater than or equal to
-        the specified `timestamp` in the Unix format.
+        Starting point for a range—greater than or equal to the specified
+        `timestamp` in the Unix format.
       required: false
       schema:
         type: integer
@@ -1420,8 +1501,8 @@ components:
       in: query
       name: timestamp_lte
       description: >-
-        Defines the ending point for a returned range—less than or equal to the
-        specified `timestamp` in the Unix format.
+        Ending point for a range—less than or equal to the specified `timestamp`
+        in the Unix format.
       required: false
       schema:
         type: integer
@@ -1432,8 +1513,8 @@ components:
       in: query
       name: pulse_number_gt
       description: >-
-        Defines the starting point for a returned range of pulses—greater than
-        the specified `pulse_number`.
+        Starting point for a range of pulses—greater than the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1443,8 +1524,8 @@ components:
       in: query
       name: pulse_number_gte
       description: >-
-        Defines the starting point for a returned range of pulses—greater than
-        or equal to the specified `pulse_number`.
+        Starting point for a range of pulses—greater than or equal to the
+        specified `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1454,8 +1535,8 @@ components:
       in: query
       name: pulse_number_lt
       description: >-
-        Defines the ending point for a returned range of pulses—less than the
-        specified `pulse_number`.
+        Ending point for a range of pulses—less than the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1465,8 +1546,8 @@ components:
       in: query
       name: pulse_number_lte
       description: >-
-        Defines the ending point for a returned range of pulses—less than equal
-        to the specified `pulse_number`.
+        Ending point for a range of pulses—less than or equal to the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1475,7 +1556,9 @@ components:
     PulsesQueryParameterSort_by:
       in: query
       name: sort_by
-      description: Sorting direction based on `pulse_number`.
+      description: >-
+        Sorting direction—ascending or descending relative to the monotonically
+        increasing `pulse_number`.
       required: false
       schema:
         type: string
@@ -1487,7 +1570,7 @@ components:
     JetDropsByPulseNumberQueryParameterLimit:
       in: query
       name: limit
-      description: Defines a number of entries to show per page.
+      description: Number of entries to show per page.
       required: false
       schema:
         type: integer
@@ -1498,7 +1581,7 @@ components:
     JetDropsByPulseNumberQueryParameterOffset:
       in: query
       name: offset
-      description: Defines a number of entries to skip from the starting point (`from_*`).
+      description: Number of entries to skip from the starting point (`from_*`).
       required: false
       schema:
         type: integer
@@ -1508,7 +1591,7 @@ components:
     JetDropsByPulseNumberQueryParameterFrom_jet_drop_id:
       in: query
       name: from_jet_drop_id
-      description: Defines a specific `jet_drop_id` to paginate from.
+      description: Specific `jet_drop_id` to paginate from.
       required: false
       schema:
         type: string
@@ -1516,7 +1599,7 @@ components:
     JetDropsByJetIDQueryParameterLimit:
       in: query
       name: limit
-      description: Defines a number of entries to show per page.
+      description: Number of entries to show per page.
       required: false
       schema:
         type: integer
@@ -1544,8 +1627,8 @@ components:
       in: query
       name: pulse_number_gte
       description: >-
-        Defines the starting point for a returned range of pulses—greater than
-        or equal to the specified `pulse_number`.
+        Starting point for a range of pulses—greater than or equal to the
+        specified `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1555,8 +1638,8 @@ components:
       in: query
       name: pulse_number_gt
       description: >-
-        Defines the starting point for a returned range of pulses—greater than
-        the specified `pulse_number`.
+        Starting point for a range of pulses—greater than the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1566,8 +1649,8 @@ components:
       in: query
       name: pulse_number_lte
       description: >-
-        Defines the ending point for a returned range of pulses—less than equal
-        to the specified `pulse_number`.
+        Ending point for a range of pulses—less than or equal to the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1577,8 +1660,8 @@ components:
       in: query
       name: pulse_number_lt
       description: >-
-        Defines the ending point for a returned range of pulses—less than the
-        specified `pulse_number`.
+        Ending point for a range of pulses—less than the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1587,7 +1670,7 @@ components:
     RecordsQueryParameterLimit:
       in: query
       name: limit
-      description: Defines a number of entries to show per page.
+      description: Number of entries to show per page.
       required: false
       schema:
         type: integer
@@ -1598,7 +1681,7 @@ components:
     RecordsQueryParameterOffset:
       in: query
       name: offset
-      description: Defines a number of entries to skip from the starting point (`from_*`).
+      description: Number of entries to skip from the starting point (`from_*`).
       required: false
       schema:
         type: integer
@@ -1607,7 +1690,7 @@ components:
       example: 10
     RecordsQueryParameterFrom_index:
       name: from_index
-      description: Defines a specific `index` to paginate from.
+      description: Specific `index` to paginate from.
       in: query
       required: false
       schema:
@@ -1616,7 +1699,7 @@ components:
     RecordsQueryParameterType:
       name: type
       in: query
-      description: Defines the record type to filter the obtained records by.
+      description: Record type to filter the obtained records by.
       required: false
       schema:
         type: string
@@ -1628,7 +1711,7 @@ components:
     ObjectLifelineQueryParameterLimit:
       in: query
       name: limit
-      description: Defines a number of entries to show per page.
+      description: Number of entries to show per page.
       required: false
       schema:
         type: integer
@@ -1639,7 +1722,7 @@ components:
     ObjectLifelineQueryParameterOffset:
       in: query
       name: offset
-      description: Defines a number of entries to skip from the starting point (`from_*`).
+      description: Number of entries to skip from the starting point (`from_*`).
       required: false
       schema:
         type: integer
@@ -1648,7 +1731,7 @@ components:
       example: 10
     ObjectLifelineQueryParameterFrom_index:
       name: from_index
-      description: Defines a specific `index` to paginate from.
+      description: Specific `index` to paginate from.
       in: query
       required: false
       schema:
@@ -1674,8 +1757,8 @@ components:
       in: query
       name: pulse_number_gt
       description: >-
-        Defines the starting point for a returned range of pulses—greater than
-        the specified `pulse_number`.
+        Starting point for a range of pulses—greater than the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1685,8 +1768,8 @@ components:
       in: query
       name: pulse_number_lt
       description: >-
-        Defines the ending point for a returned range of pulses—less than the
-        specified `pulse_number`.
+        Ending point for a range of pulses—less than the specified
+        `pulse_number`.
       required: false
       schema:
         type: integer
@@ -1696,8 +1779,8 @@ components:
       in: query
       name: timestamp_gte
       description: >-
-        Defines the starting point for a returned range—greater than or equal to
-        the specified `timestamp` in the Unix format.
+        Starting point for a range—greater than or equal to the specified
+        `timestamp` in the Unix format.
       required: false
       schema:
         type: integer
@@ -1708,8 +1791,8 @@ components:
       in: query
       name: timestamp_lte
       description: >-
-        Defines the ending point for a returned range—less than or equal to the
-        specified `timestamp` in the Unix format.
+        Ending point for a range—less than or equal to the specified `timestamp`
+        in the Unix format.
       required: false
       schema:
         type: integer
@@ -1735,13 +1818,15 @@ components:
               total:
                 type: integer
                 format: int64
-                description: Number of entries in the array.
+                description: >-
+                  Actual number of existing entries. May be higher or lower than
+                  the specified `limit`.
                 example: 100
               result:
                 type: array
                 description: >-
-                  Array of entries. The `limit` pagination parameter sets the
-                  number of entries.
+                  Array with a number entries as specified by filtering and
+                  pagination parameters.
                 items:
                   description: Response codes.
                   type: object
@@ -1951,7 +2036,7 @@ components:
             properties:
               jet_drop_id:
                 type: string
-                description: Combination of `jet_id` and `pulse_number`.
+                description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
                 example: '0010:43648102'
                 pattern: '^((\*|([0-1]{1,216})):\d+)$'
               next_jet_drop_id:
@@ -1963,7 +2048,9 @@ components:
                   properties:
                     jet_drop_id:
                       type: string
-                      description: Combination of `jet_id` with `pulse_number`.
+                      description: >-
+                        Combination of `jet_id` and `pulse_number` separated by
+                        a `:`.
                       example: '0010:43648102'
                       pattern: '^((\*|([0-1]{1,216})):\d+)$'
                     jet_id:
@@ -1985,7 +2072,9 @@ components:
                   properties:
                     jet_drop_id:
                       type: string
-                      description: Combination of `jet_id` with `pulse_number`.
+                      description: >-
+                        Combination of `jet_id` and `pulse_number` separated by
+                        a `:`.
                       example: '0010:43648102'
                       pattern: '^((\*|([0-1]{1,216})):\d+)$'
                     jet_id:
@@ -2057,20 +2146,24 @@ components:
               total:
                 type: integer
                 format: int64
-                description: Number of entries in the array.
+                description: >-
+                  Actual number of existing entries. May be higher or lower than
+                  the specified `limit`.
                 example: 100
               result:
                 type: array
                 description: >-
-                  Array of entries. The `limit` pagination parameter sets the
-                  number of entries.
+                  Array with a number entries as specified by filtering and
+                  pagination parameters.
                 items:
                   description: Response codes.
                   type: object
                   properties:
                     jet_drop_id:
                       type: string
-                      description: Combination of `jet_id` and `pulse_number`.
+                      description: >-
+                        Combination of `jet_id` and `pulse_number` separated by
+                        a `:`.
                       example: '0010:43648102'
                       pattern: '^((\*|([0-1]{1,216})):\d+)$'
                     next_jet_drop_id:
@@ -2082,7 +2175,9 @@ components:
                         properties:
                           jet_drop_id:
                             type: string
-                            description: Combination of `jet_id` with `pulse_number`.
+                            description: >-
+                              Combination of `jet_id` and `pulse_number`
+                              separated by a `:`.
                             example: '0010:43648102'
                             pattern: '^((\*|([0-1]{1,216})):\d+)$'
                           jet_id:
@@ -2104,7 +2199,9 @@ components:
                         properties:
                           jet_drop_id:
                             type: string
-                            description: Combination of `jet_id` with `pulse_number`.
+                            description: >-
+                              Combination of `jet_id` and `pulse_number`
+                              separated by a `:`.
                             example: '0010:43648102'
                             pattern: '^((\*|([0-1]{1,216})):\d+)$'
                           jet_id:
@@ -2199,13 +2296,15 @@ components:
               total:
                 type: integer
                 format: int64
-                description: Number of entries in the array.
+                description: >-
+                  Actual number of existing entries. May be higher or lower than
+                  the specified `limit`.
                 example: 100
               result:
                 type: array
                 description: >-
-                  Array of entries. The `limit` pagination parameter sets the
-                  number of entries.
+                  Array with a number entries as specified by filtering and
+                  pagination parameters.
                 items:
                   description: Record representation.
                   type: object
@@ -2229,7 +2328,9 @@ components:
                       pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
                     prototype_reference:
                       type: string
-                      description: Prototype reference.
+                      description: >-
+                        Prototype reference. Borrowing the OOP terminology, a
+                        prototype is a class of an object.
                       example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
                       pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
                     type:
@@ -2267,18 +2368,20 @@ components:
                       pattern: '^([0-1]{2,64})$'
                     jet_drop_id:
                       type: string
-                      description: Combination of `jet_id` and `pulse_number`.
+                      description: >-
+                        Combination of `jet_id` and `pulse_number` separated by
+                        a `:`.
                       example: '0010:43648102'
                     order:
                       type: integer
                       format: int64
-                      description: Order—record number in a `jet drop`.
+                      description: Record number in a `jet drop`.
                       example: '3'
                     index:
                       type: string
                       description: >-
-                        Index—combination of `pulse_number` and `order` (record
-                        number in a jet drop).
+                        Combination of `pulse_number` and `order` separated by a
+                        `:`. Order is a record number in a jet drop.
                       example: '43648102:7'
               code:
                 type: string
@@ -2338,12 +2441,14 @@ components:
                   index:
                     type: string
                     description: >-
-                      Index—combination of `pulse_number` and `order` (record
-                      number in a jet drop).
+                      Combination of `pulse_number` and `order` separated by a
+                      `:`. Order is a record number in a jet drop.
                     example: '43648102:7'
                   jet_drop_id:
                     type: string
-                    description: Combination of `jet_id` and `pulse_number`.
+                    description: >-
+                      Combination of `jet_id` and `pulse_number` separated by a
+                      `:`.
                     example: '001:43612021'
               code:
                 type: string
@@ -2375,13 +2480,15 @@ components:
         total:
           type: integer
           format: int64
-          description: Number of entries in the array.
+          description: >-
+            Actual number of existing entries. May be higher or lower than the
+            specified `limit`.
           example: 100
         result:
           type: array
           description: >-
-            Array of entries. The `limit` pagination parameter sets the number
-            of entries.
+            Array with a number entries as specified by filtering and pagination
+            parameters.
           items:
             description: Response codes.
             type: object
@@ -2572,7 +2679,7 @@ components:
       properties:
         jet_drop_id:
           type: string
-          description: Combination of `jet_id` and `pulse_number`.
+          description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
           example: '0010:43648102'
           pattern: '^((\*|([0-1]{1,216})):\d+)$'
         next_jet_drop_id:
@@ -2584,7 +2691,7 @@ components:
             properties:
               jet_drop_id:
                 type: string
-                description: Combination of `jet_id` with `pulse_number`.
+                description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
                 example: '0010:43648102'
                 pattern: '^((\*|([0-1]{1,216})):\d+)$'
               jet_id:
@@ -2606,7 +2713,7 @@ components:
             properties:
               jet_drop_id:
                 type: string
-                description: Combination of `jet_id` with `pulse_number`.
+                description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
                 example: '0010:43648102'
                 pattern: '^((\*|([0-1]{1,216})):\d+)$'
               jet_id:
@@ -2674,20 +2781,22 @@ components:
         total:
           type: integer
           format: int64
-          description: Number of entries in the array.
+          description: >-
+            Actual number of existing entries. May be higher or lower than the
+            specified `limit`.
           example: 100
         result:
           type: array
           description: >-
-            Array of entries. The `limit` pagination parameter sets the number
-            of entries.
+            Array with a number entries as specified by filtering and pagination
+            parameters.
           items:
             description: Response codes.
             type: object
             properties:
               jet_drop_id:
                 type: string
-                description: Combination of `jet_id` and `pulse_number`.
+                description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
                 example: '0010:43648102'
                 pattern: '^((\*|([0-1]{1,216})):\d+)$'
               next_jet_drop_id:
@@ -2699,7 +2808,9 @@ components:
                   properties:
                     jet_drop_id:
                       type: string
-                      description: Combination of `jet_id` with `pulse_number`.
+                      description: >-
+                        Combination of `jet_id` and `pulse_number` separated by
+                        a `:`.
                       example: '0010:43648102'
                       pattern: '^((\*|([0-1]{1,216})):\d+)$'
                     jet_id:
@@ -2721,7 +2832,9 @@ components:
                   properties:
                     jet_drop_id:
                       type: string
-                      description: Combination of `jet_id` with `pulse_number`.
+                      description: >-
+                        Combination of `jet_id` and `pulse_number` separated by
+                        a `:`.
                       example: '0010:43648102'
                       pattern: '^((\*|([0-1]{1,216})):\d+)$'
                     jet_id:
@@ -2812,13 +2925,15 @@ components:
         total:
           type: integer
           format: int64
-          description: Number of entries in the array.
+          description: >-
+            Actual number of existing entries. May be higher or lower than the
+            specified `limit`.
           example: 100
         result:
           type: array
           description: >-
-            Array of entries. The `limit` pagination parameter sets the number
-            of entries.
+            Array with a number entries as specified by filtering and pagination
+            parameters.
           items:
             description: Record representation.
             type: object
@@ -2840,7 +2955,9 @@ components:
                 pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
               prototype_reference:
                 type: string
-                description: Prototype reference.
+                description: >-
+                  Prototype reference. Borrowing the OOP terminology, a
+                  prototype is a class of an object.
                 example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
                 pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
               type:
@@ -2878,18 +2995,18 @@ components:
                 pattern: '^([0-1]{2,64})$'
               jet_drop_id:
                 type: string
-                description: Combination of `jet_id` and `pulse_number`.
+                description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
                 example: '0010:43648102'
               order:
                 type: integer
                 format: int64
-                description: Order—record number in a `jet drop`.
+                description: Record number in a `jet drop`.
                 example: '3'
               index:
                 type: string
                 description: >-
-                  Index—combination of `pulse_number` and `order` (record number
-                  in a jet drop).
+                  Combination of `pulse_number` and `order` separated by a `:`.
+                  Order is a record number in a jet drop.
                 example: '43648102:7'
         code:
           type: string
@@ -2957,8 +3074,8 @@ components:
             index:
               type: string
               description: >-
-                Index—combination of `pulse_number` and `order` (record number
-                in a jet drop).
+                Combination of `pulse_number` and `order` separated by a `:`.
+                Order is a record number in a jet drop.
               example: '43648102:7'
     search-jet-drop:
       description: Jet drop response.
@@ -2977,7 +3094,7 @@ components:
           properties:
             jet_drop_id:
               type: string
-              description: Combination of `jet_id` and `pulse_number`.
+              description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
               example: '001:43612021'
     search-lifeline:
       description: Lifeline response.
@@ -3014,7 +3131,7 @@ components:
       properties:
         jet_drop_id:
           type: string
-          description: Combination of `jet_id` with `pulse_number`.
+          description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
           example: '0010:43648102'
           pattern: '^((\*|([0-1]{1,216})):\d+)$'
         jet_id:
@@ -3048,7 +3165,9 @@ components:
           pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
         prototype_reference:
           type: string
-          description: Prototype reference.
+          description: >-
+            Prototype reference. Borrowing the OOP terminology, a prototype is a
+            class of an object.
           example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
           pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
         type:
@@ -3086,16 +3205,16 @@ components:
           pattern: '^([0-1]{2,64})$'
         jet_drop_id:
           type: string
-          description: Combination of `jet_id` and `pulse_number`.
+          description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
           example: '0010:43648102'
         order:
           type: integer
           format: int64
-          description: Order—record number in a `jet drop`.
+          description: Record number in a `jet drop`.
           example: '3'
         index:
           type: string
           description: >-
-            Index—combination of `pulse_number` and `order` (record number in a
-            jet drop).
+            Combination of `pulse_number` and `order` separated by a `:`. Order
+            is a record number in a jet drop.
           example: '43648102:7'

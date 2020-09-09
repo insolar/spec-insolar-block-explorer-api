@@ -1,7 +1,7 @@
 x-component: 'parameters/timestamp_gte'
 in: query
 name: timestamp_gte
-description: Defines the starting point for a returned range—greater than or equal to the specified `timestamp` in the Unix format.
+description: Starting point for a range—greater than or equal to the specified `timestamp` in the Unix format.
 required: false
 schema:
   type: integer

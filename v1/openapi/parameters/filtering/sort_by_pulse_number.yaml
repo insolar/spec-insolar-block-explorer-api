@@ -1,7 +1,7 @@
 x-component: 'parameters/sort_by_pulse_number'
 in: query
 name: sort_by
-description: Sorting direction based on `pulse_number`.
+description: Sorting direction—ascending or descending relative to the monotonically increasing `pulse_number`.
 required: false
 schema:
   type: string
