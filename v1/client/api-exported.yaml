@@ -329,6 +329,56 @@ paths:
           $ref: '#/components/responses/400Response'
         '500':
           $ref: '#/components/responses/500Response'
+  '/api/v1/lifeline/{object_reference}/api-requests':
+    get:
+      summary: Api-request by object
+      description: >
+        Gets an array of api-request that have ever changed the state of the
+        object. `object_reference` as a path parameter.
+
+
+        Optionally, specify filtering, sorting, and pagination parameters. For
+        more information, refer to the [filtering, pagination,
+        sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
+        section.
+      operationId: api_request_by_object
+      tags:
+        - Request
+      parameters:
+        - $ref: '#/components/parameters/object_reference_path'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/from_index'
+        - $ref: '#/components/parameters/sort_by_index'
+        - $ref: '#/components/parameters/pulse_number_gt'
+        - $ref: '#/components/parameters/pulse_number_lt'
+        - $ref: '#/components/parameters/timestamp_gte'
+        - $ref: '#/components/parameters/timestamp_lte'
+      responses:
+        '200':
+          $ref: '#/components/responses/APIRequestResponse'
+        '400':
+          $ref: '#/components/responses/400Response'
+        '500':
+          $ref: '#/components/responses/500Response'
+  '/api/v1/requests/{request_reference}/result':
+    get:
+      summary: Result
+      description: Gets result by `request_reference` or api-request.
+      operationId: result
+      tags:
+        - Request
+      parameters:
+        - $ref: '#/components/parameters/request_reference_path'
+      responses:
+        '200':
+          $ref: '#/components/responses/resultResponse'
+        '400':
+          $ref: '#/components/responses/400Response'
+        '404':
+          $ref: '#/components/responses/404Response'
+        '500':
+          $ref: '#/components/responses/500Response'
   /api/v1/search:
     get:
       summary: Search
@@ -578,6 +628,14 @@ components:
           - index_desc
           - index_asc
       example: index_asc
+    request_reference_path:
+      name: request_reference
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Request reference or api-reqiest reference.
+      example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
   responses:
     pulsesResponse:
       description: OK
@@ -624,6 +682,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/records'
+    APIRequestResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/api-request'
+    resultResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
     searchResponse:
       description: OK
       content:
@@ -631,9 +701,11 @@ components:
           schema:
             oneOf:
               - $ref: '#/components/schemas/search-pulse'
-              - $ref: '#/components/schemas/search-record'
+              - $ref: '#/components/schemas/search-state'
               - $ref: '#/components/schemas/search-jet-drop'
               - $ref: '#/components/schemas/search-lifeline'
+              - $ref: '#/components/schemas/search-request'
+              - $ref: '#/components/schemas/search-request'
   schemas:
     pulses:
       description: A paginated array of pulses.
@@ -802,6 +874,73 @@ components:
             parameters.
           items:
             $ref: '#/components/schemas/record'
+    api-request:
+      description: A paginated array of api-request.
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+          description: >-
+            Actual number of existing entries. May be higher or lower than the
+            specified `limit`.
+          example: 100
+        result:
+          type: array
+          description: >-
+            Array with a number entries as specified by filtering and pagination
+            parameters.
+          items:
+            $ref: '#/components/schemas/request'
+    result:
+      description: Result representation.
+      type: object
+      properties:
+        reference:
+          type: string
+          description: Result reference.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        request_reference:
+          type: string
+          description: Request reference.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        object_reference:
+          type: string
+          description: object reference called by the request.
+          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        jet_id:
+          type: string
+          description: Jet ID.
+          example: '0010'
+          pattern: '^([0-1]{2,64})$'
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 436120213
+        order:
+          type: integer
+          format: int64
+          description: Record number in a `jet drop`.
+          example: '3'
+        payload:
+          type: string
+          description: Record payload.
+          example: >-
+            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
+        hash:
+          type: string
+          description: Record hash.
+          example: >-
+            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp.
+          example: 1451743413
     search-pulse:
       description: Pulse response.
       title: Pulse response
@@ -822,17 +961,17 @@ components:
               format: int64
               description: Pulse number.
               example: 1
-    search-record:
-      description: Record response.
-      title: Record response
+    search-state:
+      description: State response.
+      title: State response
       type: object
       properties:
         type:
           type: string
           description: Result type.
           enum:
-            - record
-          example: record
+            - state
+          example: state
         meta:
           type: object
           description: Meta data.
@@ -842,12 +981,6 @@ components:
               description: Object reference.
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
               pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
-            index:
-              type: string
-              description: >-
-                Combination of `pulse_number` and `order` separated by a `:`.
-                Order is a record number in a jet drop.
-              example: '43648102:7'
     search-jet-drop:
       description: Jet drop response.
       title: Jet drop response
@@ -886,6 +1019,26 @@ components:
               type: string
               description: Object reference.
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+    search-request:
+      description: Request response.
+      title: Request response
+      type: object
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - request
+          example: request
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            object_reference:
+              type: string
+              description: Object reference.
+              example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+              pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
     code-validation-failures:
       description: Validation failure.
       type: object
@@ -983,6 +1136,84 @@ components:
           format: int64
           description: Record number in a `jet drop`.
           example: '3'
+        index:
+          type: string
+          description: >-
+            Combination of `pulse_number` and `order` separated by a `:`. Order
+            is a record number in a jet drop.
+          example: '43648102:7'
+    request:
+      description: Request representation.
+      type: object
+      properties:
+        reference:
+          type: string
+          description: Request reference.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        caller_reference:
+          type: string
+          description: Object reference that called this request.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        trace_id:
+          type: string
+          description: trace id  from api reference.
+          example: 0b9ac245-2522-4364-9059-efc17907ce54
+        reason_reference:
+          type: string
+          description: Reason for calling the request. This is a more earlier request.
+          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        method:
+          type: string
+          description: The smart contract method that called this request.
+          example: createMember
+        arguments:
+          type: string
+          description: Smart contract method arguments.
+          example: ''
+        is_immutable:
+          type: boolean
+          description: if the request changes the state of the object is_immutable==false.
+          example: true
+        object_reference:
+          type: string
+          description: object reference called by the request.
+          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        prototype_reference:
+          type: string
+          description: >-
+            Prototype reference. Borrowing the OOP terminology, a prototype is a
+            class of an object.
+          example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        hash:
+          type: string
+          description: Record hash.
+          example: >-
+            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+        jet_id:
+          type: string
+          description: Jet ID.
+          example: '0010'
+          pattern: '^([0-1]{2,64})$'
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 436120213
+        order:
+          type: integer
+          format: int64
+          description: Record number in a `jet drop`.
+          example: '3'
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp.
+          example: 1451743413
         index:
           type: string
           description: >-

@@ -108,6 +108,10 @@ paths:
     $ref: 'requests/records.yaml'
   /api/v1/lifeline/{object_reference}/records:
     $ref: 'requests/lifeline.yaml'
+  /api/v1/lifeline/{object_reference}/api-requests:
+    $ref: 'requests/api-requests-by-obj.yaml'
+  /api/v1/requests/{request_reference}/result:
+    $ref: 'requests/result.yaml'
   /api/v1/search:
     $ref: 'requests/search.yaml'
 

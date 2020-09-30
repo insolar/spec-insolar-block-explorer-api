@@ -1,0 +1,14 @@
+x-component: "schemas/api-request"
+description: A paginated array of api-request.
+type: object
+properties:
+  total:
+    type: integer
+    format: int64
+    description: Actual number of existing entries. May be higher or lower than the specified `limit`.
+    example: 100
+  result:
+    type: array
+    description: Array with a number entries as specified by filtering and pagination parameters.
+    items:
+      $ref: './request.yaml'

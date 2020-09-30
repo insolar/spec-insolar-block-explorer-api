@@ -1,0 +1,26 @@
+get:
+  summary: Api-request by object
+  description: |
+    Gets an array of api-request that have ever changed the state of the object. `object_reference` as a path parameter.
+
+    Optionally, specify filtering, sorting, and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section.
+  operationId: api_request_by_object
+  tags:
+    - Request
+  parameters:
+    - $ref: '../parameters/path/object_reference_path.yaml'
+    - $ref: '../parameters/pagination/limit.yaml'
+    - $ref: '../parameters/pagination/offset.yaml'
+    - $ref: '../parameters/pagination/from_index.yaml'
+    - $ref: '../parameters/filtering/sort_by_index.yaml'
+    - $ref: '../parameters/filtering/pulse_number_gt.yaml'
+    - $ref: '../parameters/filtering/pulse_number_lt.yaml'
+    - $ref: '../parameters/filtering/timestamp_gte.yaml'
+    - $ref: '../parameters/filtering/timestamp_lte.yaml'
+  responses:
+    '200':
+      $ref: "../responses/api-requests.yaml"
+    '400':
+      $ref: "../responses/400.yaml"
+    '500':
+      $ref: "../responses/500.yaml"

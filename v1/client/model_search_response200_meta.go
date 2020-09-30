@@ -15,8 +15,6 @@ type SearchResponse200Meta struct {
 	PulseNumber int64 `json:"pulse_number,omitempty"`
 	// Object reference.
 	ObjectReference string `json:"object_reference,omitempty"`
-	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
-	Index string `json:"index,omitempty"`
 	// Combination of `jet_id` and `pulse_number` separated by a `:`.
 	JetDropId string `json:"jet_drop_id,omitempty"`
 }
