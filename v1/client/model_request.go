@@ -9,7 +9,7 @@
  */
 
 package client
-// Request Request representation.
+// Request Response codes.
 type Request struct {
 	// Request reference.
 	Reference string `json:"reference,omitempty"`
@@ -21,6 +21,8 @@ type Request struct {
 	ReasonReference string `json:"reason_reference,omitempty"`
 	// The smart contract method that called this request.
 	Method string `json:"method,omitempty"`
+	// if the request is api-request is_original_request==true.
+	IsOriginalRequest bool `json:"is_original_request,omitempty"`
 	// Smart contract method arguments.
 	Arguments string `json:"arguments,omitempty"`
 	// if the request changes the state of the object is_immutable==false.
@@ -41,4 +43,12 @@ type Request struct {
 	Timestamp int64 `json:"timestamp,omitempty"`
 	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
 	Index string `json:"index,omitempty"`
+	// Error code received from the backend services.
+	Code string `json:"code,omitempty"`
+	// Short error description.
+	Message string `json:"message,omitempty"`
+	// Additional information about the error.
+	Description string `json:"description,omitempty"`
+	// Array containing incorrect parameters/properties.
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

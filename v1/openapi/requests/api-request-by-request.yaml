@@ -1,0 +1,17 @@
+get:
+  summary: API-Request
+  description: Gets state by `request_reference`.
+  operationId: apirequest
+  tags:
+    - Request
+  parameters:
+    - $ref: '../parameters/path/request_reference_path.yaml'
+  responses:
+    '200':
+      $ref: "../responses/api-request.yaml"
+    '400':
+      $ref: "../responses/400.yaml"
+    '404':
+      $ref: "../responses/404.yaml"
+    '500':
+      $ref: "../responses/500.yaml"

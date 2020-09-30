@@ -112,6 +112,12 @@ paths:
     $ref: 'requests/api-requests-by-obj.yaml'
   /api/v1/requests/{request_reference}/result:
     $ref: 'requests/result.yaml'
+  /api/v1/requests/{request_reference}/api-request:
+    $ref: 'requests/api-request-by-request.yaml'
+  /api/v1/states/{state_reference}:
+    $ref: 'requests/state.yaml'
+  /api/v1/requests/{request_reference}:
+    $ref: 'requests/request.yaml'
   /api/v1/search:
     $ref: 'requests/search.yaml'
 

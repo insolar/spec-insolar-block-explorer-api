@@ -9,7 +9,7 @@
  */
 
 package client
-// Record Record representation.
+// Record Response codes.
 type Record struct {
 	// Record reference.
 	Reference string `json:"reference,omitempty"`
@@ -37,4 +37,12 @@ type Record struct {
 	Order int64 `json:"order,omitempty"`
 	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
 	Index string `json:"index,omitempty"`
+	// Error code received from the backend services.
+	Code string `json:"code,omitempty"`
+	// Short error description.
+	Message string `json:"message,omitempty"`
+	// Additional information about the error.
+	Description string `json:"description,omitempty"`
+	// Array containing incorrect parameters/properties.
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

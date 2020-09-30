@@ -25,6 +25,10 @@ properties:
     type: string
     description:  The smart contract method that called this request.
     example: "createMember"
+  is_original_request:
+    type: boolean
+    description: if the request is api-request is_original_request==true.
+    example: true
   arguments:
     type: string
     description:  Smart contract method arguments.

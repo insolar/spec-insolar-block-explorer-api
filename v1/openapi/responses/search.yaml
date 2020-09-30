@@ -8,5 +8,5 @@ content:
         - $ref: '../schemas/search-state.yaml'
         - $ref: '../schemas/search-jet-drop.yaml'
         - $ref: '../schemas/search-lifeline.yaml'
-        - $ref: '../schemas/search-request.yaml'
-        - $ref: '../schemas/search-request.yaml'
+        - $ref: '../schemas/search-api-request.yaml'
+        - $ref: '../schemas/search-api-request.yaml'

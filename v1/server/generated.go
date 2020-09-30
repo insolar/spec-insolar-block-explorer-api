@@ -217,6 +217,9 @@ type Request struct {
 	// if the request changes the state of the object is_immutable==false.
 	IsImmutable *bool `json:"is_immutable,omitempty"`
 
+	// if the request is api-request is_original_request==true.
+	IsOriginalRequest *bool `json:"is_original_request,omitempty"`
+
 	// Jet ID.
 	JetId *string `json:"jet_id,omitempty"`
 
@@ -279,6 +282,20 @@ type Result struct {
 	Timestamp *int64 `json:"timestamp,omitempty"`
 }
 
+// SearchApiRequest defines model for search-api-request.
+type SearchApiRequest struct {
+
+	// Meta data.
+	Meta *struct {
+
+		// Object reference.
+		ObjectReference *string `json:"object_reference,omitempty"`
+	} `json:"meta,omitempty"`
+
+	// Result type.
+	Type *string `json:"type,omitempty"`
+}
+
 // SearchJetDrop defines model for search-jet-drop.
 type SearchJetDrop struct {
 
@@ -315,20 +332,6 @@ type SearchPulse struct {
 
 		// Pulse number.
 		PulseNumber *int64 `json:"pulse_number,omitempty"`
-	} `json:"meta,omitempty"`
-
-	// Result type.
-	Type *string `json:"type,omitempty"`
-}
-
-// SearchRequest defines model for search-request.
-type SearchRequest struct {
-
-	// Meta data.
-	Meta *struct {
-
-		// Object reference.
-		ObjectReference *string `json:"object_reference,omitempty"`
 	} `json:"meta,omitempty"`
 
 	// Result type.
@@ -428,6 +431,9 @@ const (
 	SortByPulseNumber_pulse_number_desc SortByPulseNumber = "pulse_number_desc"
 )
 
+// StateReferencePath defines model for state_reference_path.
+type StateReferencePath string
+
 // TimestampGte defines model for timestamp_gte.
 type TimestampGte int64
 
@@ -450,7 +456,7 @@ type JetDropResponse JetDrop
 type JetDropsResponse JetDrops
 
 // PulseResponse defines model for pulseResponse.
-type PulseResponse Pulse
+type PulseResponse Request
 
 // PulsesResponse defines model for pulsesResponse.
 type PulsesResponse Pulses
@@ -463,6 +469,9 @@ type ResultResponse Result
 
 // SearchResponse defines model for searchResponse.
 type SearchResponse interface{}
+
+// StateResponse defines model for stateResponse.
+type StateResponse Record
 
 // JetDropRecordsParams defines parameters for JetDropRecords.
 type JetDropRecordsParams struct {
@@ -641,12 +650,21 @@ type ServerInterface interface {
 	// Jet drops by pulse number
 	// (GET /api/v1/pulses/{pulse_number}/jet-drops)
 	JetDropsByPulseNumber(ctx echo.Context, pulseNumber PulseNumberPath, params JetDropsByPulseNumberParams) error
+	// Request
+	// (GET /api/v1/requests/{request_reference})
+	Request(ctx echo.Context, requestReference RequestReferencePath) error
+	// API-Request
+	// (GET /api/v1/requests/{request_reference}/api-request)
+	Apirequest(ctx echo.Context, requestReference RequestReferencePath) error
 	// Result
 	// (GET /api/v1/requests/{request_reference}/result)
 	Result(ctx echo.Context, requestReference RequestReferencePath) error
 	// Search
 	// (GET /api/v1/search)
 	Search(ctx echo.Context, params SearchParams) error
+	// Result
+	// (GET /api/v1/states/{state_reference})
+	State(ctx echo.Context, stateReference StateReferencePath) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -1060,6 +1078,38 @@ func (w *ServerInterfaceWrapper) JetDropsByPulseNumber(ctx echo.Context) error {
 	return err
 }
 
+// Request converts echo context to params.
+func (w *ServerInterfaceWrapper) Request(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "request_reference" -------------
+	var requestReference RequestReferencePath
+
+	err = runtime.BindStyledParameter("simple", false, "request_reference", ctx.Param("request_reference"), &requestReference)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter request_reference: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.Request(ctx, requestReference)
+	return err
+}
+
+// Apirequest converts echo context to params.
+func (w *ServerInterfaceWrapper) Apirequest(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "request_reference" -------------
+	var requestReference RequestReferencePath
+
+	err = runtime.BindStyledParameter("simple", false, "request_reference", ctx.Param("request_reference"), &requestReference)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter request_reference: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.Apirequest(ctx, requestReference)
+	return err
+}
+
 // Result converts echo context to params.
 func (w *ServerInterfaceWrapper) Result(ctx echo.Context) error {
 	var err error
@@ -1094,6 +1144,22 @@ func (w *ServerInterfaceWrapper) Search(ctx echo.Context) error {
 	return err
 }
 
+// State converts echo context to params.
+func (w *ServerInterfaceWrapper) State(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "state_reference" -------------
+	var stateReference StateReferencePath
+
+	err = runtime.BindStyledParameter("simple", false, "state_reference", ctx.Param("state_reference"), &stateReference)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter state_reference: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.State(ctx, stateReference)
+	return err
+}
+
 // This is a simple interface which specifies echo.Route addition functions which
 // are present on both echo.Echo and echo.Group, since we want to allow using
 // either of them for path registration
@@ -1124,7 +1190,10 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) {
 	router.GET("/api/v1/pulses", wrapper.Pulses)
 	router.GET("/api/v1/pulses/:pulse_number", wrapper.Pulse)
 	router.GET("/api/v1/pulses/:pulse_number/jet-drops", wrapper.JetDropsByPulseNumber)
+	router.GET("/api/v1/requests/:request_reference", wrapper.Request)
+	router.GET("/api/v1/requests/:request_reference/api-request", wrapper.Apirequest)
 	router.GET("/api/v1/requests/:request_reference/result", wrapper.Result)
 	router.GET("/api/v1/search", wrapper.Search)
+	router.GET("/api/v1/states/:state_reference", wrapper.State)
 
 }

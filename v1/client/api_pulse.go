@@ -32,16 +32,16 @@ Pulse Pulse
 Gets pulse by &#x60;pulse_number&#x60;.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param pulseNumber Pulse number.
-@return PulseResponse200
+@return RequestResponse200
 */
-func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int64) (PulseResponse200, *_nethttp.Response, error) {
+func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int64) (RequestResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PulseResponse200
+		localVarReturnValue  RequestResponse200
 	)
 
 	// create path and map variables
@@ -94,7 +94,7 @@ func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int64) (PulseR
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v PulseResponse200
+			var v RequestResponse200
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
