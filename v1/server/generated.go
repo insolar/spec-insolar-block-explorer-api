@@ -21,6 +21,67 @@ type ApiRequest struct {
 	Total *int64 `json:"total,omitempty"`
 }
 
+// ChildTree defines model for childTree.
+type ChildTree struct {
+
+	// Smart contract method arguments.
+	Arguments *string `json:"arguments,omitempty"`
+
+	// Object reference that called this request.
+	CallerReference *string `json:"caller_reference,omitempty"`
+
+	// state which was called by this request.
+	ExecutionStateReference *string `json:"execution_state_reference,omitempty"`
+
+	// Record hash.
+	Hash *string `json:"hash,omitempty"`
+
+	// if the request changes the state of the object is_immutable==false.
+	IsImmutable *bool `json:"is_immutable,omitempty"`
+
+	// if the request is api-request is_original_request==true.
+	IsOriginalRequest *bool `json:"is_original_request,omitempty"`
+
+	// Jet ID.
+	JetId *string `json:"jet_id,omitempty"`
+
+	// The smart contract method that called this request.
+	Method *string `json:"method,omitempty"`
+
+	// next  child tree request.
+	NextRequests *[]string `json:"next_requests,omitempty"`
+
+	// object reference called by the request.
+	ObjectReference *string `json:"object_reference,omitempty"`
+
+	// Record number in a `jet drop`.
+	Order *int64 `json:"order,omitempty"`
+
+	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
+	PrototypeReference *string `json:"prototype_reference,omitempty"`
+
+	// Pulse number.
+	PulseNumber *int64 `json:"pulse_number,omitempty"`
+
+	// Reason for calling the request. This is a more earlier request.
+	ReasonReference *string `json:"reason_reference,omitempty"`
+
+	// Request reference.
+	RequestReference *string `json:"request_reference,omitempty"`
+
+	// Result created after the execution of the request.
+	ResultReference *string `json:"result_reference,omitempty"`
+
+	// state reference which was created by this request.
+	StateReference *string `json:"state_reference,omitempty"`
+
+	// Unix timestamp.
+	Timestamp *int64 `json:"timestamp,omitempty"`
+
+	// trace id  from api reference.
+	TraceId *string `json:"trace_id,omitempty"`
+}
+
 // CodeError defines model for code-error.
 type CodeError struct {
 
@@ -251,6 +312,13 @@ type Request struct {
 	TraceId *string `json:"trace_id,omitempty"`
 }
 
+// RequestTree defines model for requestTree.
+type RequestTree struct {
+
+	// Array with a child tree request.
+	Result *[]ChildTree `json:"result,omitempty"`
+}
+
 // Result defines model for result.
 type Result struct {
 
@@ -464,6 +532,9 @@ type PulsesResponse Pulses
 // RecordsResponse defines model for recordsResponse.
 type RecordsResponse Records
 
+// RequestTreeResponse defines model for requestTreeResponse.
+type RequestTreeResponse RequestTree
+
 // ResultResponse defines model for resultResponse.
 type ResultResponse Result
 
@@ -656,6 +727,9 @@ type ServerInterface interface {
 	// API-Request
 	// (GET /api/v1/requests/{request_reference}/api-request)
 	Apirequest(ctx echo.Context, requestReference RequestReferencePath) error
+	// Request tree
+	// (GET /api/v1/requests/{request_reference}/call-tree)
+	RequestTree(ctx echo.Context, requestReference RequestReferencePath) error
 	// Result
 	// (GET /api/v1/requests/{request_reference}/result)
 	Result(ctx echo.Context, requestReference RequestReferencePath) error
@@ -1110,6 +1184,22 @@ func (w *ServerInterfaceWrapper) Apirequest(ctx echo.Context) error {
 	return err
 }
 
+// RequestTree converts echo context to params.
+func (w *ServerInterfaceWrapper) RequestTree(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "request_reference" -------------
+	var requestReference RequestReferencePath
+
+	err = runtime.BindStyledParameter("simple", false, "request_reference", ctx.Param("request_reference"), &requestReference)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter request_reference: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.RequestTree(ctx, requestReference)
+	return err
+}
+
 // Result converts echo context to params.
 func (w *ServerInterfaceWrapper) Result(ctx echo.Context) error {
 	var err error
@@ -1192,6 +1282,7 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) {
 	router.GET("/api/v1/pulses/:pulse_number/jet-drops", wrapper.JetDropsByPulseNumber)
 	router.GET("/api/v1/requests/:request_reference", wrapper.Request)
 	router.GET("/api/v1/requests/:request_reference/api-request", wrapper.Apirequest)
+	router.GET("/api/v1/requests/:request_reference/call-tree", wrapper.RequestTree)
 	router.GET("/api/v1/requests/:request_reference/result", wrapper.Result)
 	router.GET("/api/v1/search", wrapper.Search)
 	router.GET("/api/v1/states/:state_reference", wrapper.State)

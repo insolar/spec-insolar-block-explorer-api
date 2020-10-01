@@ -1,0 +1,9 @@
+x-component: "schemas/requestTree"
+description: A paginated array of records.
+type: object
+properties:
+  result:
+    type: array
+    description: Array with a child tree request.
+    items:
+      $ref: './child_tree_request.yaml'

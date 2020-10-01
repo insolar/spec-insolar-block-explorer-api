@@ -433,6 +433,23 @@ paths:
           $ref: '#/components/responses/404Response'
         '500':
           $ref: '#/components/responses/500Response'
+  '/api/v1/requests/{request_reference}/call-tree':
+    get:
+      summary: Request tree
+      description: |
+        Gets a request tree. It is sequence of call requests
+      operationId: requestTree
+      tags:
+        - Request
+      parameters:
+        - $ref: '#/components/parameters/request_reference_path'
+      responses:
+        '200':
+          $ref: '#/components/responses/requestTreeResponse'
+        '400':
+          $ref: '#/components/responses/400Response'
+        '500':
+          $ref: '#/components/responses/500Response'
   /api/v1/search:
     get:
       summary: Search
@@ -762,6 +779,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/record'
+    requestTreeResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/requestTree'
     searchResponse:
       description: OK
       content:
@@ -858,7 +881,8 @@ components:
         arguments:
           type: string
           description: Smart contract method arguments.
-          example: ''
+          example: >-
+            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
         is_immutable:
           type: boolean
           description: if the request changes the state of the object is_immutable==false.
@@ -1127,6 +1151,15 @@ components:
             Combination of `pulse_number` and `order` separated by a `:`. Order
             is a record number in a jet drop.
           example: '43648102:7'
+    requestTree:
+      description: A paginated array of records.
+      type: object
+      properties:
+        result:
+          type: array
+          description: Array with a child tree request.
+          items:
+            $ref: '#/components/schemas/childTree'
     search-pulse:
       description: Pulse response.
       title: Pulse response
@@ -1292,3 +1325,102 @@ components:
           format: int64
           description: Pulse number.
           example: 43612021
+    childTree:
+      description: Request representation.
+      type: object
+      properties:
+        state_reference:
+          type: string
+          description: state reference which was created by this request.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        execution_state_reference:
+          type: string
+          description: state which was called by this request.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        object_reference:
+          type: string
+          description: object reference called by the request.
+          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        request_reference:
+          type: string
+          description: Request reference.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        result_reference:
+          type: string
+          description: Result created after the execution of the request.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        is_immutable:
+          type: boolean
+          description: if the request changes the state of the object is_immutable==false.
+          example: true
+        next_requests:
+          type: array
+          description: next  child tree request.
+          items:
+            type: string
+            description: request reference.
+            example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE.record'
+            pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        caller_reference:
+          type: string
+          description: Object reference that called this request.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        trace_id:
+          type: string
+          description: trace id  from api reference.
+          example: 0b9ac245-2522-4364-9059-efc17907ce54
+        is_original_request:
+          type: boolean
+          description: if the request is api-request is_original_request==true.
+          example: true
+        reason_reference:
+          type: string
+          description: Reason for calling the request. This is a more earlier request.
+          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        method:
+          type: string
+          description: The smart contract method that called this request.
+          example: createMember
+        arguments:
+          type: string
+          description: Smart contract method arguments.
+          example: ''
+        prototype_reference:
+          type: string
+          description: >-
+            Prototype reference. Borrowing the OOP terminology, a prototype is a
+            class of an object.
+          example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        hash:
+          type: string
+          description: Record hash.
+          example: >-
+            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+        jet_id:
+          type: string
+          description: Jet ID.
+          example: '0010'
+          pattern: '^([0-1]{2,64})$'
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 436120213
+        order:
+          type: integer
+          format: int64
+          description: Record number in a `jet drop`.
+          example: '3'
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp.
+          example: 1451743413

@@ -118,6 +118,8 @@ paths:
     $ref: 'requests/state.yaml'
   /api/v1/requests/{request_reference}:
     $ref: 'requests/request.yaml'
+  /api/v1/requests/{request_reference}/call-tree:
+    $ref: 'requests/request-tree.yaml'
   /api/v1/search:
     $ref: 'requests/search.yaml'
 

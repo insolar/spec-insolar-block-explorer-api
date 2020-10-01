@@ -1,13 +1,45 @@
-x-component: "schemas/request"
+x-component: "schemas/childTree"
 description: Request representation.
 type: object
 properties:
-  reference:
+  state_reference:
+    type: string
+    description: state reference which was created by this request.
+    example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
+    pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+  execution_state_reference:
+    type: string
+    description: state which was called by this request.
+    example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
+    pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+  object_reference:
+    type: string
+    description:  object reference called by the request.
+    example: "insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE"
+    pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+  request_reference:
     type: string
     description: Request reference.
     example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
     pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-  caller_reference :
+  result_reference:
+    type: string
+    description: Result created after the execution of the request.
+    example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
+    pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+  is_immutable:
+    type: boolean
+    description: if the request changes the state of the object is_immutable==false.
+    example: true
+  next_requests:
+    type: array
+    description: next  child tree request.
+    items:
+      type: string
+      description: request reference.
+      example: "insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE.record"
+      pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+  caller_reference:
     type: string
     description: Object reference that called this request.
     example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record"
@@ -16,6 +48,10 @@ properties:
     type: string
     description: trace id  from api reference.
     example: "0b9ac245-2522-4364-9059-efc17907ce54"
+  is_original_request:
+    type: boolean
+    description: if the request is api-request is_original_request==true.
+    example: true
   reason_reference:
     type: string
     description:  Reason for calling the request. This is a more earlier request.
@@ -25,23 +61,10 @@ properties:
     type: string
     description:  The smart contract method that called this request.
     example: "createMember"
-  is_original_request:
-    type: boolean
-    description: if the request is api-request is_original_request==true.
-    example: true
   arguments:
     type: string
     description:  Smart contract method arguments.
-    example: "0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw"
-  is_immutable:
-    type: boolean
-    description: if the request changes the state of the object is_immutable==false.
-    example: true
-  object_reference:
-    type: string
-    description:  object reference called by the request.
-    example: "insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE"
-    pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+    example: ""
   prototype_reference:
     type: string
     description: Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
@@ -71,8 +94,3 @@ properties:
     format: int64
     description: Unix timestamp.
     example: 1451743413
-  index:
-    type: string
-    description: Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
-    example: "43648102:7"
-

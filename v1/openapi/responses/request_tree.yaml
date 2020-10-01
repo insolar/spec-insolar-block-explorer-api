@@ -1,0 +1,6 @@
+x-component: 'responses/requestTreeResponse'
+description: OK
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/request_tree.yaml'

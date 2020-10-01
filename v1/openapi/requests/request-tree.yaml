@@ -1,0 +1,16 @@
+get:
+  summary: Request tree
+  description: |
+    Gets a request tree. It is sequence of call requests
+  operationId: requestTree
+  tags:
+    - Request
+  parameters:
+    - $ref: '../parameters/path/request_reference_path.yaml'
+  responses:
+    '200':
+      $ref: '../responses/request_tree.yaml'
+    '400':
+      $ref: "../responses/400.yaml"
+    '500':
+      $ref: "../responses/500.yaml"
