@@ -1,4 +1,4 @@
-x-component: "schemas/api-request"
+x-component: "schemas/api-requests"
 description: A paginated array of api-request.
 type: object
 properties:
