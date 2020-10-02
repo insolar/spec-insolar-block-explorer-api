@@ -1152,7 +1152,7 @@ paths:
                           type: string
                           description: Failure reason.
                 title: Object lifelineResponse200
-  '/api/v1/lifeline/{object_reference}/api-requests':
+  '/api/v1/lifeline/{object_reference}/original-requests':
     get:
       summary: Api-request by object
       description: >
@@ -1240,10 +1240,17 @@ paths:
                           type: string
                           description: The smart contract method that called this request.
                           example: createMember
+                        is_original_request:
+                          type: boolean
+                          description: >-
+                            if the request is api-request
+                            is_original_request==true.
+                          example: true
                         arguments:
                           type: string
                           description: Smart contract method arguments.
-                          example: ''
+                          example: >-
+                            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
                         is_immutable:
                           type: boolean
                           description: >-
@@ -1331,7 +1338,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Request reference or api-reqiest reference.
+          description: Request reference or original-reqiest reference.
           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
       responses:
         '200':
@@ -1457,7 +1464,8 @@ paths:
                       - jet-drop
                       - lifeline
                       - request
-                    example: request
+                      - orignal_request
+                    example: orignal_request
                   meta:
                     type: object
                     description: Meta data.
@@ -1472,6 +1480,12 @@ paths:
                         description: Object reference.
                         example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                         pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+                      index:
+                        type: string
+                        description: >-
+                          Combination of `pulse_number` and `order` separated by
+                          a `:`. Order is a record number in a jet drop.
+                        example: '43648102:7'
                       jet_drop_id:
                         type: string
                         description: >-
@@ -1715,7 +1729,7 @@ components:
       required: true
       schema:
         type: string
-      description: Request reference or api-reqiest reference.
+      description: Request reference or original-reqiest reference.
       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
     PulsesQueryParameterLimit:
       in: query
@@ -2811,10 +2825,15 @@ components:
                       type: string
                       description: The smart contract method that called this request.
                       example: createMember
+                    is_original_request:
+                      type: boolean
+                      description: if the request is api-request is_original_request==true.
+                      example: true
                     arguments:
                       type: string
                       description: Smart contract method arguments.
-                      example: ''
+                      example: >-
+                        0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
                     is_immutable:
                       type: boolean
                       description: >-
@@ -2981,7 +3000,8 @@ components:
                   - jet-drop
                   - lifeline
                   - request
-                example: request
+                  - orignal_request
+                example: orignal_request
               meta:
                 type: object
                 description: Meta data.
@@ -2996,6 +3016,12 @@ components:
                     description: Object reference.
                     example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                     pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+                  index:
+                    type: string
+                    description: >-
+                      Combination of `pulse_number` and `order` separated by a
+                      `:`. Order is a record number in a jet drop.
+                    example: '43648102:7'
                   jet_drop_id:
                     type: string
                     description: >-
@@ -3583,7 +3609,7 @@ components:
                 type: string
                 description: Failure reason.
       title: Object lifelineResponse200
-    api-request:
+    original-requests:
       description: Response codes.
       type: object
       properties:
@@ -3628,10 +3654,15 @@ components:
                 type: string
                 description: The smart contract method that called this request.
                 example: createMember
+              is_original_request:
+                type: boolean
+                description: if the request is api-request is_original_request==true.
+                example: true
               arguments:
                 type: string
                 description: Smart contract method arguments.
-                example: ''
+                example: >-
+                  0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
               is_immutable:
                 type: boolean
                 description: >-
@@ -3816,6 +3847,12 @@ components:
               description: Object reference.
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
               pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+            index:
+              type: string
+              description: >-
+                Combination of `pulse_number` and `order` separated by a `:`.
+                Order is a record number in a jet drop.
+              example: '43648102:7'
     search-jet-drop:
       description: Jet drop response.
       title: Jet drop response
@@ -3865,6 +3902,26 @@ components:
           enum:
             - request
           example: request
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            object_reference:
+              type: string
+              description: Object reference.
+              example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+              pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+    search-original-request:
+      description: Request response.
+      title: Original request response
+      type: object
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - orignal_request
+          example: orignal_request
         meta:
           type: object
           description: Meta data.
@@ -4004,10 +4061,15 @@ components:
           type: string
           description: The smart contract method that called this request.
           example: createMember
+        is_original_request:
+          type: boolean
+          description: if the request is api-request is_original_request==true.
+          example: true
         arguments:
           type: string
           description: Smart contract method arguments.
-          example: ''
+          example: >-
+            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
         is_immutable:
           type: boolean
           description: if the request changes the state of the object is_immutable==false.

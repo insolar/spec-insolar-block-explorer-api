@@ -4,5 +4,5 @@ in: path
 required: true
 schema:
   type: string
-description: Request reference or api-reqiest reference.
+description: Request reference or original-reqiest reference.
 example: insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE

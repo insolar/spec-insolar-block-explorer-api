@@ -9,8 +9,8 @@
  */
 
 package client
-// SearchRequest Request response.
-type SearchRequest struct {
+// SearchOriginalRequest Request response.
+type SearchOriginalRequest struct {
 	// Result type.
 	Type string `json:"type,omitempty"`
 	Meta SearchRequestMeta `json:"meta,omitempty"`

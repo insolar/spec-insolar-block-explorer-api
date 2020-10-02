@@ -66,7 +66,7 @@ func (a *RequestApiService) ApiRequestByObject(ctx _context.Context, objectRefer
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/lifeline/{object_reference}/api-requests"
+	localVarPath := a.client.cfg.BasePath + "/api/v1/lifeline/{object_reference}/original-requests"
 	localVarPath = strings.Replace(localVarPath, "{"+"object_reference"+"}", _neturl.QueryEscape(parameterToString(objectReference, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -163,7 +163,7 @@ func (a *RequestApiService) ApiRequestByObject(ctx _context.Context, objectRefer
 Result Result
 Gets result by &#x60;request_reference&#x60; or api-request.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param requestReference Request reference or api-reqiest reference.
+ * @param requestReference Request reference or original-reqiest reference.
 @return ResultResponse200
 */
 func (a *RequestApiService) Result(ctx _context.Context, requestReference string) (ResultResponse200, *_nethttp.Response, error) {

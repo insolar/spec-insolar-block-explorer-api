@@ -19,7 +19,7 @@ get:
     - $ref: '../parameters/filtering/timestamp_lte.yaml'
   responses:
     '200':
-      $ref: "../responses/api-requests.yaml"
+      $ref: "../responses/original-requests.yaml"
     '400':
       $ref: "../responses/400.yaml"
     '500':

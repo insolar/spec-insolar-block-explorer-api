@@ -11,16 +11,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// ApiRequest defines model for api-request.
-type ApiRequest struct {
-
-	// Array with a number entries as specified by filtering and pagination parameters.
-	Result *[]Request `json:"result,omitempty"`
-
-	// Actual number of existing entries. May be higher or lower than the specified `limit`.
-	Total *int64 `json:"total,omitempty"`
-}
-
 // CodeError defines model for code-error.
 type CodeError struct {
 
@@ -109,6 +99,16 @@ type NextPrevJetDrop struct {
 
 	// Pulse number.
 	PulseNumber *int64 `json:"pulse_number,omitempty"`
+}
+
+// OriginalRequests defines model for original-requests.
+type OriginalRequests struct {
+
+	// Array with a number entries as specified by filtering and pagination parameters.
+	Result *[]Request `json:"result,omitempty"`
+
+	// Actual number of existing entries. May be higher or lower than the specified `limit`.
+	Total *int64 `json:"total,omitempty"`
 }
 
 // Pulse defines model for pulse.
@@ -217,6 +217,9 @@ type Request struct {
 	// if the request changes the state of the object is_immutable==false.
 	IsImmutable *bool `json:"is_immutable,omitempty"`
 
+	// if the request is api-request is_original_request==true.
+	IsOriginalRequest *bool `json:"is_original_request,omitempty"`
+
 	// Jet ID.
 	JetId *string `json:"jet_id,omitempty"`
 
@@ -307,6 +310,20 @@ type SearchLifeline struct {
 	Type *string `json:"type,omitempty"`
 }
 
+// SearchOriginalRequest defines model for search-original-request.
+type SearchOriginalRequest struct {
+
+	// Meta data.
+	Meta *struct {
+
+		// Object reference.
+		ObjectReference *string `json:"object_reference,omitempty"`
+	} `json:"meta,omitempty"`
+
+	// Result type.
+	Type *string `json:"type,omitempty"`
+}
+
 // SearchPulse defines model for search-pulse.
 type SearchPulse struct {
 
@@ -340,6 +357,9 @@ type SearchState struct {
 
 	// Meta data.
 	Meta *struct {
+
+		// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
+		Index *string `json:"index,omitempty"`
 
 		// Object reference.
 		ObjectReference *string `json:"object_reference,omitempty"`
@@ -441,7 +461,7 @@ type N400Response CodeValidationError
 type N500Response CodeError
 
 // APIRequestResponse defines model for APIRequestResponse.
-type APIRequestResponse ApiRequest
+type APIRequestResponse OriginalRequests
 
 // JetDropResponse defines model for jetDropResponse.
 type JetDropResponse JetDrop
@@ -627,7 +647,7 @@ type ServerInterface interface {
 	// (GET /api/v1/jets/{jet_id}/jet-drops)
 	JetDropsByJetID(ctx echo.Context, jetId JetIdPath, params JetDropsByJetIDParams) error
 	// Api-request by object
-	// (GET /api/v1/lifeline/{object_reference}/api-requests)
+	// (GET /api/v1/lifeline/{object_reference}/original-requests)
 	ApiRequestByObject(ctx echo.Context, objectReference ObjectReferencePath, params ApiRequestByObjectParams) error
 	// Object lifeline
 	// (GET /api/v1/lifeline/{object_reference}/records)
@@ -1119,7 +1139,7 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) {
 	router.GET("/api/v1/jet-drops/:jet_drop_id", wrapper.JetDropByID)
 	router.GET("/api/v1/jet-drops/:jet_drop_id/records", wrapper.JetDropRecords)
 	router.GET("/api/v1/jets/:jet_id/jet-drops", wrapper.JetDropsByJetID)
-	router.GET("/api/v1/lifeline/:object_reference/api-requests", wrapper.ApiRequestByObject)
+	router.GET("/api/v1/lifeline/:object_reference/original-requests", wrapper.ApiRequestByObject)
 	router.GET("/api/v1/lifeline/:object_reference/records", wrapper.ObjectLifeline)
 	router.GET("/api/v1/pulses", wrapper.Pulses)
 	router.GET("/api/v1/pulses/:pulse_number", wrapper.Pulse)

@@ -21,6 +21,8 @@ type ApiRequestByObjectResponse200Result struct {
 	ReasonReference string `json:"reason_reference,omitempty"`
 	// The smart contract method that called this request.
 	Method string `json:"method,omitempty"`
+	// if the request is api-request is_original_request==true.
+	IsOriginalRequest bool `json:"is_original_request,omitempty"`
 	// Smart contract method arguments.
 	Arguments string `json:"arguments,omitempty"`
 	// if the request changes the state of the object is_immutable==false.

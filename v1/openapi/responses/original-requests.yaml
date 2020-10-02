@@ -3,4 +3,4 @@ description: OK
 content:
   application/json:
     schema:
-      $ref: '../schemas/api-requests.yaml'
+      $ref: '../schemas/original-requests.yaml'
