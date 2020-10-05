@@ -148,24 +148,15 @@ type Pulses struct {
 
 // Record defines model for record.
 type Record struct {
-
-	// Record hash.
-	Hash *string `json:"hash,omitempty"`
+	// Embedded struct due to allOf(#/components/schemas/record-abstract)
+	RecordAbstract
+	// Embedded fields due to inline allOf schema
 
 	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
 	Index *string `json:"index,omitempty"`
 
 	// Combination of `jet_id` and `pulse_number` separated by a `:`.
 	JetDropId *string `json:"jet_drop_id,omitempty"`
-
-	// Jet ID.
-	JetId *string `json:"jet_id,omitempty"`
-
-	// Object reference.
-	ObjectReference *string `json:"object_reference,omitempty"`
-
-	// Record number in a `jet drop`.
-	Order *int64 `json:"order,omitempty"`
 
 	// Record payload.
 	Payload *string `json:"payload,omitempty"`
@@ -176,17 +167,33 @@ type Record struct {
 	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
 	PrototypeReference *string `json:"prototype_reference,omitempty"`
 
-	// Pulse number.
-	PulseNumber *int64 `json:"pulse_number,omitempty"`
-
 	// Record reference.
 	Reference *string `json:"reference,omitempty"`
 
-	// Unix timestamp.
-	Timestamp *int64 `json:"timestamp,omitempty"`
-
 	// Record type.
 	Type *string `json:"type,omitempty"`
+}
+
+// RecordAbstract defines model for record-abstract.
+type RecordAbstract struct {
+
+	// Record hash.
+	Hash *string `json:"hash,omitempty"`
+
+	// Jet ID.
+	JetId *string `json:"jet_id,omitempty"`
+
+	// object reference called by the request.
+	ObjectReference *string `json:"object_reference,omitempty"`
+
+	// Record number in a `jet drop`.
+	Order *int64 `json:"order,omitempty"`
+
+	// Pulse number.
+	PulseNumber *int64 `json:"pulse_number,omitempty"`
+
+	// Unix timestamp.
+	Timestamp *int64 `json:"timestamp,omitempty"`
 }
 
 // Records defines model for records.
@@ -201,15 +208,15 @@ type Records struct {
 
 // Request defines model for request.
 type Request struct {
+	// Embedded struct due to allOf(#/components/schemas/record-abstract)
+	RecordAbstract
+	// Embedded fields due to inline allOf schema
 
 	// Smart contract method arguments.
 	Arguments *string `json:"arguments,omitempty"`
 
 	// Object reference that called this request.
 	CallerReference *string `json:"caller_reference,omitempty"`
-
-	// Record hash.
-	Hash *string `json:"hash,omitempty"`
 
 	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
 	Index *string `json:"index,omitempty"`
@@ -220,23 +227,11 @@ type Request struct {
 	// if the request is api-request is_original_request==true.
 	IsOriginalRequest *bool `json:"is_original_request,omitempty"`
 
-	// Jet ID.
-	JetId *string `json:"jet_id,omitempty"`
-
 	// The smart contract method that called this request.
 	Method *string `json:"method,omitempty"`
 
-	// object reference called by the request.
-	ObjectReference *string `json:"object_reference,omitempty"`
-
-	// Record number in a `jet drop`.
-	Order *int64 `json:"order,omitempty"`
-
 	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
 	PrototypeReference *string `json:"prototype_reference,omitempty"`
-
-	// Pulse number.
-	PulseNumber *int64 `json:"pulse_number,omitempty"`
 
 	// Reason for calling the request. This is a more earlier request.
 	ReasonReference *string `json:"reason_reference,omitempty"`
@@ -244,42 +239,24 @@ type Request struct {
 	// Request reference.
 	Reference *string `json:"reference,omitempty"`
 
-	// Unix timestamp.
-	Timestamp *int64 `json:"timestamp,omitempty"`
-
 	// trace id  from api reference.
 	TraceId *string `json:"trace_id,omitempty"`
 }
 
 // Result defines model for result.
 type Result struct {
-
-	// Record hash.
-	Hash *string `json:"hash,omitempty"`
-
-	// Jet ID.
-	JetId *string `json:"jet_id,omitempty"`
-
-	// object reference called by the request.
-	ObjectReference *string `json:"object_reference,omitempty"`
-
-	// Record number in a `jet drop`.
-	Order *int64 `json:"order,omitempty"`
+	// Embedded struct due to allOf(#/components/schemas/record-abstract)
+	RecordAbstract
+	// Embedded fields due to inline allOf schema
 
 	// Record payload.
 	Payload *string `json:"payload,omitempty"`
-
-	// Pulse number.
-	PulseNumber *int64 `json:"pulse_number,omitempty"`
 
 	// Result reference.
 	Reference *string `json:"reference,omitempty"`
 
 	// Request reference.
 	RequestReference *string `json:"request_reference,omitempty"`
-
-	// Unix timestamp.
-	Timestamp *int64 `json:"timestamp,omitempty"`
 }
 
 // SearchJetDrop defines model for search-jet-drop.

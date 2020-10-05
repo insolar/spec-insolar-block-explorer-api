@@ -9,8 +9,20 @@
  */
 
 package client
-// ApiRequestByObjectResponse200Result Request representation.
+// ApiRequestByObjectResponse200Result Record abstract.
 type ApiRequestByObjectResponse200Result struct {
+	// object reference called by the request.
+	ObjectReference string `json:"object_reference,omitempty"`
+	// Record hash.
+	Hash string `json:"hash,omitempty"`
+	// Jet ID.
+	JetId string `json:"jet_id,omitempty"`
+	// Pulse number.
+	PulseNumber int64 `json:"pulse_number,omitempty"`
+	// Record number in a `jet drop`.
+	Order int64 `json:"order,omitempty"`
+	// Unix timestamp.
+	Timestamp int64 `json:"timestamp,omitempty"`
 	// Request reference.
 	Reference string `json:"reference,omitempty"`
 	// Object reference that called this request.
@@ -27,20 +39,8 @@ type ApiRequestByObjectResponse200Result struct {
 	Arguments string `json:"arguments,omitempty"`
 	// if the request changes the state of the object is_immutable==false.
 	IsImmutable bool `json:"is_immutable,omitempty"`
-	// object reference called by the request.
-	ObjectReference string `json:"object_reference,omitempty"`
 	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
 	PrototypeReference string `json:"prototype_reference,omitempty"`
-	// Record hash.
-	Hash string `json:"hash,omitempty"`
-	// Jet ID.
-	JetId string `json:"jet_id,omitempty"`
-	// Pulse number.
-	PulseNumber int64 `json:"pulse_number,omitempty"`
-	// Record number in a `jet drop`.
-	Order int64 `json:"order,omitempty"`
-	// Unix timestamp.
-	Timestamp int64 `json:"timestamp,omitempty"`
 	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
 	Index string `json:"index,omitempty"`
 }

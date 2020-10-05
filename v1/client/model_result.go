@@ -11,24 +11,24 @@
 package client
 // Result Response codes.
 type Result struct {
-	// Result reference.
-	Reference string `json:"reference,omitempty"`
-	// Request reference.
-	RequestReference string `json:"request_reference,omitempty"`
 	// object reference called by the request.
 	ObjectReference string `json:"object_reference,omitempty"`
+	// Record hash.
+	Hash string `json:"hash,omitempty"`
 	// Jet ID.
 	JetId string `json:"jet_id,omitempty"`
 	// Pulse number.
 	PulseNumber int64 `json:"pulse_number,omitempty"`
 	// Record number in a `jet drop`.
 	Order int64 `json:"order,omitempty"`
-	// Record payload.
-	Payload string `json:"payload,omitempty"`
-	// Record hash.
-	Hash string `json:"hash,omitempty"`
 	// Unix timestamp.
 	Timestamp int64 `json:"timestamp,omitempty"`
+	// Result reference.
+	Reference string `json:"reference,omitempty"`
+	// Request reference.
+	RequestReference string `json:"request_reference,omitempty"`
+	// Record payload.
+	Payload string `json:"payload,omitempty"`
 	// Error code received from the backend services.
 	Code string `json:"code,omitempty"`
 	// Short error description.

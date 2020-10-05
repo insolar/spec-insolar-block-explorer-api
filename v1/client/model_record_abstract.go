@@ -9,8 +9,8 @@
  */
 
 package client
-// ResultResponse200 Response codes.
-type ResultResponse200 struct {
+// RecordAbstract Record abstract.
+type RecordAbstract struct {
 	// object reference called by the request.
 	ObjectReference string `json:"object_reference,omitempty"`
 	// Record hash.
@@ -23,18 +23,4 @@ type ResultResponse200 struct {
 	Order int64 `json:"order,omitempty"`
 	// Unix timestamp.
 	Timestamp int64 `json:"timestamp,omitempty"`
-	// Result reference.
-	Reference string `json:"reference,omitempty"`
-	// Request reference.
-	RequestReference string `json:"request_reference,omitempty"`
-	// Record payload.
-	Payload string `json:"payload,omitempty"`
-	// Error code received from the backend services.
-	Code string `json:"code,omitempty"`
-	// Short error description.
-	Message string `json:"message,omitempty"`
-	// Additional information about the error.
-	Description string `json:"description,omitempty"`
-	// Array containing incorrect parameters/properties.
-	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

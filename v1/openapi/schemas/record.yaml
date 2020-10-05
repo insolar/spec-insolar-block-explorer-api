@@ -1,68 +1,41 @@
 x-component: "schemas/record"
 description: Record representation.
-type: object
-properties:
-  reference:
-    type: string
-    description: Record reference.
-    example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
-    pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-  prev_record_reference:
-    type: string
-    description: Reference to a previous record.
-    example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record"
-    pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-  object_reference:
-    type: string
-    description: Object reference.
-    example: "insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE"
-    pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
-  prototype_reference:
-    type: string
-    description: Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
-    example: "insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g"
-    pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
-  type:
-    type: string
-    description: Record type.
-    enum:
-      - state
-      - request
-      - result
-    example: state
-  timestamp:
-    type: integer
-    format: int64
-    description: Unix timestamp.
-    example: 1451743413
-  payload:
-    type: string
-    description: Record payload.
-    example: "0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw"
-  hash:
-    type: string
-    description: Record hash.
-    example: "0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw"
-  pulse_number:
-    type: integer
-    format: int64
-    description: Pulse number.
-    example: 436120213
-  jet_id:
-    type: string
-    description: Jet ID.
-    example: "0010"
-    pattern: '^([0-1]{2,64})$'
-  jet_drop_id:
-    type: string
-    description: Combination of `jet_id` and `pulse_number` separated by a `:`.
-    example: "0010:43648102"
-  order:
-    type: integer
-    format: int64
-    description: Record number in a `jet drop`.
-    example: "3"
-  index:
-    type: string
-    description: Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
-    example: "43648102:7"
+allOf:
+  - $ref: 'record-abstract.yaml'
+  - type: object
+    properties:
+      reference:
+        type: string
+        description: Record reference.
+        example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
+        pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+      prev_record_reference:
+        type: string
+        description: Reference to a previous record.
+        example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record"
+        pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+      prototype_reference:
+        type: string
+        description: Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
+        example: "insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g"
+        pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+      type:
+        type: string
+        description: Record type.
+        enum:
+          - state
+          - request
+          - result
+        example: state
+      payload:
+        type: string
+        description: Record payload.
+        example: "0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw"
+      jet_drop_id:
+        type: string
+        description: Combination of `jet_id` and `pulse_number` separated by a `:`.
+        example: "0010:43648102"
+      index:
+        type: string
+        description: Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
+        example: "43648102:7"
