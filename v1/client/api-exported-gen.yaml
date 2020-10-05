@@ -1150,10 +1150,10 @@ paths:
                 title: Object lifelineResponse200
   '/api/v1/lifeline/{object_reference}/original-requests':
     get:
-      summary: Api-request by object
+      summary: Original-request by object
       description: >
-        Gets an array of api-request that have ever changed the state of the
-        object. `object_reference` as a path parameter.
+        Gets an array of original-request that have ever changed the state of
+        the object. `object_reference` as a path parameter.
 
 
         Optionally, specify filtering, sorting, and pagination parameters. For
@@ -1171,18 +1171,20 @@ paths:
             type: string
           description: Object reference.
           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-        - $ref: '#/components/parameters/Api-requestByObjectQueryParameterLimit'
-        - $ref: '#/components/parameters/Api-requestByObjectQueryParameterOffset'
-        - $ref: '#/components/parameters/Api-requestByObjectQueryParameterFrom_index'
-        - $ref: '#/components/parameters/Api-requestByObjectQueryParameterSort_by'
+        - $ref: '#/components/parameters/Original-requestByObjectQueryParameterLimit'
+        - $ref: '#/components/parameters/Original-requestByObjectQueryParameterOffset'
         - $ref: >-
-            #/components/parameters/Api-requestByObjectQueryParameterPulse_number_gt
+            #/components/parameters/Original-requestByObjectQueryParameterFrom_index
         - $ref: >-
-            #/components/parameters/Api-requestByObjectQueryParameterPulse_number_lt
+            #/components/parameters/Original-requestByObjectQueryParameterSort_by
         - $ref: >-
-            #/components/parameters/Api-requestByObjectQueryParameterTimestamp_gte
+            #/components/parameters/Original-requestByObjectQueryParameterPulse_number_gt
         - $ref: >-
-            #/components/parameters/Api-requestByObjectQueryParameterTimestamp_lte
+            #/components/parameters/Original-requestByObjectQueryParameterPulse_number_lt
+        - $ref: >-
+            #/components/parameters/Original-requestByObjectQueryParameterTimestamp_gte
+        - $ref: >-
+            #/components/parameters/Original-requestByObjectQueryParameterTimestamp_lte
       responses:
         '200':
           description: Internal server error
@@ -1268,7 +1270,7 @@ paths:
                         is_original_request:
                           type: boolean
                           description: >-
-                            if the request is api-request
+                            if the request is original-request
                             is_original_request==true.
                           example: true
                         arguments:
@@ -1318,11 +1320,11 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason.
-                title: Api-request by objectResponse200
+                title: Original-request by objectResponse200
   '/api/v1/requests/{request_reference}/result':
     get:
       summary: Result
-      description: Gets result by `request_reference` or api-request.
+      description: Gets result by `request_reference` or original-request.
       operationId: result
       tags:
         - Request
@@ -1420,13 +1422,19 @@ paths:
 
         Entities and their identifiers may be one of the following:
 
-        * Record—record reference
+        * Record — record reference
 
-        * Jet drop—jet drop ID (combination of `jet_id` and `pulse_number`)
+        * State - state by object
 
-        * Pulse—pulse number
+        * Original-Request -  it is request from outside
 
-        * Lifeline—object reference
+        * Request - it is request inside the platform
+
+        * Jet drop — jet drop ID (combination of `jet_id` and `pulse_number`)
+
+        * Pulse — pulse number
+
+        * Lifeline — object reference
 
 
         Search takes any of the identifiers above as the `value` parameter,
@@ -2068,7 +2076,7 @@ components:
         format: int64
         description: Unix timestamp.
       example: 1451743413
-    Api-requestByObjectQueryParameterLimit:
+    Original-requestByObjectQueryParameterLimit:
       in: query
       name: limit
       description: Number of entries to show per page.
@@ -2079,7 +2087,7 @@ components:
         maximum: 1000
         default: 20
       example: 25
-    Api-requestByObjectQueryParameterOffset:
+    Original-requestByObjectQueryParameterOffset:
       in: query
       name: offset
       description: Number of entries to skip from the starting point (`from_*`).
@@ -2089,7 +2097,7 @@ components:
         minimum: 0
         default: 0
       example: 10
-    Api-requestByObjectQueryParameterFrom_index:
+    Original-requestByObjectQueryParameterFrom_index:
       name: from_index
       description: Specific `index` to paginate from.
       in: query
@@ -2097,7 +2105,7 @@ components:
       schema:
         type: string
       example: '43612021:323'
-    Api-requestByObjectQueryParameterSort_by:
+    Original-requestByObjectQueryParameterSort_by:
       in: query
       name: sort_by
       description: >
@@ -2113,7 +2121,7 @@ components:
           - index_desc
           - index_asc
       example: index_asc
-    Api-requestByObjectQueryParameterPulse_number_gt:
+    Original-requestByObjectQueryParameterPulse_number_gt:
       in: query
       name: pulse_number_gt
       description: >-
@@ -2124,7 +2132,7 @@ components:
         type: integer
         minimum: 0
       example: 43648104
-    Api-requestByObjectQueryParameterPulse_number_lt:
+    Original-requestByObjectQueryParameterPulse_number_lt:
       in: query
       name: pulse_number_lt
       description: >-
@@ -2135,7 +2143,7 @@ components:
         type: integer
         minimum: 0
       example: 43648106
-    Api-requestByObjectQueryParameterTimestamp_gte:
+    Original-requestByObjectQueryParameterTimestamp_gte:
       in: query
       name: timestamp_gte
       description: >-
@@ -2147,7 +2155,7 @@ components:
         format: int64
         description: Unix timestamp.
       example: 1451743413
-    Api-requestByObjectQueryParameterTimestamp_lte:
+    Original-requestByObjectQueryParameterTimestamp_lte:
       in: query
       name: timestamp_lte
       description: >-
@@ -2845,7 +2853,9 @@ components:
                       example: createMember
                     is_original_request:
                       type: boolean
-                      description: if the request is api-request is_original_request==true.
+                      description: >-
+                        if the request is original-request
+                        is_original_request==true.
                       example: true
                     arguments:
                       type: string
@@ -2893,7 +2903,7 @@ components:
                     failure_reason:
                       type: string
                       description: Failure reason.
-            title: Api-request by objectResponse200
+            title: Original-request by objectResponse200
     resultResponse:
       description: Internal server error
       content:
@@ -3668,7 +3678,7 @@ components:
                 example: createMember
               is_original_request:
                 type: boolean
-                description: if the request is api-request is_original_request==true.
+                description: if the request is original-request is_original_request==true.
                 example: true
               arguments:
                 type: string
@@ -3716,7 +3726,7 @@ components:
               failure_reason:
                 type: string
                 description: Failure reason.
-      title: Api-request by objectResponse200
+      title: Original-request by objectResponse200
     result:
       description: Response codes.
       type: object
@@ -4069,7 +4079,7 @@ components:
           example: createMember
         is_original_request:
           type: boolean
-          description: if the request is api-request is_original_request==true.
+          description: if the request is original-request is_original_request==true.
           example: true
         arguments:
           type: string

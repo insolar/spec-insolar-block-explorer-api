@@ -331,10 +331,10 @@ paths:
           $ref: '#/components/responses/500Response'
   '/api/v1/lifeline/{object_reference}/original-requests':
     get:
-      summary: Api-request by object
+      summary: Original-request by object
       description: >
-        Gets an array of api-request that have ever changed the state of the
-        object. `object_reference` as a path parameter.
+        Gets an array of original-request that have ever changed the state of
+        the object. `object_reference` as a path parameter.
 
 
         Optionally, specify filtering, sorting, and pagination parameters. For
@@ -364,7 +364,7 @@ paths:
   '/api/v1/requests/{request_reference}/result':
     get:
       summary: Result
-      description: Gets result by `request_reference` or api-request.
+      description: Gets result by `request_reference` or original-request.
       operationId: result
       tags:
         - Request
@@ -388,13 +388,19 @@ paths:
 
         Entities and their identifiers may be one of the following:
 
-        * Record—record reference
+        * Record — record reference
 
-        * Jet drop—jet drop ID (combination of `jet_id` and `pulse_number`)
+        * State - state by object
 
-        * Pulse—pulse number
+        * Original-Request -  it is request from outside
 
-        * Lifeline—object reference
+        * Request - it is request inside the platform
+
+        * Jet drop — jet drop ID (combination of `jet_id` and `pulse_number`)
+
+        * Pulse — pulse number
+
+        * Lifeline — object reference
 
 
         Search takes any of the identifiers above as the `value` parameter,
@@ -1143,7 +1149,7 @@ components:
               example: createMember
             is_original_request:
               type: boolean
-              description: if the request is api-request is_original_request==true.
+              description: if the request is original-request is_original_request==true.
               example: true
             arguments:
               type: string

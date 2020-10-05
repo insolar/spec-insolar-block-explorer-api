@@ -224,7 +224,7 @@ type Request struct {
 	// if the request changes the state of the object is_immutable==false.
 	IsImmutable *bool `json:"is_immutable,omitempty"`
 
-	// if the request is api-request is_original_request==true.
+	// if the request is original-request is_original_request==true.
 	IsOriginalRequest *bool `json:"is_original_request,omitempty"`
 
 	// The smart contract method that called this request.
@@ -623,7 +623,7 @@ type ServerInterface interface {
 	// Jet drops by jet ID
 	// (GET /api/v1/jets/{jet_id}/jet-drops)
 	JetDropsByJetID(ctx echo.Context, jetId JetIdPath, params JetDropsByJetIDParams) error
-	// Api-request by object
+	// Original-request by object
 	// (GET /api/v1/lifeline/{object_reference}/original-requests)
 	ApiRequestByObject(ctx echo.Context, objectReference ObjectReferencePath, params ApiRequestByObjectParams) error
 	// Object lifeline

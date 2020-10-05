@@ -40,8 +40,8 @@ type ApiRequestByObjectOpts struct {
 }
 
 /*
-ApiRequestByObject Api-request by object
-Gets an array of api-request that have ever changed the state of the object. &#x60;object_reference&#x60; as a path parameter.  Optionally, specify filtering, sorting, and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section. 
+ApiRequestByObject Original-request by object
+Gets an array of original-request that have ever changed the state of the object. &#x60;object_reference&#x60; as a path parameter.  Optionally, specify filtering, sorting, and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section. 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param objectReference Object reference.
  * @param optional nil or *ApiRequestByObjectOpts - Optional Parameters:
@@ -53,16 +53,16 @@ Gets an array of api-request that have ever changed the state of the object. &#x
  * @param "PulseNumberLt" (optional.Int32) -  Ending point for a range of pulses—less than the specified `pulse_number`.
  * @param "TimestampGte" (optional.Int64) -  Starting point for a range—greater than or equal to the specified `timestamp` in the Unix format.
  * @param "TimestampLte" (optional.Int64) -  Ending point for a range—less than or equal to the specified `timestamp` in the Unix format.
-@return ApiRequestByObjectResponse200
+@return OriginalRequestByObjectResponse200
 */
-func (a *RequestApiService) ApiRequestByObject(ctx _context.Context, objectReference string, localVarOptionals *ApiRequestByObjectOpts) (ApiRequestByObjectResponse200, *_nethttp.Response, error) {
+func (a *RequestApiService) ApiRequestByObject(ctx _context.Context, objectReference string, localVarOptionals *ApiRequestByObjectOpts) (OriginalRequestByObjectResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  ApiRequestByObjectResponse200
+		localVarReturnValue  OriginalRequestByObjectResponse200
 	)
 
 	// create path and map variables
@@ -136,7 +136,7 @@ func (a *RequestApiService) ApiRequestByObject(ctx _context.Context, objectRefer
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v ApiRequestByObjectResponse200
+			var v OriginalRequestByObjectResponse200
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -161,7 +161,7 @@ func (a *RequestApiService) ApiRequestByObject(ctx _context.Context, objectRefer
 
 /*
 Result Result
-Gets result by &#x60;request_reference&#x60; or api-request.
+Gets result by &#x60;request_reference&#x60; or original-request.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param requestReference Request reference or original-reqiest reference.
 @return ResultResponse200

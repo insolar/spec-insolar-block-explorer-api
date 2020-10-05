@@ -29,7 +29,7 @@ allOf:
         example: "createMember"
       is_original_request:
         type: boolean
-        description: if the request is api-request is_original_request==true.
+        description: if the request is original-request is_original_request==true.
         example: true
       arguments:
         type: string

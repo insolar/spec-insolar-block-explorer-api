@@ -1,6 +1,6 @@
 get:
   summary: Result
-  description: Gets result by `request_reference` or api-request.
+  description: Gets result by `request_reference` or original-request.
   operationId: result
   tags:
     - Request

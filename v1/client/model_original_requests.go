@@ -14,7 +14,7 @@ type OriginalRequests struct {
 	// Actual number of existing entries. May be higher or lower than the specified `limit`.
 	Total int64 `json:"total,omitempty"`
 	// Array with a number entries as specified by filtering and pagination parameters.
-	Result []ApiRequestByObjectResponse200Result `json:"result,omitempty"`
+	Result []OriginalRequestByObjectResponse200Result `json:"result,omitempty"`
 	// Error code received from the backend services.
 	Code string `json:"code,omitempty"`
 	// Short error description.

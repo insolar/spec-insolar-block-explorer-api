@@ -9,38 +9,18 @@
  */
 
 package client
-// ApiRequestByObjectResponse200Result Record abstract.
-type ApiRequestByObjectResponse200Result struct {
-	// object reference called by the request.
-	ObjectReference string `json:"object_reference,omitempty"`
-	// Record hash.
-	Hash string `json:"hash,omitempty"`
-	// Jet ID.
-	JetId string `json:"jet_id,omitempty"`
-	// Pulse number.
-	PulseNumber int64 `json:"pulse_number,omitempty"`
-	// Record number in a `jet drop`.
-	Order int64 `json:"order,omitempty"`
-	// Unix timestamp.
-	Timestamp int64 `json:"timestamp,omitempty"`
-	// Request reference.
-	Reference string `json:"reference,omitempty"`
-	// Object reference that called this request.
-	CallerReference string `json:"caller_reference,omitempty"`
-	// trace id  from api reference.
-	TraceId string `json:"trace_id,omitempty"`
-	// Reason for calling the request. This is a more earlier request.
-	ReasonReference string `json:"reason_reference,omitempty"`
-	// The smart contract method that called this request.
-	Method string `json:"method,omitempty"`
-	// if the request is api-request is_original_request==true.
-	IsOriginalRequest bool `json:"is_original_request,omitempty"`
-	// Smart contract method arguments.
-	Arguments string `json:"arguments,omitempty"`
-	// if the request changes the state of the object is_immutable==false.
-	IsImmutable bool `json:"is_immutable,omitempty"`
-	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
-	PrototypeReference string `json:"prototype_reference,omitempty"`
-	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
-	Index string `json:"index,omitempty"`
+// OriginalRequestByObjectResponse200 Response codes.
+type OriginalRequestByObjectResponse200 struct {
+	// Actual number of existing entries. May be higher or lower than the specified `limit`.
+	Total int64 `json:"total,omitempty"`
+	// Array with a number entries as specified by filtering and pagination parameters.
+	Result []OriginalRequestByObjectResponse200Result `json:"result,omitempty"`
+	// Error code received from the backend services.
+	Code string `json:"code,omitempty"`
+	// Short error description.
+	Message string `json:"message,omitempty"`
+	// Additional information about the error.
+	Description string `json:"description,omitempty"`
+	// Array containing incorrect parameters/properties.
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }
