@@ -1,5 +1,5 @@
 get:
-  summary: Result
+  summary: State
   description: Gets state by `state_reference`.
   operationId: state
   tags:

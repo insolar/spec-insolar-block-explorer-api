@@ -1,14 +1,14 @@
-x-component: 'schemas/search-api-request'
-description: API-Request response.
-title: API-Request response
+x-component: 'schemas/search-original-request'
+description: Request response.
+title: Original request response
 type: object
 properties:
   type:
     type: string
     description: Result type.
     enum:
-      - api_request
-    example: api_request
+      - orignal_request
+    example: orignal_request
   meta:
     type: object
     description: Meta data.

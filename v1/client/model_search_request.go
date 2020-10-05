@@ -9,9 +9,9 @@
  */
 
 package client
-// SearchState State response.
-type SearchState struct {
+// SearchRequest Request response.
+type SearchRequest struct {
 	// Result type.
 	Type string `json:"type,omitempty"`
-	Meta SearchStateMeta `json:"meta,omitempty"`
+	Meta SearchRequestMeta `json:"meta,omitempty"`
 }

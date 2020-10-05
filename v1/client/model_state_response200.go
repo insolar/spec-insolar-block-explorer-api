@@ -9,9 +9,40 @@
  */
 
 package client
-// SearchState State response.
-type SearchState struct {
-	// Result type.
+// StateResponse200 Response codes.
+type StateResponse200 struct {
+	// object reference called by the request.
+	ObjectReference string `json:"object_reference,omitempty"`
+	// Record hash.
+	Hash string `json:"hash,omitempty"`
+	// Jet ID.
+	JetId string `json:"jet_id,omitempty"`
+	// Pulse number.
+	PulseNumber int64 `json:"pulse_number,omitempty"`
+	// Record number in a `jet drop`.
+	Order int64 `json:"order,omitempty"`
+	// Unix timestamp.
+	Timestamp int64 `json:"timestamp,omitempty"`
+	// Record reference.
+	Reference string `json:"reference,omitempty"`
+	// Reference to a previous record.
+	PrevRecordReference string `json:"prev_record_reference,omitempty"`
+	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
+	PrototypeReference string `json:"prototype_reference,omitempty"`
+	// Record type.
 	Type string `json:"type,omitempty"`
-	Meta SearchStateMeta `json:"meta,omitempty"`
+	// Record payload.
+	Payload string `json:"payload,omitempty"`
+	// Combination of `jet_id` and `pulse_number` separated by a `:`.
+	JetDropId string `json:"jet_drop_id,omitempty"`
+	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
+	Index string `json:"index,omitempty"`
+	// Error code received from the backend services.
+	Code string `json:"code,omitempty"`
+	// Short error description.
+	Message string `json:"message,omitempty"`
+	// Additional information about the error.
+	Description string `json:"description,omitempty"`
+	// Array containing incorrect parameters/properties.
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

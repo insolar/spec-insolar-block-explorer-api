@@ -11,16 +11,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// ApiRequest defines model for api-request.
-type ApiRequest struct {
-
-	// Array with a number entries as specified by filtering and pagination parameters.
-	Result *[]Request `json:"result,omitempty"`
-
-	// Actual number of existing entries. May be higher or lower than the specified `limit`.
-	Total *int64 `json:"total,omitempty"`
-}
-
 // ChildTree defines model for childTree.
 type ChildTree struct {
 
@@ -172,6 +162,16 @@ type NextPrevJetDrop struct {
 	PulseNumber *int64 `json:"pulse_number,omitempty"`
 }
 
+// OriginalRequests defines model for original-requests.
+type OriginalRequests struct {
+
+	// Array with a number entries as specified by filtering and pagination parameters.
+	Result *[]Request `json:"result,omitempty"`
+
+	// Actual number of existing entries. May be higher or lower than the specified `limit`.
+	Total *int64 `json:"total,omitempty"`
+}
+
 // Pulse defines model for pulse.
 type Pulse struct {
 
@@ -209,24 +209,15 @@ type Pulses struct {
 
 // Record defines model for record.
 type Record struct {
-
-	// Record hash.
-	Hash *string `json:"hash,omitempty"`
+	// Embedded struct due to allOf(#/components/schemas/record-abstract)
+	RecordAbstract
+	// Embedded fields due to inline allOf schema
 
 	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
 	Index *string `json:"index,omitempty"`
 
 	// Combination of `jet_id` and `pulse_number` separated by a `:`.
 	JetDropId *string `json:"jet_drop_id,omitempty"`
-
-	// Jet ID.
-	JetId *string `json:"jet_id,omitempty"`
-
-	// Object reference.
-	ObjectReference *string `json:"object_reference,omitempty"`
-
-	// Record number in a `jet drop`.
-	Order *int64 `json:"order,omitempty"`
 
 	// Record payload.
 	Payload *string `json:"payload,omitempty"`
@@ -237,17 +228,33 @@ type Record struct {
 	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
 	PrototypeReference *string `json:"prototype_reference,omitempty"`
 
-	// Pulse number.
-	PulseNumber *int64 `json:"pulse_number,omitempty"`
-
 	// Record reference.
 	Reference *string `json:"reference,omitempty"`
 
-	// Unix timestamp.
-	Timestamp *int64 `json:"timestamp,omitempty"`
-
 	// Record type.
 	Type *string `json:"type,omitempty"`
+}
+
+// RecordAbstract defines model for record-abstract.
+type RecordAbstract struct {
+
+	// Record hash.
+	Hash *string `json:"hash,omitempty"`
+
+	// Jet ID.
+	JetId *string `json:"jet_id,omitempty"`
+
+	// object reference called by the request.
+	ObjectReference *string `json:"object_reference,omitempty"`
+
+	// Record number in a `jet drop`.
+	Order *int64 `json:"order,omitempty"`
+
+	// Pulse number.
+	PulseNumber *int64 `json:"pulse_number,omitempty"`
+
+	// Unix timestamp.
+	Timestamp *int64 `json:"timestamp,omitempty"`
 }
 
 // Records defines model for records.
@@ -262,6 +269,9 @@ type Records struct {
 
 // Request defines model for request.
 type Request struct {
+	// Embedded struct due to allOf(#/components/schemas/record-abstract)
+	RecordAbstract
+	// Embedded fields due to inline allOf schema
 
 	// Smart contract method arguments.
 	Arguments *string `json:"arguments,omitempty"`
@@ -269,44 +279,26 @@ type Request struct {
 	// Object reference that called this request.
 	CallerReference *string `json:"caller_reference,omitempty"`
 
-	// Record hash.
-	Hash *string `json:"hash,omitempty"`
-
 	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
 	Index *string `json:"index,omitempty"`
 
 	// if the request changes the state of the object is_immutable==false.
 	IsImmutable *bool `json:"is_immutable,omitempty"`
 
-	// if the request is api-request is_original_request==true.
+	// if the request is original-request is_original_request==true.
 	IsOriginalRequest *bool `json:"is_original_request,omitempty"`
-
-	// Jet ID.
-	JetId *string `json:"jet_id,omitempty"`
 
 	// The smart contract method that called this request.
 	Method *string `json:"method,omitempty"`
 
-	// object reference called by the request.
-	ObjectReference *string `json:"object_reference,omitempty"`
-
-	// Record number in a `jet drop`.
-	Order *int64 `json:"order,omitempty"`
-
 	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
 	PrototypeReference *string `json:"prototype_reference,omitempty"`
-
-	// Pulse number.
-	PulseNumber *int64 `json:"pulse_number,omitempty"`
 
 	// Reason for calling the request. This is a more earlier request.
 	ReasonReference *string `json:"reason_reference,omitempty"`
 
 	// Request reference.
 	Reference *string `json:"reference,omitempty"`
-
-	// Unix timestamp.
-	Timestamp *int64 `json:"timestamp,omitempty"`
 
 	// trace id  from api reference.
 	TraceId *string `json:"trace_id,omitempty"`
@@ -321,47 +313,18 @@ type RequestTree struct {
 
 // Result defines model for result.
 type Result struct {
-
-	// Record hash.
-	Hash *string `json:"hash,omitempty"`
-
-	// Jet ID.
-	JetId *string `json:"jet_id,omitempty"`
-
-	// object reference called by the request.
-	ObjectReference *string `json:"object_reference,omitempty"`
-
-	// Record number in a `jet drop`.
-	Order *int64 `json:"order,omitempty"`
+	// Embedded struct due to allOf(#/components/schemas/record-abstract)
+	RecordAbstract
+	// Embedded fields due to inline allOf schema
 
 	// Record payload.
 	Payload *string `json:"payload,omitempty"`
-
-	// Pulse number.
-	PulseNumber *int64 `json:"pulse_number,omitempty"`
 
 	// Result reference.
 	Reference *string `json:"reference,omitempty"`
 
 	// Request reference.
 	RequestReference *string `json:"request_reference,omitempty"`
-
-	// Unix timestamp.
-	Timestamp *int64 `json:"timestamp,omitempty"`
-}
-
-// SearchApiRequest defines model for search-api-request.
-type SearchApiRequest struct {
-
-	// Meta data.
-	Meta *struct {
-
-		// Object reference.
-		ObjectReference *string `json:"object_reference,omitempty"`
-	} `json:"meta,omitempty"`
-
-	// Result type.
-	Type *string `json:"type,omitempty"`
 }
 
 // SearchJetDrop defines model for search-jet-drop.
@@ -392,6 +355,20 @@ type SearchLifeline struct {
 	Type *string `json:"type,omitempty"`
 }
 
+// SearchOriginalRequest defines model for search-original-request.
+type SearchOriginalRequest struct {
+
+	// Meta data.
+	Meta *struct {
+
+		// Object reference.
+		ObjectReference *string `json:"object_reference,omitempty"`
+	} `json:"meta,omitempty"`
+
+	// Result type.
+	Type *string `json:"type,omitempty"`
+}
+
 // SearchPulse defines model for search-pulse.
 type SearchPulse struct {
 
@@ -406,11 +383,28 @@ type SearchPulse struct {
 	Type *string `json:"type,omitempty"`
 }
 
+// SearchRequest defines model for search-request.
+type SearchRequest struct {
+
+	// Meta data.
+	Meta *struct {
+
+		// Object reference.
+		ObjectReference *string `json:"object_reference,omitempty"`
+	} `json:"meta,omitempty"`
+
+	// Result type.
+	Type *string `json:"type,omitempty"`
+}
+
 // SearchState defines model for search-state.
 type SearchState struct {
 
 	// Meta data.
 	Meta *struct {
+
+		// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
+		Index *string `json:"index,omitempty"`
 
 		// Object reference.
 		ObjectReference *string `json:"object_reference,omitempty"`
@@ -514,8 +508,8 @@ type N400Response CodeValidationError
 // N500Response defines model for 500Response.
 type N500Response CodeError
 
-// APIRequestResponse defines model for APIRequestResponse.
-type APIRequestResponse ApiRequest
+// OriginalRequestResponse defines model for OriginalRequestResponse.
+type OriginalRequestResponse OriginalRequests
 
 // JetDropResponse defines model for jetDropResponse.
 type JetDropResponse JetDrop
@@ -583,8 +577,8 @@ type JetDropsByJetIDParams struct {
 	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
 }
 
-// ApiRequestByObjectParams defines parameters for ApiRequestByObject.
-type ApiRequestByObjectParams struct {
+// OriginalRequestByObjectParams defines parameters for OriginalRequestByObject.
+type OriginalRequestByObjectParams struct {
 
 	// Number of entries to show per page.
 	Limit *Limit `json:"limit,omitempty"`
@@ -706,9 +700,9 @@ type ServerInterface interface {
 	// Jet drops by jet ID
 	// (GET /api/v1/jets/{jet_id}/jet-drops)
 	JetDropsByJetID(ctx echo.Context, jetId JetIdPath, params JetDropsByJetIDParams) error
-	// Api-request by object
-	// (GET /api/v1/lifeline/{object_reference}/api-requests)
-	ApiRequestByObject(ctx echo.Context, objectReference ObjectReferencePath, params ApiRequestByObjectParams) error
+	// Original-request by object
+	// (GET /api/v1/lifeline/{object_reference}/original-requests)
+	OriginalRequestByObject(ctx echo.Context, objectReference ObjectReferencePath, params OriginalRequestByObjectParams) error
 	// Object lifeline
 	// (GET /api/v1/lifeline/{object_reference}/records)
 	ObjectLifeline(ctx echo.Context, objectReference ObjectReferencePath, params ObjectLifelineParams) error
@@ -736,7 +730,7 @@ type ServerInterface interface {
 	// Search
 	// (GET /api/v1/search)
 	Search(ctx echo.Context, params SearchParams) error
-	// Result
+	// State
 	// (GET /api/v1/states/{state_reference})
 	State(ctx echo.Context, stateReference StateReferencePath) error
 }
@@ -868,8 +862,8 @@ func (w *ServerInterfaceWrapper) JetDropsByJetID(ctx echo.Context) error {
 	return err
 }
 
-// ApiRequestByObject converts echo context to params.
-func (w *ServerInterfaceWrapper) ApiRequestByObject(ctx echo.Context) error {
+// OriginalRequestByObject converts echo context to params.
+func (w *ServerInterfaceWrapper) OriginalRequestByObject(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "object_reference" -------------
 	var objectReference ObjectReferencePath
@@ -880,7 +874,7 @@ func (w *ServerInterfaceWrapper) ApiRequestByObject(ctx echo.Context) error {
 	}
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params ApiRequestByObjectParams
+	var params OriginalRequestByObjectParams
 	// ------------- Optional query parameter "limit" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "limit", ctx.QueryParams(), &params.Limit)
@@ -938,7 +932,7 @@ func (w *ServerInterfaceWrapper) ApiRequestByObject(ctx echo.Context) error {
 	}
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.ApiRequestByObject(ctx, objectReference, params)
+	err = w.Handler.OriginalRequestByObject(ctx, objectReference, params)
 	return err
 }
 
@@ -1275,7 +1269,7 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) {
 	router.GET("/api/v1/jet-drops/:jet_drop_id", wrapper.JetDropByID)
 	router.GET("/api/v1/jet-drops/:jet_drop_id/records", wrapper.JetDropRecords)
 	router.GET("/api/v1/jets/:jet_id/jet-drops", wrapper.JetDropsByJetID)
-	router.GET("/api/v1/lifeline/:object_reference/api-requests", wrapper.ApiRequestByObject)
+	router.GET("/api/v1/lifeline/:object_reference/original-requests", wrapper.OriginalRequestByObject)
 	router.GET("/api/v1/lifeline/:object_reference/records", wrapper.ObjectLifeline)
 	router.GET("/api/v1/pulses", wrapper.Pulses)
 	router.GET("/api/v1/pulses/:pulse_number", wrapper.Pulse)

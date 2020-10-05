@@ -9,9 +9,18 @@
  */
 
 package client
-// SearchState State response.
-type SearchState struct {
-	// Result type.
-	Type string `json:"type,omitempty"`
-	Meta SearchStateMeta `json:"meta,omitempty"`
+// RecordAbstract Record abstract.
+type RecordAbstract struct {
+	// object reference called by the request.
+	ObjectReference string `json:"object_reference,omitempty"`
+	// Record hash.
+	Hash string `json:"hash,omitempty"`
+	// Jet ID.
+	JetId string `json:"jet_id,omitempty"`
+	// Pulse number.
+	PulseNumber int64 `json:"pulse_number,omitempty"`
+	// Record number in a `jet drop`.
+	Order int64 `json:"order,omitempty"`
+	// Unix timestamp.
+	Timestamp int64 `json:"timestamp,omitempty"`
 }

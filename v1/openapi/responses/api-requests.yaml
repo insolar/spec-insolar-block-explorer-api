@@ -1,6 +1,0 @@
-x-component: 'responses/APIRequestResponse'
-description: OK
-content:
-  application/json:
-    schema:
-      $ref: '../schemas/api-requests.yaml'

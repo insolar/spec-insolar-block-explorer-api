@@ -9,9 +9,8 @@
  */
 
 package client
-// SearchState State response.
-type SearchState struct {
-	// Result type.
-	Type string `json:"type,omitempty"`
-	Meta SearchStateMeta `json:"meta,omitempty"`
+// SearchRequestMeta Meta data.
+type SearchRequestMeta struct {
+	// Object reference.
+	ObjectReference string `json:"object_reference,omitempty"`
 }

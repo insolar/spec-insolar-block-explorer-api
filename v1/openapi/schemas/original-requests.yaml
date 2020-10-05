@@ -1,5 +1,5 @@
-x-component: "schemas/api-request"
-description: A paginated array of api-request.
+x-component: "schemas/original-requests"
+description: A paginated array of original-request.
 type: object
 properties:
   total:
@@ -11,4 +11,4 @@ properties:
     type: array
     description: Array with a number entries as specified by filtering and pagination parameters.
     items:
-      $ref: './api-request.yaml'
+      $ref: './original-request.yaml'
