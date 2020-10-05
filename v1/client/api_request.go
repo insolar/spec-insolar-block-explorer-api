@@ -27,8 +27,8 @@ var (
 // RequestApiService RequestApi service
 type RequestApiService service
 
-// ApiRequestByObjectOpts Optional parameters for the method 'ApiRequestByObject'
-type ApiRequestByObjectOpts struct {
+// OriginalRequestByObjectOpts Optional parameters for the method 'OriginalRequestByObject'
+type OriginalRequestByObjectOpts struct {
     Limit optional.Int32
     Offset optional.Int32
     FromIndex optional.String
@@ -40,11 +40,11 @@ type ApiRequestByObjectOpts struct {
 }
 
 /*
-ApiRequestByObject Original-request by object
+OriginalRequestByObject Original-request by object
 Gets an array of original-request that have ever changed the state of the object. &#x60;object_reference&#x60; as a path parameter.  Optionally, specify filtering, sorting, and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section. 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param objectReference Object reference.
- * @param optional nil or *ApiRequestByObjectOpts - Optional Parameters:
+ * @param optional nil or *OriginalRequestByObjectOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  Number of entries to show per page.
  * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
  * @param "FromIndex" (optional.String) -  Specific `index` to paginate from.
@@ -55,7 +55,7 @@ Gets an array of original-request that have ever changed the state of the object
  * @param "TimestampLte" (optional.Int64) -  Ending point for a range—less than or equal to the specified `timestamp` in the Unix format.
 @return OriginalRequestByObjectResponse200
 */
-func (a *RequestApiService) ApiRequestByObject(ctx _context.Context, objectReference string, localVarOptionals *ApiRequestByObjectOpts) (OriginalRequestByObjectResponse200, *_nethttp.Response, error) {
+func (a *RequestApiService) OriginalRequestByObject(ctx _context.Context, objectReference string, localVarOptionals *OriginalRequestByObjectOpts) (OriginalRequestByObjectResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}

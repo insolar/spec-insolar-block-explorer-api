@@ -437,8 +437,8 @@ type N400Response CodeValidationError
 // N500Response defines model for 500Response.
 type N500Response CodeError
 
-// APIRequestResponse defines model for APIRequestResponse.
-type APIRequestResponse OriginalRequests
+// OriginalRequestResponse defines model for OriginalRequestResponse.
+type OriginalRequestResponse OriginalRequests
 
 // JetDropResponse defines model for jetDropResponse.
 type JetDropResponse JetDrop
@@ -500,8 +500,8 @@ type JetDropsByJetIDParams struct {
 	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
 }
 
-// ApiRequestByObjectParams defines parameters for ApiRequestByObject.
-type ApiRequestByObjectParams struct {
+// OriginalRequestByObjectParams defines parameters for OriginalRequestByObject.
+type OriginalRequestByObjectParams struct {
 
 	// Number of entries to show per page.
 	Limit *Limit `json:"limit,omitempty"`
@@ -625,7 +625,7 @@ type ServerInterface interface {
 	JetDropsByJetID(ctx echo.Context, jetId JetIdPath, params JetDropsByJetIDParams) error
 	// Original-request by object
 	// (GET /api/v1/lifeline/{object_reference}/original-requests)
-	ApiRequestByObject(ctx echo.Context, objectReference ObjectReferencePath, params ApiRequestByObjectParams) error
+	OriginalRequestByObject(ctx echo.Context, objectReference ObjectReferencePath, params OriginalRequestByObjectParams) error
 	// Object lifeline
 	// (GET /api/v1/lifeline/{object_reference}/records)
 	ObjectLifeline(ctx echo.Context, objectReference ObjectReferencePath, params ObjectLifelineParams) error
@@ -773,8 +773,8 @@ func (w *ServerInterfaceWrapper) JetDropsByJetID(ctx echo.Context) error {
 	return err
 }
 
-// ApiRequestByObject converts echo context to params.
-func (w *ServerInterfaceWrapper) ApiRequestByObject(ctx echo.Context) error {
+// OriginalRequestByObject converts echo context to params.
+func (w *ServerInterfaceWrapper) OriginalRequestByObject(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "object_reference" -------------
 	var objectReference ObjectReferencePath
@@ -785,7 +785,7 @@ func (w *ServerInterfaceWrapper) ApiRequestByObject(ctx echo.Context) error {
 	}
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params ApiRequestByObjectParams
+	var params OriginalRequestByObjectParams
 	// ------------- Optional query parameter "limit" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "limit", ctx.QueryParams(), &params.Limit)
@@ -843,7 +843,7 @@ func (w *ServerInterfaceWrapper) ApiRequestByObject(ctx echo.Context) error {
 	}
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.ApiRequestByObject(ctx, objectReference, params)
+	err = w.Handler.OriginalRequestByObject(ctx, objectReference, params)
 	return err
 }
 
@@ -1116,7 +1116,7 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) {
 	router.GET("/api/v1/jet-drops/:jet_drop_id", wrapper.JetDropByID)
 	router.GET("/api/v1/jet-drops/:jet_drop_id/records", wrapper.JetDropRecords)
 	router.GET("/api/v1/jets/:jet_id/jet-drops", wrapper.JetDropsByJetID)
-	router.GET("/api/v1/lifeline/:object_reference/original-requests", wrapper.ApiRequestByObject)
+	router.GET("/api/v1/lifeline/:object_reference/original-requests", wrapper.OriginalRequestByObject)
 	router.GET("/api/v1/lifeline/:object_reference/records", wrapper.ObjectLifeline)
 	router.GET("/api/v1/pulses", wrapper.Pulses)
 	router.GET("/api/v1/pulses/:pulse_number", wrapper.Pulse)

@@ -341,7 +341,7 @@ paths:
         more information, refer to the [filtering, pagination,
         sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
         section.
-      operationId: api_request_by_object
+      operationId: original_request_by_object
       tags:
         - Request
       parameters:
@@ -356,7 +356,7 @@ paths:
         - $ref: '#/components/parameters/timestamp_lte'
       responses:
         '200':
-          $ref: '#/components/responses/APIRequestResponse'
+          $ref: '#/components/responses/OriginalRequestResponse'
         '400':
           $ref: '#/components/responses/400Response'
         '500':
@@ -688,7 +688,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/records'
-    APIRequestResponse:
+    OriginalRequestResponse:
       description: OK
       content:
         application/json:

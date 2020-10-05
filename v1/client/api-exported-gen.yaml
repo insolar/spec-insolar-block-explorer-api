@@ -1160,7 +1160,7 @@ paths:
         more information, refer to the [filtering, pagination,
         sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting)
         section.
-      operationId: api_request_by_object
+      operationId: original_request_by_object
       tags:
         - Request
       parameters:
@@ -2772,7 +2772,7 @@ components:
                       type: string
                       description: Failure reason.
             title: Object lifelineResponse200
-    APIRequestResponse:
+    OriginalRequestResponse:
       description: Internal server error
       content:
         application/json:
