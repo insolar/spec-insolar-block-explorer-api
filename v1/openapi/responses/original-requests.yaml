@@ -1,4 +1,4 @@
-x-component: 'responses/APIRequestResponse'
+x-component: 'responses/OriginalRequestResponse'
 description: OK
 content:
   application/json:
