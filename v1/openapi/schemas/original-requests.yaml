@@ -1,5 +1,5 @@
 x-component: "schemas/original-requests"
-description: A paginated array of original-request.
+description: A paginated array of original requests.
 type: object
 properties:
   total:

@@ -32,7 +32,10 @@ info:
 
     * Record—minimum unit of storage that contains an associated request,
     response, and service information.
-
+      Records can be of three types:
+      * Request. Most requests are caused by other requests inside the Plaftorm with the exception of original requests. The latter are invoked by users.
+      * Result. Each request has a corresponding execution result.
+      * State. Some execution results change object state. They are caused by so-called mutable requests, while immutable requests are simple read operations.
     * Lifeline—sequence of records. A record in a lifeline is an object state
     and an object is a smart contract instance.
 
@@ -143,6 +146,22 @@ tags:
       response, and service information. Records are grouped by lifeline.
   - name: Search
     description: Searches for an entity on the blockchain.
+  - name: Request and result
+    description: >
+      Pairs of requests and results.
+
+
+      Request can either be an original request a user made via the API or a
+      subsequent request one object made to another.
+
+      Except the original, requests have a reason, which is a reference to the
+      previous one.
+
+      The reason of original request is not pointer but a reference that is
+      formed from the pulse data and the request's parameters.
+
+
+      Each result contains a reference to the corresponding request.
 paths:
   /api/v1/pulses:
     get:
@@ -900,7 +919,7 @@ paths:
                       properties:
                         object_reference:
                           type: string
-                          description: object reference called by the request.
+                          description: Reference to the corresponding object.
                           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                           pattern: >-
                             ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
@@ -1053,7 +1072,7 @@ paths:
                       properties:
                         object_reference:
                           type: string
-                          description: object reference called by the request.
+                          description: Reference to the corresponding object.
                           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                           pattern: >-
                             ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
@@ -1150,10 +1169,10 @@ paths:
                 title: Object lifelineResponse200
   '/api/v1/lifeline/{object_reference}/original-requests':
     get:
-      summary: Original-request by object
+      summary: Original request by object
       description: >
-        Gets an array of original-request that have ever changed the state of
-        the object. `object_reference` as a path parameter.
+        Gets an array of original irequests that have ever changed the state of
+        the object. Takes `object_reference` as a path parameter.
 
 
         Optionally, specify filtering, sorting, and pagination parameters. For
@@ -1162,7 +1181,7 @@ paths:
         section.
       operationId: original_request_by_object
       tags:
-        - Request
+        - Request and result
       parameters:
         - name: object_reference
           in: path
@@ -1171,20 +1190,19 @@ paths:
             type: string
           description: Object reference.
           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-        - $ref: '#/components/parameters/Original-requestByObjectQueryParameterLimit'
-        - $ref: '#/components/parameters/Original-requestByObjectQueryParameterOffset'
+        - $ref: '#/components/parameters/OriginalRequestByObjectQueryParameterLimit'
+        - $ref: '#/components/parameters/OriginalRequestByObjectQueryParameterOffset'
         - $ref: >-
-            #/components/parameters/Original-requestByObjectQueryParameterFrom_index
+            #/components/parameters/OriginalRequestByObjectQueryParameterFrom_index
+        - $ref: '#/components/parameters/OriginalRequestByObjectQueryParameterSort_by'
         - $ref: >-
-            #/components/parameters/Original-requestByObjectQueryParameterSort_by
+            #/components/parameters/OriginalRequestByObjectQueryParameterPulse_number_gt
         - $ref: >-
-            #/components/parameters/Original-requestByObjectQueryParameterPulse_number_gt
+            #/components/parameters/OriginalRequestByObjectQueryParameterPulse_number_lt
         - $ref: >-
-            #/components/parameters/Original-requestByObjectQueryParameterPulse_number_lt
+            #/components/parameters/OriginalRequestByObjectQueryParameterTimestamp_gte
         - $ref: >-
-            #/components/parameters/Original-requestByObjectQueryParameterTimestamp_gte
-        - $ref: >-
-            #/components/parameters/Original-requestByObjectQueryParameterTimestamp_lte
+            #/components/parameters/OriginalRequestByObjectQueryParameterTimestamp_lte
       responses:
         '200':
           description: Internal server error
@@ -1212,7 +1230,7 @@ paths:
                       properties:
                         object_reference:
                           type: string
-                          description: object reference called by the request.
+                          description: Reference to the corresponding object.
                           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                           pattern: >-
                             ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
@@ -1247,42 +1265,44 @@ paths:
                           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
                         caller_reference:
                           type: string
-                          description: Object reference that called this request.
+                          description: Reference to the object that called this request.
                           example: >-
                             insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record
                           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
                         trace_id:
                           type: string
-                          description: trace id  from api reference.
+                          description: >-
+                            Internal debugging information. May be an empty
+                            string.
                           example: 0b9ac245-2522-4364-9059-efc17907ce54
                         reason_reference:
                           type: string
                           description: >-
-                            Reason for calling the request. This is a more
-                            earlier request.
+                            Reference to the parent request—a request that
+                            caused this one.
                           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                           pattern: >-
                             ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$
                         method:
                           type: string
-                          description: The smart contract method that called this request.
+                          description: >-
+                            Name of the smart contract method that called this
+                            request.
                           example: createMember
                         is_original_request:
                           type: boolean
-                          description: >-
-                            if the request is original-request
-                            is_original_request==true.
+                          description: True if request is original. False oterwise.
                           example: true
                         arguments:
                           type: string
-                          description: Smart contract method arguments.
+                          description: Arguments of a smart contract method.
                           example: >-
                             0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
                         is_immutable:
                           type: boolean
                           description: >-
-                            if the request changes the state of the object
-                            is_immutable==false.
+                            True if request didn't change the object state.
+                            False otherwise.
                           example: true
                         prototype_reference:
                           type: string
@@ -1320,21 +1340,23 @@ paths:
                         failure_reason:
                           type: string
                           description: Failure reason.
-                title: Original-request by objectResponse200
+                title: Original request by objectResponse200
   '/api/v1/requests/{request_reference}/result':
     get:
       summary: Result
-      description: Gets result by `request_reference` or original-request.
+      description: >-
+        Gets a corresponding result given a `request_reference` as a path
+        parameter.
       operationId: result
       tags:
-        - Request
+        - Request and result
       parameters:
         - name: request_reference
           in: path
           required: true
           schema:
             type: string
-          description: Request reference or original-reqiest reference.
+          description: Reference to a request or original request.
           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
       responses:
         '200':
@@ -1347,7 +1369,7 @@ paths:
                 properties:
                   object_reference:
                     type: string
-                    description: object reference called by the request.
+                    description: Reference to the corresponding object.
                     example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                     pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
                   hash:
@@ -1381,13 +1403,13 @@ paths:
                     pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
                   request_reference:
                     type: string
-                    description: Request reference.
+                    description: Reference to the corresponding request.
                     example: >-
                       insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
                     pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
                   payload:
                     type: string
-                    description: Record payload.
+                    description: Result payload.
                     example: >-
                       0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
                   code:
@@ -1422,19 +1444,19 @@ paths:
 
         Entities and their identifiers may be one of the following:
 
-        * Record — record reference
+        * Record—record reference
 
-        * State - state by object
+        * State-state by object
 
-        * Original-Request -  it is request from outside
+        * Jet drop—jet drop ID (combination of `jet_id` and `pulse_number`)
 
-        * Request - it is request inside the platform
+        * Pulse—pulse number
 
-        * Jet drop — jet drop ID (combination of `jet_id` and `pulse_number`)
+        * Lifeline—object reference
 
-        * Pulse — pulse number
+        * Original request—user request that comes from outside the Platform
 
-        * Lifeline — object reference
+        * Request—request one object made to another inside the Platform
 
 
         Search takes any of the identifiers above as the `value` parameter,
@@ -1460,12 +1482,12 @@ paths:
                     description: Result type.
                     enum:
                       - pulse
-                      - state
                       - jet-drop
                       - lifeline
                       - request
                       - orignal_request
-                    example: orignal_request
+                      - state
+                    example: state
                   meta:
                     type: object
                     description: Meta data.
@@ -1475,6 +1497,12 @@ paths:
                         format: int64
                         description: Pulse number.
                         example: 1
+                      jet_drop_id:
+                        type: string
+                        description: >-
+                          Combination of `jet_id` and `pulse_number` separated
+                          by a `:`.
+                        example: '001:43612021'
                       object_reference:
                         type: string
                         description: Object reference.
@@ -1486,12 +1514,6 @@ paths:
                           Combination of `pulse_number` and `order` separated by
                           a `:`. Order is a record number in a jet drop.
                         example: '43648102:7'
-                      jet_drop_id:
-                        type: string
-                        description: >-
-                          Combination of `jet_id` and `pulse_number` separated
-                          by a `:`.
-                        example: '001:43612021'
                   code:
                     type: string
                     description: Error code received from the backend services.
@@ -1729,7 +1751,7 @@ components:
       required: true
       schema:
         type: string
-      description: Request reference or original-reqiest reference.
+      description: Reference to a request or original request.
       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
     PulsesQueryParameterLimit:
       in: query
@@ -2076,7 +2098,7 @@ components:
         format: int64
         description: Unix timestamp.
       example: 1451743413
-    Original-requestByObjectQueryParameterLimit:
+    OriginalRequestByObjectQueryParameterLimit:
       in: query
       name: limit
       description: Number of entries to show per page.
@@ -2087,7 +2109,7 @@ components:
         maximum: 1000
         default: 20
       example: 25
-    Original-requestByObjectQueryParameterOffset:
+    OriginalRequestByObjectQueryParameterOffset:
       in: query
       name: offset
       description: Number of entries to skip from the starting point (`from_*`).
@@ -2097,7 +2119,7 @@ components:
         minimum: 0
         default: 0
       example: 10
-    Original-requestByObjectQueryParameterFrom_index:
+    OriginalRequestByObjectQueryParameterFrom_index:
       name: from_index
       description: Specific `index` to paginate from.
       in: query
@@ -2105,7 +2127,7 @@ components:
       schema:
         type: string
       example: '43612021:323'
-    Original-requestByObjectQueryParameterSort_by:
+    OriginalRequestByObjectQueryParameterSort_by:
       in: query
       name: sort_by
       description: >
@@ -2121,7 +2143,7 @@ components:
           - index_desc
           - index_asc
       example: index_asc
-    Original-requestByObjectQueryParameterPulse_number_gt:
+    OriginalRequestByObjectQueryParameterPulse_number_gt:
       in: query
       name: pulse_number_gt
       description: >-
@@ -2132,7 +2154,7 @@ components:
         type: integer
         minimum: 0
       example: 43648104
-    Original-requestByObjectQueryParameterPulse_number_lt:
+    OriginalRequestByObjectQueryParameterPulse_number_lt:
       in: query
       name: pulse_number_lt
       description: >-
@@ -2143,7 +2165,7 @@ components:
         type: integer
         minimum: 0
       example: 43648106
-    Original-requestByObjectQueryParameterTimestamp_gte:
+    OriginalRequestByObjectQueryParameterTimestamp_gte:
       in: query
       name: timestamp_gte
       description: >-
@@ -2155,7 +2177,7 @@ components:
         format: int64
         description: Unix timestamp.
       example: 1451743413
-    Original-requestByObjectQueryParameterTimestamp_lte:
+    OriginalRequestByObjectQueryParameterTimestamp_lte:
       in: query
       name: timestamp_lte
       description: >-
@@ -2679,7 +2701,7 @@ components:
                   properties:
                     object_reference:
                       type: string
-                      description: object reference called by the request.
+                      description: Reference to the corresponding object.
                       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                       pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
                     hash:
@@ -2798,7 +2820,7 @@ components:
                   properties:
                     object_reference:
                       type: string
-                      description: object reference called by the request.
+                      description: Reference to the corresponding object.
                       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                       pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
                     hash:
@@ -2832,41 +2854,41 @@ components:
                       pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
                     caller_reference:
                       type: string
-                      description: Object reference that called this request.
+                      description: Reference to the object that called this request.
                       example: >-
                         insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record
                       pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
                     trace_id:
                       type: string
-                      description: trace id  from api reference.
+                      description: Internal debugging information. May be an empty string.
                       example: 0b9ac245-2522-4364-9059-efc17907ce54
                     reason_reference:
                       type: string
                       description: >-
-                        Reason for calling the request. This is a more earlier
-                        request.
+                        Reference to the parent request—a request that caused
+                        this one.
                       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                       pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
                     method:
                       type: string
-                      description: The smart contract method that called this request.
+                      description: >-
+                        Name of the smart contract method that called this
+                        request.
                       example: createMember
                     is_original_request:
                       type: boolean
-                      description: >-
-                        if the request is original-request
-                        is_original_request==true.
+                      description: True if request is original. False oterwise.
                       example: true
                     arguments:
                       type: string
-                      description: Smart contract method arguments.
+                      description: Arguments of a smart contract method.
                       example: >-
                         0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
                     is_immutable:
                       type: boolean
                       description: >-
-                        if the request changes the state of the object
-                        is_immutable==false.
+                        True if request didn't change the object state. False
+                        otherwise.
                       example: true
                     prototype_reference:
                       type: string
@@ -2903,7 +2925,7 @@ components:
                     failure_reason:
                       type: string
                       description: Failure reason.
-            title: Original-request by objectResponse200
+            title: Original request by objectResponse200
     resultResponse:
       description: Internal server error
       content:
@@ -2914,7 +2936,7 @@ components:
             properties:
               object_reference:
                 type: string
-                description: object reference called by the request.
+                description: Reference to the corresponding object.
                 example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                 pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
               hash:
@@ -2947,12 +2969,12 @@ components:
                 pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
               request_reference:
                 type: string
-                description: Request reference.
+                description: Reference to the corresponding request.
                 example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
                 pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
               payload:
                 type: string
-                description: Record payload.
+                description: Result payload.
                 example: >-
                   0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
               code:
@@ -2992,12 +3014,12 @@ components:
                 description: Result type.
                 enum:
                   - pulse
-                  - state
                   - jet-drop
                   - lifeline
                   - request
                   - orignal_request
-                example: orignal_request
+                  - state
+                example: state
               meta:
                 type: object
                 description: Meta data.
@@ -3007,6 +3029,12 @@ components:
                     format: int64
                     description: Pulse number.
                     example: 1
+                  jet_drop_id:
+                    type: string
+                    description: >-
+                      Combination of `jet_id` and `pulse_number` separated by a
+                      `:`.
+                    example: '001:43612021'
                   object_reference:
                     type: string
                     description: Object reference.
@@ -3018,12 +3046,6 @@ components:
                       Combination of `pulse_number` and `order` separated by a
                       `:`. Order is a record number in a jet drop.
                     example: '43648102:7'
-                  jet_drop_id:
-                    type: string
-                    description: >-
-                      Combination of `jet_id` and `pulse_number` separated by a
-                      `:`.
-                    example: '001:43612021'
               code:
                 type: string
                 description: Error code received from the backend services.
@@ -3514,7 +3536,7 @@ components:
             properties:
               object_reference:
                 type: string
-                description: object reference called by the request.
+                description: Reference to the corresponding object.
                 example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                 pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
               hash:
@@ -3625,7 +3647,7 @@ components:
             properties:
               object_reference:
                 type: string
-                description: object reference called by the request.
+                description: Reference to the corresponding object.
                 example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                 pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
               hash:
@@ -3658,38 +3680,38 @@ components:
                 pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
               caller_reference:
                 type: string
-                description: Object reference that called this request.
+                description: Reference to the object that called this request.
                 example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
                 pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
               trace_id:
                 type: string
-                description: trace id  from api reference.
+                description: Internal debugging information. May be an empty string.
                 example: 0b9ac245-2522-4364-9059-efc17907ce54
               reason_reference:
                 type: string
                 description: >-
-                  Reason for calling the request. This is a more earlier
-                  request.
+                  Reference to the parent request—a request that caused this
+                  one.
                 example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                 pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
               method:
                 type: string
-                description: The smart contract method that called this request.
+                description: Name of the smart contract method that called this request.
                 example: createMember
               is_original_request:
                 type: boolean
-                description: if the request is original-request is_original_request==true.
+                description: True if request is original. False oterwise.
                 example: true
               arguments:
                 type: string
-                description: Smart contract method arguments.
+                description: Arguments of a smart contract method.
                 example: >-
                   0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
               is_immutable:
                 type: boolean
                 description: >-
-                  if the request changes the state of the object
-                  is_immutable==false.
+                  True if request didn't change the object state. False
+                  otherwise.
                 example: true
               prototype_reference:
                 type: string
@@ -3726,14 +3748,14 @@ components:
               failure_reason:
                 type: string
                 description: Failure reason.
-      title: Original-request by objectResponse200
+      title: Original request by objectResponse200
     result:
       description: Response codes.
       type: object
       properties:
         object_reference:
           type: string
-          description: object reference called by the request.
+          description: Reference to the corresponding object.
           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
           pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
         hash:
@@ -3766,12 +3788,12 @@ components:
           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
         request_reference:
           type: string
-          description: Request reference.
+          description: Reference to the corresponding request.
           example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
         payload:
           type: string
-          description: Record payload.
+          description: Result payload.
           example: >-
             0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
         code:
@@ -3817,32 +3839,6 @@ components:
               format: int64
               description: Pulse number.
               example: 1
-    search-state:
-      description: State response.
-      title: State response
-      type: object
-      properties:
-        type:
-          type: string
-          description: Result type.
-          enum:
-            - state
-          example: state
-        meta:
-          type: object
-          description: Meta data.
-          properties:
-            object_reference:
-              type: string
-              description: Object reference.
-              example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-              pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
-            index:
-              type: string
-              description: >-
-                Combination of `pulse_number` and `order` separated by a `:`.
-                Order is a record number in a jet drop.
-              example: '43648102:7'
     search-jet-drop:
       description: Jet drop response.
       title: Jet drop response
@@ -3902,7 +3898,7 @@ components:
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
               pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
     search-original-request:
-      description: Request response.
+      description: Original request response.
       title: Original request response
       type: object
       properties:
@@ -3921,6 +3917,32 @@ components:
               description: Object reference.
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
               pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+    search-state:
+      description: State response.
+      title: State response
+      type: object
+      properties:
+        type:
+          type: string
+          description: Result type.
+          enum:
+            - state
+          example: state
+        meta:
+          type: object
+          description: Meta data.
+          properties:
+            object_reference:
+              type: string
+              description: Object reference.
+              example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+              pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+            index:
+              type: string
+              description: >-
+                Combination of `pulse_number` and `order` separated by a `:`.
+                Order is a record number in a jet drop.
+              example: '43648102:7'
     code-validation-failures:
       description: Validation failure.
       type: object
@@ -3956,7 +3978,7 @@ components:
       properties:
         object_reference:
           type: string
-          description: object reference called by the request.
+          description: Reference to the corresponding object.
           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
           pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
         hash:
@@ -4028,7 +4050,7 @@ components:
       properties:
         object_reference:
           type: string
-          description: object reference called by the request.
+          description: Reference to the corresponding object.
           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
           pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
         hash:
@@ -4061,34 +4083,34 @@ components:
           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
         caller_reference:
           type: string
-          description: Object reference that called this request.
+          description: Reference to the object that called this request.
           example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
         trace_id:
           type: string
-          description: trace id  from api reference.
+          description: Internal debugging information. May be an empty string.
           example: 0b9ac245-2522-4364-9059-efc17907ce54
         reason_reference:
           type: string
-          description: Reason for calling the request. This is a more earlier request.
+          description: Reference to the parent request—a request that caused this one.
           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
           pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
         method:
           type: string
-          description: The smart contract method that called this request.
+          description: Name of the smart contract method that called this request.
           example: createMember
         is_original_request:
           type: boolean
-          description: if the request is original-request is_original_request==true.
+          description: True if request is original. False oterwise.
           example: true
         arguments:
           type: string
-          description: Smart contract method arguments.
+          description: Arguments of a smart contract method.
           example: >-
             0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
         is_immutable:
           type: boolean
-          description: if the request changes the state of the object is_immutable==false.
+          description: True if request didn't change the object state. False otherwise.
           example: true
         prototype_reference:
           type: string
@@ -4109,7 +4131,7 @@ components:
       properties:
         object_reference:
           type: string
-          description: object reference called by the request.
+          description: Reference to the corresponding object.
           example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
           pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
         hash:

@@ -183,7 +183,7 @@ type RecordAbstract struct {
 	// Jet ID.
 	JetId *string `json:"jet_id,omitempty"`
 
-	// object reference called by the request.
+	// Reference to the corresponding object.
 	ObjectReference *string `json:"object_reference,omitempty"`
 
 	// Record number in a `jet drop`.
@@ -212,34 +212,34 @@ type Request struct {
 	RecordAbstract
 	// Embedded fields due to inline allOf schema
 
-	// Smart contract method arguments.
+	// Arguments of a smart contract method.
 	Arguments *string `json:"arguments,omitempty"`
 
-	// Object reference that called this request.
+	// Reference to the object that called this request.
 	CallerReference *string `json:"caller_reference,omitempty"`
 
 	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
 	Index *string `json:"index,omitempty"`
 
-	// if the request changes the state of the object is_immutable==false.
+	// True if request didn't change the object state. False otherwise.
 	IsImmutable *bool `json:"is_immutable,omitempty"`
 
-	// if the request is original-request is_original_request==true.
+	// True if request is original. False oterwise.
 	IsOriginalRequest *bool `json:"is_original_request,omitempty"`
 
-	// The smart contract method that called this request.
+	// Name of the smart contract method that called this request.
 	Method *string `json:"method,omitempty"`
 
 	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
 	PrototypeReference *string `json:"prototype_reference,omitempty"`
 
-	// Reason for calling the request. This is a more earlier request.
+	// Reference to the parent request—a request that caused this one.
 	ReasonReference *string `json:"reason_reference,omitempty"`
 
 	// Request reference.
 	Reference *string `json:"reference,omitempty"`
 
-	// trace id  from api reference.
+	// Internal debugging information. May be an empty string.
 	TraceId *string `json:"trace_id,omitempty"`
 }
 
@@ -249,13 +249,13 @@ type Result struct {
 	RecordAbstract
 	// Embedded fields due to inline allOf schema
 
-	// Record payload.
+	// Result payload.
 	Payload *string `json:"payload,omitempty"`
 
 	// Result reference.
 	Reference *string `json:"reference,omitempty"`
 
-	// Request reference.
+	// Reference to the corresponding request.
 	RequestReference *string `json:"request_reference,omitempty"`
 }
 
@@ -623,7 +623,7 @@ type ServerInterface interface {
 	// Jet drops by jet ID
 	// (GET /api/v1/jets/{jet_id}/jet-drops)
 	JetDropsByJetID(ctx echo.Context, jetId JetIdPath, params JetDropsByJetIDParams) error
-	// Original-request by object
+	// Original request by object
 	// (GET /api/v1/lifeline/{object_reference}/original-requests)
 	OriginalRequestByObject(ctx echo.Context, objectReference ObjectReferencePath, params OriginalRequestByObjectParams) error
 	// Object lifeline

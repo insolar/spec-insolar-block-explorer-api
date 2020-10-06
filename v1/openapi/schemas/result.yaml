@@ -11,10 +11,10 @@ allOf:
         pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
       request_reference:
         type: string
-        description: Request reference.
+        description: Reference to the corresponding request.
         example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
         pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
       payload:
         type: string
-        description: Record payload.
+        description: Result payload.
         example: "0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw"
