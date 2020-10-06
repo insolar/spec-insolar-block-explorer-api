@@ -9,9 +9,9 @@
  */
 
 package client
-// SearchPulse Pulse response.
-type SearchPulse struct {
+// SearchRequest Request response.
+type SearchRequest struct {
 	// Result type.
 	Type string `json:"type,omitempty"`
-	Meta SearchPulseMeta `json:"meta,omitempty"`
+	Meta SearchRequestMeta `json:"meta,omitempty"`
 }

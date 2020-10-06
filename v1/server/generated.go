@@ -101,6 +101,16 @@ type NextPrevJetDrop struct {
 	PulseNumber *int64 `json:"pulse_number,omitempty"`
 }
 
+// OriginalRequests defines model for original-requests.
+type OriginalRequests struct {
+
+	// Array with a number entries as specified by filtering and pagination parameters.
+	Result *[]Request `json:"result,omitempty"`
+
+	// Actual number of existing entries. May be higher or lower than the specified `limit`.
+	Total *int64 `json:"total,omitempty"`
+}
+
 // Pulse defines model for pulse.
 type Pulse struct {
 
@@ -138,24 +148,15 @@ type Pulses struct {
 
 // Record defines model for record.
 type Record struct {
-
-	// Record hash.
-	Hash *string `json:"hash,omitempty"`
+	// Embedded struct due to allOf(#/components/schemas/record-abstract)
+	RecordAbstract
+	// Embedded fields due to inline allOf schema
 
 	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
 	Index *string `json:"index,omitempty"`
 
 	// Combination of `jet_id` and `pulse_number` separated by a `:`.
 	JetDropId *string `json:"jet_drop_id,omitempty"`
-
-	// Jet ID.
-	JetId *string `json:"jet_id,omitempty"`
-
-	// Object reference.
-	ObjectReference *string `json:"object_reference,omitempty"`
-
-	// Record number in a `jet drop`.
-	Order *int64 `json:"order,omitempty"`
 
 	// Record payload.
 	Payload *string `json:"payload,omitempty"`
@@ -166,17 +167,33 @@ type Record struct {
 	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
 	PrototypeReference *string `json:"prototype_reference,omitempty"`
 
-	// Pulse number.
-	PulseNumber *int64 `json:"pulse_number,omitempty"`
-
 	// Record reference.
 	Reference *string `json:"reference,omitempty"`
 
-	// Unix timestamp.
-	Timestamp *int64 `json:"timestamp,omitempty"`
-
 	// Record type.
 	Type *string `json:"type,omitempty"`
+}
+
+// RecordAbstract defines model for record-abstract.
+type RecordAbstract struct {
+
+	// Record hash.
+	Hash *string `json:"hash,omitempty"`
+
+	// Jet ID.
+	JetId *string `json:"jet_id,omitempty"`
+
+	// Reference to the corresponding object.
+	ObjectReference *string `json:"object_reference,omitempty"`
+
+	// Record number in a `jet drop`.
+	Order *int64 `json:"order,omitempty"`
+
+	// Pulse number.
+	PulseNumber *int64 `json:"pulse_number,omitempty"`
+
+	// Unix timestamp.
+	Timestamp *int64 `json:"timestamp,omitempty"`
 }
 
 // Records defines model for records.
@@ -187,6 +204,59 @@ type Records struct {
 
 	// Actual number of existing entries. May be higher or lower than the specified `limit`.
 	Total *int64 `json:"total,omitempty"`
+}
+
+// Request defines model for request.
+type Request struct {
+	// Embedded struct due to allOf(#/components/schemas/record-abstract)
+	RecordAbstract
+	// Embedded fields due to inline allOf schema
+
+	// Arguments of a smart contract method.
+	Arguments *string `json:"arguments,omitempty"`
+
+	// Reference to the object that called this request.
+	CallerReference *string `json:"caller_reference,omitempty"`
+
+	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
+	Index *string `json:"index,omitempty"`
+
+	// True if request didn't change the object state. False otherwise.
+	IsImmutable *bool `json:"is_immutable,omitempty"`
+
+	// True if request is original. False oterwise.
+	IsOriginalRequest *bool `json:"is_original_request,omitempty"`
+
+	// Name of the smart contract method that called this request.
+	Method *string `json:"method,omitempty"`
+
+	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
+	PrototypeReference *string `json:"prototype_reference,omitempty"`
+
+	// Reference to the parent request—a request that caused this one.
+	ReasonReference *string `json:"reason_reference,omitempty"`
+
+	// Request reference.
+	Reference *string `json:"reference,omitempty"`
+
+	// Internal debugging information. May be an empty string.
+	TraceId *string `json:"trace_id,omitempty"`
+}
+
+// Result defines model for result.
+type Result struct {
+	// Embedded struct due to allOf(#/components/schemas/record-abstract)
+	RecordAbstract
+	// Embedded fields due to inline allOf schema
+
+	// Result payload.
+	Payload *string `json:"payload,omitempty"`
+
+	// Result reference.
+	Reference *string `json:"reference,omitempty"`
+
+	// Reference to the corresponding request.
+	RequestReference *string `json:"request_reference,omitempty"`
 }
 
 // SearchJetDrop defines model for search-jet-drop.
@@ -217,6 +287,20 @@ type SearchLifeline struct {
 	Type *string `json:"type,omitempty"`
 }
 
+// SearchOriginalRequest defines model for search-original-request.
+type SearchOriginalRequest struct {
+
+	// Meta data.
+	Meta *struct {
+
+		// Object reference.
+		ObjectReference *string `json:"object_reference,omitempty"`
+	} `json:"meta,omitempty"`
+
+	// Result type.
+	Type *string `json:"type,omitempty"`
+}
+
 // SearchPulse defines model for search-pulse.
 type SearchPulse struct {
 
@@ -231,8 +315,22 @@ type SearchPulse struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// SearchRecord defines model for search-record.
-type SearchRecord struct {
+// SearchRequest defines model for search-request.
+type SearchRequest struct {
+
+	// Meta data.
+	Meta *struct {
+
+		// Object reference.
+		ObjectReference *string `json:"object_reference,omitempty"`
+	} `json:"meta,omitempty"`
+
+	// Result type.
+	Type *string `json:"type,omitempty"`
+}
+
+// SearchState defines model for search-state.
+type SearchState struct {
 
 	// Meta data.
 	Meta *struct {
@@ -297,6 +395,9 @@ const (
 	RecordTypeParam_state   RecordTypeParam = "state"
 )
 
+// RequestReferencePath defines model for request_reference_path.
+type RequestReferencePath string
+
 // SortByIndex defines model for sort_by_index.
 type SortByIndex string
 
@@ -336,6 +437,9 @@ type N400Response CodeValidationError
 // N500Response defines model for 500Response.
 type N500Response CodeError
 
+// OriginalRequestResponse defines model for OriginalRequestResponse.
+type OriginalRequestResponse OriginalRequests
+
 // JetDropResponse defines model for jetDropResponse.
 type JetDropResponse JetDrop
 
@@ -350,6 +454,9 @@ type PulsesResponse Pulses
 
 // RecordsResponse defines model for recordsResponse.
 type RecordsResponse Records
+
+// ResultResponse defines model for resultResponse.
+type ResultResponse Result
 
 // SearchResponse defines model for searchResponse.
 type SearchResponse interface{}
@@ -391,6 +498,35 @@ type JetDropsByJetIDParams struct {
 
 	// Ending point for a range of pulses—less than the specified `pulse_number`.
 	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
+}
+
+// OriginalRequestByObjectParams defines parameters for OriginalRequestByObject.
+type OriginalRequestByObjectParams struct {
+
+	// Number of entries to show per page.
+	Limit *Limit `json:"limit,omitempty"`
+
+	// Number of entries to skip from the starting point (`from_*`).
+	Offset *OffsetParam `json:"offset,omitempty"`
+
+	// Specific `index` to paginate from.
+	FromIndex *FromIndex `json:"from_index,omitempty"`
+
+	// Sorts by the `index` attribute of the returned object.
+	// Can take two values that specify the sorting direction: descending (`index_desc`) or ascending (`index_asc`).
+	SortBy *SortByIndex `json:"sort_by,omitempty"`
+
+	// Starting point for a range of pulses—greater than the specified `pulse_number`.
+	PulseNumberGt *PulseNumberGt `json:"pulse_number_gt,omitempty"`
+
+	// Ending point for a range of pulses—less than the specified `pulse_number`.
+	PulseNumberLt *PulseNumberLt `json:"pulse_number_lt,omitempty"`
+
+	// Starting point for a range—greater than or equal to the specified `timestamp` in the Unix format.
+	TimestampGte *TimestampGte `json:"timestamp_gte,omitempty"`
+
+	// Ending point for a range—less than or equal to the specified `timestamp` in the Unix format.
+	TimestampLte *TimestampLte `json:"timestamp_lte,omitempty"`
 }
 
 // ObjectLifelineParams defines parameters for ObjectLifeline.
@@ -487,6 +623,9 @@ type ServerInterface interface {
 	// Jet drops by jet ID
 	// (GET /api/v1/jets/{jet_id}/jet-drops)
 	JetDropsByJetID(ctx echo.Context, jetId JetIdPath, params JetDropsByJetIDParams) error
+	// Original request by object
+	// (GET /api/v1/lifeline/{object_reference}/original-requests)
+	OriginalRequestByObject(ctx echo.Context, objectReference ObjectReferencePath, params OriginalRequestByObjectParams) error
 	// Object lifeline
 	// (GET /api/v1/lifeline/{object_reference}/records)
 	ObjectLifeline(ctx echo.Context, objectReference ObjectReferencePath, params ObjectLifelineParams) error
@@ -499,6 +638,9 @@ type ServerInterface interface {
 	// Jet drops by pulse number
 	// (GET /api/v1/pulses/{pulse_number}/jet-drops)
 	JetDropsByPulseNumber(ctx echo.Context, pulseNumber PulseNumberPath, params JetDropsByPulseNumberParams) error
+	// Result
+	// (GET /api/v1/requests/{request_reference}/result)
+	Result(ctx echo.Context, requestReference RequestReferencePath) error
 	// Search
 	// (GET /api/v1/search)
 	Search(ctx echo.Context, params SearchParams) error
@@ -628,6 +770,80 @@ func (w *ServerInterfaceWrapper) JetDropsByJetID(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	err = w.Handler.JetDropsByJetID(ctx, jetId, params)
+	return err
+}
+
+// OriginalRequestByObject converts echo context to params.
+func (w *ServerInterfaceWrapper) OriginalRequestByObject(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "object_reference" -------------
+	var objectReference ObjectReferencePath
+
+	err = runtime.BindStyledParameter("simple", false, "object_reference", ctx.Param("object_reference"), &objectReference)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter object_reference: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OriginalRequestByObjectParams
+	// ------------- Optional query parameter "limit" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "limit", ctx.QueryParams(), &params.Limit)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter limit: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "from_index" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "from_index", ctx.QueryParams(), &params.FromIndex)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter from_index: %s", err))
+	}
+
+	// ------------- Optional query parameter "sort_by" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "sort_by", ctx.QueryParams(), &params.SortBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter sort_by: %s", err))
+	}
+
+	// ------------- Optional query parameter "pulse_number_gt" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pulse_number_gt", ctx.QueryParams(), &params.PulseNumberGt)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_gt: %s", err))
+	}
+
+	// ------------- Optional query parameter "pulse_number_lt" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pulse_number_lt", ctx.QueryParams(), &params.PulseNumberLt)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pulse_number_lt: %s", err))
+	}
+
+	// ------------- Optional query parameter "timestamp_gte" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "timestamp_gte", ctx.QueryParams(), &params.TimestampGte)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter timestamp_gte: %s", err))
+	}
+
+	// ------------- Optional query parameter "timestamp_lte" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "timestamp_lte", ctx.QueryParams(), &params.TimestampLte)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter timestamp_lte: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.OriginalRequestByObject(ctx, objectReference, params)
 	return err
 }
 
@@ -841,6 +1057,22 @@ func (w *ServerInterfaceWrapper) JetDropsByPulseNumber(ctx echo.Context) error {
 	return err
 }
 
+// Result converts echo context to params.
+func (w *ServerInterfaceWrapper) Result(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "request_reference" -------------
+	var requestReference RequestReferencePath
+
+	err = runtime.BindStyledParameter("simple", false, "request_reference", ctx.Param("request_reference"), &requestReference)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter request_reference: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.Result(ctx, requestReference)
+	return err
+}
+
 // Search converts echo context to params.
 func (w *ServerInterfaceWrapper) Search(ctx echo.Context) error {
 	var err error
@@ -884,10 +1116,12 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) {
 	router.GET("/api/v1/jet-drops/:jet_drop_id", wrapper.JetDropByID)
 	router.GET("/api/v1/jet-drops/:jet_drop_id/records", wrapper.JetDropRecords)
 	router.GET("/api/v1/jets/:jet_id/jet-drops", wrapper.JetDropsByJetID)
+	router.GET("/api/v1/lifeline/:object_reference/original-requests", wrapper.OriginalRequestByObject)
 	router.GET("/api/v1/lifeline/:object_reference/records", wrapper.ObjectLifeline)
 	router.GET("/api/v1/pulses", wrapper.Pulses)
 	router.GET("/api/v1/pulses/:pulse_number", wrapper.Pulse)
 	router.GET("/api/v1/pulses/:pulse_number/jet-drops", wrapper.JetDropsByPulseNumber)
+	router.GET("/api/v1/requests/:request_reference/result", wrapper.Result)
 	router.GET("/api/v1/search", wrapper.Search)
 
 }

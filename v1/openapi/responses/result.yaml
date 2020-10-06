@@ -1,0 +1,6 @@
+x-component: 'responses/resultResponse'
+description: OK
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/result.yaml'

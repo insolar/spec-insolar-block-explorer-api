@@ -9,9 +9,32 @@
  */
 
 package client
-// SearchPulse Pulse response.
-type SearchPulse struct {
-	// Result type.
-	Type string `json:"type,omitempty"`
-	Meta SearchPulseMeta `json:"meta,omitempty"`
+// ResultResponse200 Response codes.
+type ResultResponse200 struct {
+	// Reference to the corresponding object.
+	ObjectReference string `json:"object_reference,omitempty"`
+	// Record hash.
+	Hash string `json:"hash,omitempty"`
+	// Jet ID.
+	JetId string `json:"jet_id,omitempty"`
+	// Pulse number.
+	PulseNumber int64 `json:"pulse_number,omitempty"`
+	// Record number in a `jet drop`.
+	Order int64 `json:"order,omitempty"`
+	// Unix timestamp.
+	Timestamp int64 `json:"timestamp,omitempty"`
+	// Result reference.
+	Reference string `json:"reference,omitempty"`
+	// Reference to the corresponding request.
+	RequestReference string `json:"request_reference,omitempty"`
+	// Result payload.
+	Payload string `json:"payload,omitempty"`
+	// Error code received from the backend services.
+	Code string `json:"code,omitempty"`
+	// Short error description.
+	Message string `json:"message,omitempty"`
+	// Additional information about the error.
+	Description string `json:"description,omitempty"`
+	// Array containing incorrect parameters/properties.
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

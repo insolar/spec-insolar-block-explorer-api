@@ -1,0 +1,17 @@
+get:
+  summary: Result
+  description: Gets a corresponding result given a `request_reference` as a path parameter.
+  operationId: result
+  tags:
+    - Request and result
+  parameters:
+    - $ref: '../parameters/path/request_reference_path.yaml'
+  responses:
+    '200':
+      $ref: "../responses/result.yaml"
+    '400':
+      $ref: "../responses/400.yaml"
+    '404':
+      $ref: "../responses/404.yaml"
+    '500':
+      $ref: "../responses/500.yaml"

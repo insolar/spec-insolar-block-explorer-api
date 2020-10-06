@@ -9,9 +9,38 @@
  */
 
 package client
-// SearchPulse Pulse response.
-type SearchPulse struct {
-	// Result type.
-	Type string `json:"type,omitempty"`
-	Meta SearchPulseMeta `json:"meta,omitempty"`
+// OriginalRequestByObjectResponse200Result Record abstract.
+type OriginalRequestByObjectResponse200Result struct {
+	// Reference to the corresponding object.
+	ObjectReference string `json:"object_reference,omitempty"`
+	// Record hash.
+	Hash string `json:"hash,omitempty"`
+	// Jet ID.
+	JetId string `json:"jet_id,omitempty"`
+	// Pulse number.
+	PulseNumber int64 `json:"pulse_number,omitempty"`
+	// Record number in a `jet drop`.
+	Order int64 `json:"order,omitempty"`
+	// Unix timestamp.
+	Timestamp int64 `json:"timestamp,omitempty"`
+	// Request reference.
+	Reference string `json:"reference,omitempty"`
+	// Reference to the object that called this request.
+	CallerReference string `json:"caller_reference,omitempty"`
+	// Internal debugging information. May be an empty string.
+	TraceId string `json:"trace_id,omitempty"`
+	// Reference to the parent request—a request that caused this one.
+	ReasonReference string `json:"reason_reference,omitempty"`
+	// Name of the smart contract method that called this request.
+	Method string `json:"method,omitempty"`
+	// True if request is original. False oterwise.
+	IsOriginalRequest bool `json:"is_original_request,omitempty"`
+	// Arguments of a smart contract method.
+	Arguments string `json:"arguments,omitempty"`
+	// True if request didn't change the object state. False otherwise.
+	IsImmutable bool `json:"is_immutable,omitempty"`
+	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
+	PrototypeReference string `json:"prototype_reference,omitempty"`
+	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
+	Index string `json:"index,omitempty"`
 }

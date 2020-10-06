@@ -5,6 +5,8 @@ content:
     schema:
       oneOf:
         - $ref: '../schemas/search-pulse.yaml'
-        - $ref: '../schemas/search-record.yaml'
         - $ref: '../schemas/search-jet-drop.yaml'
         - $ref: '../schemas/search-lifeline.yaml'
+        - $ref: '../schemas/search-request.yaml'
+        - $ref: '../schemas/search-original-request.yaml'
+        - $ref: '../schemas/search-state.yaml'

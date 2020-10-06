@@ -9,9 +9,18 @@
  */
 
 package client
-// SearchPulse Pulse response.
-type SearchPulse struct {
-	// Result type.
-	Type string `json:"type,omitempty"`
-	Meta SearchPulseMeta `json:"meta,omitempty"`
+// OriginalRequestByObjectResponse200 Response codes.
+type OriginalRequestByObjectResponse200 struct {
+	// Actual number of existing entries. May be higher or lower than the specified `limit`.
+	Total int64 `json:"total,omitempty"`
+	// Array with a number entries as specified by filtering and pagination parameters.
+	Result []OriginalRequestByObjectResponse200Result `json:"result,omitempty"`
+	// Error code received from the backend services.
+	Code string `json:"code,omitempty"`
+	// Short error description.
+	Message string `json:"message,omitempty"`
+	// Additional information about the error.
+	Description string `json:"description,omitempty"`
+	// Array containing incorrect parameters/properties.
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }

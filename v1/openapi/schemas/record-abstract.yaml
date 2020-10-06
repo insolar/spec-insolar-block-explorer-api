@@ -1,0 +1,31 @@
+x-component: 'schemas/record-abstract'
+description: Record abstract.
+type: object
+properties:
+  object_reference:
+    type: string
+    description: Reference to the corresponding object.
+    example: "insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE"
+    pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+  hash:
+    type: string
+    description: Record hash.
+    example: "0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw"
+  jet_id:
+    type: string
+    description: Jet ID.
+    example: "0010"
+    pattern: '^([0-1]{2,64})$'
+  pulse_number:
+    type: integer
+    format: int64
+    description: Pulse number.
+    example: 436120213
+  order:
+    type: integer
+    format: int64
+    description: Record number in a `jet drop`.
+  timestamp:
+    type: integer
+    format: int64
+    description: Unix timestamp.
