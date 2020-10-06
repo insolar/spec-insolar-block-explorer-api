@@ -9,35 +9,35 @@ allOf:
         description: Request reference.
         example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
         pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-      caller_reference :
+      caller_reference:
         type: string
-        description: Object reference that called this request.
+        description: Reference to the object that called this request.
         example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record"
         pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
       trace_id:
         type: string
-        description: trace id  from api reference.
+        description: Internal debugging information. May be an empty string.
         example: "0b9ac245-2522-4364-9059-efc17907ce54"
       reason_reference:
         type: string
-        description:  Reason for calling the request. This is a more earlier request.
+        description: Reference to the parent request—a request that caused this one.
         example: "insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE"
         pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
       method:
         type: string
-        description:  The smart contract method that called this request.
+        description: Name of the smart contract method that called this request.
         example: "createMember"
       is_original_request:
         type: boolean
-        description: if the request is original-request is_original_request==true.
+        description: True if request is original. False oterwise.
         example: true
       arguments:
         type: string
-        description:  Smart contract method arguments.
+        description: Arguments of a smart contract method.
         example: "0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw"
       is_immutable:
         type: boolean
-        description: if the request changes the state of the object is_immutable==false.
+        description: True if request didn't change the object state. False otherwise.
         example: true
       prototype_reference:
         type: string

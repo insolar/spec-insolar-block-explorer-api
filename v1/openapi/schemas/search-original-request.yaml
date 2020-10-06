@@ -1,5 +1,5 @@
 x-component: 'schemas/search-original-request'
-description: Request response.
+description: Original request response.
 title: Original request response
 type: object
 properties:

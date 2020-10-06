@@ -24,6 +24,10 @@ info:
     Basic Insolar entities that you can find in this specification are the following:
 
     * Record—minimum unit of storage that contains an associated request, response, and service information.
+      Records can be of three types:
+      * Request. Most requests are caused by other requests inside the Plaftorm with the exception of original requests. The latter are invoked by users.
+      * Result. Each request has a corresponding execution result.
+      * State. Some execution results change object state. They are caused by so-called mutable requests, while immutable requests are simple read operations.
     * Lifeline — sequence of records. A record in a lifeline is an object state and an object is a smart contract instance.
     * Jet drop — unit of storage for jets.
     * Jet — group of lifelines.
@@ -94,6 +98,15 @@ tags:
     description: Record is the minimum unit of storage that contains an associated request, response, and service information. Records are grouped by lifeline.
   - name: Search
     description: Searches for an entity on the blockchain.
+  - name: Request and result
+    description: |
+      Pairs of requests and results.
+
+      Request can either be an original request a user made via the API or a subsequent request one object made to another.
+      Except the original, requests have a reason, which is a reference to the previous one.
+      The reason of original request is not pointer but a reference that is formed from the pulse data and the request's parameters.
+
+      Each result contains a reference to the corresponding request.
 
 paths:
   /api/v1/pulses:

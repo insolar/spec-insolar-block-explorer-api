@@ -1,9 +1,9 @@
 get:
   summary: Result
-  description: Gets result by `request_reference` or original-request.
+  description: Gets a corresponding result given a `request_reference` as a path parameter.
   operationId: result
   tags:
-    - Request
+    - Request and result
   parameters:
     - $ref: '../parameters/path/request_reference_path.yaml'
   responses:

@@ -24,37 +24,79 @@ var (
 	_ _context.Context
 )
 
-// PulseApiService PulseApi service
-type PulseApiService service
+// RequestAndResultApiService RequestAndResultApi service
+type RequestAndResultApiService service
+
+// OriginalRequestByObjectOpts Optional parameters for the method 'OriginalRequestByObject'
+type OriginalRequestByObjectOpts struct {
+    Limit optional.Int32
+    Offset optional.Int32
+    FromIndex optional.String
+    SortBy optional.String
+    PulseNumberGt optional.Int32
+    PulseNumberLt optional.Int32
+    TimestampGte optional.Int64
+    TimestampLte optional.Int64
+}
 
 /*
-Pulse Pulse
-Gets pulse by &#x60;pulse_number&#x60;.
+OriginalRequestByObject Original request by object
+Gets an array of original irequests that have ever changed the state of the object. Takes &#x60;object_reference&#x60; as a path parameter.  Optionally, specify filtering, sorting, and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section. 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param pulseNumber Pulse number.
-@return PulseResponse200
+ * @param objectReference Object reference.
+ * @param optional nil or *OriginalRequestByObjectOpts - Optional Parameters:
+ * @param "Limit" (optional.Int32) -  Number of entries to show per page.
+ * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
+ * @param "FromIndex" (optional.String) -  Specific `index` to paginate from.
+ * @param "SortBy" (optional.String) -  Sorts by the `index` attribute of the returned object. Can take two values that specify the sorting direction: descending (`index_desc`) or ascending (`index_asc`). 
+ * @param "PulseNumberGt" (optional.Int32) -  Starting point for a range of pulses—greater than the specified `pulse_number`.
+ * @param "PulseNumberLt" (optional.Int32) -  Ending point for a range of pulses—less than the specified `pulse_number`.
+ * @param "TimestampGte" (optional.Int64) -  Starting point for a range—greater than or equal to the specified `timestamp` in the Unix format.
+ * @param "TimestampLte" (optional.Int64) -  Ending point for a range—less than or equal to the specified `timestamp` in the Unix format.
+@return OriginalRequestByObjectResponse200
 */
-func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int64) (PulseResponse200, *_nethttp.Response, error) {
+func (a *RequestAndResultApiService) OriginalRequestByObject(ctx _context.Context, objectReference string, localVarOptionals *OriginalRequestByObjectOpts) (OriginalRequestByObjectResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PulseResponse200
+		localVarReturnValue  OriginalRequestByObjectResponse200
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/pulses/{pulse_number}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pulse_number"+"}", _neturl.QueryEscape(parameterToString(pulseNumber, "")) , -1)
+	localVarPath := a.client.cfg.BasePath + "/api/v1/lifeline/{object_reference}/original-requests"
+	localVarPath = strings.Replace(localVarPath, "{"+"object_reference"+"}", _neturl.QueryEscape(parameterToString(objectReference, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if pulseNumber < 0 {
-		return localVarReturnValue, nil, reportError("pulseNumber must be greater than 0")
-	}
 
+	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
+		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
+		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.FromIndex.IsSet() {
+		localVarQueryParams.Add("from_index", parameterToString(localVarOptionals.FromIndex.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.SortBy.IsSet() {
+		localVarQueryParams.Add("sort_by", parameterToString(localVarOptionals.SortBy.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.PulseNumberGt.IsSet() {
+		localVarQueryParams.Add("pulse_number_gt", parameterToString(localVarOptionals.PulseNumberGt.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.PulseNumberLt.IsSet() {
+		localVarQueryParams.Add("pulse_number_lt", parameterToString(localVarOptionals.PulseNumberLt.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.TimestampGte.IsSet() {
+		localVarQueryParams.Add("timestamp_gte", parameterToString(localVarOptionals.TimestampGte.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.TimestampLte.IsSet() {
+		localVarQueryParams.Add("timestamp_lte", parameterToString(localVarOptionals.TimestampLte.Value(), ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -94,7 +136,7 @@ func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int64) (PulseR
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v PulseResponse200
+			var v OriginalRequestByObjectResponse200
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -117,83 +159,31 @@ func (a *PulseApiService) Pulse(ctx _context.Context, pulseNumber int64) (PulseR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-// PulsesOpts Optional parameters for the method 'Pulses'
-type PulsesOpts struct {
-    Limit optional.Int32
-    Offset optional.Int32
-    FromPulseNumber optional.Int64
-    TimestampGte optional.Int64
-    TimestampLte optional.Int64
-    PulseNumberGt optional.Int32
-    PulseNumberGte optional.Int32
-    PulseNumberLt optional.Int32
-    PulseNumberLte optional.Int32
-    SortBy optional.String
-}
-
 /*
-Pulses Pulses
-Gets an array of pulses.  Optionally, specify filtering, sorting, and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section. 
+Result Result
+Gets a corresponding result given a &#x60;request_reference&#x60; as a path parameter.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *PulsesOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  Number of entries to show per page.
- * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
- * @param "FromPulseNumber" (optional.Int64) -  Specific `pulse_number` to paginate from.
- * @param "TimestampGte" (optional.Int64) -  Starting point for a range—greater than or equal to the specified `timestamp` in the Unix format.
- * @param "TimestampLte" (optional.Int64) -  Ending point for a range—less than or equal to the specified `timestamp` in the Unix format.
- * @param "PulseNumberGt" (optional.Int32) -  Starting point for a range of pulses—greater than the specified `pulse_number`.
- * @param "PulseNumberGte" (optional.Int32) -  Starting point for a range of pulses—greater than or equal to the specified `pulse_number`.
- * @param "PulseNumberLt" (optional.Int32) -  Ending point for a range of pulses—less than the specified `pulse_number`.
- * @param "PulseNumberLte" (optional.Int32) -  Ending point for a range of pulses—less than or equal to the specified `pulse_number`.
- * @param "SortBy" (optional.String) -  Sorting direction—ascending or descending relative to the monotonically increasing `pulse_number`.
-@return PulsesResponse200
+ * @param requestReference Reference to a request or original request.
+@return ResultResponse200
 */
-func (a *PulseApiService) Pulses(ctx _context.Context, localVarOptionals *PulsesOpts) (PulsesResponse200, *_nethttp.Response, error) {
+func (a *RequestAndResultApiService) Result(ctx _context.Context, requestReference string) (ResultResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PulsesResponse200
+		localVarReturnValue  ResultResponse200
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/pulses"
+	localVarPath := a.client.cfg.BasePath + "/api/v1/requests/{request_reference}/result"
+	localVarPath = strings.Replace(localVarPath, "{"+"request_reference"+"}", _neturl.QueryEscape(parameterToString(requestReference, "")) , -1)
+
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
-		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
-		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.FromPulseNumber.IsSet() {
-		localVarQueryParams.Add("from_pulse_number", parameterToString(localVarOptionals.FromPulseNumber.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.TimestampGte.IsSet() {
-		localVarQueryParams.Add("timestamp_gte", parameterToString(localVarOptionals.TimestampGte.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.TimestampLte.IsSet() {
-		localVarQueryParams.Add("timestamp_lte", parameterToString(localVarOptionals.TimestampLte.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PulseNumberGt.IsSet() {
-		localVarQueryParams.Add("pulse_number_gt", parameterToString(localVarOptionals.PulseNumberGt.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PulseNumberGte.IsSet() {
-		localVarQueryParams.Add("pulse_number_gte", parameterToString(localVarOptionals.PulseNumberGte.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PulseNumberLt.IsSet() {
-		localVarQueryParams.Add("pulse_number_lt", parameterToString(localVarOptionals.PulseNumberLt.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PulseNumberLte.IsSet() {
-		localVarQueryParams.Add("pulse_number_lte", parameterToString(localVarOptionals.PulseNumberLte.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.SortBy.IsSet() {
-		localVarQueryParams.Add("sort_by", parameterToString(localVarOptionals.SortBy.Value(), ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -233,7 +223,7 @@ func (a *PulseApiService) Pulses(ctx _context.Context, localVarOptionals *Pulses
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v PulsesResponse200
+			var v ResultResponse200
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

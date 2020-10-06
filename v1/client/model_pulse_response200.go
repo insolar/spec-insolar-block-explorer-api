@@ -9,12 +9,22 @@
  */
 
 package client
-// OriginalRequests Response codes.
-type OriginalRequests struct {
-	// Actual number of existing entries. May be higher or lower than the specified `limit`.
-	Total int64 `json:"total,omitempty"`
-	// Array with a number entries as specified by filtering and pagination parameters.
-	Result []OriginalRequestByObjectResponse200Result `json:"result,omitempty"`
+// PulseResponse200 Response codes.
+type PulseResponse200 struct {
+	// Pulse number.
+	PulseNumber int64 `json:"pulse_number,omitempty"`
+	// Previous pulse number.
+	PrevPulseNumber int64 `json:"prev_pulse_number,omitempty"`
+	// Next pulse number.
+	NextPulseNumber int64 `json:"next_pulse_number,omitempty"`
+	// Number of all jet drops in the pulse.
+	JetDropAmount int64 `json:"jet_drop_amount,omitempty"`
+	// Number of all records in the pulse.
+	RecordAmount int64 `json:"record_amount,omitempty"`
+	// Unix timestamp.
+	Timestamp int64 `json:"timestamp,omitempty"`
+	// Pulse completion status.
+	IsComplete bool `json:"is_complete,omitempty"`
 	// Error code received from the backend services.
 	Code string `json:"code,omitempty"`
 	// Short error description.
