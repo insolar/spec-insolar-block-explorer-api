@@ -8,7 +8,7 @@ get:
     - $ref: '../parameters/path/request_reference_path.yaml'
   responses:
     '200':
-      $ref: "../responses/api-request.yaml"
+      $ref: "../responses/original-request.yaml"
     '400':
       $ref: "../responses/400.yaml"
     '404':

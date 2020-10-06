@@ -13,6 +13,9 @@ import (
 
 // ChildTree defines model for childTree.
 type ChildTree struct {
+	// Embedded struct due to allOf(#/components/schemas/record-abstract)
+	RecordAbstract
+	// Embedded fields due to inline allOf schema
 
 	// Smart contract method arguments.
 	Arguments *string `json:"arguments,omitempty"`
@@ -23,17 +26,11 @@ type ChildTree struct {
 	// state which was called by this request.
 	ExecutionStateReference *string `json:"execution_state_reference,omitempty"`
 
-	// Record hash.
-	Hash *string `json:"hash,omitempty"`
-
 	// if the request changes the state of the object is_immutable==false.
 	IsImmutable *bool `json:"is_immutable,omitempty"`
 
-	// if the request is api-request is_original_request==true.
+	// if the request is orignal-request is_original_request==true.
 	IsOriginalRequest *bool `json:"is_original_request,omitempty"`
-
-	// Jet ID.
-	JetId *string `json:"jet_id,omitempty"`
 
 	// The smart contract method that called this request.
 	Method *string `json:"method,omitempty"`
@@ -41,17 +38,8 @@ type ChildTree struct {
 	// next  child tree request.
 	NextRequests *[]string `json:"next_requests,omitempty"`
 
-	// object reference called by the request.
-	ObjectReference *string `json:"object_reference,omitempty"`
-
-	// Record number in a `jet drop`.
-	Order *int64 `json:"order,omitempty"`
-
 	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
 	PrototypeReference *string `json:"prototype_reference,omitempty"`
-
-	// Pulse number.
-	PulseNumber *int64 `json:"pulse_number,omitempty"`
 
 	// Reason for calling the request. This is a more earlier request.
 	ReasonReference *string `json:"reason_reference,omitempty"`
@@ -64,9 +52,6 @@ type ChildTree struct {
 
 	// state reference which was created by this request.
 	StateReference *string `json:"state_reference,omitempty"`
-
-	// Unix timestamp.
-	Timestamp *int64 `json:"timestamp,omitempty"`
 
 	// trace id  from api reference.
 	TraceId *string `json:"trace_id,omitempty"`
@@ -160,16 +145,6 @@ type NextPrevJetDrop struct {
 
 	// Pulse number.
 	PulseNumber *int64 `json:"pulse_number,omitempty"`
-}
-
-// OriginalRequests defines model for original-requests.
-type OriginalRequests struct {
-
-	// Array with a number entries as specified by filtering and pagination parameters.
-	Result *[]Request `json:"result,omitempty"`
-
-	// Actual number of existing entries. May be higher or lower than the specified `limit`.
-	Total *int64 `json:"total,omitempty"`
 }
 
 // Pulse defines model for pulse.
@@ -509,7 +484,7 @@ type N400Response CodeValidationError
 type N500Response CodeError
 
 // OriginalRequestResponse defines model for OriginalRequestResponse.
-type OriginalRequestResponse OriginalRequests
+type OriginalRequestResponse Request
 
 // JetDropResponse defines model for jetDropResponse.
 type JetDropResponse JetDrop
@@ -518,7 +493,7 @@ type JetDropResponse JetDrop
 type JetDropsResponse JetDrops
 
 // PulseResponse defines model for pulseResponse.
-type PulseResponse Request
+type PulseResponse Pulse
 
 // PulsesResponse defines model for pulsesResponse.
 type PulsesResponse Pulses
@@ -718,12 +693,12 @@ type ServerInterface interface {
 	// Request
 	// (GET /api/v1/requests/{request_reference})
 	Request(ctx echo.Context, requestReference RequestReferencePath) error
-	// API-Request
-	// (GET /api/v1/requests/{request_reference}/api-request)
-	Apirequest(ctx echo.Context, requestReference RequestReferencePath) error
 	// Request tree
 	// (GET /api/v1/requests/{request_reference}/call-tree)
 	RequestTree(ctx echo.Context, requestReference RequestReferencePath) error
+	// Original-Request
+	// (GET /api/v1/requests/{request_reference}/original-request)
+	Originalrequest(ctx echo.Context, requestReference RequestReferencePath) error
 	// Result
 	// (GET /api/v1/requests/{request_reference}/result)
 	Result(ctx echo.Context, requestReference RequestReferencePath) error
@@ -1162,22 +1137,6 @@ func (w *ServerInterfaceWrapper) Request(ctx echo.Context) error {
 	return err
 }
 
-// Apirequest converts echo context to params.
-func (w *ServerInterfaceWrapper) Apirequest(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "request_reference" -------------
-	var requestReference RequestReferencePath
-
-	err = runtime.BindStyledParameter("simple", false, "request_reference", ctx.Param("request_reference"), &requestReference)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter request_reference: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.Apirequest(ctx, requestReference)
-	return err
-}
-
 // RequestTree converts echo context to params.
 func (w *ServerInterfaceWrapper) RequestTree(ctx echo.Context) error {
 	var err error
@@ -1191,6 +1150,22 @@ func (w *ServerInterfaceWrapper) RequestTree(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	err = w.Handler.RequestTree(ctx, requestReference)
+	return err
+}
+
+// Originalrequest converts echo context to params.
+func (w *ServerInterfaceWrapper) Originalrequest(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "request_reference" -------------
+	var requestReference RequestReferencePath
+
+	err = runtime.BindStyledParameter("simple", false, "request_reference", ctx.Param("request_reference"), &requestReference)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter request_reference: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.Originalrequest(ctx, requestReference)
 	return err
 }
 
@@ -1275,8 +1250,8 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) {
 	router.GET("/api/v1/pulses/:pulse_number", wrapper.Pulse)
 	router.GET("/api/v1/pulses/:pulse_number/jet-drops", wrapper.JetDropsByPulseNumber)
 	router.GET("/api/v1/requests/:request_reference", wrapper.Request)
-	router.GET("/api/v1/requests/:request_reference/api-request", wrapper.Apirequest)
 	router.GET("/api/v1/requests/:request_reference/call-tree", wrapper.RequestTree)
+	router.GET("/api/v1/requests/:request_reference/original-request", wrapper.Originalrequest)
 	router.GET("/api/v1/requests/:request_reference/result", wrapper.Result)
 	router.GET("/api/v1/search", wrapper.Search)
 	router.GET("/api/v1/states/:state_reference", wrapper.State)
