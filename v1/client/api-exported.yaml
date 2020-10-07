@@ -320,7 +320,7 @@ paths:
           $ref: '#/components/responses/400Response'
         '500':
           $ref: '#/components/responses/500Response'
-  '/api/v1/lifeline/{object_reference}/records':
+  '/api/v1/lifeline/{object_reference}/state':
     get:
       summary: Object lifeline
       description: >
@@ -347,7 +347,7 @@ paths:
         - $ref: '#/components/parameters/timestamp_lte'
       responses:
         '200':
-          $ref: '#/components/responses/recordsResponse'
+          $ref: '#/components/responses/statesResponse'
         '400':
           $ref: '#/components/responses/400Response'
         '500':
@@ -792,6 +792,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/records'
+    statesResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/states'
     OriginalRequestResponse:
       description: OK
       content:
@@ -809,7 +815,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/record'
+            $ref: '#/components/schemas/state'
     requestTreeResponse:
       description: OK
       content:
@@ -996,6 +1002,24 @@ components:
             parameters.
           items:
             $ref: '#/components/schemas/record'
+    states:
+      description: A paginated array of records.
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+          description: >-
+            Actual number of existing entries. May be higher or lower than the
+            specified `limit`.
+          example: 100
+        result:
+          type: array
+          description: >-
+            Array with a number entries as specified by filtering and pagination
+            parameters.
+          items:
+            $ref: '#/components/schemas/state'
     request:
       description: Request representation.
       allOf:
@@ -1072,52 +1096,80 @@ components:
               description: Result payload.
               example: >-
                 0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
-    record:
-      description: Record representation.
-      allOf:
-        - $ref: '#/components/schemas/record-abstract'
-        - type: object
-          properties:
-            reference:
-              type: string
-              description: Record reference.
-              example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
-              pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-            prev_record_reference:
-              type: string
-              description: Reference to a previous record.
-              example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
-              pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-            prototype_reference:
-              type: string
-              description: >-
-                Prototype reference. Borrowing the OOP terminology, a prototype
-                is a class of an object.
-              example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
-              pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
-            type:
-              type: string
-              description: Record type.
-              enum:
-                - state
-                - request
-                - result
-              example: state
-            payload:
-              type: string
-              description: Record payload.
-              example: >-
-                0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
-            jet_drop_id:
-              type: string
-              description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
-              example: '0010:43648102'
-            index:
-              type: string
-              description: >-
-                Combination of `pulse_number` and `order` separated by a `:`.
-                Order is a record number in a jet drop.
-              example: '43648102:7'
+    state:
+      description: State representation.
+      type: object
+      properties:
+        reference:
+          type: string
+          description: State reference.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        type:
+          type: string
+          description: State type.
+          enum:
+            - activate
+            - amend
+            - deactivate
+          example: activate
+        request_reference:
+          type: string
+          description: Request reference.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        parent_reference:
+          type: string
+          description: the object that create this object.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        prototype_reference:
+          type: string
+          description: >-
+            Prototype reference. Borrowing the OOP terminology, a prototype is a
+            class of an object.
+          example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        payload:
+          type: string
+          description: Record payload.
+          example: >-
+            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
+        object_reference:
+          type: string
+          description: Object reference.
+          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        prev_state_reference:
+          type: string
+          description: Reference to a previous record.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        hash:
+          type: string
+          description: Record hash.
+          example: >-
+            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+        jet_id:
+          type: string
+          description: Jet ID.
+          example: '0010'
+          pattern: '^([0-1]{2,64})$'
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 436120213
+        order:
+          type: integer
+          format: int64
+          description: Record number in a `jet drop`.
+          example: '3'
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp.
+          example: 1451743413
     requestTree:
       description: A paginated array of records.
       type: object
@@ -1280,6 +1332,52 @@ components:
           format: int64
           description: Pulse number.
           example: 43612021
+    record:
+      description: Record representation.
+      allOf:
+        - $ref: '#/components/schemas/record-abstract'
+        - type: object
+          properties:
+            reference:
+              type: string
+              description: Record reference.
+              example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+              pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+            prev_record_reference:
+              type: string
+              description: Reference to a previous record.
+              example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
+              pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+            prototype_reference:
+              type: string
+              description: >-
+                Prototype reference. Borrowing the OOP terminology, a prototype
+                is a class of an object.
+              example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+              pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+            type:
+              type: string
+              description: Record type.
+              enum:
+                - state
+                - request
+                - result
+              example: state
+            payload:
+              type: string
+              description: Record payload.
+              example: >-
+                0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
+            jet_drop_id:
+              type: string
+              description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
+              example: '0010:43648102'
+            index:
+              type: string
+              description: >-
+                Combination of `pulse_number` and `order` separated by a `:`.
+                Order is a record number in a jet drop.
+              example: '43648102:7'
     record-abstract:
       description: Record abstract.
       type: object

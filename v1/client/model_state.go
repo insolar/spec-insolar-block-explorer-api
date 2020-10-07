@@ -9,12 +9,34 @@
  */
 
 package client
-// Records Response codes.
-type Records struct {
-	// Actual number of existing entries. May be higher or lower than the specified `limit`.
-	Total int64 `json:"total,omitempty"`
-	// Array with a number entries as specified by filtering and pagination parameters.
-	Result []RecordsResponse200Result `json:"result,omitempty"`
+// State Response codes.
+type State struct {
+	// State reference.
+	Reference string `json:"reference,omitempty"`
+	// State type.
+	Type string `json:"type,omitempty"`
+	// Request reference.
+	RequestReference string `json:"request_reference,omitempty"`
+	// the object that create this object.
+	ParentReference string `json:"parent_reference,omitempty"`
+	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
+	PrototypeReference string `json:"prototype_reference,omitempty"`
+	// Record payload.
+	Payload string `json:"payload,omitempty"`
+	// Object reference.
+	ObjectReference string `json:"object_reference,omitempty"`
+	// Reference to a previous record.
+	PrevStateReference string `json:"prev_state_reference,omitempty"`
+	// Record hash.
+	Hash string `json:"hash,omitempty"`
+	// Jet ID.
+	JetId string `json:"jet_id,omitempty"`
+	// Pulse number.
+	PulseNumber int64 `json:"pulse_number,omitempty"`
+	// Record number in a `jet drop`.
+	Order int64 `json:"order,omitempty"`
+	// Unix timestamp.
+	Timestamp int64 `json:"timestamp,omitempty"`
 	// Error code received from the backend services.
 	Code string `json:"code,omitempty"`
 	// Short error description.

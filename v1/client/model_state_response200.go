@@ -11,8 +11,22 @@
 package client
 // StateResponse200 Response codes.
 type StateResponse200 struct {
-	// Reference to the corresponding object.
+	// State reference.
+	Reference string `json:"reference,omitempty"`
+	// State type.
+	Type string `json:"type,omitempty"`
+	// Request reference.
+	RequestReference string `json:"request_reference,omitempty"`
+	// the object that create this object.
+	ParentReference string `json:"parent_reference,omitempty"`
+	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
+	PrototypeReference string `json:"prototype_reference,omitempty"`
+	// Record payload.
+	Payload string `json:"payload,omitempty"`
+	// Object reference.
 	ObjectReference string `json:"object_reference,omitempty"`
+	// Reference to a previous record.
+	PrevStateReference string `json:"prev_state_reference,omitempty"`
 	// Record hash.
 	Hash string `json:"hash,omitempty"`
 	// Jet ID.
@@ -23,20 +37,6 @@ type StateResponse200 struct {
 	Order int64 `json:"order,omitempty"`
 	// Unix timestamp.
 	Timestamp int64 `json:"timestamp,omitempty"`
-	// Record reference.
-	Reference string `json:"reference,omitempty"`
-	// Reference to a previous record.
-	PrevRecordReference string `json:"prev_record_reference,omitempty"`
-	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
-	PrototypeReference string `json:"prototype_reference,omitempty"`
-	// Record type.
-	Type string `json:"type,omitempty"`
-	// Record payload.
-	Payload string `json:"payload,omitempty"`
-	// Combination of `jet_id` and `pulse_number` separated by a `:`.
-	JetDropId string `json:"jet_drop_id,omitempty"`
-	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
-	Index string `json:"index,omitempty"`
 	// Error code received from the backend services.
 	Code string `json:"code,omitempty"`
 	// Short error description.

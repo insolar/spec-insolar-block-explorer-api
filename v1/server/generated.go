@@ -389,6 +389,59 @@ type SearchState struct {
 	Type *string `json:"type,omitempty"`
 }
 
+// State defines model for state.
+type State struct {
+
+	// Record hash.
+	Hash *string `json:"hash,omitempty"`
+
+	// Jet ID.
+	JetId *string `json:"jet_id,omitempty"`
+
+	// Object reference.
+	ObjectReference *string `json:"object_reference,omitempty"`
+
+	// Record number in a `jet drop`.
+	Order *int64 `json:"order,omitempty"`
+
+	// the object that create this object.
+	ParentReference *string `json:"parent_reference,omitempty"`
+
+	// Record payload.
+	Payload *string `json:"payload,omitempty"`
+
+	// Reference to a previous record.
+	PrevStateReference *string `json:"prev_state_reference,omitempty"`
+
+	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
+	PrototypeReference *string `json:"prototype_reference,omitempty"`
+
+	// Pulse number.
+	PulseNumber *int64 `json:"pulse_number,omitempty"`
+
+	// State reference.
+	Reference *string `json:"reference,omitempty"`
+
+	// Request reference.
+	RequestReference *string `json:"request_reference,omitempty"`
+
+	// Unix timestamp.
+	Timestamp *int64 `json:"timestamp,omitempty"`
+
+	// State type.
+	Type *string `json:"type,omitempty"`
+}
+
+// States defines model for states.
+type States struct {
+
+	// Array with a number entries as specified by filtering and pagination parameters.
+	Result *[]State `json:"result,omitempty"`
+
+	// Actual number of existing entries. May be higher or lower than the specified `limit`.
+	Total *int64 `json:"total,omitempty"`
+}
+
 // FromPulseNumberParam defines model for fromPulseNumberParam.
 type FromPulseNumberParam int64
 
@@ -511,7 +564,10 @@ type ResultResponse Result
 type SearchResponse interface{}
 
 // StateResponse defines model for stateResponse.
-type StateResponse Record
+type StateResponse State
+
+// StatesResponse defines model for statesResponse.
+type StatesResponse States
 
 // JetDropRecordsParams defines parameters for JetDropRecords.
 type JetDropRecordsParams struct {
@@ -679,7 +735,7 @@ type ServerInterface interface {
 	// (GET /api/v1/lifeline/{object_reference}/original-requests)
 	OriginalRequestByObject(ctx echo.Context, objectReference ObjectReferencePath, params OriginalRequestByObjectParams) error
 	// Object lifeline
-	// (GET /api/v1/lifeline/{object_reference}/records)
+	// (GET /api/v1/lifeline/{object_reference}/state)
 	ObjectLifeline(ctx echo.Context, objectReference ObjectReferencePath, params ObjectLifelineParams) error
 	// Pulses
 	// (GET /api/v1/pulses)
@@ -1245,7 +1301,7 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) {
 	router.GET("/api/v1/jet-drops/:jet_drop_id/records", wrapper.JetDropRecords)
 	router.GET("/api/v1/jets/:jet_id/jet-drops", wrapper.JetDropsByJetID)
 	router.GET("/api/v1/lifeline/:object_reference/original-requests", wrapper.OriginalRequestByObject)
-	router.GET("/api/v1/lifeline/:object_reference/records", wrapper.ObjectLifeline)
+	router.GET("/api/v1/lifeline/:object_reference/state", wrapper.ObjectLifeline)
 	router.GET("/api/v1/pulses", wrapper.Pulses)
 	router.GET("/api/v1/pulses/:pulse_number", wrapper.Pulse)
 	router.GET("/api/v1/pulses/:pulse_number/jet-drops", wrapper.JetDropsByPulseNumber)

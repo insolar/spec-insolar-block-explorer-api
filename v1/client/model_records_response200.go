@@ -9,8 +9,8 @@
  */
 
 package client
-// Records Response codes.
-type Records struct {
+// RecordsResponse200 Response codes.
+type RecordsResponse200 struct {
 	// Actual number of existing entries. May be higher or lower than the specified `limit`.
 	Total int64 `json:"total,omitempty"`
 	// Array with a number entries as specified by filtering and pagination parameters.

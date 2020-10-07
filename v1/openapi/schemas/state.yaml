@@ -1,4 +1,4 @@
-x-component: "schemas/record"
+x-component: "schemas/state"
 description: State representation.
 type: object
 properties:
