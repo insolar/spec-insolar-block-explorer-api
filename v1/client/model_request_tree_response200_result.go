@@ -23,6 +23,8 @@ type RequestTreeResponse200Result struct {
 	Order int64 `json:"order,omitempty"`
 	// Unix timestamp.
 	Timestamp int64 `json:"timestamp,omitempty"`
+	// the root of the request tree.
+	Root bool `json:"root,omitempty"`
 	// state reference which was created by this request.
 	StateReference string `json:"state_reference,omitempty"`
 	// state which was called by this request.

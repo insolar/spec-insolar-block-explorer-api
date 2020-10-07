@@ -1416,6 +1416,10 @@ components:
         - $ref: '#/components/schemas/record-abstract'
         - type: object
           properties:
+            root:
+              type: boolean
+              description: the root of the request tree.
+              example: true
             state_reference:
               type: string
               description: state reference which was created by this request.

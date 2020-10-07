@@ -1889,6 +1889,10 @@ paths:
                           type: integer
                           format: int64
                           description: Unix timestamp.
+                        root:
+                          type: boolean
+                          description: the root of the request tree.
+                          example: true
                         state_reference:
                           type: string
                           description: state reference which was created by this request.
@@ -3832,6 +3836,10 @@ components:
                       type: integer
                       format: int64
                       description: Unix timestamp.
+                    root:
+                      type: boolean
+                      description: the root of the request tree.
+                      example: true
                     state_reference:
                       type: string
                       description: state reference which was created by this request.
@@ -5003,6 +5011,10 @@ components:
                 type: integer
                 format: int64
                 description: Unix timestamp.
+              root:
+                type: boolean
+                description: the root of the request tree.
+                example: true
               state_reference:
                 type: string
                 description: state reference which was created by this request.
@@ -5384,6 +5396,10 @@ components:
           type: integer
           format: int64
           description: Unix timestamp.
+        root:
+          type: boolean
+          description: the root of the request tree.
+          example: true
         state_reference:
           type: string
           description: state reference which was created by this request.

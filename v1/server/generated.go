@@ -50,6 +50,9 @@ type ChildTree struct {
 	// Result created after the execution of the request.
 	ResultReference *string `json:"result_reference,omitempty"`
 
+	// the root of the request tree.
+	Root *bool `json:"root,omitempty"`
+
 	// state reference which was created by this request.
 	StateReference *string `json:"state_reference,omitempty"`
 
