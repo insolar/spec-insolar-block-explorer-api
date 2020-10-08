@@ -738,7 +738,7 @@ type ServerInterface interface {
 	// (GET /api/v1/lifeline/{object_reference}/original-requests)
 	OriginalRequestByObject(ctx echo.Context, objectReference ObjectReferencePath, params OriginalRequestByObjectParams) error
 	// Object lifeline
-	// (GET /api/v1/lifeline/{object_reference}/state)
+	// (GET /api/v1/lifeline/{object_reference}/states)
 	ObjectLifeline(ctx echo.Context, objectReference ObjectReferencePath, params ObjectLifelineParams) error
 	// Pulses
 	// (GET /api/v1/pulses)
@@ -1304,7 +1304,7 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) {
 	router.GET("/api/v1/jet-drops/:jet_drop_id/records", wrapper.JetDropRecords)
 	router.GET("/api/v1/jets/:jet_id/jet-drops", wrapper.JetDropsByJetID)
 	router.GET("/api/v1/lifeline/:object_reference/original-requests", wrapper.OriginalRequestByObject)
-	router.GET("/api/v1/lifeline/:object_reference/state", wrapper.ObjectLifeline)
+	router.GET("/api/v1/lifeline/:object_reference/states", wrapper.ObjectLifeline)
 	router.GET("/api/v1/pulses", wrapper.Pulses)
 	router.GET("/api/v1/pulses/:pulse_number", wrapper.Pulse)
 	router.GET("/api/v1/pulses/:pulse_number/jet-drops", wrapper.JetDropsByPulseNumber)

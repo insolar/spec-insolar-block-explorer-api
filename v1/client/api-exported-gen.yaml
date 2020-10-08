@@ -1016,7 +1016,7 @@ paths:
                           type: string
                           description: Failure reason.
                 title: RecordsResponse200
-  '/api/v1/lifeline/{object_reference}/state':
+  '/api/v1/lifeline/{object_reference}/states':
     get:
       summary: Object lifeline
       description: >
