@@ -30,7 +30,7 @@ type RequestTreeResponse200Result struct {
 	// Reference to an existing state that was called during the execution of this request.
 	ExecutionStateReference string `json:"execution_state_reference,omitempty"`
 	// Request reference.
-	RequestReference string `json:"request_reference,omitempty"`
+	Reference string `json:"reference,omitempty"`
 	// Reference to the result that was created by the execution of this request.
 	ResultReference string `json:"result_reference,omitempty"`
 	// True if request didn't change the object state. False otherwise.

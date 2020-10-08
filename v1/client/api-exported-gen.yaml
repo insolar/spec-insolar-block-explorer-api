@@ -1921,7 +1921,7 @@ paths:
                           example: >-
                             insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
                           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-                        request_reference:
+                        reference:
                           type: string
                           description: Request reference.
                           example: >-
@@ -3888,7 +3888,7 @@ components:
                       example: >-
                         insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
                       pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-                    request_reference:
+                    reference:
                       type: string
                       description: Request reference.
                       example: >-
@@ -5074,7 +5074,7 @@ components:
                   execution of this request.
                 example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
                 pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-              request_reference:
+              reference:
                 type: string
                 description: Request reference.
                 example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
@@ -5465,7 +5465,7 @@ components:
             of this request.
           example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-        request_reference:
+        reference:
           type: string
           description: Request reference.
           example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
