@@ -1,9 +1,9 @@
 get:
-  summary: Original-Request
-  description: Gets state by `request_reference`.
+  summary: Original request
+  description: Gets the original request that caused the given request. Takes `request_reference` as a path parameter.
   operationId: originalrequest
   tags:
-    - Request
+    - Request, result and state
   parameters:
     - $ref: '../parameters/path/request_reference_path.yaml'
   responses:

@@ -15,7 +15,7 @@ properties:
     properties:
       object_reference:
         type: string
-        description: Object reference.
+        description: Reference to the corresponding object.
         example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
         pattern: >-
           ^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$

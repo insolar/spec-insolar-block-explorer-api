@@ -1,9 +1,9 @@
 get:
   summary: State
-  description: Gets state by `state_reference`.
+  description: Gets a state given `state_reference` as a path parameter.
   operationId: state
   tags:
-    - Request
+    - Request, result and state
   parameters:
     - $ref: '../parameters/path/state_reference_path.yaml'
   responses:

@@ -36,16 +36,12 @@ info:
       * Request. Most requests are caused by other requests inside the Plaftorm with the exception of original requests. The latter are invoked by users.
       * Result. Each request has a corresponding execution result.
       * State. Some execution results change object state. They are caused by so-called mutable requests, while immutable requests are simple read operations.
-    * Lifeline — sequence of records. A record in a lifeline is an object state
+    * Lifeline—sequence of records. A record in a lifeline is an object state
     and an object is a smart contract instance.
 
-    * Jet drop — unit of storage for jets.
+    * Jet drop—unit of storage for jets.
 
-    * Jet — group of lifelines.
-
-    * Original-Request -  it is request from outside
-
-    * Request - it is request inside the platform
+    * Jet—group of lifelines.
 
 
     Some of the entities have complex identifiers. For example:
@@ -150,9 +146,9 @@ tags:
       response, and service information. Records are grouped by lifeline.
   - name: Search
     description: Searches for an entity on the blockchain.
-  - name: Request and result
+  - name: 'Request, result and state'
     description: >
-      Pairs of requests and results.
+      Requests and corresponding results and states.
 
 
       Request can either be an original request a user made via the API or a
@@ -164,6 +160,8 @@ tags:
       The reason of original request is not pointer but a reference that is
       formed from the pulse data and the request's parameters.
 
+
+      Result and a new state are caused by the execution of the request.
 
       Each result contains a reference to the corresponding request.
 paths:
@@ -356,7 +354,7 @@ paths:
     get:
       summary: Original request by object
       description: >
-        Gets an array of original irequests that have ever changed the state of
+        Gets an array of original requests that have ever changed the state of
         the object. Takes `object_reference` as a path parameter.
 
 
@@ -366,7 +364,7 @@ paths:
         section.
       operationId: original_request_by_object
       tags:
-        - Request and result
+        - 'Request, result and state'
       parameters:
         - $ref: '#/components/parameters/object_reference_path'
         - $ref: '#/components/parameters/limit'
@@ -392,7 +390,7 @@ paths:
         parameter.
       operationId: result
       tags:
-        - Request and result
+        - 'Request, result and state'
       parameters:
         - $ref: '#/components/parameters/request_reference_path'
       responses:
@@ -406,11 +404,13 @@ paths:
           $ref: '#/components/responses/500Response'
   '/api/v1/requests/{request_reference}/original-request':
     get:
-      summary: Original-Request
-      description: Gets state by `request_reference`.
+      summary: Original request
+      description: >-
+        Gets the original request that caused the given request. Takes
+        `request_reference` as a path parameter.
       operationId: originalrequest
       tags:
-        - Request
+        - 'Request, result and state'
       parameters:
         - $ref: '#/components/parameters/request_reference_path'
       responses:
@@ -425,10 +425,10 @@ paths:
   '/api/v1/states/{state_reference}':
     get:
       summary: State
-      description: Gets state by `state_reference`.
+      description: Gets a state given `state_reference` as a path parameter.
       operationId: state
       tags:
-        - Request
+        - 'Request, result and state'
       parameters:
         - $ref: '#/components/parameters/state_reference_path'
       responses:
@@ -443,10 +443,12 @@ paths:
   '/api/v1/requests/{request_reference}':
     get:
       summary: Request
-      description: Gets details  about `request_reference`.
+      description: >-
+        Gets details of the request given a `request_reference` as a path
+        parameter.
       operationId: request
       tags:
-        - Request
+        - 'Request, result and state'
       parameters:
         - $ref: '#/components/parameters/request_reference_path'
       responses:
@@ -461,11 +463,13 @@ paths:
   '/api/v1/requests/{request_reference}/call-tree':
     get:
       summary: Request tree
-      description: |
-        Gets a request tree. It is sequence of call requests
+      description: >
+        Gets request tree for the given request—all connected requests each
+        supplied with references to the corresponding result and state. Takes
+        `request_reference` as a path parameter.
       operationId: requestTree
       tags:
-        - Request
+        - 'Request, result and state'
       parameters:
         - $ref: '#/components/parameters/request_reference_path'
       responses:
@@ -497,6 +501,10 @@ paths:
         * Original request—user request that comes from outside the Platform
 
         * Request—request one object made to another inside the Platform
+
+        * Request tree—all connected requests for the given request. Each
+        request in a request tree supplied with references to the corresponding
+        state and response.
 
 
         Search takes any of the identifiers above as the `value` parameter,
@@ -744,7 +752,7 @@ components:
       required: true
       schema:
         type: string
-      description: state reference.
+      description: State reference.
       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
   responses:
     pulsesResponse:
@@ -1051,7 +1059,7 @@ components:
               example: createMember
             is_original_request:
               type: boolean
-              description: True if request is original. False oterwise.
+              description: True if request is original. False otherwise.
               example: true
             arguments:
               type: string
@@ -1115,12 +1123,14 @@ components:
           example: activate
         request_reference:
           type: string
-          description: Request reference.
+          description: Reference to the corresponding request.
           example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
         parent_reference:
           type: string
-          description: the object that create this object.
+          description: >-
+            Reference to the parent object that caused creation of the given
+            object. Such as a member object to a member deposit account object.
           example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
           pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
         prototype_reference:
@@ -1171,12 +1181,14 @@ components:
           description: Unix timestamp.
           example: 1451743413
     requestTree:
-      description: A paginated array of records.
+      description: A paginated array of connected requests.
       type: object
       properties:
         result:
           type: array
-          description: Array with a child tree request.
+          description: >-
+            An array containing request details and references to the
+            corresponding result and state.
           items:
             $ref: '#/components/schemas/childTree'
     search-pulse:
@@ -1294,7 +1306,7 @@ components:
           properties:
             object_reference:
               type: string
-              description: Object reference.
+              description: Reference to the corresponding object.
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
               pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
             index:
@@ -1411,23 +1423,27 @@ components:
           format: int64
           description: Unix timestamp.
     childTree:
-      description: Request representation.
+      description: Request details and references to the corresdponing resut and state.
       allOf:
         - $ref: '#/components/schemas/record-abstract'
         - type: object
           properties:
             root:
               type: boolean
-              description: the root of the request tree.
+              description: Root of the request tree—an original request.
               example: true
             state_reference:
               type: string
-              description: state reference which was created by this request.
+              description: >-
+                Reference to the new state that was created by the execution of
+                this request.
               example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
               pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
             execution_state_reference:
               type: string
-              description: state which was called by this request.
+              description: >-
+                Reference to an existing state that was called during the
+                execution of this request.
               example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
               pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
             request_reference:
@@ -1437,48 +1453,48 @@ components:
               pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
             result_reference:
               type: string
-              description: Result created after the execution of the request.
+              description: >-
+                Reference to the result that was created by the execution of
+                this request.
               example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
               pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
             is_immutable:
               type: boolean
-              description: >-
-                if the request changes the state of the object
-                is_immutable==false.
+              description: True if request didn't change the object state. False otherwise.
               example: true
             next_requests:
               type: array
-              description: next  child tree request.
+              description: An array of subsequent requests in the tree.
               items:
                 type: string
-                description: request reference.
+                description: Request reference.
                 example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE.record'
                 pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
             caller_reference:
               type: string
-              description: Object reference that called this request.
+              description: Reference to the object that called this request.
               example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
               pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
             trace_id:
               type: string
-              description: trace id  from api reference.
+              description: Internal debugging information. May be an empty string.
               example: 0b9ac245-2522-4364-9059-efc17907ce54
             is_original_request:
               type: boolean
-              description: if the request is orignal-request is_original_request==true.
+              description: True if request is original. False otherwise.
               example: true
             reason_reference:
               type: string
-              description: Reason for calling the request. This is a more earlier request.
+              description: Reference to the parent request—a request that caused this one.
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
               pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
             method:
               type: string
-              description: The smart contract method that called this request.
+              description: Name of the smart contract method that called this request.
               example: createMember
             arguments:
               type: string
-              description: Smart contract method arguments.
+              description: Arguments of a smart contract method.
               example: ''
             prototype_reference:
               type: string

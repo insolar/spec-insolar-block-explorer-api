@@ -1,10 +1,10 @@
 get:
   summary: Request tree
   description: |
-    Gets a request tree. It is sequence of call requests
+    Gets request tree for the given request—all connected requests each supplied with references to the corresponding result and state. Takes `request_reference` as a path parameter.
   operationId: requestTree
   tags:
-    - Request
+    - Request, result and state
   parameters:
     - $ref: '../parameters/path/request_reference_path.yaml'
   responses:

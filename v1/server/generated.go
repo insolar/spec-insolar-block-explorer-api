@@ -17,46 +17,46 @@ type ChildTree struct {
 	RecordAbstract
 	// Embedded fields due to inline allOf schema
 
-	// Smart contract method arguments.
+	// Arguments of a smart contract method.
 	Arguments *string `json:"arguments,omitempty"`
 
-	// Object reference that called this request.
+	// Reference to the object that called this request.
 	CallerReference *string `json:"caller_reference,omitempty"`
 
-	// state which was called by this request.
+	// Reference to an existing state that was called during the execution of this request.
 	ExecutionStateReference *string `json:"execution_state_reference,omitempty"`
 
-	// if the request changes the state of the object is_immutable==false.
+	// True if request didn't change the object state. False otherwise.
 	IsImmutable *bool `json:"is_immutable,omitempty"`
 
-	// if the request is orignal-request is_original_request==true.
+	// True if request is original. False otherwise.
 	IsOriginalRequest *bool `json:"is_original_request,omitempty"`
 
-	// The smart contract method that called this request.
+	// Name of the smart contract method that called this request.
 	Method *string `json:"method,omitempty"`
 
-	// next  child tree request.
+	// An array of subsequent requests in the tree.
 	NextRequests *[]string `json:"next_requests,omitempty"`
 
 	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
 	PrototypeReference *string `json:"prototype_reference,omitempty"`
 
-	// Reason for calling the request. This is a more earlier request.
+	// Reference to the parent request—a request that caused this one.
 	ReasonReference *string `json:"reason_reference,omitempty"`
 
 	// Request reference.
 	RequestReference *string `json:"request_reference,omitempty"`
 
-	// Result created after the execution of the request.
+	// Reference to the result that was created by the execution of this request.
 	ResultReference *string `json:"result_reference,omitempty"`
 
-	// the root of the request tree.
+	// Root of the request tree—an original request.
 	Root *bool `json:"root,omitempty"`
 
-	// state reference which was created by this request.
+	// Reference to the new state that was created by the execution of this request.
 	StateReference *string `json:"state_reference,omitempty"`
 
-	// trace id  from api reference.
+	// Internal debugging information. May be an empty string.
 	TraceId *string `json:"trace_id,omitempty"`
 }
 
@@ -263,7 +263,7 @@ type Request struct {
 	// True if request didn't change the object state. False otherwise.
 	IsImmutable *bool `json:"is_immutable,omitempty"`
 
-	// True if request is original. False oterwise.
+	// True if request is original. False otherwise.
 	IsOriginalRequest *bool `json:"is_original_request,omitempty"`
 
 	// Name of the smart contract method that called this request.
@@ -285,7 +285,7 @@ type Request struct {
 // RequestTree defines model for requestTree.
 type RequestTree struct {
 
-	// Array with a child tree request.
+	// An array containing request details and references to the corresponding result and state.
 	Result *[]ChildTree `json:"result,omitempty"`
 }
 
@@ -384,7 +384,7 @@ type SearchState struct {
 		// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
 		Index *string `json:"index,omitempty"`
 
-		// Object reference.
+		// Reference to the corresponding object.
 		ObjectReference *string `json:"object_reference,omitempty"`
 	} `json:"meta,omitempty"`
 
@@ -407,7 +407,7 @@ type State struct {
 	// Record number in a `jet drop`.
 	Order *int64 `json:"order,omitempty"`
 
-	// the object that create this object.
+	// Reference to the parent object that caused creation of the given object. Such as a member object to a member deposit account object.
 	ParentReference *string `json:"parent_reference,omitempty"`
 
 	// Record payload.
@@ -425,7 +425,7 @@ type State struct {
 	// State reference.
 	Reference *string `json:"reference,omitempty"`
 
-	// Request reference.
+	// Reference to the corresponding request.
 	RequestReference *string `json:"request_reference,omitempty"`
 
 	// Unix timestamp.
@@ -755,7 +755,7 @@ type ServerInterface interface {
 	// Request tree
 	// (GET /api/v1/requests/{request_reference}/call-tree)
 	RequestTree(ctx echo.Context, requestReference RequestReferencePath) error
-	// Original-Request
+	// Original request
 	// (GET /api/v1/requests/{request_reference}/original-request)
 	Originalrequest(ctx echo.Context, requestReference RequestReferencePath) error
 	// Result
