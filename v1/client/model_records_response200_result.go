@@ -9,104 +9,32 @@
  */
 
 package client
-
-import (
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
-)
-
-// Linger please
-var (
-	_ _context.Context
-)
-
-// SearchApiService SearchApi service
-type SearchApiService service
-
-/*
-Search Search
-Searches for an entity by its identifier.  Entities and their identifiers may be one of the following: * Record—record reference * State-state by object * Jet drop—jet drop ID (combination of &#x60;jet_id&#x60; and &#x60;pulse_number&#x60;) * Pulse—pulse number * Lifeline—object reference * Original request—user request that comes from outside the Platform * Request—request one object made to another inside the Platform * Request tree—all connected requests for the given request. Each request in a request tree supplied with references to the corresponding state and response.  Search takes any of the identifiers above as the &#x60;value&#x60; parameter, determines the identifier type and finds the corresponding entity. If the entity exists, search returns its type and meta-information. 
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param value Searching value.
-@return SearchResponse200
-*/
-func (a *SearchApiService) Search(ctx _context.Context, value string) (SearchResponse200, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SearchResponse200
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/search"
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	localVarQueryParams.Add("value", parameterToString(value, ""))
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 200 {
-			var v SearchResponse200
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+// RecordsResponse200Result Record abstract.
+type RecordsResponse200Result struct {
+	// Reference to the corresponding object.
+	ObjectReference string `json:"object_reference,omitempty"`
+	// Record hash.
+	Hash string `json:"hash,omitempty"`
+	// Jet ID.
+	JetId string `json:"jet_id,omitempty"`
+	// Pulse number.
+	PulseNumber int64 `json:"pulse_number,omitempty"`
+	// Record number in a `jet drop`.
+	Order int64 `json:"order,omitempty"`
+	// Unix timestamp.
+	Timestamp int64 `json:"timestamp,omitempty"`
+	// Record reference.
+	Reference string `json:"reference,omitempty"`
+	// Reference to a previous record.
+	PrevRecordReference string `json:"prev_record_reference,omitempty"`
+	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
+	PrototypeReference string `json:"prototype_reference,omitempty"`
+	// Record type.
+	Type string `json:"type,omitempty"`
+	// Record payload.
+	Payload string `json:"payload,omitempty"`
+	// Combination of `jet_id` and `pulse_number` separated by a `:`.
+	JetDropId string `json:"jet_drop_id,omitempty"`
+	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
+	Index string `json:"index,omitempty"`
 }

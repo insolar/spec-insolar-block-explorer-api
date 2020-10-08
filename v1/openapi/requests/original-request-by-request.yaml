@@ -1,14 +1,14 @@
 get:
-  summary: Result
-  description: Gets a corresponding result given a `request_reference` as a path parameter.
-  operationId: result
+  summary: Original request
+  description: Gets the original request that caused the given request. Takes `request_reference` as a path parameter.
+  operationId: originalrequest
   tags:
     - Request, result and state
   parameters:
     - $ref: '../parameters/path/request_reference_path.yaml'
   responses:
     '200':
-      $ref: "../responses/result.yaml"
+      $ref: "../responses/original-request.yaml"
     '400':
       $ref: "../responses/400.yaml"
     '404':

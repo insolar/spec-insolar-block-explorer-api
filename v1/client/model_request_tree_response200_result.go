@@ -9,8 +9,8 @@
  */
 
 package client
-// ObjectLifelineResponse200Result Record abstract.
-type ObjectLifelineResponse200Result struct {
+// RequestTreeResponse200Result Record abstract.
+type RequestTreeResponse200Result struct {
 	// Reference to the corresponding object.
 	ObjectReference string `json:"object_reference,omitempty"`
 	// Record hash.
@@ -23,18 +23,32 @@ type ObjectLifelineResponse200Result struct {
 	Order int64 `json:"order,omitempty"`
 	// Unix timestamp.
 	Timestamp int64 `json:"timestamp,omitempty"`
-	// Record reference.
+	// Root of the request tree—an original request.
+	Root bool `json:"root,omitempty"`
+	// Reference to the new state that was created by the execution of this request.
+	StateReference string `json:"state_reference,omitempty"`
+	// Reference to an existing state that was called during the execution of this request.
+	ExecutionStateReference string `json:"execution_state_reference,omitempty"`
+	// Request reference.
 	Reference string `json:"reference,omitempty"`
-	// Reference to a previous record.
-	PrevRecordReference string `json:"prev_record_reference,omitempty"`
+	// Reference to the result that was created by the execution of this request.
+	ResultReference string `json:"result_reference,omitempty"`
+	// True if request didn't change the object state. False otherwise.
+	IsImmutable bool `json:"is_immutable,omitempty"`
+	// An array of subsequent requests in the tree.
+	NextRequests []string `json:"next_requests,omitempty"`
+	// Reference to the object that called this request.
+	CallerReference string `json:"caller_reference,omitempty"`
+	// Internal debugging information. May be an empty string.
+	TraceId string `json:"trace_id,omitempty"`
+	// True if request is original. False otherwise.
+	IsOriginalRequest bool `json:"is_original_request,omitempty"`
+	// Reference to the parent request—a request that caused this one.
+	ReasonReference string `json:"reason_reference,omitempty"`
+	// Name of the smart contract method that called this request.
+	Method string `json:"method,omitempty"`
+	// Arguments of a smart contract method.
+	Arguments string `json:"arguments,omitempty"`
 	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
 	PrototypeReference string `json:"prototype_reference,omitempty"`
-	// Record type.
-	Type string `json:"type,omitempty"`
-	// Record payload.
-	Payload string `json:"payload,omitempty"`
-	// Combination of `jet_id` and `pulse_number` separated by a `:`.
-	JetDropId string `json:"jet_drop_id,omitempty"`
-	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
-	Index string `json:"index,omitempty"`
 }

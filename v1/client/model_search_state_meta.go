@@ -11,7 +11,7 @@
 package client
 // SearchStateMeta Meta data.
 type SearchStateMeta struct {
-	// Object reference.
+	// Reference to the corresponding object.
 	ObjectReference string `json:"object_reference,omitempty"`
 	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
 	Index string `json:"index,omitempty"`

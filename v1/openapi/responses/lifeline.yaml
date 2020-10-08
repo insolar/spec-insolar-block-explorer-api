@@ -1,6 +1,6 @@
-x-component: 'responses/recordsResponse'
+x-component: 'responses/statesResponse'
 description: OK
 content:
   application/json:
     schema:
-      $ref: '../schemas/records.yaml'
+      $ref: '../schemas/states.yaml'

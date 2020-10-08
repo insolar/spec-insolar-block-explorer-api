@@ -9,12 +9,10 @@
  */
 
 package client
-// OriginalRequestByObjectResponse200 Response codes.
-type OriginalRequestByObjectResponse200 struct {
-	// Actual number of existing entries. May be higher or lower than the specified `limit`.
-	Total int64 `json:"total,omitempty"`
-	// Array with a number entries as specified by filtering and pagination parameters.
-	Result []OriginalRequestByObjectResponse200Result `json:"result,omitempty"`
+// RequestTree Response codes.
+type RequestTree struct {
+	// An array containing request details and references to the corresponding result and state.
+	Result []RequestTreeResponse200Result `json:"result,omitempty"`
 	// Error code received from the backend services.
 	Code string `json:"code,omitempty"`
 	// Short error description.

@@ -45,16 +45,16 @@ Gets an array of records of a jet drop given a &#x60;jet_drop_id&#x60; as a path
  * @param "Offset" (optional.Int32) -  Number of entries to skip from the starting point (`from_*`).
  * @param "FromIndex" (optional.String) -  Specific `index` to paginate from.
  * @param "Type_" (optional.String) -  Record type to filter the obtained records by.
-@return ObjectLifelineResponse200
+@return RecordsResponse200
 */
-func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string, localVarOptionals *JetDropRecordsOpts) (ObjectLifelineResponse200, *_nethttp.Response, error) {
+func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string, localVarOptionals *JetDropRecordsOpts) (RecordsResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  ObjectLifelineResponse200
+		localVarReturnValue  RecordsResponse200
 	)
 
 	// create path and map variables
@@ -116,7 +116,7 @@ func (a *RecordApiService) JetDropRecords(ctx _context.Context, jetDropId string
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v ObjectLifelineResponse200
+			var v RecordsResponse200
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -178,7 +178,7 @@ func (a *RecordApiService) ObjectLifeline(ctx _context.Context, objectReference 
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/v1/lifeline/{object_reference}/records"
+	localVarPath := a.client.cfg.BasePath + "/api/v1/lifeline/{object_reference}/states"
 	localVarPath = strings.Replace(localVarPath, "{"+"object_reference"+"}", _neturl.QueryEscape(parameterToString(objectReference, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)

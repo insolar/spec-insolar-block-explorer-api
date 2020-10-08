@@ -1,0 +1,8 @@
+x-component: 'parameters/state_reference_path'
+name: state_reference
+in: path
+required: true
+schema:
+  type: string
+description: State reference.
+example: insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE

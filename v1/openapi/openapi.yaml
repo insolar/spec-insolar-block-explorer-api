@@ -96,14 +96,15 @@ tags:
     description: Record is the minimum unit of storage that contains an associated request, response, and service information. Records are grouped by lifeline.
   - name: Search
     description: Searches for an entity on the blockchain.
-  - name: Request and result
+  - name: Request, result and state
     description: |
-      Pairs of requests and results.
+      Requests and corresponding results and states.
 
       Request can either be an original request a user made via the API or a subsequent request one object made to another.
       Except the original, requests have a reason, which is a reference to the previous one.
       The reason of original request is not pointer but a reference that is formed from the pulse data and the request's parameters.
 
+      Result and a new state are caused by the execution of the request.
       Each result contains a reference to the corresponding request.
 
 paths:
@@ -119,12 +120,20 @@ paths:
     $ref: 'requests/jet-drops-byjetid.yaml'
   /api/v1/jet-drops/{jet_drop_id}/records:
     $ref: 'requests/records.yaml'
-  /api/v1/lifeline/{object_reference}/records:
+  /api/v1/lifeline/{object_reference}/states:
     $ref: 'requests/lifeline.yaml'
   /api/v1/lifeline/{object_reference}/original-requests:
     $ref: 'requests/original-requests-by-obj.yaml'
   /api/v1/requests/{request_reference}/result:
     $ref: 'requests/result.yaml'
+  /api/v1/requests/{request_reference}/original-request:
+    $ref: 'requests/original-request-by-request.yaml'
+  /api/v1/states/{state_reference}:
+    $ref: 'requests/state.yaml'
+  /api/v1/requests/{request_reference}:
+    $ref: 'requests/request.yaml'
+  /api/v1/requests/{request_reference}/call-tree:
+    $ref: 'requests/request-tree.yaml'
   /api/v1/search:
     $ref: 'requests/search.yaml'
 

@@ -11,6 +11,7 @@ get:
     * Lifeline—object reference
     * Original request—user request that comes from outside the Platform
     * Request—request one object made to another inside the Platform
+    * Request tree—all connected requests for the given request. Each request in a request tree supplied with references to the corresponding state and response.
 
     Search takes any of the identifiers above as the `value` parameter, determines the identifier type and finds the corresponding entity. If the entity exists, search returns its type and meta-information.
   operationId: search
