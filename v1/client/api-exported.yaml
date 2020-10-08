@@ -320,7 +320,7 @@ paths:
           $ref: '#/components/responses/400Response'
         '500':
           $ref: '#/components/responses/500Response'
-  '/api/v1/lifeline/{object_reference}/state':
+  '/api/v1/lifeline/{object_reference}/states':
     get:
       summary: Object lifeline
       description: >
