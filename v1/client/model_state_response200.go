@@ -31,6 +31,8 @@ type StateResponse200 struct {
 	Hash string `json:"hash,omitempty"`
 	// Jet ID.
 	JetId string `json:"jet_id,omitempty"`
+	// Combination of `jet_id` and `pulse_number` separated by a `:`.
+	JetDropId string `json:"jet_drop_id,omitempty"`
 	// Pulse number.
 	PulseNumber int64 `json:"pulse_number,omitempty"`
 	// Record number in a `jet drop`.
