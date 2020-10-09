@@ -7,8 +7,8 @@ properties:
     type: string
     description: Result type.
     enum:
-      - orignal_request
-    example: orignal_request
+      - original-request
+    example: original-request
   meta:
     type: object
     description: Meta data.
