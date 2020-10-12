@@ -335,7 +335,7 @@ func (a *RequestResultAndStateApiService) Request(ctx _context.Context, requestR
 
 /*
 RequestTree Request tree
-Gets a request tree of a request given its request as a path parameter. The request tree is chain of requests each of which has a reference to a corresponding result and state. 
+Gets a request tree given a &#x60;request_reference&#x60; as a path parameter. The request tree is chain of requests each of which has a reference to a corresponding result and state. 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param requestReference Reference to a request or original request.
 @return RequestTreeResponse200

@@ -1692,8 +1692,8 @@ paths:
     get:
       summary: Request tree
       description: >
-        Gets a request tree of a request given its request as a path parameter.
-        The request tree is chain of requests each of which has a reference to a
+        Gets a request tree given a `request_reference` as a path parameter. The
+        request tree is chain of requests each of which has a reference to a
         corresponding result and state.
       operationId: requestTree
       tags:
