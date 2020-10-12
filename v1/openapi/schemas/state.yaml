@@ -22,7 +22,7 @@ properties:
     pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
   parent_reference:
     type: string
-    description: Reference to the parent object that caused creation of the given object. Such as a member object to a member deposit account object.
+    description: Reference to the parent object that caused creation of the given object. For example, a member object is a parent of its deposit account object.
     example: "insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record"
     pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
   prototype_reference:

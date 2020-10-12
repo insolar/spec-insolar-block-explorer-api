@@ -35,7 +35,7 @@ type ChildTree struct {
 	// Name of the smart contract method that called this request.
 	Method *string `json:"method,omitempty"`
 
-	// An array of subsequent requests in the tree.
+	// An array of references to subsequent requests in the tree.
 	NextRequests *[]string `json:"next_requests,omitempty"`
 
 	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
@@ -148,6 +148,16 @@ type NextPrevJetDrop struct {
 
 	// Pulse number.
 	PulseNumber *int64 `json:"pulse_number,omitempty"`
+}
+
+// OriginalRequests defines model for original-requests.
+type OriginalRequests struct {
+
+	// Array with a number entries as specified by filtering and pagination parameters.
+	Result *[]Request `json:"result,omitempty"`
+
+	// Actual number of existing entries. May be higher or lower than the specified `limit`.
+	Total *int64 `json:"total,omitempty"`
 }
 
 // Pulse defines model for pulse.
@@ -410,7 +420,7 @@ type State struct {
 	// Record number in a `jet drop`.
 	Order *int64 `json:"order,omitempty"`
 
-	// Reference to the parent object that caused creation of the given object. Such as a member object to a member deposit account object.
+	// Reference to the parent object that caused creation of the given object. For example, a member object is a parent of its deposit account object.
 	ParentReference *string `json:"parent_reference,omitempty"`
 
 	// Record payload.
@@ -543,7 +553,7 @@ type N400Response CodeValidationError
 type N500Response CodeError
 
 // OriginalRequestResponse defines model for OriginalRequestResponse.
-type OriginalRequestResponse Request
+type OriginalRequestResponse OriginalRequests
 
 // JetDropResponse defines model for jetDropResponse.
 type JetDropResponse JetDrop

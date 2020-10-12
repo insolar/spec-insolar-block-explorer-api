@@ -17,7 +17,7 @@ type StateResponse200 struct {
 	Type string `json:"type,omitempty"`
 	// Reference to the corresponding request.
 	RequestReference string `json:"request_reference,omitempty"`
-	// Reference to the parent object that caused creation of the given object. Such as a member object to a member deposit account object.
+	// Reference to the parent object that caused creation of the given object. For example, a member object is a parent of its deposit account object.
 	ParentReference string `json:"parent_reference,omitempty"`
 	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
 	PrototypeReference string `json:"prototype_reference,omitempty"`

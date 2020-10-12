@@ -41,7 +41,7 @@ type OriginalRequestByObjectOpts struct {
 
 /*
 OriginalRequestByObject Original request by object
-Gets an array of original requests that have ever changed the state of the object. Takes &#x60;object_reference&#x60; as a path parameter.  Optionally, specify filtering, sorting, and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section. 
+Gets an array of original requests that changed the state of the object. Takes &#x60;object_reference&#x60; as a path parameter.  Optionally, specify filtering, sorting, and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section. 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param objectReference Object reference.
  * @param optional nil or *OriginalRequestByObjectOpts - Optional Parameters:
@@ -248,7 +248,7 @@ func (a *RequestResultAndStateApiService) Originalrequest(ctx _context.Context, 
 
 /*
 Request Request
-Gets details of the request given a &#x60;request_reference&#x60; as a path parameter.
+Gets details of a request given a &#x60;request_reference&#x60; as a path parameter.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param requestReference Reference to a request or original request.
 @return RequestResponse200
@@ -335,7 +335,7 @@ func (a *RequestResultAndStateApiService) Request(ctx _context.Context, requestR
 
 /*
 RequestTree Request tree
-Gets request tree for the given request—all connected requests each supplied with references to the corresponding result and state. Takes &#x60;request_reference&#x60; as a path parameter. 
+Gets a request tree of a request given its request as a path parameter. The request tree is chain of requests each of which has a reference to a corresponding result and state. 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param requestReference Reference to a request or original request.
 @return RequestTreeResponse200

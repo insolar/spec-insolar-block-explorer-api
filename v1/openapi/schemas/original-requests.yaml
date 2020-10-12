@@ -11,4 +11,5 @@ properties:
     type: array
     description: Array with a number entries as specified by filtering and pagination parameters.
     items:
-      $ref: './original-request.yaml'
+      allOf:
+        - $ref: './original-request.yaml'

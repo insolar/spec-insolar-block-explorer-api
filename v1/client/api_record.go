@@ -153,7 +153,7 @@ type ObjectLifelineOpts struct {
 
 /*
 ObjectLifeline Object lifeline
-Gets an array of records of a lifeline given an &#x60;object_reference&#x60; as a path parameter.  Optionally, specify filtering, sorting, and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section. 
+Gets an array of states of a lifeline given an &#x60;object_reference&#x60; as a path parameter.  Optionally, specify filtering, sorting, and pagination parameters. For more information, refer to the [filtering, pagination, sorting](#section/Insolar-Explorer-API-documentation/Filtering-pagination-sorting) section. 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param objectReference Object reference.
  * @param optional nil or *ObjectLifelineOpts - Optional Parameters:
