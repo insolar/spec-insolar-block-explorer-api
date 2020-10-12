@@ -3,7 +3,7 @@ get:
   description: Gets a state given `state_reference` as a path parameter.
   operationId: state
   tags:
-    - Request, result and state
+    - Request, result, and state
   parameters:
     - $ref: '../parameters/path/state_reference_path.yaml'
   responses:

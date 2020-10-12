@@ -35,7 +35,7 @@ type RequestTreeResponse200Result struct {
 	ResultReference string `json:"result_reference,omitempty"`
 	// True if request didn't change the object state. False otherwise.
 	IsImmutable bool `json:"is_immutable,omitempty"`
-	// An array of subsequent requests in the tree.
+	// An array of references to subsequent requests in the tree.
 	NextRequests []string `json:"next_requests,omitempty"`
 	// Reference to the object that called this request.
 	CallerReference string `json:"caller_reference,omitempty"`

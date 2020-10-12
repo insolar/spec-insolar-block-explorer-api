@@ -34,7 +34,7 @@ allOf:
         example: true
       next_requests:
         type: array
-        description: An array of subsequent requests in the tree.
+        description: An array of references to subsequent requests in the tree.
         items:
           type: string
           description: Request reference.

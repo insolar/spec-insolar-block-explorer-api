@@ -9,46 +9,18 @@
  */
 
 package client
-// ChildTree Record abstract.
-type ChildTree struct {
-	// Reference to the corresponding object.
-	ObjectReference string `json:"object_reference,omitempty"`
-	// Record hash.
-	Hash string `json:"hash,omitempty"`
-	// Jet ID.
-	JetId string `json:"jet_id,omitempty"`
-	// Pulse number.
-	PulseNumber int64 `json:"pulse_number,omitempty"`
-	// Record number in a `jet drop`.
-	Order int64 `json:"order,omitempty"`
-	// Unix timestamp.
-	Timestamp int64 `json:"timestamp,omitempty"`
-	// Root of the request tree—an original request.
-	Root bool `json:"root,omitempty"`
-	// Reference to the new state that was created by the execution of this request.
-	StateReference string `json:"state_reference,omitempty"`
-	// Reference to an existing state that was called during the execution of this request.
-	ExecutionStateReference string `json:"execution_state_reference,omitempty"`
-	// Request reference.
-	Reference string `json:"reference,omitempty"`
-	// Reference to the result that was created by the execution of this request.
-	ResultReference string `json:"result_reference,omitempty"`
-	// True if request didn't change the object state. False otherwise.
-	IsImmutable bool `json:"is_immutable,omitempty"`
-	// An array of references to subsequent requests in the tree.
-	NextRequests []string `json:"next_requests,omitempty"`
-	// Reference to the object that called this request.
-	CallerReference string `json:"caller_reference,omitempty"`
-	// Internal debugging information. May be an empty string.
-	TraceId string `json:"trace_id,omitempty"`
-	// True if request is original. False otherwise.
-	IsOriginalRequest bool `json:"is_original_request,omitempty"`
-	// Reference to the parent request—a request that caused this one.
-	ReasonReference string `json:"reason_reference,omitempty"`
-	// Name of the smart contract method that called this request.
-	Method string `json:"method,omitempty"`
-	// Arguments of a smart contract method.
-	Arguments string `json:"arguments,omitempty"`
-	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
-	PrototypeReference string `json:"prototype_reference,omitempty"`
+// OriginalRequests Response codes.
+type OriginalRequests struct {
+	// Actual number of existing entries. May be higher or lower than the specified `limit`.
+	Total int64 `json:"total,omitempty"`
+	// Array with a number entries as specified by filtering and pagination parameters.
+	Result []RequestResponse200Result `json:"result,omitempty"`
+	// Error code received from the backend services.
+	Code string `json:"code,omitempty"`
+	// Short error description.
+	Message string `json:"message,omitempty"`
+	// Additional information about the error.
+	Description string `json:"description,omitempty"`
+	// Array containing incorrect parameters/properties.
+	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }
