@@ -229,6 +229,9 @@ type RecordAbstract struct {
 	// Record hash.
 	Hash *string `json:"hash,omitempty"`
 
+	// Combination of `jet_id` and `pulse_number` separated by a `:`.
+	JetDropId *string `json:"jet_drop_id,omitempty"`
+
 	// Jet ID.
 	JetId *string `json:"jet_id,omitempty"`
 
