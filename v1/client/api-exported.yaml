@@ -1514,6 +1514,10 @@ components:
           description: Jet ID.
           example: '0010'
           pattern: '^([0-1]{2,64})$'
+        jet_drop_id:
+          type: string
+          description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
+          example: '0010:43648102'
         pulse_number:
           type: integer
           format: int64
