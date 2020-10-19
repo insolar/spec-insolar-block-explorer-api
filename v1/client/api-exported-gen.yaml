@@ -1153,6 +1153,12 @@ paths:
                           format: int64
                           description: Record number in a `jet drop`.
                           example: '3'
+                        index:
+                          type: string
+                          description: >-
+                            Combination of `pulse_number` and `order` separated
+                            by a `:`. Order is a record number in a jet drop.
+                          example: '43648102:7'
                         timestamp:
                           type: integer
                           format: int64
@@ -1858,10 +1864,17 @@ paths:
                             Name of the smart contract method that called this
                             request.
                           example: createMember
+                        state_index:
+                          type: string
+                          description: >-
+                            Combination of `pulse_number` and `order` separated
+                            by a `:`. Order is a record number in a jet drop.
+                          example: '43648102:7'
                         arguments:
                           type: string
                           description: Arguments of a smart contract method.
-                          example: ''
+                          example: >-
+                            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
                         prototype_reference:
                           type: string
                           description: >-
@@ -2095,6 +2108,12 @@ paths:
                     format: int64
                     description: Record number in a `jet drop`.
                     example: '3'
+                  index:
+                    type: string
+                    description: >-
+                      Combination of `pulse_number` and `order` separated by a
+                      `:`. Order is a record number in a jet drop.
+                    example: '43648102:7'
                   timestamp:
                     type: integer
                     format: int64
@@ -2198,6 +2217,11 @@ paths:
                       object_reference:
                         type: string
                         description: Reference to the corresponding object.
+                        example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                        pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+                      reference:
+                        type: string
+                        description: Original request reference.
                         example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                         pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
                       index:
@@ -3596,6 +3620,12 @@ components:
                       format: int64
                       description: Record number in a `jet drop`.
                       example: '3'
+                    index:
+                      type: string
+                      description: >-
+                        Combination of `pulse_number` and `order` separated by a
+                        `:`. Order is a record number in a jet drop.
+                      example: '43648102:7'
                     timestamp:
                       type: integer
                       format: int64
@@ -3914,10 +3944,17 @@ components:
                         Name of the smart contract method that called this
                         request.
                       example: createMember
+                    state_index:
+                      type: string
+                      description: >-
+                        Combination of `pulse_number` and `order` separated by a
+                        `:`. Order is a record number in a jet drop.
+                      example: '43648102:7'
                     arguments:
                       type: string
                       description: Arguments of a smart contract method.
-                      example: ''
+                      example: >-
+                        0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
                     prototype_reference:
                       type: string
                       description: >-
@@ -4106,6 +4143,12 @@ components:
                 format: int64
                 description: Record number in a `jet drop`.
                 example: '3'
+              index:
+                type: string
+                description: >-
+                  Combination of `pulse_number` and `order` separated by a `:`.
+                  Order is a record number in a jet drop.
+                example: '43648102:7'
               timestamp:
                 type: integer
                 format: int64
@@ -4172,6 +4215,11 @@ components:
                   object_reference:
                     type: string
                     description: Reference to the corresponding object.
+                    example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+                    pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+                  reference:
+                    type: string
+                    description: Original request reference.
                     example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
                     pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
                   index:
@@ -4851,6 +4899,12 @@ components:
                 format: int64
                 description: Record number in a `jet drop`.
                 example: '3'
+              index:
+                type: string
+                description: >-
+                  Combination of `pulse_number` and `order` separated by a `:`.
+                  Order is a record number in a jet drop.
+                example: '43648102:7'
               timestamp:
                 type: integer
                 format: int64
@@ -5143,10 +5197,17 @@ components:
                 type: string
                 description: Name of the smart contract method that called this request.
                 example: createMember
+              state_index:
+                type: string
+                description: >-
+                  Combination of `pulse_number` and `order` separated by a `:`.
+                  Order is a record number in a jet drop.
+                example: '43648102:7'
               arguments:
                 type: string
                 description: Arguments of a smart contract method.
-                example: ''
+                example: >-
+                  0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
               prototype_reference:
                 type: string
                 description: >-
@@ -5327,6 +5388,12 @@ components:
           format: int64
           description: Record number in a `jet drop`.
           example: '3'
+        index:
+          type: string
+          description: >-
+            Combination of `pulse_number` and `order` separated by a `:`. Order
+            is a record number in a jet drop.
+          example: '43648102:7'
         timestamp:
           type: integer
           format: int64
@@ -5428,9 +5495,9 @@ components:
           type: object
           description: Meta data.
           properties:
-            object_reference:
+            reference:
               type: string
-              description: Object reference.
+              description: Request reference.
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
               pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
     search-original-request:
@@ -5448,9 +5515,9 @@ components:
           type: object
           description: Meta data.
           properties:
-            object_reference:
+            reference:
               type: string
-              description: Object reference.
+              description: Original request reference.
               example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
               pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
     search-state:
@@ -5765,10 +5832,17 @@ components:
           type: string
           description: Name of the smart contract method that called this request.
           example: createMember
+        state_index:
+          type: string
+          description: >-
+            Combination of `pulse_number` and `order` separated by a `:`. Order
+            is a record number in a jet drop.
+          example: '43648102:7'
         arguments:
           type: string
           description: Arguments of a smart contract method.
-          example: ''
+          example: >-
+            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
         prototype_reference:
           type: string
           description: >-

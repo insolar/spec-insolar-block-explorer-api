@@ -53,6 +53,9 @@ type ChildTree struct {
 	// Root of the request tree—an original request.
 	Root *bool `json:"root,omitempty"`
 
+	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
+	StateIndex *string `json:"state_index,omitempty"`
+
 	// Reference to the new state that was created by the execution of this request.
 	StateReference *string `json:"state_reference,omitempty"`
 
@@ -352,8 +355,8 @@ type SearchOriginalRequest struct {
 	// Meta data.
 	Meta *struct {
 
-		// Object reference.
-		ObjectReference *string `json:"object_reference,omitempty"`
+		// Original request reference.
+		Reference *string `json:"reference,omitempty"`
 	} `json:"meta,omitempty"`
 
 	// Result type.
@@ -380,8 +383,8 @@ type SearchRequest struct {
 	// Meta data.
 	Meta *struct {
 
-		// Object reference.
-		ObjectReference *string `json:"object_reference,omitempty"`
+		// Request reference.
+		Reference *string `json:"reference,omitempty"`
 	} `json:"meta,omitempty"`
 
 	// Result type.
@@ -410,6 +413,9 @@ type State struct {
 
 	// Record hash.
 	Hash *string `json:"hash,omitempty"`
+
+	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
+	Index *string `json:"index,omitempty"`
 
 	// Combination of `jet_id` and `pulse_number` separated by a `:`.
 	JetDropId *string `json:"jet_drop_id,omitempty"`

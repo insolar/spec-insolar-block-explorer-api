@@ -37,6 +37,8 @@ type State struct {
 	PulseNumber int64 `json:"pulse_number,omitempty"`
 	// Record number in a `jet drop`.
 	Order int64 `json:"order,omitempty"`
+	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
+	Index string `json:"index,omitempty"`
 	// Unix timestamp.
 	Timestamp int64 `json:"timestamp,omitempty"`
 	// Error code received from the backend services.

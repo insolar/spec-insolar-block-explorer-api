@@ -49,6 +49,8 @@ type ChildTree struct {
 	ReasonReference string `json:"reason_reference,omitempty"`
 	// Name of the smart contract method that called this request.
 	Method string `json:"method,omitempty"`
+	// Combination of `pulse_number` and `order` separated by a `:`. Order is a record number in a jet drop.
+	StateIndex string `json:"state_index,omitempty"`
 	// Arguments of a smart contract method.
 	Arguments string `json:"arguments,omitempty"`
 	// Prototype reference. Borrowing the OOP terminology, a prototype is a class of an object.
