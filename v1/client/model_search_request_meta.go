@@ -11,6 +11,6 @@
 package client
 // SearchRequestMeta Meta data.
 type SearchRequestMeta struct {
-	// Object reference.
-	ObjectReference string `json:"object_reference,omitempty"`
+	// Request reference.
+	Reference string `json:"reference,omitempty"`
 }
