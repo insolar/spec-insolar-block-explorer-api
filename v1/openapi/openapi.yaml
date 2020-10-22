@@ -132,8 +132,9 @@ paths:
     $ref: 'requests/request-tree.yaml'
   /api/v1/requests/{request_reference}/result:
     $ref: 'requests/result.yaml'
-  /api/v1/states/{state_reference}:
-    $ref: 'requests/state.yaml'
+  #    not used for first version block-explorer.This is needed to display state information on the view request tree.
+  #  /api/v1/states/{state_reference}:
+  #    $ref: 'requests/state.yaml'
   /api/v1/search:
     $ref: 'requests/search.yaml'
 

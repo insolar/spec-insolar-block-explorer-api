@@ -9,7 +9,7 @@
  */
 
 package client
-// State Response codes.
+// State State representation.
 type State struct {
 	// State reference.
 	Reference string `json:"reference,omitempty"`
@@ -41,12 +41,4 @@ type State struct {
 	Index string `json:"index,omitempty"`
 	// Unix timestamp.
 	Timestamp int64 `json:"timestamp,omitempty"`
-	// Error code received from the backend services.
-	Code string `json:"code,omitempty"`
-	// Short error description.
-	Message string `json:"message,omitempty"`
-	// Additional information about the error.
-	Description string `json:"description,omitempty"`
-	// Array containing incorrect parameters/properties.
-	ValidationFailures []PulsesResponse200ValidationFailures `json:"validation_failures,omitempty"`
 }
