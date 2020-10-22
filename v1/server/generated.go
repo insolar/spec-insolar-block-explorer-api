@@ -546,9 +546,6 @@ const (
 	SortByPulseNumber_pulse_number_desc SortByPulseNumber = "pulse_number_desc"
 )
 
-// StateReferencePath defines model for state_reference_path.
-type StateReferencePath string
-
 // TimestampGte defines model for timestamp_gte.
 type TimestampGte int64
 
@@ -587,9 +584,6 @@ type ResultResponse Result
 
 // SearchResponse defines model for searchResponse.
 type SearchResponse interface{}
-
-// StateResponse defines model for stateResponse.
-type StateResponse State
 
 // StatesResponse defines model for statesResponse.
 type StatesResponse States
@@ -786,9 +780,6 @@ type ServerInterface interface {
 	// Search
 	// (GET /api/v1/search)
 	Search(ctx echo.Context, params SearchParams) error
-	// State
-	// (GET /api/v1/states/{state_reference})
-	State(ctx echo.Context, stateReference StateReferencePath) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -1284,22 +1275,6 @@ func (w *ServerInterfaceWrapper) Search(ctx echo.Context) error {
 	return err
 }
 
-// State converts echo context to params.
-func (w *ServerInterfaceWrapper) State(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "state_reference" -------------
-	var stateReference StateReferencePath
-
-	err = runtime.BindStyledParameter("simple", false, "state_reference", ctx.Param("state_reference"), &stateReference)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter state_reference: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.State(ctx, stateReference)
-	return err
-}
-
 // This is a simple interface which specifies echo.Route addition functions which
 // are present on both echo.Echo and echo.Group, since we want to allow using
 // either of them for path registration
@@ -1335,6 +1310,5 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) {
 	router.GET("/api/v1/requests/:request_reference/original-request", wrapper.Originalrequest)
 	router.GET("/api/v1/requests/:request_reference/result", wrapper.Result)
 	router.GET("/api/v1/search", wrapper.Search)
-	router.GET("/api/v1/states/:state_reference", wrapper.State)
 
 }

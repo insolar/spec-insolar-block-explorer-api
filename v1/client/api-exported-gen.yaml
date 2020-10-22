@@ -1070,7 +1070,7 @@ paths:
                       Array with a number entries as specified by filtering and
                       pagination parameters.
                     items:
-                      description: Response codes.
+                      description: State representation.
                       type: object
                       properties:
                         reference:
@@ -1164,29 +1164,6 @@ paths:
                           format: int64
                           description: Unix timestamp.
                           example: 1451743413
-                        code:
-                          type: string
-                          description: Error code received from the backend services.
-                        message:
-                          type: string
-                          description: Short error description.
-                        description:
-                          type: string
-                          description: Additional information about the error.
-                        validation_failures:
-                          description: Array containing incorrect parameters/properties.
-                          type: array
-                          items:
-                            description: Validation failure.
-                            type: object
-                            properties:
-                              property:
-                                type: string
-                                description: Property name.
-                              failure_reason:
-                                type: string
-                                description: Failure reason.
-                      title: StateResponse200
                   code:
                     type: string
                     description: Error code received from the backend services.
@@ -2006,142 +1983,6 @@ paths:
                           type: string
                           description: Failure reason.
                 title: ResultResponse200
-  '/api/v1/states/{state_reference}':
-    get:
-      summary: State
-      description: Gets a state given `state_reference` as a path parameter.
-      operationId: state
-      tags:
-        - 'Request, result, and state'
-      parameters:
-        - name: state_reference
-          in: path
-          required: true
-          schema:
-            type: string
-          description: State reference.
-          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-      responses:
-        '200':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                description: Response codes.
-                type: object
-                properties:
-                  reference:
-                    type: string
-                    description: State reference.
-                    example: >-
-                      insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
-                    pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-                  type:
-                    type: string
-                    description: State type.
-                    enum:
-                      - activate
-                      - amend
-                      - deactivate
-                    example: activate
-                  request_reference:
-                    type: string
-                    description: Reference to the corresponding request.
-                    example: >-
-                      insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
-                    pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-                  parent_reference:
-                    type: string
-                    description: >-
-                      Reference to the parent object that caused creation of the
-                      given object. For example, a member object is a parent of
-                      its deposit account object.
-                    example: >-
-                      insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record
-                    pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-                  prototype_reference:
-                    type: string
-                    description: >-
-                      Prototype reference. Borrowing the OOP terminology, a
-                      prototype is a class of an object.
-                    example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
-                    pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
-                  payload:
-                    type: string
-                    description: Record payload.
-                    example: >-
-                      0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
-                  object_reference:
-                    type: string
-                    description: Object reference.
-                    example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-                    pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
-                  prev_state_reference:
-                    type: string
-                    description: Reference to a previous record.
-                    example: >-
-                      insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record
-                    pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-                  hash:
-                    type: string
-                    description: Record hash.
-                    example: >-
-                      0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
-                  jet_id:
-                    type: string
-                    description: Jet ID.
-                    example: '0010'
-                    pattern: '^([0-1]{2,64})$'
-                  jet_drop_id:
-                    type: string
-                    description: >-
-                      Combination of `jet_id` and `pulse_number` separated by a
-                      `:`.
-                    example: '0010:43648102'
-                  pulse_number:
-                    type: integer
-                    format: int64
-                    description: Pulse number.
-                    example: 436120213
-                  order:
-                    type: integer
-                    format: int64
-                    description: Record number in a `jet drop`.
-                    example: '3'
-                  index:
-                    type: string
-                    description: >-
-                      Combination of `pulse_number` and `order` separated by a
-                      `:`. Order is a record number in a jet drop.
-                    example: '43648102:7'
-                  timestamp:
-                    type: integer
-                    format: int64
-                    description: Unix timestamp.
-                    example: 1451743413
-                  code:
-                    type: string
-                    description: Error code received from the backend services.
-                  message:
-                    type: string
-                    description: Short error description.
-                  description:
-                    type: string
-                    description: Additional information about the error.
-                  validation_failures:
-                    description: Array containing incorrect parameters/properties.
-                    type: array
-                    items:
-                      description: Validation failure.
-                      type: object
-                      properties:
-                        property:
-                          type: string
-                          description: Property name.
-                        failure_reason:
-                          type: string
-                          description: Failure reason.
-                title: StateResponse200
   /api/v1/search:
     get:
       summary: Search
@@ -2468,14 +2309,6 @@ components:
       schema:
         type: string
       description: Reference to a request or original request.
-      example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-    state_reference_path:
-      name: state_reference
-      in: path
-      required: true
-      schema:
-        type: string
-      description: State reference.
       example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
     PulsesQueryParameterLimit:
       in: query
@@ -3539,7 +3372,7 @@ components:
                   Array with a number entries as specified by filtering and
                   pagination parameters.
                 items:
-                  description: Response codes.
+                  description: State representation.
                   type: object
                   properties:
                     reference:
@@ -3631,29 +3464,6 @@ components:
                       format: int64
                       description: Unix timestamp.
                       example: 1451743413
-                    code:
-                      type: string
-                      description: Error code received from the backend services.
-                    message:
-                      type: string
-                      description: Short error description.
-                    description:
-                      type: string
-                      description: Additional information about the error.
-                    validation_failures:
-                      description: Array containing incorrect parameters/properties.
-                      type: array
-                      items:
-                        description: Validation failure.
-                        type: object
-                        properties:
-                          property:
-                            type: string
-                            description: Property name.
-                          failure_reason:
-                            type: string
-                            description: Failure reason.
-                  title: StateResponse200
               code:
                 type: string
                 description: Error code received from the backend services.
@@ -4063,120 +3873,6 @@ components:
                       type: string
                       description: Failure reason.
             title: ResultResponse200
-    stateResponse:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            description: Response codes.
-            type: object
-            properties:
-              reference:
-                type: string
-                description: State reference.
-                example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
-                pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-              type:
-                type: string
-                description: State type.
-                enum:
-                  - activate
-                  - amend
-                  - deactivate
-                example: activate
-              request_reference:
-                type: string
-                description: Reference to the corresponding request.
-                example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
-                pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-              parent_reference:
-                type: string
-                description: >-
-                  Reference to the parent object that caused creation of the
-                  given object. For example, a member object is a parent of its
-                  deposit account object.
-                example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
-                pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-              prototype_reference:
-                type: string
-                description: >-
-                  Prototype reference. Borrowing the OOP terminology, a
-                  prototype is a class of an object.
-                example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
-                pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
-              payload:
-                type: string
-                description: Record payload.
-                example: >-
-                  0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
-              object_reference:
-                type: string
-                description: Object reference.
-                example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-                pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
-              prev_state_reference:
-                type: string
-                description: Reference to a previous record.
-                example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
-                pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-              hash:
-                type: string
-                description: Record hash.
-                example: >-
-                  0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
-              jet_id:
-                type: string
-                description: Jet ID.
-                example: '0010'
-                pattern: '^([0-1]{2,64})$'
-              jet_drop_id:
-                type: string
-                description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
-                example: '0010:43648102'
-              pulse_number:
-                type: integer
-                format: int64
-                description: Pulse number.
-                example: 436120213
-              order:
-                type: integer
-                format: int64
-                description: Record number in a `jet drop`.
-                example: '3'
-              index:
-                type: string
-                description: >-
-                  Combination of `pulse_number` and `order` separated by a `:`.
-                  Order is a record number in a jet drop.
-                example: '43648102:7'
-              timestamp:
-                type: integer
-                format: int64
-                description: Unix timestamp.
-                example: 1451743413
-              code:
-                type: string
-                description: Error code received from the backend services.
-              message:
-                type: string
-                description: Short error description.
-              description:
-                type: string
-                description: Additional information about the error.
-              validation_failures:
-                description: Array containing incorrect parameters/properties.
-                type: array
-                items:
-                  description: Validation failure.
-                  type: object
-                  properties:
-                    property:
-                      type: string
-                      description: Property name.
-                    failure_reason:
-                      type: string
-                      description: Failure reason.
-            title: StateResponse200
     searchResponse:
       description: Internal server error
       content:
@@ -4824,7 +4520,7 @@ components:
             Array with a number entries as specified by filtering and pagination
             parameters.
           items:
-            description: Response codes.
+            description: State representation.
             type: object
             properties:
               reference:
@@ -4910,29 +4606,6 @@ components:
                 format: int64
                 description: Unix timestamp.
                 example: 1451743413
-              code:
-                type: string
-                description: Error code received from the backend services.
-              message:
-                type: string
-                description: Short error description.
-              description:
-                type: string
-                description: Additional information about the error.
-              validation_failures:
-                description: Array containing incorrect parameters/properties.
-                type: array
-                items:
-                  description: Validation failure.
-                  type: object
-                  properties:
-                    property:
-                      type: string
-                      description: Property name.
-                    failure_reason:
-                      type: string
-                      description: Failure reason.
-            title: StateResponse200
         code:
           type: string
           description: Error code received from the backend services.
@@ -5312,116 +4985,6 @@ components:
                 type: string
                 description: Failure reason.
       title: ResultResponse200
-    state:
-      description: Response codes.
-      type: object
-      properties:
-        reference:
-          type: string
-          description: State reference.
-          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
-          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-        type:
-          type: string
-          description: State type.
-          enum:
-            - activate
-            - amend
-            - deactivate
-          example: activate
-        request_reference:
-          type: string
-          description: Reference to the corresponding request.
-          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
-          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-        parent_reference:
-          type: string
-          description: >-
-            Reference to the parent object that caused creation of the given
-            object. For example, a member object is a parent of its deposit
-            account object.
-          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
-          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-        prototype_reference:
-          type: string
-          description: >-
-            Prototype reference. Borrowing the OOP terminology, a prototype is a
-            class of an object.
-          example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
-          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
-        payload:
-          type: string
-          description: Record payload.
-          example: >-
-            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
-        object_reference:
-          type: string
-          description: Object reference.
-          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
-          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
-        prev_state_reference:
-          type: string
-          description: Reference to a previous record.
-          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
-          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
-        hash:
-          type: string
-          description: Record hash.
-          example: >-
-            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
-        jet_id:
-          type: string
-          description: Jet ID.
-          example: '0010'
-          pattern: '^([0-1]{2,64})$'
-        jet_drop_id:
-          type: string
-          description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
-          example: '0010:43648102'
-        pulse_number:
-          type: integer
-          format: int64
-          description: Pulse number.
-          example: 436120213
-        order:
-          type: integer
-          format: int64
-          description: Record number in a `jet drop`.
-          example: '3'
-        index:
-          type: string
-          description: >-
-            Combination of `pulse_number` and `order` separated by a `:`. Order
-            is a record number in a jet drop.
-          example: '43648102:7'
-        timestamp:
-          type: integer
-          format: int64
-          description: Unix timestamp.
-          example: 1451743413
-        code:
-          type: string
-          description: Error code received from the backend services.
-        message:
-          type: string
-          description: Short error description.
-        description:
-          type: string
-          description: Additional information about the error.
-        validation_failures:
-          description: Array containing incorrect parameters/properties.
-          type: array
-          items:
-            description: Validation failure.
-            type: object
-            properties:
-              property:
-                type: string
-                description: Property name.
-              failure_reason:
-                type: string
-                description: Failure reason.
-      title: StateResponse200
     search-pulse:
       description: Pulse response.
       title: Pulse response
@@ -5647,6 +5210,93 @@ components:
             Combination of `pulse_number` and `order` separated by a `:`. Order
             is a record number in a jet drop.
           example: '43648102:7'
+    state:
+      description: State representation.
+      type: object
+      properties:
+        reference:
+          type: string
+          description: State reference.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        type:
+          type: string
+          description: State type.
+          enum:
+            - activate
+            - amend
+            - deactivate
+          example: activate
+        request_reference:
+          type: string
+          description: Reference to the corresponding request.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        parent_reference:
+          type: string
+          description: >-
+            Reference to the parent object that caused creation of the given
+            object. For example, a member object is a parent of its deposit
+            account object.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVw.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        prototype_reference:
+          type: string
+          description: >-
+            Prototype reference. Borrowing the OOP terminology, a prototype is a
+            class of an object.
+          example: 'insolar:1Ajx0cKvLPzFwV-vW4jp-wuuwUcDv1lgvQFrIAvQYH3g'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        payload:
+          type: string
+          description: Record payload.
+          example: >-
+            0KLQvtC/INC60L7QvdGC0LXQvdGCLCDQu9GD0YfRiNCw0Y8g0L/Qu9Cw0YLRhNC+0YDQvNCw
+        object_reference:
+          type: string
+          description: Object reference.
+          example: 'insolar:1AAEAAS2JLnvh2bkLUUlUijqcp7--k8_GIz9qLKxZXLE'
+          pattern: '^insolar:(0[a-zA-Z0-9_-]{2,43}|1[a-zA-Z0-9_-]{42,43})$'
+        prev_state_reference:
+          type: string
+          description: Reference to a previous record.
+          example: 'insolar:1Apn2LmIL4ehiZ5NN0fLo5qJR7CeodnLDUtmvI9TrWVy.record'
+          pattern: '^insolar:1[a-zA-Z0-9_-]{42,43}\.record$'
+        hash:
+          type: string
+          description: Record hash.
+          example: >-
+            0JfQtNC10YHRjCDQvNC+0LPQu9CwINCx0YvRgtGMINCy0LDRiNCwINGA0LXQutC70LDQvNCw
+        jet_id:
+          type: string
+          description: Jet ID.
+          example: '0010'
+          pattern: '^([0-1]{2,64})$'
+        jet_drop_id:
+          type: string
+          description: 'Combination of `jet_id` and `pulse_number` separated by a `:`.'
+          example: '0010:43648102'
+        pulse_number:
+          type: integer
+          format: int64
+          description: Pulse number.
+          example: 436120213
+        order:
+          type: integer
+          format: int64
+          description: Record number in a `jet drop`.
+          example: '3'
+        index:
+          type: string
+          description: >-
+            Combination of `pulse_number` and `order` separated by a `:`. Order
+            is a record number in a jet drop.
+          example: '43648102:7'
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp.
+          example: 1451743413
     request:
       description: Record abstract.
       type: object
